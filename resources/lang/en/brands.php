@@ -1,0 +1,25 @@
+<?php
+
+return array (
+  'show_all_brands' => 'show all brands',
+  'add_new_brand' => 'Add new brand',
+  'brands' => 'Brands',
+  'logo' => 'Logo',
+  'name_ar' => 'arabic name',
+  'name_en' => 'english name',
+  'show_brand_details' => 'show brand details',
+  'created_at' => 'created at',
+  'status' => 'Status',
+  'active' => 'active',
+  'inactive' => 'in active',
+  'added_by' => 'added by',
+  'edit_brand_details' => 'edit brand details',
+  'image' => 'image',
+  'activation' => 'Activation',
+  'current_image' => 'current logo',
+  'brand_deleted' => 'brand deleted successfully',
+  'adding_error' => 'adding error , try again',
+  'adding_success' => 'brand added successfully',
+  'editing_error' => 'editing error , try again',
+  'editing_success' => 'brand updated successfully',
+);

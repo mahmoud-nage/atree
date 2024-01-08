@@ -1,0 +1,25 @@
+<?php
+
+return array (
+  'activation' => 'التفعيل',
+  'active' => 'مفعل',
+  'add_new_brand' => 'إضافه براند جديد',
+  'added_by' => 'تم الاضافه بواستطه',
+  'adding_error' => 'خطا عند الاضافه حاول مره اخرى',
+  'adding_success' => 'تم الاضافه بنجاح',
+  'brand_deleted' => 'تم حذف البراند بنجاح',
+  'brands' => 'البراندات',
+  'created_at' => 'تم الاضافه بتاريخ',
+  'current_image' => 'اللوجو الحاليه',
+  'edit_brand_details' => 'تعديل بيانات البراند',
+  'editing_error' => 'خطا اثناء التعديل حاول مره اخرى',
+  'editing_success' => 'تم التعديل بنجاح',
+  'image' => 'الصوره',
+  'inactive' => 'غير مفعل',
+  'logo' => 'اللوجو',
+  'name_ar' => 'الاسم بالعربيه',
+  'name_en' => 'الاسم بالانجليزيه',
+  'show_all_brands' => 'عرض كافه البراندات',
+  'show_brand_details' => 'عرض بيانات البراند',
+  'status' => 'الحاله',
+);

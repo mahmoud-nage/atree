@@ -1,0 +1,27 @@
+<?php
+
+return array (
+  'show_all_slides' => 'show all slides',
+  'add_new_slide' => 'Add new Slide',
+  'slides' => 'slides',
+  'image' => 'image',
+  'title_ar' => 'arabic title',
+  'title_en' => 'english title',
+  'link' => 'link',
+  'show_slide_details' => 'show  slide details',
+  'created_at' => 'created at',
+  'status' => 'Status',
+  'active' => 'Active',
+  'inactive' => 'in active',
+  'added_by' => 'Added by',
+  'logo' => 'logo',
+  'edit_slide_details' => 'edit slide details',
+  'activation' => 'Activation',
+  'current_image' => 'current image',
+  'slide_deleted' => 'slide deleted successfully',
+  'adding_error' => 'Adding error , try again',
+  'adding_success' => 'slide added successfully',
+  'editing_error' => 'editing error , try again',
+  'editing_success' => 'slide updated successfully',
+  'slide_details' => 'slide details',
+);

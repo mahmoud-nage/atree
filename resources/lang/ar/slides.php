@@ -1,0 +1,27 @@
+<?php
+
+return array (
+  'activation' => 'التفعيل',
+  'active' => 'فعال',
+  'add_new_slide' => 'اضافه شريحه جديده',
+  'added_by' => 'تم الاضافه بواستطه',
+  'adding_error' => 'خطا عند الاضافه حاول مره اخرى',
+  'adding_success' => 'تم الاضافه بنجاح',
+  'created_at' => 'تاريخ الاضافه',
+  'current_image' => 'الصوره الحاليه',
+  'edit_slide_details' => 'تعديل بيانات الشريحه',
+  'editing_error' => 'خطا عند التعديل حاول مره اخرى',
+  'editing_success' => 'تم التعديل بنجاح',
+  'image' => 'الصوره',
+  'inactive' => 'غير فعال',
+  'link' => 'الرابط',
+  'logo' => 'الوجو',
+  'show_all_slides' => 'عرض كافه الشرائح',
+  'show_slide_details' => 'عرض بيانات الشريحه',
+  'slide_deleted' => 'تم حذف الشريحه بنجاح',
+  'slides' => 'عارض الصور',
+  'status' => 'الحاله',
+  'title_ar' => 'العنوان بالعربيه',
+  'title_en' => 'العنوان بالانجليزيه',
+  'slide_details' => 'بيانات الشريحه',
+);

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ARTEE | OTP</title>
+
+  <link rel="shortcut icon" type="image/jpg" href="images/favicon.png">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/rtl.css">
+</head>
+<body class="hold-transition sidebar-collapse">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container-fluid">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/logo.png" alt="AdminLTE Logo" class="brand-image">
+      </a>
+
+      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item d-none d-sm-inline-block">
+          <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Products</a>
+          </li>
+          
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="Explore.html" class="nav-link">Explore</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Designs</a>
+            </li>
+          </ul>
+      </div>
+
+      <!-- Right navbar links -->
+      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto right-nav">
+        
+        <li class="nav-item dropdown header-profile">
+          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle fa">
+            <div class="image">
+              <img src="img/user8-128x128.jpg" class="img-circle elevation-1 img-size-40" alt="User Image">
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /.navbar -->
+<div class="wrapper">
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper pt-3">
+
+    <!-- Main content -->
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12 col-lg-10">
+            <div class="wrap d-md-flex">
+              <!-- Right Side -->
+              <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                <div class="text w-100">
+                  <h2>Welcome</h2>
+                  <div><img src="images/login-logo.png"/></div>
+                </div>
+              </div>
+              
+              <!-- Left Side -->
+              <div class="login-wrap OTP">
+                <div class="d-flex justify-content-center align-items-center">
+                  <div>
+                    <h2 class="mb-3">Verification Code</h3>
+                      <p class="text-muted mb-3 ">Verification code sent to: yourmail@email.com</p>
+
+                        
+                    <!--------------------- otp --------------------->
+                    <div class="otp-input-fields">
+                      <input type="number" class="otp__digit otp__field__1">
+                      <input type="number" class="otp__digit otp__field__2">
+                      <input type="number" class="otp__digit otp__field__3">
+                      <input type="number" class="otp__digit otp__field__4">
+                    </div>
+
+                    <button type="button" class="btn btn-primary mb-3 p-3">Verify</button>
+      
+                    <div><span class="text-body pr-3">00:29 </span> <a class="text-body"> Resend Confirmation Code</a></div>
+                    <script>
+                        var otp_inputs = document.querySelectorAll(".otp__digit")
+                        var mykey = "0123456789".split("")
+                        otp_inputs.forEach((_)=>{
+                          _.addEventListener("keyup", handle_next_input)
+                        })
+                        function handle_next_input(event){
+                          let current = event.target
+                          let index = parseInt(current.classList[1].split("__")[2])
+                          current.value = event.key
+                          
+                          if(event.keyCode == 8 && index > 1){
+                            current.previousElementSibling.focus()
+                          }
+                          if(index < 6 && mykey.indexOf(""+event.key+"") != -1){
+                            var next = current.nextElementSibling;
+                            if(current.nextElementSibling != null){
+                              next.focus()
+                            }
+                          }
+                          var _finalKey = ""
+                          for(let {value} of otp_inputs){
+                              _finalKey += value
+                          }
+                          if(_finalKey.length == 6){
+                            document.querySelector("#_otp").classList.replace("_notok", "_ok")
+                            document.querySelector("#_otp").innerText = _finalKey
+                          }else{
+                            if(document.querySelector("#_otp") != null){
+                              document.querySelector("#_otp").classList.replace("_ok", "_notok")
+                              document.querySelector("#_otp").innerText = _finalKey
+                            }
+                          }
+                        }
+                    </script>
+                  </div>
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>  
+    <!-- /.content -->
+
+  <footer class="login-footer text-center">
+    <div class="d-sm-block">
+      <i class="fa fa-mobile-alt"></i> <span class="text-sm text-muted px-2"> Download App Now </span>
+    </div>
+    <div class="appIcons my-2">
+      <a href="#"><img src="images/googleplay.png" /></a>
+      <a href="#"><img src="images/appstore.png" /></a>
+    </div>
+    <div class="login-fotter-links">
+      <a href="Contact-us.html">Contact Us</a>
+      <a href="About-us.html">About Us</a>
+      <a href="#">Privacy & Policy</a>
+      <a href="Terms.html">Termes & Conditions</a>
+    </div>
+  </footer>
+    <!-- /.ootter -->
+
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $(".show-pass").click(function(){
+      $(this).toggleClass("fa-eye-slash fa-eye");
+      if($(this).prev("input").attr("type") == "text"){
+        $(this).prev("input").prop("type", "password");
+      }
+      else{
+        $(this).prev("input").prop("type", "text");
+      }
+    })
+  })
+</script>
+
+</body>
+</html>
