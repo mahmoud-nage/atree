@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
     public function diamond()
     {
-        return view('site.diamond');
+        return view('site.diamonds');
     }
 
 }

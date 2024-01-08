@@ -15,8 +15,6 @@ class ExpensesCategorySeeder extends Seeder
     public function run()
     {
         $categories = ['مياه'  , 'كهرباء'  , 'مرتبات' , 'اعلانات'  , 'مصاريف اخرى', 'مشتريات', 'عمولات', 'خسائر', 'هدر', 'نواقص' ];
-
-
         foreach ($categories as $category) {
             $ExpensesCategory = new ExpensesCategory;
             $ExpensesCategory->user_id = 1;

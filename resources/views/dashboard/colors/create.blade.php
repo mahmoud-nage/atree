@@ -8,7 +8,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 @endsection
 
 @section('page_header')
-<a href="{{ route('dashboard.colors.index') }}" class="breadcrumb-item"><i class="icon-equalizer  mr-2"></i> 
+<a href="{{ route('dashboard.colors.index') }}" class="breadcrumb-item"><i class="icon-equalizer  mr-2"></i>
 	الالوان
 </a>
 <span class="breadcrumb-item active"> إضافه لون جديد </span>
@@ -31,7 +31,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('dashboard.colors.store') }}" method='POST' enctype="multipart/form-data" > 
+			<form action="{{ route('dashboard.colors.store') }}" method='POST' enctype="multipart/form-data" >
 				@csrf
 				<div class="card-body">
 
@@ -50,7 +50,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 									<p  class='text-danger' >  {{ $message }} </p>
 									@enderror
 								</div>
-							</div>					
+							</div>
 
 							<div class="col-md-3">
 								<div  class='mb-2' >
@@ -77,13 +77,13 @@ $lang = LaravelLocalization::getCurrentLocale();
 								<div  class='mb-2' >
 									<label class="col-form-label"> فعال  </label>
 									<div class="custom-control custom-switch mb-2">
-										<input type="checkbox" name="is_active" class="custom-control-input" id='is_active' checked="" >
+										<input type="checkbox" name="is_active" class="custom-control-input" id='is_active' checked="">
 										<label class="custom-control-label" for="is_active"> @lang('slides.active') </label>
 									</div>
 								</div>
 							</div>
 
-						</div>						
+						</div>
 					</fieldset>
 				</div>
 
