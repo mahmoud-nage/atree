@@ -37,7 +37,7 @@ class PageController extends Controller
      */
     public function store(StorePageRequest $request)
     {
-        dd($request);
+//        dd($request);
         $page = new Page;
         if(!$page->add($request->all()))
             return back()->with('error' , trans('pages.adding_error'));

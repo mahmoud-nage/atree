@@ -24,7 +24,7 @@ class Page extends Model
         $this->setTranslation('content' , 'ar'  , $data['content']['ar']);
         $this->setTranslation('content' , 'en'  , $data['content']['en']);
         $this->slug = $data['slug'];
-        $this->user_id = Auth::id();
+        $this->user_id = 1;
         return $this->save();
     }
 
@@ -35,7 +35,7 @@ class Page extends Model
         $this->setTranslation('content' , 'ar'  , $data['content']['ar']);
         $this->setTranslation('content' , 'en'  , $data['content']['en']);
         $this->slug = $data['slug'];
-        
+
         $this->active = isset($data['active']) ? 1 : 0 ;
         return $this->save();
     }
