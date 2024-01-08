@@ -7,19 +7,19 @@ $info = $orders = $desgins =  '';
 
 switch (request()->segment(5)) {
 	case null:
-		$info = 'active';		
+		$info = 'active';
 	break;
 	case 'orders':
-		$orders = 'active';		
+		$orders = 'active';
 	break;
 	case 'desgins':
-		$desgins = 'active';		
+		$desgins = 'active';
 	break;
 
 	default:
-				
+
 	break;
-}	
+}
 
 @endphp
 
@@ -39,7 +39,8 @@ switch (request()->segment(5)) {
 	</li>
 
 	<li class="nav-item">
-		<a href="{{ route('dashboard.users.orders' , $user ) }}" class="nav-link {{ $orders }} " >
+{{--        //{{ route('dashboard.users.orders' , $user ) }}--}}
+		<a href="#" class="nav-link {{ $orders }} ">
 			<i class="icon-cart2"></i>
 			الطلبات
 			<span class="badge badge-dark badge-pill ml-auto"> {{ $user->orders()->count() }} </span>

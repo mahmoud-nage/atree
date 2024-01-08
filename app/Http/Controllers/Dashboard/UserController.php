@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Auth\LoginRequest;
+use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -32,7 +33,11 @@ class UserController extends Controller
     {
         return view('dashboard.users.show' , compact('user') );
     }
-
+    public function orders($user_id)
+    {
+        $marketer = Order::where('user_id', $user_id)->get();
+        return view('dashboard.users.orders', compact('marketer'));
+    }
 
     /**
      * Store a newly created resource in storage.

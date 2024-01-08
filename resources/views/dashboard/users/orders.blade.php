@@ -29,7 +29,7 @@
 				</div>
 
 				@include('dashboard.marketers.sidebar')
-				
+
 			</div>
 		</div>
 	</div>
