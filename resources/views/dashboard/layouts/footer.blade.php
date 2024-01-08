@@ -8,7 +8,7 @@
 
 	<div class="navbar-collapse collapse" id="navbar-footer">
 		<span class="navbar-text">
-			&copy;جميع الحقوق محفوظه <a href="#">تم التصميم و البرمجه </a> بواسطه <a href="https://www.facebook.com/ahmedsamigeek" target="_blank"> احمد سامى </a>
+			&copy;جميع الحقوق محفوظه <a href="#">تم التصميم و البرمجه </a> بواسطه <a href="https://www.facebook.com/ahmedsamigeek" target="_blank">  </a>
 		</span>
 
 	</div>
