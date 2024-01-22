@@ -50,6 +50,7 @@ Route::group([
         Route::resource('slides', SlideController::class);
         Route::resource('pages', PageController::class);
         Route::resource('products', ProductController::class);
+        Route::post('products/store_design_sizes', [ProductController::class, 'store_design_sizes'])->name('products.store_design_sizes');
 
         Route::resource('countries', CountryContoller::class);
         Route::resource('governorates', GovernorateController::class);
@@ -109,6 +110,7 @@ Route::group([
         Route::get('/logout' , [LoginController::class , 'logout'] )->name('logout');
         Route::get('/settings' , [UserProfileController::class , 'settings'] )->name('settings');
         Route::get('/followers' , [UserProfileController::class , 'followers'] )->name('followers');
+        Route::get('/my-designs' , [UserProfileController::class , 'my_designs'] )->name('my_designs');
         Route::get('/diamond' , [UserProfileController::class , 'diamond'] )->name('diamond');
     });
 

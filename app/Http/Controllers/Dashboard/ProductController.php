@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Products\StoreProductDesignSizesRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Size;
 use App\Models\Color;
@@ -14,6 +16,7 @@ use Auth;
 use Image;
 use App\Http\Requests\Dashboard\Products\StoreProductRequest;
 use App\Http\Requests\Dashboard\Products\UpdateProductRequest;
+
 class ProductController extends Controller
 {
     /**
@@ -36,13 +39,13 @@ class ProductController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
         $countries = Country::all();
-        return view('dashboard.products.create' , compact('sizes' , 'countries' ,'colors'));
+        return view('dashboard.products.create', compact('sizes', 'countries', 'colors'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -66,10 +69,10 @@ class ProductController extends Controller
         $product->carton_includes = 1;
 
 
-        $product->setTranslation('name' , 'ar' , $request->name_ar);
-        $product->setTranslation('name' , 'en' , $request->name_en);
-        $product->setTranslation('description' , 'ar' , $request->description_ar);
-        $product->setTranslation('description' , 'en' , $request->description_en);
+        $product->setTranslation('name', 'ar', $request->name_ar);
+        $product->setTranslation('name', 'en', $request->name_en);
+        $product->setTranslation('description', 'ar', $request->description_ar);
+        $product->setTranslation('description', 'en', $request->description_en);
         $product->price = $request->price;
 
         $product->diamonds = $request->diamonds;
@@ -80,45 +83,45 @@ class ProductController extends Controller
         $product->back_image = basename($request->file('back_image')->store('products'));
         $product->save();
 
-        if($request->hasFile('images')) {
+        if ($request->hasFile('images')) {
             $images = [];
-            for ($i = 0; $i <count($request->images) ; $i++) {
+            for ($i = 0; $i < count($request->images); $i++) {
                 $images[] = new ProductImage([
-                    'product_id' => $product->id ,
-                    'image' => basename($request->file('images.'.$i)->store('products')) ,
+                    'product_id' => $product->id,
+                    'image' => basename($request->file('images.' . $i)->store('products')),
                 ]);
             }
             $product->images()->saveMany($images);
         }
 
-        for ($i=0; $i <count($request->colors) ; $i++) {
-            $variation = new Variation;
-            $variation->product_id = $product->id;
-            $variation->user_id = Auth::id();
-            $variation->size_id = $request->sizes[$i];
-            $variation->color_id = $request->colors[$i];
-            $variation->quantity = $request->quantity[$i];
-            $variation->save();
-        }
-        return redirect(route('dashboard.products.index'))->with('success' , 'تم الاضافه بنجاح' );
+//        for ($i = 0; $i < count($request->colors); $i++) {
+//            $variation = new Variation;
+//            $variation->product_id = $product->id;
+//            $variation->user_id = Auth::id();
+//            $variation->size_id = $request->sizes[$i];
+//            $variation->color_id = $request->colors[$i];
+//            $variation->quantity = $request->quantity[$i];
+//            $variation->save();
+//        }
+        return redirect(route('dashboard.products.index'))->with('success', 'تم الاضافه بنجاح');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-        $product->load(['images' , 'country'   , 'user']);
-        return view('dashboard.products.show' , compact('product'));
+        $product->load(['images', 'country', 'user']);
+        return view('dashboard.products.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
@@ -126,24 +129,24 @@ class ProductController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
         $countries = Country::all();
-        return view('dashboard.products.edit' , compact('colors' , 'countries' ,'sizes' , 'product'));
+        return view('dashboard.products.edit', compact('colors', 'countries', 'sizes', 'product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request,Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
 
 
-        $product->setTranslation('name' , 'ar' , $request->name_ar);
-        $product->setTranslation('name' , 'en' , $request->name_en);
-        $product->setTranslation('description' , 'ar' , $request->description_ar);
-        $product->setTranslation('description' , 'en' , $request->description_en);
+        $product->setTranslation('name', 'ar', $request->name_ar);
+        $product->setTranslation('name', 'en', $request->name_en);
+        $product->setTranslation('description', 'ar', $request->description_ar);
+        $product->setTranslation('description', 'en', $request->description_en);
         $product->price = $request->price;
         $product->diamonds = $request->diamonds;
         $product->country_id = $request->country_id;
@@ -157,30 +160,44 @@ class ProductController extends Controller
         $product->save();
 
 
-
-        if($request->hasFile('images')) {
+        if ($request->hasFile('images')) {
             $images = [];
-            for ($i = 0; $i <count($request->images) ; $i++) {
+            for ($i = 0; $i < count($request->images); $i++) {
                 $images[] = new ProductImage([
-                    'product_id' => $product->id ,
-                    'image' => basename($request->file('images.'.$i)->store('products')) ,
+                    'product_id' => $product->id,
+                    'image' => basename($request->file('images.' . $i)->store('products')),
                 ]);
             }
             $product->images()->saveMany($images);
         }
 
-        return redirect(route('dashboard.products.index'))->with('success' , trans('products.editing_success'));
+        return redirect(route('dashboard.products.index'))->with('success', trans('products.editing_success'));
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param StoreProductDesignSizesRequest $request
+     * @return RedirectResponse
+     */
+    public function store_design_sizes(StoreProductDesignSizesRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $product = Product::findOrFail($request->product_id);
+        unset($data['product_id']);
+        $product->update($data);
+        return back()->with('success', trans('products.editing_success'));
     }
 }

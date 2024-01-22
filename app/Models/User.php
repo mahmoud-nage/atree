@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +97,13 @@ class User extends Authenticatable
 
         return 'user-default.png';
     }
+    public function getBannerAttribute($value)
+    {
+        if ($value)
+            return $value;
+
+        return 'photo1.png';
+    }
 
 
     public function name()
@@ -106,6 +114,16 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function designs(): HasMany
+    {
+        return $this->hasMany(Design::class, 'user_id');
+    }
+
+    public function followers(): HasMany
+    {
+        return $this->hasMany(Follower::class, 'designer_id');
     }
 
     public function admin()

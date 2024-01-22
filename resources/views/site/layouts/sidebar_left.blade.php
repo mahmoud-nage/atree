@@ -33,67 +33,27 @@
                 <h5 class="mb-2"> @lang('site.Heigh Recomanded Designs') </h5>
             </div>
             <div class="list-group heigh-recomanded-list">
-
-                <!-- list-item -->
-                <div class="list-item ">
-                    <div class="media">
-                        <a class="mr-3 heigh-recomanded-img" href="#"> <img
-                                src="{{ asset('site_assets/ltr/img/photo1.png') }}"> </a>
-                        <div class="media-body">
-                            <a href="#" class="m-0">Design Recomanded Number 1</a>
-                            <!-- designer-item -->
-                            <a href="#" class="media">
-                                <div class="mr-2 media-img"><img
-                                        src="{{ asset('site_assets/ltr/img/avatar4.png') }}"/>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0 text-gray">Moataz Ibrahim</p>
-                                </div>
-                            </a>
+                @foreach(\App\Models\Design::inRandomOrder()->get()->take(3) as $record)
+                    <!-- list-item -->
+                    <div class="list-item ">
+                        <div class="media">
+                            <a class="mr-3 heigh-recomanded-img" href="#"> <img
+                                    src="{{Storage::url('designs/'.$record->image)}}"> </a>
+                            <div class="media-body">
+                                <a href="#" class="m-0">{{$record->description}}</a>
+                                <!-- designer-item -->
+                                <a href="{{$record->user->url() ?? ''}}" class="media">
+                                    <div class="mr-2 media-img"><img
+                                            src="{{ Storage::url('users/'.$record->user->image) ?? '' }}"/>
+                                    </div>
+                                    <div class="media-body">
+                                        <p class="m-0 text-gray">{{$record->user->name() ?? ''}}</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- list-item -->
-                <div class="list-item ">
-                    <div class="media">
-                        <a class="mr-3 heigh-recomanded-img" href="#"> <img
-                                src="{{ asset('site_assets/ltr/img/photo3.jpg') }}"> </a>
-                        <div class="media-body">
-                            <a href="#" class="m-0">Design Recomanded Number 2</a>
-                            <!-- designer-item -->
-                            <a href="#" class="media">
-                                <div class="mr-2 media-img"><img
-                                        src="{{ asset('site_assets/ltr/img/avatar4.png') }}"/>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0 text-gray">Moataz Ibrahim</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- list-item -->
-                <div class="list-item ">
-                    <div class="media">
-                        <a class="mr-3 heigh-recomanded-img" href="#"> <img
-                                src="{{ asset('site_assets/ltr/img/photo2.png') }}"> </a>
-                        <div class="media-body">
-                            <a href="#" class="m-0">Design Recomanded Number 3</a>
-                            <!-- designer-item -->
-                            <a href="#" class="media">
-                                <div class="mr-2 media-img"><img
-                                        src="{{ asset('site_assets/ltr/img/avatar4.png') }}"/>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0 text-gray">Moataz Ibrahim</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
 

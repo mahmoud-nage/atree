@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Design;
 use App\Models\Order;
-use Illuminate\Http\Request;
-use Auth;
 use App\Models\Follower;
+use Illuminate\Support\Facades\Auth;
+
 class ProfileController extends Controller
 {
 
@@ -26,6 +27,12 @@ class ProfileController extends Controller
     {
         $followers = Follower::with('user')->where('designer_id' , '='  , Auth::id())->get();
         return view('site.followers' , compact('followers') );
+    }
+
+    public function my_designs()
+    {
+        $records = Design::where('user_id' , '='  , Auth::id())->with('products', 'user')->get();
+        return view('site.my_designs' , compact('records') );
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Design;
 use Illuminate\Http\Request;
 use App\Http\Requests\Site\RegisterRequest;
 use App\Http\Requests\Site\SoreOrderRequest;
@@ -42,7 +43,10 @@ class SiteController extends Controller
 
     public function user(User $user)
     {
-        return view('site.designer', compact('user'));
+        $user = auth()->user();
+        $user->load('designs')->loadCount('followers');
+        $latest_designs = Design::where('user_id', auth()->id())->latest()->get()->take(4);
+        return view('site.bio', compact('user','latest_designs'));
     }
 
 
@@ -106,6 +110,7 @@ class SiteController extends Controller
         $best_sellings = Product::with(['variations.color'])->latest()->get();
         return view('site.products', compact('products', 'best_sellings'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -114,8 +119,8 @@ class SiteController extends Controller
      */
     public function designs()
     {
-        $users = User::latest()->where('type', User::USER)->take(15)->get();
-        return view('site.designs', compact('users'));
+        $records = Design::latest()->get();
+        return view('site.designs', compact('records'));
     }
 
     /**
@@ -252,7 +257,7 @@ class SiteController extends Controller
     {
         $complain = new Complain;
         $complain->user_id = Auth::id();
-        $complain->content = $request->content;
+        $complain->content = $request->input('content');
         $complain->phone = $request->phone;
         $complain->email = $request->email;
         $complain->category = $request->category;

@@ -1,16 +1,16 @@
-
 <div class="card card-primary">
     <div class="card-header">
         <h3 class="card-title my-2"> @lang('site.Edit Profile') </h3>
     </div>
     <div class="card-body">
 
-        <form class="row" wire:submit.prevent="save()" >
+        <form class="row" wire:submit.prevent="save()">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="inputName" class=" col-form-label"> @lang('site.First Name') </label>
                     <div class="col-sm-12 p-0">
-                        <input type="text" wire:model='first_name' class="form-control" id="inputName" placeholder="Name">
+                        <input type="text" wire:model='first_name' class="form-control" id="inputName"
+                               placeholder="Name">
                         @error('first_name')
                         <p class="text-danger"> {{ $message }} </p>
                         @enderror
@@ -22,7 +22,8 @@
                 <div class="form-group">
                     <label for="inputName2" class="col-form-label"> @lang('site.Last Name') </label>
                     <div class="col-sm-12 p-0">
-                        <input type="text" wire:model='last_name' class="form-control" id="inputName2" placeholder="Name">
+                        <input type="text" wire:model='last_name' class="form-control" id="inputName2"
+                               placeholder="Name">
                         @error('last_name')
                         <p class="text-danger"> {{ $message }} </p>
                         @enderror
@@ -60,7 +61,8 @@
                 <div class="form-group">
                     <label for="inputExperience" class="col-form-label"> @lang('site.Bio') </label>
                     <div class="col-sm-12 p-0">
-                        <textarea class="form-control" wire:model='bio' id="inputExperience" placeholder=" @lang('site.Bio') "></textarea>
+                        <textarea class="form-control" wire:model='bio' id="inputExperience"
+                                  placeholder=" @lang('site.Bio') "></textarea>
                     </div>
                 </div>
             </div>
@@ -75,7 +77,44 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputName" class=" col-form-label"> @lang('site.Username') </label>
+                    <div class="col-sm-12 p-0">
+                        <input type="text" wire:model='username' class="form-control" id="inputName" placeholder="Name">
+                        @error('username')
+                        <p class="text-danger"> {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="image"
+                           class="col-form-label"> @lang('site.image') </label>
+                    <div class="col-md-12 p-0">
+                        <input type="file" wire:model='image' class="form-control"
+                               id="image" placeholder="@lang('site.image')">
+                        @error('image')
+                        <p class='text-danger'> {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
+            </div>
 
+{{--            <div class="col-md-6">--}}
+{{--                <div class="form-group">--}}
+{{--                    <label for="banner"--}}
+{{--                           class="col-form-label"> @lang('site.banner') </label>--}}
+{{--                    <div class="col-md-12 p-0">--}}
+{{--                        <input type="file" wire:model='banner' class="form-control"--}}
+{{--                               id="banner" placeholder="@lang('site.banner')">--}}
+{{--                        @error('banner')--}}
+{{--                        <p class='text-danger'> {{ $message }} </p>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
             <div class="form-group col-md-12">
                 <div class="col-md-12 text-right">

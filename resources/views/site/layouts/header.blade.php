@@ -133,6 +133,11 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{ route('my_designs') }}" class="nav-link">
+            <i class="fas fa-palette"></i> @lang('site.my_designs')
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{ route('diamond') }}" class="nav-link">
             <i class="far fa-gem"></i> @lang('site.My Diamonds')
           </a>

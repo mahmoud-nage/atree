@@ -14,7 +14,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			
+
 			<div class="card-header bg-primary text-white header-elements-sm-inline" >
 				<h5 class="card-title"> @lang('products.add_new_product') </h5>
 				<div class="header-elements">
@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('dashboard.products.store') }}" method='POST' enctype="multipart/form-data" > 
+			<form action="{{ route('dashboard.products.store') }}" method='POST' enctype="multipart/form-data" >
 				@csrf
 				<div class="card-body">
 
@@ -102,7 +102,7 @@
 											@enderror
 										</div>
 									</div>
-									
+
 
 
 									<div class="col-md-4">
@@ -158,70 +158,70 @@
 											@enderror
 										</div>
 									</div>
-								</div>			
-							</fieldset>
-
-							<fieldset>
-
-								<div>
-									<button class='btn btn-success add_new_row '> إضافه جديد  </button>
-								</div>
-
-								
-								<div class="main_rows">
-
-									<div class="row main_row"  >
-
-										<div class="col-md-3">
-											<div class="form-group">
-												<label class="col-form-label"> اللون </label>
-												<select name="colors[]" class='select form-control' required id="">
-													@foreach ($colors as $color)
-														<option value="{{ $color->id }}"> {{ $color->name }} </option>
-													@endforeach
-												</select>
-												@error('colors.*')
-												<p class='text-danger' >  {{ $message }} </p>
-												@enderror
-											</div>
-										</div>
-
-										<div class="col-md-3">
-											<div class="form-group">
-												<label class="col-form-label"> المقاس </label>
-												<select name="sizes[]" required class='select form-control' id="">
-													@foreach ($sizes as $size)
-														<option value="{{ $size->id }}"> {{ $size->name }} </option>
-													@endforeach
-												</select>
-												@error('sizes.*')
-												<p class='text-danger' >  {{ $message }} </p>
-												@enderror
-											</div>
-										</div>
-
-
-										<div class="col-md-3">
-											<div class="form-group">
-												<label class="col-form-label"> الكميه المتاحه </label>
-												<input type="number" required class="form-control @error('quantity.*') is-invalid @enderror" name="quantity[]" value="{{ old('quantity.*') }}" >
-												@error('quantity.*')
-												<p  class='text-danger' >  {{ $message }} </p>
-												@enderror
-											</div>
-										</div>
-
-
-										<div class="col-md-3">
-											<div class="form-group">
-												<label class="col-form-label"> خصائص </label> <br>
-												<button title='الغاء' class="btn btn-outline-danger delete_main_row  border-2 ml-2"><i class="icon-trash"></i></button>
-											</div>										
-										</div>
-									</div>
-								
 								</div>
 							</fieldset>
+
+{{--							<fieldset>--}}
+
+{{--								<div>--}}
+{{--									<button class='btn btn-success add_new_row '> إضافه جديد  </button>--}}
+{{--								</div>--}}
+
+{{--								--}}
+{{--								<div class="main_rows">--}}
+
+{{--									<div class="row main_row"  >--}}
+
+{{--										<div class="col-md-3">--}}
+{{--											<div class="form-group">--}}
+{{--												<label class="col-form-label"> اللون </label>--}}
+{{--												<select name="colors[]" class='select form-control' required id="">--}}
+{{--													@foreach ($colors as $color)--}}
+{{--														<option value="{{ $color->id }}"> {{ $color->name }} </option>--}}
+{{--													@endforeach--}}
+{{--												</select>--}}
+{{--												@error('colors.*')--}}
+{{--												<p class='text-danger' >  {{ $message }} </p>--}}
+{{--												@enderror--}}
+{{--											</div>--}}
+{{--										</div>--}}
+
+{{--										<div class="col-md-3">--}}
+{{--											<div class="form-group">--}}
+{{--												<label class="col-form-label"> المقاس </label>--}}
+{{--												<select name="sizes[]" required class='select form-control' id="">--}}
+{{--													@foreach ($sizes as $size)--}}
+{{--														<option value="{{ $size->id }}"> {{ $size->name }} </option>--}}
+{{--													@endforeach--}}
+{{--												</select>--}}
+{{--												@error('sizes.*')--}}
+{{--												<p class='text-danger' >  {{ $message }} </p>--}}
+{{--												@enderror--}}
+{{--											</div>--}}
+{{--										</div>--}}
+
+
+{{--										<div class="col-md-3">--}}
+{{--											<div class="form-group">--}}
+{{--												<label class="col-form-label"> الكميه المتاحه </label>--}}
+{{--												<input type="number" required class="form-control @error('quantity.*') is-invalid @enderror" name="quantity[]" value="{{ old('quantity.*') }}" >--}}
+{{--												@error('quantity.*')--}}
+{{--												<p  class='text-danger' >  {{ $message }} </p>--}}
+{{--												@enderror--}}
+{{--											</div>--}}
+{{--										</div>--}}
+
+
+{{--										<div class="col-md-3">--}}
+{{--											<div class="form-group">--}}
+{{--												<label class="col-form-label"> خصائص </label> <br>--}}
+{{--												<button title='الغاء' class="btn btn-outline-danger delete_main_row  border-2 ml-2"><i class="icon-trash"></i></button>--}}
+{{--											</div>										--}}
+{{--										</div>--}}
+{{--									</div>--}}
+{{--								--}}
+{{--								</div>--}}
+{{--							</fieldset>--}}
 
 
 
@@ -232,7 +232,7 @@
 				<div class="card-footer bg-white ">
 					<a href="{{ route('dashboard.products.index') }}" class="btn btn-outline-primary w-100 w-sm-auto"> @lang('dashboard.cancel') </a>
 					<button type="submit" name='add' class="btn btn-primary mr-2 mt-sm-0 w-100 w-sm-auto" style="float: left;"> @lang('dashboard.add') </button>
-					
+
 				</div>
 			</form>
 		</div>
@@ -265,7 +265,7 @@
 
 
 		$('button.add_new_row').on('click',  function(event) {
-			event.preventDefault();	
+			event.preventDefault();
 			rows_count = $(document).find('div.main_row').length;
 			console.log(rows_count);
 			$.ajax({
