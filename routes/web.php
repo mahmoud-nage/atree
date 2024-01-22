@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Dashboard\DesignController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -44,6 +46,7 @@ Route::group([
     Route::group(['prefix' => 'Dashboard' , 'as' => 'dashboard.' , 'middleware' => ['admin'] ], function() {
         Route::get('/',  [DashboardController::class , 'index'] )->name('index');
         Route::resource('sizes', SizeController::class);
+        Route::resource('designs', DesignController::class);
         Route::resource('colors', ColorController::class);
         Route::resource('admins', AdminController::class);
         Route::resource('categories', CategoryController::class); // not fount in view

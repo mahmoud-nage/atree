@@ -38,7 +38,7 @@
 			<ul class="nav nav-sidebar" data-nav-type="accordion">
 
 				@php
-				$home = $admins = $governorates = $cities = $coupons = $pages = $products = $countries =  $slides = $orders = $settings = $users = $colors = $sizes  = $messages = '';
+				$home = $admins = $governorates = $cities = $coupons = $pages = $products = $countries =  $slides = $orders = $settings = $users = $colors = $sizes  = $messages = $designs = '';
 
 
 				switch (request()->segment(3)) {
@@ -90,6 +90,9 @@
 					case 'orders':
 					$orders = 'active';
 					break;
+					case 'designs':
+					$orders = 'active';
+					break;
 
 					default:
 					break;
@@ -132,7 +135,7 @@
 				</li>
 
 
-				
+
 				<li class="nav-item">
 					<a href="{{ route('dashboard.users.index') }}" class="nav-link {{ $users }}">
 						<i class="icon-users2"></i>
@@ -141,8 +144,6 @@
 						</span>
 					</a>
 				</li>
-
-
 				<li class="nav-item nav-item-submenu">
 					<a href="#" class="nav-link {{ $sizes }}"><i class="icon-ampersand "></i> <span> المقاسات </span></a>
 					<ul class="nav nav-group-sub" >
@@ -174,6 +175,12 @@
 						<li class="nav-item"><a href="{{ route('dashboard.products.create') }}" class="nav-link">@lang('products.add_new_product')</a></li>
 					</ul>
 				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="#" class="nav-link {{ $designs }}"><i class="icon-ampersand "></i> <span> @lang('site.Designs') </span></a>
+					<ul class="nav nav-group-sub" >
+						<li class="nav-item"><a href="{{ route('dashboard.designs.index') }}" class="nav-link">@lang('site.show_all_designs')</a></li>
+					</ul>
+				</li>
 
 				<li class="nav-item nav-item-submenu">
 					<a href="#" class="nav-link {{ $pages }}"><i class="icon-newspaper2 "></i> <span> @lang('pages.pages') </span></a>
@@ -189,15 +196,15 @@
 						<li class="nav-item"><a href="{{ route('dashboard.slides.index') }}" class="nav-link">@lang('slides.show_all_slides')</a></li>
 						<li class="nav-item"><a href="{{ route('dashboard.slides.create') }}" class="nav-link">@lang('slides.add_new_slide')</a></li>
 					</ul>
-				</li>	
+				</li>
 
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('dashboard.orders.index') }}" class="nav-link {{ $orders }}"><i class="icon-images3"></i> <span> الطلبات </span></a>
 					<ul class="nav nav-group-sub" >
 						<li class="nav-item"><a href="{{ route('dashboard.orders.index') }}" class="nav-link">عرض كافه الطلبات</a></li>
-						
+
 					</ul>
-				</li>	
+				</li>
 
 
 				<li class="nav-item nav-item-submenu">
@@ -206,7 +213,7 @@
 						<li class="nav-item"><a href="{{ route('dashboard.coupons.index') }}" class="nav-link">عرض كافه الكوبونات</a></li>
 						<li class="nav-item"><a href="{{ route('dashboard.coupons.create') }}" class="nav-link">إضاهف كوبون جديد</a></li>
 					</ul>
-				</li>	
+				</li>
 
 
 
@@ -216,7 +223,7 @@
 						<li class="nav-item"><a href="{{ route('dashboard.countries.index') }}" class="nav-link"> عرض كافه الدول </a></li>
 						<li class="nav-item"><a href="{{ route('dashboard.countries.create') }}" class="nav-link">  انشاء دوله جديده </a></li>
 					</ul>
-				</li>	
+				</li>
 
 				<li class="nav-item nav-item-submenu">
 					<a href="#" class="nav-link {{ $governorates }}"><i class="icon-images3"></i> <span> المحافظات </span></a>
@@ -224,7 +231,7 @@
 						<li class="nav-item"><a href="{{ route('dashboard.governorates.index') }}" class="nav-link"> عرض كافه المحافظات </a></li>
 						<li class="nav-item"><a href="{{ route('dashboard.governorates.create') }}" class="nav-link">  انشاء محافظه جديده </a></li>
 					</ul>
-				</li>	
+				</li>
 
 
 				<li class="nav-item nav-item-submenu">
