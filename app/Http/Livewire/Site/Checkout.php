@@ -2,16 +2,21 @@
 
 namespace App\Http\Livewire\Site;
 
+use App\Models\PaymentMethod;
+use App\Models\UserAddress;
 use Livewire\Component;
 use App\Models\Governorate;
 use App\Models\City;
 use App\Models\Cart;
 use Auth;
+
 class Checkout extends Component
 {
 
     public $governorate_id;
     public $city_id;
+    public $address_id;
+    public $payment_method_id;
 
     public function getGovernoratesProperty()
     {
@@ -20,18 +25,24 @@ class Checkout extends Component
 
     public function getCitiesProperty()
     {
-        return City::where('governorate_id' , $this->governorate_id )->get();
+        return City::where('governorate_id', $this->governorate_id)->get();
     }
 
+    public function getMethodsProperty()
+    {
+        return PaymentMethod::whereActive(1)->get();
+    }
+
+    public function getAddressesProperty()
+    {
+        return UserAddress::whereUserId(auth()->id())->get();
+    }
 
     public function getShippingPriceProperty()
     {
-        if ($this->city_id) {
-            return City::find($this->city_id)?->shipping_cost ? City::find($this->city_id)?->shipping_cost : Governorate::find($this->governorate_id)?->shipping_cost;
-        }
-
-        if ($this->governorate_id) {
-            return Governorate::find($this->governorate_id)?->shipping_cost;
+        if ($this->address_id) {
+            $address = UserAddress::find($this->address_id);
+            return $address?->city?->shipping_cost ?? $address?->governorate?->shipping_cost;
         }
         return 0;
     }
@@ -39,20 +50,20 @@ class Checkout extends Component
     public function getMarketerBounseProperty()
     {
         $marketer_bounse = 0;
-        $items = Cart::where('user_id' , Auth::id() )->get();
+        $items = Cart::where('user_id', Auth::id())->get();
         foreach ($items as $item) {
-           $marketer_bounse += $item->variation?->product->marketer_price + (($item->price - $item->variation?->product->getPrice()) * $item->quantity);
+            $marketer_bounse += $item->variation?->product->marketer_price + (($item->price - $item->variation?->product->getPrice()) * $item->quantity);
         }
-        return  $marketer_bounse;
+        return $marketer_bounse;
     }
 
 
     public function getSubTotalProperty()
     {
         $total = 0;
-        $items = Cart::where('user_id' , Auth::id() )->get();
+        $items = Cart::where('user_id', Auth::id())->get();
         foreach ($items as $item) {
-            
+
             $total += $item->quantity * $item->price;
         }
         return $total;
@@ -65,14 +76,13 @@ class Checkout extends Component
     }
 
 
-
     public function render()
     {
-        $items = Cart::where('user_id' , Auth::id() )->get();
+        $items = Cart::where('user_id', Auth::id())->get();
         $total = 0;
         foreach ($items as $item) {
-            $total += ($item->quantity * $item->product?->price );
+            $total += ($item->quantity * $item->product?->price);
         }
-        return view('livewire.site.checkout' , compact('total' , 'items'  ) );
+        return view('livewire.site.checkout', compact('total', 'items'));
     }
 }

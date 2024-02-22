@@ -3,40 +3,47 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Auth;
+use App\Models\Design;
+use App\Models\Order;
 use App\Models\Follower;
+use App\Models\Wishlist;
+use App\Trait\ApiResponse;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+
 class ProfileController extends Controller
 {
-
-    public function index()
-    {
-        $user = Auth::user();
-        return view('site.profile' , compact('user') );
-    }
-
+    use ApiResponse;
 
     public function wishlist()
     {
-        return view('site.wishlist');
+        $records = Wishlist::with('user')->where('user_id',  Auth::id())->get();
+        return self::makeSuccess(Response::HTTP_OK, '', $records, false);
     }
 
     public function followers()
     {
-        $followers = Follower::with('user')->where('designer_id' , '='  , Auth::id())->get();
-        return view('site.followers' , compact('followers') );
+        $records = Follower::with('user')->where('designer_id', '=', Auth::id())->get();
+        return self::makeSuccess(Response::HTTP_OK, '', $records, false);
+    }
+
+    public function my_designs()
+    {
+        $records = Design::where('user_id', '=', Auth::id())->with('products', 'user')->get();
+        return self::makeSuccess(Response::HTTP_OK, '', $records, false);
     }
 
 
     public function orders()
     {
-        return view('site.orders');
+        $records = Order::where('user_id', auth()->id())->get();
+        return self::makeSuccess(Response::HTTP_OK, '', $records, false);
     }
 
-
-    public function diamond()
+    public function track_order($order_id)
     {
-        return view('site.diamond');
+        $record = Order::findOrFail($order_id);
+        return self::makeSuccess(Response::HTTP_OK, '', $record, false);
     }
 
 

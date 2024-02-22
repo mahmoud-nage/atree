@@ -9,6 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
 
     public function user()
     {
@@ -19,5 +20,10 @@ class Cart extends Model
     public function variation()
     {
         return $this->belongsTo(Variation::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

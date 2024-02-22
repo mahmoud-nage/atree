@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\DB;
+
 class PaymentMethodsSeeder extends Seeder
 {
     /**
@@ -14,10 +16,11 @@ class PaymentMethodsSeeder extends Seeder
     public function run()
     {
         $methods = [
-            [ 'فودافون كاش'  , 'Vodafon Cash' ] , 
-            [ 'حساب بنكى' , 'Bank account'] , 
-            [ 'تليم باليد' , 'cash on hand'] , 
+            [ 'كاش' , 'cash'] ,
+            [ 'حساب بنكى' , 'Bank'] ,
+//            [ 'فودافون كاش'  , 'Vodafon Cash' ] ,
         ];
+        DB::table('payment_methods')->truncate();
         foreach ($methods as $method) {
             $PaymentMethod = new PaymentMethod;
             $PaymentMethod->setTranslation('name' , 'ar' , $method[0] );

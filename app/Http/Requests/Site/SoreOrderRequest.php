@@ -24,11 +24,14 @@ class SoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'address' => 'required' , 
-            'governorate_id' => 'required' , 
-            'city' => 'required' , 
-            'phone' => 'required' , 
-            'client_name' => 'required'
+            'payment_method_id' => 'required|exists:payment_methods,id' ,
+            'address_id' => 'required|exists:user_addresses,id' ,
+//            'city_id' => 'required|exists:cities,id' ,
+            'coupon_id' => 'nullable|exists:coupons,id' ,
+//            'address' => 'required',
+//            'email' => 'required|email|email:dns',
+//            'phone' => 'required' ,
+//            'client_name' => 'required'
         ];
     }
 }

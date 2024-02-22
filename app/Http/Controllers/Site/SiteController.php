@@ -85,9 +85,10 @@ class SiteController extends Controller
     }
 
 
-    public function custom_designs()
+    public function custom_designs($product_id)
     {
-        return view('site.custom_designs');
+        $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
+        return view('site.custom_designs', compact('record'));
     }
 
 

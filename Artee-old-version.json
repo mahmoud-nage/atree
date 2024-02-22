@@ -1,0 +1,1070 @@
+{
+	"info": {
+		"_postman_id": "6f6d22b7-f342-46b5-b7a1-f319a44853c5",
+		"name": "Artee Copy 8",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14170293"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "home",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "number_products",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}home",
+							"host": [
+								"{{artee}}home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all_products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "number_products",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "paged",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}all_products",
+							"host": [
+								"{{artee}}all_products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single_product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "34",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}single_product",
+							"host": [
+								"{{artee}}single_product"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pages",
+			"item": [
+				{
+					"name": "faq",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "faq",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "terms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "terms",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "return_policy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "return_policy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shipping_delivery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "shipping_delivery",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "payment",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "support",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "support",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "about",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "about",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{artee}}pages",
+							"host": [
+								"{{artee}}pages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "Menem23115520**++--",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}login",
+									"host": [
+										"{{artee}}login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "mon3em",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "takweed.net@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0201011171176",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}register",
+									"host": [
+										"{{artee}}register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "active code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "63bb9311f053ebff2ac53cea261992aab1ce3904",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "2921",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}active_code",
+									"host": [
+										"{{artee}}active_code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone_number",
+											"value": "+966555212174",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}reset_password",
+									"host": [
+										"{{artee}}reset_password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check_code_pass",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "31d77d3c027ae02ced26e62da2988e4947d182e3",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "6489",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}check_code_pass",
+									"host": [
+										"{{artee}}check_code_pass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "new_pass",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "31d77d3c027ae02ced26e62da2988e4947d182e3",
+											"type": "text"
+										},
+										{
+											"key": "new_pass",
+											"value": "admin010**",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}new_pass",
+									"host": [
+										"{{artee}}new_pass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "active user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "63bb9311f053ebff2ac53cea261992aab1ce3904",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}active_user",
+									"host": [
+										"{{artee}}active_user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "actions",
+					"item": [
+						{
+							"name": "send_cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][product_id]",
+											"value": "34",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][type]",
+											"value": "image",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][title]",
+											"value": "company",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][width]",
+											"value": "150",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][height]",
+											"value": "63",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][left]",
+											"value": "395",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][top]",
+											"value": "201",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][rotate]",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][scaleX]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][scaleY]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][type]",
+											"value": "text",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][title]",
+											"value": "MR Solutions",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][source]",
+											"value": "MR Solutions",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][width]",
+											"value": "169",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][height]",
+											"value": "34",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][left]",
+											"value": "395",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][top]",
+											"value": "195",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][color_text]",
+											"value": "#ffffff",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][fontFamily]",
+											"value": "Calligraffitti",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][fontSize]",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][fontStyle]",
+											"value": "normal",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][fontWeight]",
+											"value": "normal",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][letterSpacing]",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][rotate]",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][scaleX]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_product][back][0][scaleY]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][variations_list][0][color_data]",
+											"value": "الازرق",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][variations_list][0][size_data]",
+											"value": "2xl",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][variations_list][0][quantity_data]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][data_price]",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][image_size_width]",
+											"value": "1000",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][image_size_height]",
+											"value": "1000",
+											"type": "text"
+										},
+										{
+											"key": "list_cart[0][image_front]",
+											"type": "file",
+											"src": "Users/menem/Desktop/1.jpg"
+										},
+										{
+											"key": "list_cart[0][image_back]",
+											"type": "file",
+											"src": "Users/menem/Desktop/2.jpg"
+										},
+										{
+											"key": "list_cart[0][data_product][front][0][source]",
+											"type": "file",
+											"src": "Users/menem/Desktop/takweed.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}send_cart",
+									"host": [
+										"{{artee}}send_cart"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "send payment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"description": "https://www.artee.me/payment-app/ دة رابك الباك ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}payment",
+									"host": [
+										"{{artee}}payment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "result payment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "shop info",
+					"item": [
+						{
+							"name": "all orders",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "633940564e443bf18ca745286bc81e391f4ef528",
+											"type": "text"
+										},
+										{
+											"key": "number_show",
+											"value": "50",
+											"type": "text"
+										},
+										{
+											"key": "حشلثس",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}orders",
+									"host": [
+										"{{artee}}orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "order_id",
+											"value": "596",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}orders/order",
+									"host": [
+										"{{artee}}orders"
+									],
+									"path": [
+										"order"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "tracking order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "order_id",
+											"value": "634",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}orders/tracking",
+									"host": [
+										"{{artee}}orders"
+									],
+									"path": [
+										"tracking"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}cart",
+									"host": [
+										"{{artee}}cart"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "profile",
+					"item": [
+						{
+							"name": "account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "first_name",
+											"value": "mon3em",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "farg",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "developer",
+											"type": "text"
+										},
+										{
+											"key": "user_email",
+											"value": "menemfarag@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "billing_country",
+											"value": "eg",
+											"type": "text"
+										},
+										{
+											"key": "billing_address_1",
+											"value": "15 elgash st",
+											"type": "text"
+										},
+										{
+											"key": "billing_address_2",
+											"value": "16 elgash st",
+											"type": "text"
+										},
+										{
+											"key": "billing_city",
+											"value": "zagazig",
+											"type": "text"
+										},
+										{
+											"key": "billing_state",
+											"value": "farok",
+											"type": "text"
+										},
+										{
+											"key": "billing_postcode",
+											"value": "44555",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "Users/menem/Desktop/243360735_5043101542383420_1330874890679069983_n.jpg"
+										},
+										{
+											"key": "phone",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "phone_code",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "old_password",
+											"value": "Menem23115520**++--",
+											"type": "text"
+										},
+										{
+											"key": "new_password",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}my_account",
+									"host": [
+										"{{artee}}my_account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change_pass",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "new_password",
+											"value": "Takweed010**++--",
+											"type": "text"
+										},
+										{
+											"key": "old_password",
+											"value": "Menem23115520**++--",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}change_pass",
+									"host": [
+										"{{artee}}change_pass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change_phone",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "new_phone",
+											"value": "569111000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}change_phone",
+									"host": [
+										"{{artee}}change_phone"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "active_new_phone",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "user_serial",
+											"value": "227d3940dc04e94aaa6f8fdc09d87e6e6597158c",
+											"type": "text"
+										},
+										{
+											"key": "active_code",
+											"value": "7033",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{artee}}active_new_phone",
+									"host": [
+										"{{artee}}active_new_phone"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://www.artee.me/wp-json/takweed/v1/"
+		}
+	]
+}

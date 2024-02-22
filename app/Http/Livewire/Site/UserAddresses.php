@@ -9,9 +9,10 @@ use App\Models\City;
 use App\Models\UserAddress;
 use Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+
 class UserAddresses extends Component
 {
-     use LivewireAlert;
+    use LivewireAlert;
 
     public $user;
     public $country_id;
@@ -20,35 +21,40 @@ class UserAddresses extends Component
     public $building_number;
     public $street_name;
     public $district;
+    public $size;
 
-    protected $listeners = ['addressAdded' => '$refresh' , 'deleteItem'  ];
+    protected $listeners = ['addressAdded' => '$refresh', 'deleteItem'];
     protected $rules = [
-        'country_id' => 'required' , 
-        'governorate_id' => 'required' , 
-        'city_id' => 'required' , 
-        'building_number' => 'required' , 
-        'street_name' => 'required' , 
-        'district' => 'required' , 
+        'country_id' => 'required',
+        'governorate_id' => 'required',
+        'city_id' => 'required',
+        'building_number' => 'required',
+        'street_name' => 'required',
+        'district' => 'required',
     ];
 
 
     public function getCountriesProperty()
     {
-        return Country::where('active' , 1 )->get();
+        return Country::where('active', 1)->get();
+    }
+
+    public function getSizeProperty()
+    {
+        return $this->size ?? 3;
     }
 
 
     public function getGovernoratesProperty()
     {
-        return Governorate::where('active' , 1 )->where('country_id' , $this->country_id )->get();
+        return Governorate::where('active', 1)->where('country_id', $this->country_id)->get();
     }
 
 
     public function getCitiesProperty()
     {
-        return City::where('active' , 1 )->where('governorate_id' , $this->governorate_id )->get();
+        return City::where('active', 1)->where('governorate_id', $this->governorate_id)->get();
     }
-
 
 
     public function save()
@@ -65,21 +71,20 @@ class UserAddresses extends Component
         $address->district = $this->district;
         $address->save();
         $this->emit('addressAdded');
-        $this->alert('success' , trans('site.Address added successfully') );
+        $this->alert('success', trans('site.Address added successfully'));
     }
-
 
 
     public function makeDefault($address_id)
     {
-        UserAddress::where('user_id' , Auth::id() )->update([
-            'is_default' => 0 , 
+        UserAddress::where('user_id', Auth::id())->update([
+            'is_default' => 0,
         ]);
         $address = UserAddress::find($address_id);
         if ($address) {
             $address->is_default = 1;
             $address->save();
-            $this->alert('success'  , trans('site.Address set is default successfully') );
+            $this->alert('success', trans('site.Address set is default successfully'));
         }
     }
 
@@ -89,13 +94,13 @@ class UserAddresses extends Component
         $item = UserAddress::find($item_id);
         if ($item) {
             $item->delete();
-            $this->alert('success' , trans('site.Address deleted successfully') );
+            $this->alert('success', trans('site.Address deleted successfully'));
         }
     }
 
     public function render()
     {
-        $addresses = UserAddress::with(['country' , 'city' , 'governorate' ])->where('user_id' , Auth::id() )->get();
-        return view('livewire.site.user-addresses' , compact('addresses') );
+        $addresses = UserAddress::with(['country', 'city', 'governorate'])->where('user_id', Auth::id())->get();
+        return view('livewire.site.user-addresses', compact('addresses'));
     }
 }

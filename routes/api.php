@@ -22,12 +22,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/update', [AccountController::class, 'updateProfile']);
     });
     Route::get('/logout', [AccountController::class, 'logout']);
-
-    Route::get('/wishlist', [MainController::class, 'wishlist']);
-    Route::get('/orders', [MainController::class, 'orders']);
+    Route::get('/wishlist', [ProfileController::class, 'wishlist']);
+    Route::get('/orders', [ProfileController::class, 'orders']);
+    Route::get('/followers', [ProfileController::class, 'followers']);
+    Route::get('/my-designs', [ProfileController::class, 'my_designs']);
+//    Route::get('/diamond', [ProfileController::class, 'diamond']);
     Route::get('/settings', [MainController::class, 'settings']);
-    Route::get('/followers', [MainController::class, 'followers']);
-    Route::get('/diamond', [MainController::class, 'diamond']);
 });
 
 Route::group(['prefix' => 'auth'], function () {

@@ -37,35 +37,45 @@
                         <div class="card-body">
 
                             <div class="d-flex flex-fill">
+                                @foreach($record->items->take(4) as $item)
+                                    <div class="category-left">
+                                        <div class="category-title">
+                                            <h4 class="card-title">{{$item->variation->product->name ?? ''}}</h4>
+                                        </div>
 
-                                <div class="category-left">
-                                    <div class="category-title">
-                                        <h4 class="card-title">{{$record->items->first()->variation->product->name ?? ''}}</h4>
+                                        <div class="square-img d-table-cell">
+                                            @if($item->design_front_image)
+                                                <img
+                                                    src="{{ Storage::url('designs/'.$item->design_front_image)}}">
+                                            @else
+                                                <img
+                                                    src="{{ Storage::url('products/'.$item?->variation?->product->front_image)}}">
+                                            @endif
+                                        </div>
+                                        <div class="order-info">
+                                            <p class="card-text">
+                                                {!! $item->variation->product->description ?? ''!!}
+                                            </p>
+                                        </div>
                                     </div>
-
-                                    <div class="square-img d-table-cell">
-                                        <img src="{{$record->items->first()->variation->product->front_image ?? ''}}">
-                                    </div>
-
-                                    <div class="order-info">
-                                        <p class="card-text">
-                                            {!! $record->items->first()->variation->product->description ?? ''!!}
-                                        </p>
-                                    </div>
-
-                                </div>
+                                @endforeach
 
                                 <div class="buttons-container">
                                     <a href="#" data-toggle="modal" data-target="#invoice-popup"
-                                       class=" btn btn-primary">Invoice</a>
-                                    <a href="{{route('track_order', $record->id)}}" class=" btn btn-primary">Track Order</a>
-                                    <a href="#" class=" btn btn-primary">Buy Again</a>
+                                       class=" btn btn-primary">{{__('site.invoice')}}</a>
+                                    <a href="{{route('track_order', $record->id)}}"
+                                       class=" btn btn-primary">{{__('site.track_order')}}</a>
+                                    @if($record->payment_method_id == 2)
+                                        <a href="{{route('checkout.pay', $record->number)}}"
+                                           class=" btn btn-primary">{{__('site.pay')}}</a>
+                                    @endif
+                                    {{--                                    <a href="#" class=" btn btn-primary">Buy Again</a>--}}
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    @empty
+                @empty
                     <div class="alert alert-primary" role="alert">
                         @lang('site.No orders yet for you to display')
                     </div>
@@ -89,11 +99,11 @@
                         <div class="row">
                             <div class="invoice-top">
                                 <div>
-                                    <img src="images/large-logo.png" />
+                                    <img src="{{ Storage::url('settings/'.$data['settings']->logo) }}"/>
                                 </div>
 
                                 <div>
-                                    <img src="images/QR-code.png" />
+                                    <img src="images/QR-code.png"/>
                                 </div>
                             </div>
 
@@ -102,79 +112,43 @@
                         </div>
 
                         <div class="row invoice-info">
-
-                            <div class="col-sm-4 invoice-col">
-                                <b class="mr-2">Invoice Number:</b>  #007612<br>
-                                <b class="mr-2">Order ID:</b> 4F3S8J<br>
+                            <div class="invoice-col">
+                                <b class="mr-2">Invoice Number:</b> #007612<br>
+                                <b class="mr-2">Order ID:</b> {{$record->number}}<br>
                                 <b class="mr-2">Payment Due:</b> 2/22/2014<br>
-                                <b class="mr-2">Account:</b> 968-34567
+                                <b class="mr-2">Account:</b> {{auth()->user()->username}}
                             </div>
-
-                            <div class="col-sm-4 invoice-col">
-                            </div>
-
-                            <div class="col-sm-4 invoice-col">
-                                <b class="mr-2">Invoice</b> #007612<br>
-                                <b class="mr-2">Order ID:</b> 4F3S8J<br>
-                                <b class="mr-2">Payment Due:</b> 2/22/2014<br>
-                                <b class="mr-2">Account:</b> 968-34567
-                            </div>
-
                         </div>
-
 
                         <div class="row">
                             <div class="col-12 table-responsive">
                                 <table class="table mb-0">
                                     <thead>
                                     <tr class="bg-light font-weight-bold">
+                                        <th>#</th>
                                         <th>Product Name</th>
-                                        <th>Quantaity</th>
+                                        <th>Quantity</th>
                                         <th>Size</th>
                                         <th>Colors</th>
                                         <th>Price</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Call of Duty</td>
-                                        <td>455-981-221</td>
-                                        <td>Red</td>
-                                        <td>$64.50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <p>Need for Speed IV</p>
-                                            <p>Need for Speed IV</p>
-                                        </td>
-                                        <td>247-925-726</td>
-                                        <td>Wes Anderson umami biodiesel</td>
-                                        <td>$50.00</td>
-                                    </tr>
-
+                                    @foreach($record->items as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->variation?->product->name}}</td>
+                                            <td>{{$item->quantity}}</td>
+                                            <td>{{$item->variation?->size->name}}</td>
+                                            <td>{{$item->variation?->color->name}}</td>
+                                            <td>{{$item->price}} <span> @lang('site.SAR') </span></td>
+                                        </tr>
+                                    @endforeach
                                     <tr class="bg-light font-weight-bold">
-                                        <th> </th>
-                                        <th> </th>
-                                        <th> </th>
-                                        <th>Colors</th>
-                                        <th>Price</th>
-                                    </tr>
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Monsters DVD</td>
-                                        <td>735-845-642</td>
-                                        <td>Terry Richardson</td>
-                                        <td>$10.70</td>
-                                    </tr>
-
-
-                                    <tr class="bg-light font-weight-bold">
-                                        <th> </th>
-                                        <th> </th>
-                                        <th> </th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                         <th></th>
                                         <th>Total Price</th>
                                     </tr>
@@ -183,7 +157,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td class="totalPrice">900 SAR</td>
+                                        <td></td>
+                                        <td class="totalPrice">{{$record->total}} <span> @lang('site.SAR') </span></td>
                                     </tr>
                                     </tbody>
                                 </table>

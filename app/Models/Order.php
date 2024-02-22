@@ -9,6 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
     public function items()
     {
         return $this->hasMany(OrderItem::class , 'order_id');
@@ -33,7 +34,7 @@ class Order extends Model
     {
         $price = 0;
         foreach ($this->items as $item) {
-            $price += $item->calculateMarketerMoney() ;
+            $price += $item->calculateMarketerMoney() ?? 0 ;
         }
         return $price;
     }

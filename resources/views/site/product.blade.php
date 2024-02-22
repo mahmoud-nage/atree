@@ -73,7 +73,7 @@
             </select>
           </div>
 
-          <a href="{{ route('custom-designs') }}" class="btn btn-primary p-3 ml-3 bg-primary-gridant">
+          <a href="{{ route('custom-designs', $product->id) }}" class="btn btn-primary p-3 ml-3 bg-primary-gridant">
             <i class="fas fa-cart-plus fa-lg mr-2"></i>
             @lang('site.custom-design')
           </a>

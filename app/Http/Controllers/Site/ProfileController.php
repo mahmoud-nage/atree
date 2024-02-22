@@ -38,7 +38,7 @@ class ProfileController extends Controller
 
     public function orders()
     {
-        $records = Order::where('user_id', auth()->id())->get();
+        $records = Order::where('user_id', auth()->id())->latest()->get();
         return view('site.orders', compact('records'));
     }
     public function track_order($order_id)

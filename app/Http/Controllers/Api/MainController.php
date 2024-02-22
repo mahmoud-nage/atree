@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
+use App\Models\City;
+use App\Models\Complain;
+use App\Models\Governorate;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Trait\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\Site\RegisterRequest;
 use App\Http\Requests\Site\SoreOrderRequest;
-use App\Http\Requests\Site\LoginRequest;
 use App\Http\Requests\Site\StoreComplainRequest;
 use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use App\Jobs\IncreasProductSalesCountJob;
 use App\Jobs\IncreasProductViewsCountJob;
 
 use App\Models\Slide;
-use App\Models\Page;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +32,7 @@ class MainController extends Controller
     public function index(): JsonResponse
     {
         $slides = Slide::where('is_active', 1)->latest()->get();
-        $recommend_users = User::where('type', 1)->inRandomOrder()->take(8)->get();
+        $recommend_users = User::where('type', User::USER)->inRandomOrder()->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
         $users = User::inRandomOrder()->take(3)->get();
         $data = [
@@ -75,8 +78,8 @@ class MainController extends Controller
      */
     public function explore(): JsonResponse
     {
-        $products = Product::with(['variations.color'])->latest()->take(15)->get();
-        $users = User::latest()->take(15)->get();
+        $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
+        $users = User::latest()->where('type', User::USER)->take(15)->get();
         $data = [
             'products' => $products,
             'users' => $users,
@@ -91,7 +94,7 @@ class MainController extends Controller
      */
     public function products(): JsonResponse
     {
-        $products = Product::with(['variations.color'])->latest()->paginate(20);
+        $products = Product::with(['variations.color'])->latest()->paginate(15);
         return self::makeSuccess(Response::HTTP_OK, '', $products, false);
     }
 
@@ -108,17 +111,11 @@ class MainController extends Controller
         return self::makeSuccess(Response::HTTP_OK, '', $products, false);
     }
 
-
     public function cart()
     {
-        return view('site.cart');
+        $cart = Cart::where('user_id', Auth::id())->get()->toArray();
+        return self::makeSuccess(Response::HTTP_OK, '', $cart);
     }
-
-    public function checkout()
-    {
-        return view('site.checkout');
-    }
-
 
     public function save_order(SoreOrderRequest $request)
     {
@@ -159,12 +156,7 @@ class MainController extends Controller
             dispatch(new IncreasProductSalesCountJob($item->variation_id));
         }
         Cart::where('user_id', Auth::id())->delete();
-        return view('site.success')->with('success', 'تم انشاء الطلب بنجاح');
-    }
-
-    public function complains()
-    {
-        return view('site.complains');
+        return self::makeSuccess(Response::HTTP_OK, __('messages.created_successfully'));
     }
 
     public function store_complains(StoreComplainRequest $request)
@@ -177,8 +169,7 @@ class MainController extends Controller
         $complain->category = $request->category;
         $complain->type = $request->type;
         $complain->save();
-        toastr()->success('تم الارسال بنجاح');
-        return redirect()->back();
+        return self::makeSuccess(Response::HTTP_OK, __('messages.created_successfully'));
     }
 
     public function downloadProductImages(Product $product)
@@ -191,19 +182,13 @@ class MainController extends Controller
         return $zip_file;
     }
 
-    public function phone()
-    {
-        return view('site.phone');
-    }
-
     public function update_phone(Request $request)
     {
         $user = Auth::user();
         $user->phone = $request->phone;
         $user->save();
         dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
-        return redirect(route('site.verify_phone'));
+        return self::makeSuccess(Response::HTTP_OK, __('messages.updated_successfully'));
     }
-
 
 }

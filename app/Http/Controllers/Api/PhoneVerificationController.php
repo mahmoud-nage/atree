@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Trait\ApiResponse;
 use Illuminate\Http\Request;
 use App\Models\PhoneVerificationCode;
-use Auth;
-use Session;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Response;
+
 class PhoneVerificationController extends Controller
 {
+    use ApiResponse;
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -23,17 +26,14 @@ class PhoneVerificationController extends Controller
             ['phone' , '=' , Auth::user()->phone ]
         ])->first();
 
-
         if ($check) {
             $check->delete();
             $user = Auth::user();
             $user->phone_verified_at = Carbon::now();
             $user->save();
-            return redirect(url('/'))->with('success' , 'تم تفعيل رقم الموبيل بنجاح' );
+            return self::makeSuccess(Response::HTTP_OK, __('messages.success'));
         }
-
-        Session::push('error' , 'كود التفعيل غير صحيح' );
-        return redirect(route('site.verify_phone'));
+        return self::makeSuccess(Response::HTTP_OK, __('messages.wrong'));
     }
 
 }

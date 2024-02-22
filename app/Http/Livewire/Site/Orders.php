@@ -64,7 +64,7 @@ class Orders extends Component
     {
         $orders = Order::with(['items.variation' , 'governorate' , 'status'])
         ->where(function($query){
-            $query->where('user_id' , Auth::id() );
+            $query->where('user_id' , auth()->id() );
         })
         ->when($this->governorate_id , function($query){
             $query->where('governorate_id' , $this->governorate_id );

@@ -4,8 +4,7 @@
     </div>
     <div class="card-body p-3 my-Addresses">
         <div class="row">
-
-            <div class="col-md-3">
+            <div class="col-md-{{$this->size}}">
                 <div class="card addAddress" data-toggle="modal" data-target="#addAdressPopup">
                     <div class="card-body">
                         <i class="fa fa-plus"></i>
@@ -13,8 +12,6 @@
                     </div>
                 </div>
             </div>
-
-
             <!--Add Adress Modal -->
             <div class="modal fade" id="addAdressPopup" wire:ignore.self tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -101,38 +98,30 @@
                     </div>
                 </div>
             </div>
-
-
-
             @foreach ($addresses as $address)
-            <div class="col-md-3">
+            <div class="col-md-{{$this->size}}">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"> {{ $address->country?->name }} </h5>
                         <h6 class="card-subtitle mb-2 text-muted"> {{ $address->building_number }} -  {{ $address->street_name }} - {{ $address->district }}   </h6>
                         <h6 class="card-subtitle mb-2 text-muted"> {{ $address->city?->name }} </h6>
                         <h6 class="card-subtitle mb-2 text-muted"> {{ $address->governorate?->name }} </h6>
-                        <h6 class="card-subtitle mb-2 text-muted">Phone Number: {{ Auth::user()->phone }} </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ Auth::user()->phone }} </h6>
                         <button data-item_id='{{ $address->id }}' type="button" class="delete_address btn card-link text-primary p-0"> @lang('site.Remove') </button>
                         <button wire:click='makeDefault({{ $address->id }})' type="button" class="btn card-link text-primary p-0"> @lang('site.Set as defaulte') </button>
                     </div>
                 </div>
             </div>
             @endforeach
-
-
-
         </div>
     </div>
 </div>
 
 @section('scripts')
 <script>
-
     $(document).on('click', 'button.delete_address', function(event) {
         event.preventDefault();
         var item_id = $(this).attr('data-item_id');
-
         Swal.fire({
             title: "@lang('site.Are you sure?')",
             text: "@lang('site.You won\'t be able to revert this!')",

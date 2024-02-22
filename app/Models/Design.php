@@ -17,6 +17,7 @@ class Design extends Model
         'times_used_count',
         'diamonds_earned',
         'is_active',
+        'image',
     ];
 
 
