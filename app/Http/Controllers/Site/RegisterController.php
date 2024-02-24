@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use Illuminate\Http\Request;
 use App\Http\Requests\Site\RegisterRequest;
 use App\Models\User;
@@ -37,6 +38,7 @@ class RegisterController extends Controller
         $code->code = 1234 ;
         $code->email = $user->email;
         $code->save();
+//        dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
         return redirect(url('verify?email='.$user->email ));
     }
 }

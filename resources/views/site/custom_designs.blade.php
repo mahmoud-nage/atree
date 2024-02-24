@@ -98,7 +98,7 @@
                                                                                                    for="star1"
                                                                                                    title="1 star"></label>
                                 </div>
-                                <span class="px-2">(2 @lang('site.Review') )</span>
+                                <span class="px-2">(0 @lang('site.Review') )</span>
 
                                 <p class="product-page-info">
                                     {!! $record->description !!}
@@ -153,73 +153,19 @@
                             </div>
 
                             <ul class="users-list clearfix">
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-1.jpg') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#" title="Alexander Pierce Alexander">Alexander
-                                        Pierce Alexander </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-2.png') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#">Norman</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-1.jpg') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#">Jane</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-2.png') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#">John</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-1.jpg') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#" title="Alexander Pierce">Alexander Pierce</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-2.png') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#">John</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="image-container">
-                                            <img src="{{ asset('site_assets/'.$dir.'/img/design-1.jpg') }}"
-                                                 alt="User Image">
-                                        </div>
-                                    </a>
-                                    <a class="users-list-name" href="#" title="Alexander Pierce">Alexander Pierce</a>
-                                </li>
-
+                                @foreach($designs as $design)
+                                    <li>
+                                        <a href="#">
+                                            <div class="image-container">
+                                                <img src="{{Storage::url('designs/'.$design->image)}}"
+                                                     alt="User Image">
+                                            </div>
+                                        </a>
+                                        <a class="users-list-name" href="{{$design->user->url() ?? ''}}"
+                                           title="{{$design->user->name() ?? ''}}"> {{$design->user->name() ?? ''}} </a>
+                                    </li>
+                                    @endforeach
                             </ul>
-
                         </div>
                     </div>
                     <!-- /.col-md-12 -->
@@ -239,6 +185,26 @@
         // var canvasFront = new fabric.Canvas('front');
         // var canvasFront = new fabric.Canvas('back');
         // Initiate a front Canvas instance
+        var canvasBackMain = new fabric.Canvas("mainBack", {
+            width: '488',
+            height: '445',
+        });
+        // Add an image
+        fabric.Image.fromURL(
+            "{{ Storage::url('products/'.$record->back_image) }}",
+            function (img) {
+                var image = img.set({
+                    selectable: false,
+                    evented: false,
+                });
+                img.scaleToWidth('488');
+                canvasBackMain.add(image);
+                canvasBackMain.sendToBack(image);
+                canvasBackMain.renderAll();
+            },
+            {crossOrigin: "anonymous"}
+        );
+
         var canvasMain = new fabric.Canvas("main", {
             width: '488',
             height: '445',
@@ -257,24 +223,7 @@
             },
             {crossOrigin: "anonymous"}
         );
-        var canvasBackMain = new fabric.Canvas("mainBack", {
-            width: '488',
-            height: '445',
-        });
-        // Add an image
-        fabric.Image.fromURL(
-            "{{ Storage::url('products/'.$record->back_image) }}",
-            function (img) {
-                var image = img.set({
-                    selectable: false,
-                    evented: false,
-                });
-                canvasBackMain.add(image);
-                canvasBackMain.sendToBack(image);
-                canvasBackMain.renderAll();
-            },
-            {crossOrigin: "anonymous"}
-        );
+
 
 
         var canvasFront = new fabric.Canvas("front", {
@@ -298,13 +247,13 @@
         });
 
         $(function () {
-            // document.getElementById("text_front").onclick = function () {
-            //     // Add a text
-            //     let text = new fabric.IText("Type here...", {
-            //         fontSize: 14,
-            //     });
-            //     canvasFront.add(text);
-            // }
+            document.getElementById("text_front").onclick = function () {
+                // Add a text
+                let text = new fabric.IText("Type here...", {
+                    fontSize: 14,
+                });
+                canvasFront.add(text).renderAll();
+            }
 
             document.getElementById("image_front_src").onchange = function (e) {
                 console.log('front')
@@ -335,6 +284,13 @@
             };
             canvasFront.on('object:modified', CanvasEventFrontImage);
 
+            document.getElementById("text_back").onclick = function () {
+                // Add a text
+                let text = new fabric.IText("Type here...", {
+                    fontSize: 14,
+                });
+                canvasBack.add(text).renderAll();
+            }
             document.getElementById("image_back_src").onchange = function (e) {
                 console.log('back')
                 var reader = new FileReader();
@@ -362,7 +318,6 @@
                 $('#image_back_top').val(movingObject.get('top'));
             };
             canvasBack.on('object:modified', CanvasEventBackImage);
-
 
             // Handle download button click
             document.getElementById("save").onclick = function () {
@@ -400,8 +355,10 @@
                 if ($('.product-image').attr('src') == rotateImgfront) {
                     $('#mainBack').removeClass('d-none');
                     $('#back').removeClass('d-none');
+                    $('#text_back').removeClass('d-none');
                     $('#front').addClass('d-none');
                     $('#main').addClass('d-none');
+                    $('#text_front').addClass('d-none');
                     $('#image_front_src').addClass('d-none');
                     $('#image_back_src').removeClass('d-none');
                     $('.product-image').attr('src', rotateImgback)
@@ -409,8 +366,10 @@
                 } else if ($('.product-image').attr('src') == rotateImgback) {
                     $('#main').removeClass('d-none');
                     $('#front').removeClass('d-none');
+                    $('#text_front').removeClass('d-none');
                     $('#mainBack').addClass('d-none');
                     $('#back').addClass('d-none');
+                    $('#text_back').addClass('d-none');
                     $('#image_back_src').addClass('d-none');
                     $('#image_front_src').removeClass('d-none');
                     $('.product-image').attr('src', rotateImgfront)
@@ -418,8 +377,10 @@
                 } else {
                     $('#main').removeClass('d-none');
                     $('#front').removeClass('d-none');
+                    $('#text_front').removeClass('d-none');
                     $('#back').addClass('d-none');
                     $('#mainBack').addClass('d-none');
+                    $('#text_back').addClass('d-none');
                     $('#image_back_src').addClass('d-none');
                     $('#image_front_src').removeClass('d-none');
                     $('.product-image').attr('src', rotateImgback)

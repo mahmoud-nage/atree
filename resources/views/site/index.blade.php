@@ -68,7 +68,6 @@
                 </div>
 
                 <ul class="users-list clearfix">
-
                     @foreach ($products as $product)
                         <li>
                             <div class="product-container">
@@ -92,88 +91,48 @@
                             <div class="users-list-date"> {{ $product->price }} <span> @lang('site.SAR')</span></div>
                         </li>
                     @endforeach
-
-
                 </ul>
-
             </div>
             <!-------------------------- Posts List --------------------------->
-            <div class="card card-widget mb-3">
-                <div class="card-header">
-                    <div class="user-block">
-                        <img class="img-circle" src="{{ asset('site_assets/'.$dir.'/img/user1-128x128.jpg') }}"
-                             alt="User Image">
-                        <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                        <span class="description">@Jonathan</span>
+            @forelse($designs as $record)
+                <div class="card card-widget">
+                    <div class="card-header">
+                        <div class="user-block">
+                            <img class="img-circle" src="{{ Storage::url('users/'.$record->user->image) ?? '' }}"
+                                 alt="User Image">
+                            <span class="username"><a
+                                    href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a></span>
+                            <span class="description">@ {{$record->user->username ?? ''}}</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <div class="card-tools">
+                            <span class="text-muted p-4"></span>
+                        </div>
+                        <!-- /.card-tools -->
                     </div>
-                    <!-- /.user-block -->
-                    <div class="card-tools">
-                        <span class="text-muted p-4"> 12 H </span>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <a href="#" class="text-center post-image-container">
+                            {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
+                            <img class="img-fluid pad" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
+                        </a>
+
+                        <p>{{$record->description}}</p>
+                        <div class="tag-btns-container">
+                            <ul>
+                                @foreach($record->products as $product)
+                                    <a href="{{ $product->url() }}" class="btn tag-btn"> {{$product->name}} </a>
+                                @endforeach
+                            </ul>
+                        </div>
+
                     </div>
-                    <!-- /.card-tools -->
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <a href="" class="text-center post-image-container">
-                        <div class="badge badge-light">200 <span>SAR</span></div>
-                        <img class="img-fluid pad" src="{{ asset('site_assets/'.$dir.'/img/tshirt-4.jpg') }}"
-                             alt="Photo">
-                    </a>
-
-                    <p>I took this photo this morning. What do you guys think?</p>
-                    <div class="tag-btns-container">
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        </ul>
-                    </div>
-
+            @empty
+                <div class="alert alert-primary" role="alert">
+                    @lang('site.no_records')
                 </div>
-
-
-            </div>
-            <div class="card card-widget mb-3">
-                <div class="card-header">
-                    <div class="user-block">
-                        <img class="img-circle" src="{{ asset('site_assets/'.$dir.'/img/user1-128x128.jpg') }}"
-                             alt="User Image">
-                        <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                        <span class="description">@Jonathan</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <div class="card-tools">
-                        <span class="text-muted p-4"> 12 H </span>
-                    </div>
-                    <!-- /.card-tools -->
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <a href="" class="text-center post-image-container">
-                        <div class="badge badge-light">200 <span>SAR</span></div>
-                        <img class="img-fluid pad" src="{{ asset('site_assets/'.$dir.'/img/tshirt-5.jpg') }}"
-                             alt="Photo">
-                    </a>
-
-                    <p>I took this photo this morning. What do you guys think?</p>
-                    <div class="tag-btns-container">
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        <a href="#" class="btn tag-btn"> Tag link </a>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
+            @endforelse
         </div>
         <!-- /.col -->
         @include('site.layouts.sidebar_left')

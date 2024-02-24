@@ -17,6 +17,7 @@ use App\Models\Slide;
 use App\Models\Page;
 use App\Models\User;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
@@ -27,7 +28,8 @@ class SiteController extends Controller
         $slides = Slide::where('is_active', 1)->latest()->get();
         $recomanded_users = User::where('type', User::USER)->orderByRaw("RAND()")->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
-        return view('site.index', compact('slides', 'recomanded_users', 'products'));
+        $designs = Design::inRandomOrder()->take(6)->get();
+        return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs'));
     }
 
 
@@ -85,10 +87,13 @@ class SiteController extends Controller
     }
 
 
+
+
     public function custom_designs($product_id)
     {
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
-        return view('site.custom_designs', compact('record'));
+        $designs = Design::where('user_id' , '='  , Auth::id())->with('products', 'user')->get();
+        return view('site.custom_designs', compact('record', 'designs'));
     }
 
 
@@ -96,7 +101,8 @@ class SiteController extends Controller
     {
         $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
         $users = User::latest()->where('type', User::USER)->take(15)->get();
-        return view('site.explore', compact('products', 'users'));
+        $designs = Design::latest()->take(15)->get();
+        return view('site.explore', compact('products', 'users', 'designs'));
     }
 
     /**
