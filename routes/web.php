@@ -130,5 +130,5 @@ Route::group([
     });
 });
 Route::group(['prefix' => 'payment'], function () {
-    Route::post('/callback', [SurePayController::class, 'callBack'])->name('payment.callBack');
+    Route::get('/callback', [SurePayController::class, 'callBack'])->name('payment.callBack');
 });
