@@ -128,10 +128,7 @@ Route::group([
             Route::get('/pay/{order_id}', [CheckoutController::class, 'pay'])->name('checkout.pay');
         });
     });
-
-    Route::group(['prefix' => 'payment'], function () {
-        Route::post('/pay', [SurePayController::class, 'pay'])->name('payment.pay');
-        Route::post('/callBack', [SurePayController::class, 'callBack'])->name('payment.callBack');
-        Route::post('/webhook', [SurePayController::class, 'webhook'])->name('payment.webhook');
-    });
+});
+Route::group(['prefix' => 'payment'], function () {
+    Route::post('/callback', [SurePayController::class, 'callBack'])->name('payment.callBack');
 });
