@@ -21,7 +21,7 @@
      </div>
      @endif
      <h4 class="card-title mb-4"> التحقق من رقم الموبيل </h4>
-     <form action="{{ route('site.verify_phone.store') }}" method="POST" >
+     <form action="{{ route('verify_phone.store') }}" method="POST" >
       @csrf
       <div class="alert alert-success mt-3">
         <p class="icontext">
@@ -33,10 +33,10 @@
        @error('code')
        <p class='text-danger' > {{ $message }} </p>
        @enderror
-     </div> 
+     </div>
      <div class="form-group">
       <button type="submit" class="btn btn-primary btn-block"> تفعيل  </button>
-    </div> <!-- form-group// -->    
+    </div> <!-- form-group// -->
   </form>
 </div> <!-- card-body.// -->
 </div> <!-- card .// -->

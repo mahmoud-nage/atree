@@ -46,9 +46,9 @@ if ($lang == 'ar') {
                 <form action="{{ route('login.post') }}" method="POST" class="login-form">
                   @csrf
                   <div class="form-group mb-4">
-                    <label class="label" for="name"> @lang('site.Email') </label>
-                    <input type="email" name='email' value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror " placeholder="" >
-                    @error('email')
+                    <label class="label" for="name"> @lang('site.phone') </label>
+                    <input type="text" name='phone' value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror " autocapitalize="off" placeholder="@lang('site.phone')" >
+                    @error('phone')
                     <p class='text-danger' > {{ $message }} </p>
                     @enderror
                   </div>
@@ -83,7 +83,7 @@ if ($lang == 'ar') {
       </div>
     </div>
   </div>
-</section>  
+</section>
 @include('site.layouts.footer')
 </div>
 

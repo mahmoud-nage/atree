@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     const ADMIN = 2;
     const USER = 1;
     /**
@@ -44,22 +46,22 @@ class User extends Authenticatable
 
     public function routeNotificationForSms()
     {
-        return '+2'.$this->phone;
+        return '+2' . $this->phone;
     }
-
 
 
     public function routeNotificationFor($driver, $notification = null)
     {
-        if (method_exists($this, $method = 'routeNotificationFor'.Str::studly($driver))) {
+        if (method_exists($this, $method = 'routeNotificationFor' . Str::studly($driver))) {
             return $this->{$method}($notification);
-        }    switch ($driver) {
+        }
+        switch ($driver) {
             case 'database':
-            return $this->notifications();
+                return $this->notifications();
             case 'mail':
-            return $this->email;
+                return $this->email;
             case 'nexmo':
-            return '+2'.$this->phone;
+                return '+2' . $this->phone;
         }
     }
 
@@ -78,7 +80,7 @@ class User extends Authenticatable
     {
         $this->name = $data['name'];
         $this->email = $data['email'];
-        $this->password = isset($data['password']) ? Hash::make($data['password']) : $this->password ;
+        $this->password = isset($data['password']) ? Hash::make($data['password']) : $this->password;
         return $this->save();
     }
 
@@ -90,6 +92,7 @@ class User extends Authenticatable
 
         return 'user-default.png';
     }
+
     public function getBannerAttribute($value)
     {
         if ($value)
@@ -101,7 +104,12 @@ class User extends Authenticatable
 
     public function name()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->name ?? $this->first_name . ' ' . $this->last_name;
     }
 
     public function orders()
@@ -119,13 +127,19 @@ class User extends Authenticatable
         return $this->hasMany(Follower::class, 'designer_id');
     }
 
-    public function admin()
+    public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class , 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function url()
+    public function url(): string
     {
-        return route('users.show' , $this->id );
+        return route('users.show', $this->id);
     }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(DesignImage::class);
+    }
+
 }

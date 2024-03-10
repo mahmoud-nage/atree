@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DesignController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\Payment\SurePayController;
+use App\Http\Controllers\Site\PhoneVerificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -41,11 +42,8 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']
 ], function () {
-
-
     Route::get('/Dashboard/login', [AuthController::class, 'form'])->name('dashboard.login_form');
     Route::post('/Dashboard/login', [AuthController::class, 'login'])->name('dashboard.login');
-
     Route::group(['prefix' => 'Dashboard', 'as' => 'dashboard.', 'middleware' => ['admin']], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::resource('sizes', SizeController::class);
@@ -89,12 +87,22 @@ Route::group([
     });
 
     Route::get('/', [SiteController::class, 'index'])->name('home');
-    Route::get('/login', [LoginController::class, 'form'])->name('login.form');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-    Route::get('/register', [RegisterController::class, 'form'])->name('register.form');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
-    Route::get('/verify', [VerifyEmailController::class, 'form'])->name('verify.form');
-    Route::post('/verify', [VerifyEmailController::class, 'verify'])->name('verify.post');
+    Route::group(['prefix' => 'login'], function () {
+        Route::get('/', [LoginController::class, 'form'])->name('login.form');
+        Route::post('/', [LoginController::class, 'login'])->name('login.post');
+    });
+    Route::group(['prefix' => 'register'], function () {
+        Route::get('/', [RegisterController::class, 'form'])->name('register.form');
+        Route::post('/', [RegisterController::class, 'register'])->name('register.post');
+    });
+    Route::group(['prefix' => 'verify_phone'], function () {
+        Route::get('/', [PhoneVerificationController::class, 'index'])->name('verify_phone.index');
+        Route::post('/', [PhoneVerificationController::class, 'store'])->name('verify_phone.store');
+    });
+
+//    Route::get('/verify', [VerifyEmailController::class, 'form'])->name('verify.form');
+//    Route::post('/verify', [VerifyEmailController::class, 'verify'])->name('verify.post');
+
     Route::get('pages/{page}', [SiteController::class, 'page'])->name('pages.show');
     Route::get('users/{user_id}', [SiteController::class, 'user'])->name('users.show');
     Route::get('contact', [SiteController::class, 'contact'])->name('contact');
@@ -107,7 +115,7 @@ Route::group([
     Route::get('/cart', [SiteController::class, 'cart'])->name('cart');
 
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth', 'verify_phone']], function () {
         Route::get('/profile', [UserProfileController::class, 'index'])->name('profile.index');
         Route::get('/wishlist', [UserProfileController::class, 'wishlist'])->name('wishlist');
         Route::get('/orders', [UserProfileController::class, 'orders'])->name('orders');

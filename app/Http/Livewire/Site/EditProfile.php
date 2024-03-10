@@ -50,12 +50,13 @@ class EditProfile extends Component
         $this->validate();
         $this->user->first_name = $this->first_name;
         $this->user->last_name = $this->last_name;
+        $this->user->name = $this->first_name.' '.$this->last_name;
         $this->user->phone = $this->phone;
         $this->user->email = $this->email;
         $this->user->bio = $this->bio;
         $this->user->username = trim(str_replace(' ', '', $this->username));
-        $this->user->image = $this->hasFile('image') ? basename($this->image->store('users')) : $this->user->image;
-        $this->user->banner = $this->hasFile('image') ? basename($this->banner->store('users')) : $this->user->banner;
+        $this->user->image = $this->image ? basename($this->image->store('users')) : $this->user->image;
+        $this->user->banner = $this->banner ? basename($this->banner->store('users')) : $this->user->banner;
         $this->user->save();
         $this->alert('success', trans('site.Profile updated successfully'));
     }

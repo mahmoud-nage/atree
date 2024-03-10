@@ -76,7 +76,7 @@
 <script src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery-1.1.min.js') }}"></script>
 <script src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script src="{{ asset('site_assets/'.$dir.'/js/PushMenu.js') }}"></script>
-<script src="{{ asset('fabric.min.js') }}"></script>
+{{--<script src="{{ asset('fabric.min.js') }}"></script>--}}
 
 <!-- jQuery -->
 

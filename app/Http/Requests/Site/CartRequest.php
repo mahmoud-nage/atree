@@ -26,8 +26,8 @@ class CartRequest extends FormRequest
         return [
             'product_id' => 'required|exists:products,id',
             'color_id' => 'required|exists:colors,id',
-            'size_id' => 'required|exists:sizes,id',
-            'quantity' => 'nullable|numeric'
+            'sizes.*' => 'required|exists:sizes,id',
+            'quantities.*' => 'required|numeric|min:1'
         ];
     }
 }
