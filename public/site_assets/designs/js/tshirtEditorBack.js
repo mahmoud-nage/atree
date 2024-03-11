@@ -1,17 +1,13 @@
 var canvasBack;
-var tshirts = new Array(); //prototype: [{style:'x',color:'white',front:'a',back:'b',price:{tshirt:'12.95',frontPrint:'4.99',backPrint:'4.99',total:'22.47'}}]
 var a;
 var b;
-var line1;
-var line2;
-var line3;
-var line4;
 $(document).ready(function () {
     //setup front side canvasBack
-    canvasBack = new fabric.Canvas('tcanvasBack', {
+    canvasBack = new fabric.Canvas('backCanvas', {
         hoverCursor: 'pointer',
         selection: true,
-        selectionBorderColor: 'blue'
+        selectionBorderColor: 'blue',
+        // hasBorders:true
     });
     canvasBack.on({
         'object:moving': function (e) {
@@ -53,8 +49,8 @@ $(document).ready(function () {
         //canvasBack.renderAll();
     });
 
-    document.getElementById('add-text').onclick = function () {
-        var text = $("#text-string").val();
+    document.getElementById('add-textBack').onclick = function () {
+        var text = $("#text-stringBack").val();
         var textSample = new fabric.Text(text, {
             // left: fabric.util.getRandomInt(0, 200),
             // top: fabric.util.getRandomInt(0, 400),
@@ -68,17 +64,17 @@ $(document).ready(function () {
         });
         canvasBack.centerObject(textSample).add(textSample);
         canvasBack.item(canvasBack.item.length - 1).hasRotatingPoint = true;
-        $("#texteditor").css('display', 'block');
-        $("#imageeditor").css('display', 'block');
+        $("#texteditorBack").css('display', 'block');
+        $("#imageeditorBack").css('display', 'block');
     };
-    $("#text-string").keyup(function () {
+    $("#text-stringBack").keyup(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.text = this.value;
             canvasBack.renderAll();
         }
     });
-    $(".img-polaroid").click(function (e) {
+    $(".img-polaroidBack").click(function (e) {
         var el = e.target;
         /*temp code*/
         var offset = 50;
@@ -104,7 +100,7 @@ $(document).ready(function () {
             canvasBack.centerObject(image).add(image);
         });
     });
-    $("#fileToUpload").change(function (e) {
+    $("#fileToUploadBack").change(function (e) {
         var reader = new FileReader();
         reader.onload = function (e) {
             var image = new Image();
@@ -125,19 +121,19 @@ $(document).ready(function () {
         }
         reader.readAsDataURL(e.target.files[0]);
     });
-    $("#downloadDesign").click(function (e) {
+    $("#downloadDesignBack").click(function (e) {
         this.href = canvasBack.toDataURL({
             format: 'png',
             quality: 0.8
         });
         this.download = 'design.png'
     });
-    document.getElementById('remove-selected').onclick = function () {
+    document.getElementById('remove-selectedBack').onclick = function () {
         var activeObject = canvasBack.getActiveObject(),
             activeGroup = canvasBack.getActiveGroup();
         if (activeObject) {
             canvasBack.remove(activeObject);
-            $("#text-string").val("");
+            $("#text-stringBack").val("");
         } else if (activeGroup) {
             var objectsInGroup = activeGroup.getObjects();
             canvasBack.discardActiveGroup();
@@ -146,7 +142,7 @@ $(document).ready(function () {
             });
         }
     };
-    document.getElementById('bring-to-front').onclick = function () {
+    document.getElementById('bring-to-frontBack').onclick = function () {
         var activeObject = canvasBack.getActiveObject(),
             activeGroup = canvasBack.getActiveGroup();
         if (activeObject) {
@@ -159,7 +155,7 @@ $(document).ready(function () {
             });
         }
     };
-    document.getElementById('send-to-back').onclick = function () {
+    document.getElementById('send-to-backBack').onclick = function () {
         var activeObject = canvasBack.getActiveObject(),
             activeGroup = canvasBack.getActiveGroup();
         if (activeObject) {
@@ -172,126 +168,79 @@ $(document).ready(function () {
             });
         }
     };
-    $("#text-bold").click(function () {
+    $("#text-boldBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.fontWeight = (activeObject.fontWeight == 'bold' ? '' : 'bold');
             canvasBack.renderAll();
         }
     });
-    $("#text-italic").click(function () {
+    $("#text-italicBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.fontStyle = (activeObject.fontStyle == 'italic' ? '' : 'italic');
             canvasBack.renderAll();
         }
     });
-    $("#text-strike").click(function () {
+    $("#text-strikeBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
             canvasBack.renderAll();
         }
     });
-    $("#text-underline").click(function () {
+    $("#text-underlineBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
             canvasBack.renderAll();
         }
     });
-    $("#text-left").click(function () {
+    $("#text-leftBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.textAlign = 'left';
             canvasBack.renderAll();
         }
     });
-    $("#text-center").click(function () {
+    $("#text-centerBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.textAlign = 'center';
             canvasBack.renderAll();
         }
     });
-    $("#text-right").click(function () {
+    $("#text-rightBack").click(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.textAlign = 'right';
             canvasBack.renderAll();
         }
     });
-    $("#font-family").change(function () {
+    $("#font-familyBack").change(function () {
         var activeObject = canvasBack.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
             activeObject.fontFamily = this.value;
             canvasBack.renderAll();
         }
     });
-    $('#text-bgcolor').miniColors({
-        change: function (hex, rgb) {
-            var activeObject = canvasBack.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.backgroundColor = this.value;
-                canvasBack.renderAll();
-            }
-        },
-        open: function (hex, rgb) {
-            //
-        },
-        close: function (hex, rgb) {
-            //
+    $('#text-strokecolorBack').on('change',function (e) {
+        var activeObject = canvasBack.getActiveObject();
+        if (activeObject && activeObject.type === 'text') {
+            activeObject.strokeStyle = this.value;
+            canvasBack.renderAll();
         }
     });
-    $('#text-fontcolor').miniColors({
-        change: function (hex, rgb) {
-            var activeObject = canvasBack.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.fill = this.value;
-                canvasBack.renderAll();
-            }
-        },
-        open: function (hex, rgb) {
-            //
-        },
-        close: function (hex, rgb) {
-            //
+    $('#text-fontcolorBack').on('change', function (e) {
+        var activeObject = canvasBack.getActiveObject();
+        if (activeObject && activeObject.type === 'text') {
+            activeObject.fill = this.value;
+            canvasBack.renderAll();
         }
     });
 
-    $('#text-strokecolor').miniColors({
-        change: function (hex, rgb) {
-            var activeObject = canvasBack.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.strokeStyle = this.value;
-                canvasBack.renderAll();
-            }
-        },
-        open: function (hex, rgb) {
-            //
-        },
-        close: function (hex, rgb) {
-            //
-        }
-    });
+    // canvasBack.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:true,selectable:true,type:'rect'}));
 
-    //canvasBack.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:false,selectable:false,type:'rect'}));
-    $("#drawingArea").hover(
-        function () {
-            canvasBack.add(line1);
-            canvasBack.add(line2);
-            canvasBack.add(line3);
-            canvasBack.add(line4);
-            canvasBack.renderAll();
-        },
-        function () {
-            canvasBack.remove(line1);
-            canvasBack.remove(line2);
-            canvasBack.remove(line3);
-            canvasBack.remove(line4);
-            canvasBack.renderAll();
-        }
-    );
 
     $('.color-preview').click(function () {
         var color = $(this).css("background-color");
@@ -302,7 +251,7 @@ $(document).ready(function () {
         function () {
             if ($(this).attr("data-original-title") == "Show Back View") {
                 $(this).attr('data-original-title', 'Show Front View');
-                $("#shirtBack").attr("src", "img/crew_back.png");
+                $("#tshirtFacingBack").attr("src", "img/crew_back.png");
                 a = JSON.stringify(canvasBack);
                 canvasBack.clear();
                 try {
@@ -313,7 +262,7 @@ $(document).ready(function () {
 
             } else {
                 $(this).attr('data-original-title', 'Show Back View');
-                $("#shirtBack").attr("src", "img/crew_front.png");
+                $("#tshirtFacingBack").attr("src", "img/crew_front.png");
                 b = JSON.stringify(canvasBack);
                 canvasBack.clear();
                 try {
@@ -328,39 +277,6 @@ $(document).ready(function () {
             }, 200);
         });
     $(".clearfix button,a").tooltip();
-    // line1 = new fabric.Line([0, 0, 200, 0], {
-    //     "stroke": "#000000",
-    //     "strokeWidth": 1,
-    //     hasBorders: false,
-    //     hasControls: false,
-    //     hasRotatingPoint: false,
-    //     selectable: false
-    // });
-    // line2 = new fabric.Line([199, 0, 200, 399], {
-    //     "stroke": "#000000",
-    //     "strokeWidth": 1,
-    //     hasBorders: false,
-    //     hasControls: false,
-    //     hasRotatingPoint: false,
-    //     selectable: false
-    // });
-    // line3 = new fabric.Line([0, 0, 0, 400], {
-    //     "stroke": "#000000",
-    //     "strokeWidth": 1,
-    //     hasBorders: false,
-    //     hasControls: false,
-    //     hasRotatingPoint: false,
-    //     selectable: false
-    // });
-    // line4 = new fabric.Line([0, 400, 200, 399], {
-    //     "stroke": "#000000",
-    //     "strokeWidth": 1,
-    //     hasBorders: false,
-    //     hasControls: false,
-    //     hasRotatingPoint: false,
-    //     selectable: false
-    // });
-
     // Handle download button click
     document.getElementById("save").onclick = function () {
         var pngFrontURL = canvasBack.toDataURL({
@@ -368,8 +284,8 @@ $(document).ready(function () {
         });
         console.log(pngFrontURL);
         $('#design_front_photo').val(pngFrontURL);
-        $('main_image_width').val($('#shirtBack').outerWidth());
-        $('main_image_height').val($('#shirtBack').outerHeight());
+        $('main_image_width').val($('#tshirtFacingBack').outerWidth());
+        $('main_image_height').val($('#tshirtFacingBack').outerHeight());
         // $('#myForm').submit();
     };
 
@@ -383,26 +299,26 @@ function getRandomNum(min, max) {
 
 function onObjectSelected(e) {
     var selectedObject = e.target;
-    $("#text-string").val("");
+    $("#text-stringBack").val("");
     selectedObject.hasRotatingPoint = true
     if (selectedObject && selectedObject.type === 'text') {
         //display text editor
-        $("#texteditor").css('display', 'block');
-        $("#text-string").val(selectedObject.getText());
-        $('#text-fontcolor').miniColors('value', selectedObject.fill);
-        $('#text-strokecolor').miniColors('value', selectedObject.strokeStyle);
-        $("#imageeditor").css('display', 'block');
+        $("#texteditorBack").css('display', 'block');
+        $("#text-stringBack").val(selectedObject.getText());
+        $('#text-fontcolorBack').miniColors('value', selectedObject.fill);
+        $('#text-strokecolorBack').miniColors('value', selectedObject.strokeStyle);
+        $("#imageeditorBack").css('display', 'block');
     } else if (selectedObject && selectedObject.type === 'image') {
         //display image editor
-        $("#texteditor").css('display', 'none');
-        $("#imageeditor").css('display', 'block');
+        $("#texteditorBack").css('display', 'none');
+        $("#imageeditorBack").css('display', 'block');
     }
 }
 
 function onSelectedCleared(e) {
-    $("#texteditor").css('display', 'none');
-    $("#text-string").val("");
-    $("#imageeditor").css('display', 'none');
+    $("#texteditorBack").css('display', 'none');
+    $("#text-stringBack").val("");
+    $("#imageeditorBack").css('display', 'none');
 }
 
 function setFont(font) {

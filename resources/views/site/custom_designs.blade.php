@@ -168,6 +168,12 @@
             padding-top: 15%;
         }
 
+        .color-picker {
+            width: 1rem;
+            height: 2rem !important;
+            margin-top: 0.6rem;
+        }
+
     </style>
 @endsection
 @section('page_content')
@@ -322,19 +328,14 @@
                                                             title="Underline" style=""><img
                                                             src="{{ asset('site_assets/designs/img/font_underline.png') }}">
                                                     </button>
-                                                    <a class="btn" href="#" rel="tooltip" data-placement="top"
-                                                       data-original-title="Font Color"><input type="hidden"
-                                                                                               id="text-fontcolor"
-                                                                                               class="color-picker"
-                                                                                               size="7" value="#000000"></a>
-                                                    <a class="btn" href="#" rel="tooltip" data-placement="top"
-                                                       data-original-title="Font Border Color"><input type="hidden"
-                                                                                                      id="text-strokecolor"
-                                                                                                      class="color-picker"
-                                                                                                      size="7"
-                                                                                                      value="#000000"></a>
-                                                    <input type="hidden" id="text-bgcolor" class="color-picker" size="7"
-                                                           value="#ffffff">
+                                                    <input type="color"
+                                                           id="text-fontcolor"
+                                                           class="color-picker btn" title="Text Color"
+                                                           size="7" value="#000000">
+                                                    <input type="color" id="text-strokecolor"
+                                                           class="color-picker btn" title="Border Color"
+                                                           size="7"
+                                                           value="#000000">
                                                 </div>
                                                 <div class="pull-right" align="" id="imageeditor" style="display:none">
                                                     <div class="btn-group">
@@ -383,7 +384,6 @@
                                                         style="-webkit-user-select: none;"></canvas>
                                             </div>
                                         </div>
-
                                         <!--	/EDITOR		-->
                                     </div>
                                 </div>
@@ -519,7 +519,7 @@
                     canvas.add(line3);
                     canvas.add(line4);
                     canvas.renderAll();
-                },function () {
+                }, function () {
                     canvas.remove(line1);
                     canvas.remove(line2);
                     canvas.remove(line3);

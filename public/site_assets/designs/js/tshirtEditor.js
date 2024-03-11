@@ -244,35 +244,50 @@ $(document).ready(function () {
             //
         }
     });
-    $('#text-fontcolor').miniColors({
-        change: function (hex, rgb) {
-            var activeObject = canvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.fill = this.value;
-                canvas.renderAll();
-            }
-        },
-        open: function (hex, rgb) {
-            //
-        },
-        close: function (hex, rgb) {
-            //
+    // $('#text-fontcolor').miniColors({
+    //     change: function (hex, rgb) {
+    //         var activeObject = canvas.getActiveObject();
+    //         if (activeObject && activeObject.type === 'text') {
+    //             activeObject.fill = this.value;
+    //             canvas.renderAll();
+    //         }
+    //     },
+    //     open: function (hex, rgb) {
+    //         //
+    //     },
+    //     close: function (hex, rgb) {
+    //         //
+    //     }
+    // });
+    //
+    // $('#text-strokecolor').miniColors({
+    //     change: function (hex, rgb) {
+    //         var activeObject = canvas.getActiveObject();
+    //         if (activeObject && activeObject.type === 'text') {
+    //             activeObject.strokeStyle = this.value;
+    //             canvas.renderAll();
+    //         }
+    //     },
+    //     open: function (hex, rgb) {
+    //         //
+    //     },
+    //     close: function (hex, rgb) {
+    //         //
+    //     }
+    // });
+
+    $('#text-strokecolor').on('change',function (e) {
+        var activeObject = canvas.getActiveObject();
+        if (activeObject && activeObject.type === 'text') {
+            activeObject.strokeStyle = this.value;
+            canvas.renderAll();
         }
     });
-
-    $('#text-strokecolor').miniColors({
-        change: function (hex, rgb) {
-            var activeObject = canvas.getActiveObject();
-            if (activeObject && activeObject.type === 'text') {
-                activeObject.strokeStyle = this.value;
-                canvas.renderAll();
-            }
-        },
-        open: function (hex, rgb) {
-            //
-        },
-        close: function (hex, rgb) {
-            //
+    $('#text-fontcolor').on('change', function (e) {
+        var activeObject = canvas.getActiveObject();
+        if (activeObject && activeObject.type === 'text') {
+            activeObject.fill = this.value;
+            canvas.renderAll();
         }
     });
 
