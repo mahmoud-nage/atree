@@ -378,16 +378,19 @@
                                                 <div class="pull-right" align="" id="imageeditor"
                                                      style="display:none">
                                                     <div class="btn-group">
-                                                        {{--                                                        <button class="btn" type="button" id="bring-to-front"--}}
-                                                        {{--                                                                title="Bring to Front"><i--}}
-                                                        {{--                                                                class="fa fa-fast-backward rotate"--}}
-                                                        {{--                                                                style="height:19px;"></i></button>--}}
-                                                        {{--                                                        <button class="btn" type="button" id="send-to-back"--}}
-                                                        {{--                                                                title="Send to Back"><i--}}
-                                                        {{--                                                                class="fa fa-fast-forward rotate"--}}
-                                                        {{--                                                                style="height:19px;"></i>--}}
-                                                        {{--                                                        </button>--}}
-                                                        {{--                                                        <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>--}}
+                                                        <button class="btn" type="button" id="bring-to-front"
+                                                                title="Bring to Front"><i
+                                                                class="fa fa-fast-backward rotate d-none"
+                                                                style="height:19px;"></i></button>
+                                                        <button class="btn" type="button" id="send-to-back"
+                                                                title="Send to Back"><i
+                                                                class="fa fa-fast-forward rotate d-none"
+                                                                style="height:19px;"></i>
+                                                        </button>
+                                                        <button id="flip" type="button" class="btn"
+                                                                title="Show Back View"><i class="icon-retweet"
+                                                                                          style="height:19px;"></i>
+                                                        </button>
                                                         <button id="remove-selected" type="button" class="btn"
                                                                 title="Delete selected item"><i
                                                                 class="fa fa-trash text-danger"
