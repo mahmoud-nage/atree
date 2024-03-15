@@ -14,9 +14,9 @@
     <script type="text/javascript" src="{{ asset('site_assets/designs/js/fabric.js') }}"></script>
     <script type="text/javascript"></script>
     <!-- Le styles -->
-    <link type="text/css" rel="stylesheet" href="{{ asset('site_assets/designs/css/jquery.miniColors.css') }}"/>
-    <link href="{{ asset('site_assets/designs/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('site_assets/designs/css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    {{--    <link type="text/css" rel="stylesheet" href="{{ asset('site_assets/designs/css/jquery.miniColors.css') }}"/>--}}
+    {{--    <link href="{{ asset('site_assets/designs/css/bootstrap.min.css') }}" rel="stylesheet">--}}
+    {{--    <link href="{{ asset('site_assets/designs/css/bootstrap-responsive.min.css') }}" rel="stylesheet">--}}
     <script type="text/javascript"></script>
     <style type="text/css">
         .color-preview {
@@ -27,8 +27,8 @@
             display: inline-block;
             cursor: pointer;
             overflow: hidden;
-            width: 20px;
-            height: 20px;
+            width: 3rem;
+            height: 3rem;
         }
 
         .rotate {
@@ -107,10 +107,11 @@
         }
 
         .nav-tabs {
+            padding: 1rem;
             font-size: 18px;
             background: #552e90;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
         }
 
         .nav-tabs li a:hover {
@@ -124,7 +125,15 @@
         .span3 {
             position: absolute;
             z-index: 9;
-            top: 0;
+            top: -1rem;
+        }
+
+        .span6 {
+            width: 100% !important;
+        }
+
+        .span3 {
+            width: 98% !important;
         }
 
         .tab-pane {
@@ -145,9 +154,11 @@
 
         .flip-shirt {
             position: absolute;
-            left: 19%;
-            top: 6%;
+            right: 5%;
+            top: 10%;
             z-index: 99;
+            width: 3rem;
+            height: 3rem;
         }
 
         .span6 .clearfix {
@@ -174,43 +185,61 @@
             margin-top: 0.6rem;
         }
 
+        #tshirtFacing, #tshirtFacingBack {
+            margin: auto;
+            display: block;
+        }
+
     </style>
 @endsection
 @section('page_content')
-    <div class="content-wrapper">
+    <div class="container">
+        {{--                <div class="content-wrapper">--}}
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
             <div class="card-solid">
+                <div class="card-header">
+                    @if(count($errors))
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                {{$error}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
                 <div class="card-body">
                     <form method="post" action="{{route('cart.store')}}" enctype="multipart/form-data" id="myForm">
                         @csrf
                         <input type="hidden" name="product_id" id="product_id" value="{{$record->id}}"/>
                         <input type="hidden" id="design_front_photo" name="design_front_photo"/>
-                        <input type="hidden" id="color_id" name="color_id"/>
+                        <input type="hidden" id="design_color_id" name="design_color_id"/>
                         <input type="hidden" id="main_image_width" name="main_image_width" value="530"/>
                         <input type="hidden" id="main_image_height" name="main_image_height" value="630"/>
                         <div class="row">
-                            <div class="col-12 col-sm-6">
+                            <div class="col-7" style="box-shadow: 0 0 10px 10px #00000012;">
                                 <div class="row">
                                     <div class="span3">
                                         <div class="tabbable"> <!-- Only required for left/right tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class=""><a href="#tab1"
-                                                                data-toggle="tab">{{__('site.colors')}} <i
-                                                            class="fa fa-palette"></i></a></li>
+                                                {{--                                                    <li class=""><a href="#tab1"--}}
+                                                {{--                                                                    data-toggle="tab">{{__('site.colors')}} <i--}}
+                                                {{--                                                                class="fa fa-palette"></i></a></li>--}}
                                                 <li><a href="#tab2" data-toggle="tab">{{__('site.text')}} <i
                                                             class="fa fa-pen"></i></a></li>
                                                 <li><a href="#tab3" data-toggle="tab">{{__('site.image')}} <i
                                                             class="fa fa-image"></i></a></li>
                                             </ul>
                                             <div class="tab-content">
-                                                <button type="button" class="close remove-btn text-danger"
-                                                        aria-label="Close"
-                                                        onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
                                                 <div class="tab-pane" id="tab1">
+                                                    <button type="button" class="close remove-btn text-danger"
+                                                            aria-label="Close"
+                                                            onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                     <div class="well d-none">
                                                         <!--					      	<h3>Tee Styles</h3>-->
                                                         <!--						      <p>-->
@@ -222,48 +251,49 @@
                                                         </select>
                                                         <!--						      </p>-->
                                                     </div>
-                                                    <div class="well">
-                                                        <ul class="nav">
-                                                            <li class="color-preview" id="removeColorBtn"
-                                                                data-color-id=""
-                                                                title="white"
-                                                                style="background-color:#ffffff"></li>
-                                                            @foreach ($record->variations->unique('color_id') as $record_color_variation)
-                                                                <li class="color-preview" id="changeColorBtn"
-                                                                    data-color-id="{{$record_color_variation->color->id}}"
-                                                                    title="{{$record_color_variation->color->name}}"
-                                                                    style="background-color:{{$record_color_variation->color->code}};">
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
+                                                    {{--                                                    <div class="well">--}}
+                                                    {{--                                                        <ul class="nav">--}}
+                                                    {{--                                                            <li class="color-preview" id="removeColorBtn"--}}
+                                                    {{--                                                                data-color-id="#ffffff"--}}
+                                                    {{--                                                                title="white"--}}
+                                                    {{--                                                                style="background-color:#ffffff"></li>--}}
+                                                    {{--                                                            @foreach ($record->variations->unique('color_id') as $record_color_variation)--}}
+                                                    {{--                                                                <li class="color-preview" id="changeColorBtn"--}}
+                                                    {{--                                                                    data-color-id="{{$record_color_variation->color->code}}"--}}
+                                                    {{--                                                                    title="{{$record_color_variation->color->name}}"--}}
+                                                    {{--                                                                    style="background-color:{{$record_color_variation->color->code}};">--}}
+                                                    {{--                                                                </li>--}}
+                                                    {{--                                                            @endforeach--}}
+                                                    {{--                                                        </ul>--}}
+                                                    {{--                                                    </div>--}}
                                                 </div>
                                                 <div class="tab-pane" id="tab2">
+                                                    <button type="button" class="close remove-btn text-danger"
+                                                            aria-label="Close"
+                                                            onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                     <div class="well">
                                                         <div class="input-append">
                                                             <input class="span2" id="text-string" type="text"
                                                                    placeholder="{{__('site.add text here...')}}">
-                                                            <button id="add-text" class="btn btn-sm" title="Add text"
-                                                                    type="button"><i class="icon-share-alt"></i>
+                                                            <button id="add-text" class="btn btn-sm"
+                                                                    title="Add text"
+                                                                    type="button"><i class="fa fa-share"></i>
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane" id="tab3">
+                                                    <button type="button" class="close remove-btn text-danger"
+                                                            aria-label="Close"
+                                                            onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                     <div class="well">
-                                                        {{--                                                        <div id="avatarlist">--}}
-                                                        {{--                                                            @foreach($images as $image)--}}
-                                                        {{--                                                                <img style="cursor:pointer;" class="img-polaroid"--}}
-                                                        {{--                                                                     src="{{ asset($image->image) }}">--}}
-                                                        {{--                                                            @endforeach--}}
-                                                        {{--                                                        </div>--}}
                                                         <div>
-                                                            {{--                                                            <form action="" method="post" enctype="multipart/form-data">--}}
                                                             <input type="file" name="fileToUpload"
                                                                    id="fileToUpload">
-                                                            {{--                                                                <input class="btn btn-primary" type="button"--}}
-                                                            {{--                                                                       value="Upload Custom Image" name="submit">--}}
-                                                            {{--                                                            </form>--}}
                                                         </div>
 
                                                     </div>
@@ -276,41 +306,48 @@
                                             <div class="clearfix">
                                                 <div class="btn-group inline pull-right" id="texteditor"
                                                      style="display:none">
-                                                    <button id="font-family" class="btn dropdown-toggle" type="button"
+                                                    <button id="font-family" class="btn dropdown-toggle"
+                                                            type="button"
                                                             data-toggle="dropdown" title="Font Style"><i
                                                             class="icon-font" style="width:19px;height:19px;"></i>
                                                     </button>
                                                     <ul class="dropdown-menu" role="menu"
-                                                        aria-labelledby="font-family-X">
+                                                        aria-labelledby="font-family">
                                                         <li><a tabindex="-1" href="#" onclick="setFont('Arial');"
-                                                               class="Arial">Arial</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Helvetica');"
-                                                               class="Helvetica">Helvetica</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Myriad Pro');"
-                                                               class="MyriadPro">Myriad Pro</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Delicious');"
-                                                               class="Delicious">Delicious</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Verdana');"
-                                                               class="Verdana">Verdana</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Georgia');"
-                                                               class="Georgia">Georgia</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Courier');"
-                                                               class="Courier">Courier</a></li>
+                                                               class="Arial dropdown-item">Arial</a></li>
                                                         <li><a tabindex="-1" href="#"
-                                                               onclick="setFont('Comic Sans MS');" class="ComicSansMS">Comic
+                                                               onclick="setFont('Helvetica');"
+                                                               class="Helvetica dropdown-item">Helvetica</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Myriad Pro');"
+                                                               class="MyriadPro dropdown-item">Myriad Pro</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Delicious');"
+                                                               class="Delicious dropdown-item">Delicious</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Verdana');"
+                                                               class="Verdana dropdown-item">Verdana</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Georgia');"
+                                                               class="Georgia dropdown-item">Georgia</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Courier');"
+                                                               class="Courier dropdown-item">Courier</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Comic Sans MS');"
+                                                               class="ComicSansMS dropdown-item">Comic
                                                                 Sans MS</a></li>
                                                         <li><a tabindex="-1" href="#" onclick="setFont('Impact');"
-                                                               class="Impact">Impact</a></li>
+                                                               class="Impact dropdown-item">Impact</a></li>
                                                         <li><a tabindex="-1" href="#" onclick="setFont('Monaco');"
-                                                               class="Monaco">Monaco</a></li>
+                                                               class="Monaco dropdown-item">Monaco</a></li>
                                                         <li><a tabindex="-1" href="#" onclick="setFont('Optima');"
-                                                               class="Optima">Optima</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Hoefler Text');"
-                                                               class="Hoefler Text">Hoefler Text</a></li>
+                                                               class="Optima dropdown-item">Optima</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Hoefler Text');"
+                                                               class="Hoefler Text dropdown-item">Hoefler Text</a></li>
                                                         <li><a tabindex="-1" href="#" onclick="setFont('Plaster');"
-                                                               class="Plaster">Plaster</a></li>
-                                                        <li><a tabindex="-1" href="#" onclick="setFont('Engagement');"
-                                                               class="Engagement">Engagement</a></li>
+                                                               class="Plaster dropdown-item">Plaster</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Engagement');"
+                                                               class="Engagement dropdown-item">Engagement</a></li>
                                                     </ul>
                                                     <button id="text-bold" type="button" class="btn"
                                                             data-original-title="Bold"><img
@@ -320,7 +357,8 @@
                                                             data-original-title="Italic"><img
                                                             src="{{ asset('site_assets/designs/img/font_italic.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-strike" type="button" class="btn" title="Strike"
+                                                    <button id="text-strike" type="button" class="btn"
+                                                            title="Strike"
                                                             style=""><img
                                                             src="{{ asset('site_assets/designs/img/font_strikethrough.png') }}"
                                                             height="" width=""></button>
@@ -337,35 +375,39 @@
                                                            size="7"
                                                            value="#000000">
                                                 </div>
-                                                <div class="pull-right" align="" id="imageeditor" style="display:none">
+                                                <div class="pull-right" align="" id="imageeditor"
+                                                     style="display:none">
                                                     <div class="btn-group">
-                                                        <button class="btn" type="button" id="bring-to-front"
-                                                                title="Bring to Front"><i
-                                                                class="icon-fast-backward rotate"
-                                                                style="height:19px;"></i></button>
-                                                        <button class="btn" type="button" id="send-to-back"
-                                                                title="Send to Back"><i class="icon-fast-forward rotate"
-                                                                                        style="height:19px;"></i>
-                                                        </button>
+                                                        {{--                                                        <button class="btn" type="button" id="bring-to-front"--}}
+                                                        {{--                                                                title="Bring to Front"><i--}}
+                                                        {{--                                                                class="fa fa-fast-backward rotate"--}}
+                                                        {{--                                                                style="height:19px;"></i></button>--}}
+                                                        {{--                                                        <button class="btn" type="button" id="send-to-back"--}}
+                                                        {{--                                                                title="Send to Back"><i--}}
+                                                        {{--                                                                class="fa fa-fast-forward rotate"--}}
+                                                        {{--                                                                style="height:19px;"></i>--}}
+                                                        {{--                                                        </button>--}}
                                                         {{--                                                        <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>--}}
                                                         <button id="remove-selected" type="button" class="btn"
-                                                                title="Delete selected item"><i class="icon-trash"
-                                                                                                style="height:19px;"></i>
+                                                                title="Delete selected item"><i
+                                                                class="fa fa-trash text-danger"
+                                                                style="height:19px;"></i>
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!--	EDITOR      -->
-                                        <a href="#" id="downloadDesign" type="button" class="flip-shirt"
-                                           style="top: 6%;right: 8%;" title="save View"><i
-                                                class="icon-download-alt" style="height:19px;"></i></a>
+                                        {{--                                            <a href="#" id="downloadDesign" type="button" class="flip-shirt"--}}
+                                        {{--                                               style="top: 9%;right: 5%;" title="save View"><i--}}
+                                        {{--                                                    class="fa fa-download"></i></a>--}}
                                         <!--	EDITOR      -->
-                                        <button id="flipback" type="button" class="flip-shirt" title="Rotate View"><i
-                                                class="icon-retweet" style="height:19px;"></i></button>
+                                        <button id="flipback" type="button" class="flip-shirt" title="Rotate View">
+                                            <i class="fa fa-rotate-right fa-lg"></i></button>
                                         <div id="shirtDiv" class="page"
-                                             style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255);">
-                                            <img name="tshirtview" id="tshirtFacing"
+                                             style="position: relative; background-color: rgb(255, 255, 255);">
+                                            {{--                                            width: 530px; height: 630px;--}}
+                                            <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
                                                  src="{{ Storage::url('products/'.$record->front_image) }}">
                                             <div id="drawingArea"
                                                  style="position: absolute;top: {{$record->site_front_top}}px;left: {{$record->site_front_left}}px;z-index: 1;width: {{$record->site_front_width}}px;height: {{$record->site_front_height}}px;">
@@ -375,8 +417,10 @@
                                             </div>
                                         </div>
                                         <div id="shirtBack" class="page"
-                                             style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255); display:none;">
-                                            <img src="{{ Storage::url('products/'.$record->back_image) }}">
+                                             style="position: relative; background-color: rgb(255, 255, 255); display:none;">
+                                            {{--                                            width: 530px; height: 630px;--}}
+                                            <img name="tshirtviewBack" id="tshirtFacingBack"
+                                                 src="{{ Storage::url('products/'.$record->back_image) }}">
                                             <div id="drawingArea"
                                                  style="position: absolute;top: {{$record->site_back_top}}px;left: {{$record->site_back_left}}px;z-index: 1;width: {{$record->site_back_width}}px;height: {{$record->site_back_height}}px;">
                                                 <canvas id="backCanvas" width="{{$record->site_back_width}}"
@@ -388,85 +432,94 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6  pl-3">
-                                @livewire('site.add-product-to-wishlist' , ['product' => $record ] )
-                                <h3 class="mb-3"> {{ $record->name }} </h3>
-                                <div class="starrating risingstar d-inline-flex flex-row-reverse">
-                                    <input type="radio" id="star5" name="rating" value="5"/><label
-                                        class="fa fa-star"
-                                        for="star5"
-                                        title="5 star"></label>
-                                    <input type="radio" id="star4" name="rating" value="4"/><label
-                                        class="fa fa-star"
-                                        for="star4"
-                                        title="4 star"></label>
-                                    <input type="radio" id="star3" name="rating" value="3"/><label
-                                        class="fa fa-star"
-                                        for="star3"
-                                        title="3 star"></label>
-                                    <input type="radio" id="star2" name="rating" value="2"/><label
-                                        class="fa fa-star"
-                                        for="star2"
-                                        title="2 star"></label>
-                                    <input type="radio" id="star1" name="rating" value="1"/><label
-                                        class="fa fa-star"
-                                        for="star1"
-                                        title="1 star"></label>
-                                </div>
-                                <span class="px-2">(0 @lang('site.Review') )</span>
-
-                                <p class="product-page-info">
-                                    {!! $record->description !!}
-                                </p>
-
+                            <div class="col-5">
                                 <div class="ProductPrice mb-3">
                                     <span class="price mr-3"> {{$record->price}} @lang('site.SAR') </span>
-                                    <div class="diamondPriceContainer bg-primary-gridant d-inline-block"
-                                         style="cursor:default">
-                                        <i class="far fa-gem mr-1"></i>
-                                        {{$record->diamonds}} {{__('site.Diamond')}}
-                                    </div>
                                 </div>
-                                <!-- <hr> -->
-                                {{--                                <div class="select">--}}
-                                {{--                                    <select name="size_id" required>--}}
-                                {{--                                        <option> @lang('site.Select Size') </option>--}}
-                                {{--                                        @foreach ($record->variations->unique('size_id') as $record_color_variation)--}}
-                                {{--                                            <option--}}
-                                {{--                                                value="{{$record_color_variation->size->id}}">{{$record_color_variation->size->name}}</option>--}}
-                                {{--                                        @endforeach--}}
-                                {{--                                    </select>--}}
-                                {{--                                </div>--}}
+                                <div class="alert alert-warning" role="alert"
+                                     style="background-color: #fff3cd;border-color: #fff3cd">
+                                    @lang('site.alert_quantity')
+                                </div>
+                                <div class="span6" style="width: 90%;margin-top: 1rem;">
+                                    <div class="well" style="border: 1px solid #ccc3c3;padding: 15px;">
+                                        <h6 class="d-inline">@lang('site.order_quantity')</h6>
+                                        <a href="#" type="button" class="btn btn-success float-left"
+                                           id="add_sizes">@lang('site.add')</a>
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="row" id="size_form">
+                                                <div class="form-group col-4">
+                                                    <select name="color_id[]" required class="form-control @error('color_id') is-invalid @enderror">
+                                                        <option> @lang('site.Select Color') </option>
+                                                        @foreach ($record->variations->unique('color_id') as $record_color_variation)
+                                                            <option
+                                                                value="{{$record_color_variation->color->id}}">{{$record_color_variation->color->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('color_id')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-4">
+                                                    <select name="size_id[]" required class="form-control @error('size_id') is-invalid @enderror">
+                                                        <option> @lang('site.Select Size') </option>
+                                                        @foreach ($record->variations->unique('size_id') as $record_color_variation)
+                                                            <option
+                                                                value="{{$record_color_variation->size->id}}">{{$record_color_variation->size->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('size_id')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-3">
+                                                    <input name="quantities[]" min="0" value="1" type="number"
+                                                           class="form-control @error('quantities') is-invalid @enderror"
+                                                           required>
+                                                    @error('quantities')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-1">
+                                                    <a href="#" class="text-danger float-left"
+                                                       id="remove_sizes"><i class="fa fa-times"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                {{--                                <input type="number" value="1" step="1" min="1" name="quantity" required>--}}
-                                <div class="span7">
-                                    <div class="well p-0 mt-1 mb-1">
-                                        <h3>@lang('site.Select Size')</h3>
-                                        <table class="table">
-                                            @foreach ($record->variations->unique('size_id') as $record_color_variation)
-                                                <tr>
-                                                    <td><input name="sizes[]" type="checkbox" required
-                                                               value="{{$record_color_variation->size->id}}">&emsp;{{$record_color_variation->size->name}}
-                                                    </td>
-                                                    <td><input name="quantities[]" min="0" value="1" type="number"
-                                                               required></td>
-                                                </tr>
+                                    <div class="well">
+                                        <h6>@lang('site.product_preview_color')</h6>
+                                        <hr>
+                                        <ul class="nav">
+                                            <li class="color-preview" id="removeColorBtn"
+                                                data-color-id="#ffffff"
+                                                title="white"
+                                                style="background-color:#ffffff"></li>
+                                            @foreach ($record->variations->unique('color_id') as $record_color_variation)
+                                                <li class="color-preview"
+                                                    id="changeColorBtn{{$record_color_variation->color->id}}"
+                                                    onclick="changeColor({{$record_color_variation->color->id}})"
+                                                    data-color-id="{{$record_color_variation->color->code}}"
+                                                    title="{{$record_color_variation->color->name}}"
+                                                    style="background-color:{{$record_color_variation->color->code}};">
+                                                </li>
                                             @endforeach
-                                        </table>
+                                        </ul>
                                     </div>
                                 </div>
                                 <button type="submit"
-                                        class="btn btn-large btn-block btn-primary bg-primary-gridant span7"
-                                        style="margin-top: 1rem;"
+                                        class="btn btn-large btn-block btn-primary bg-primary-gridant span6"
+                                        style="margin-top: 1rem;width: 90%"
                                         id="save">@lang('site.add-to-cart')
                                     <i class="fas fa-cart-plus fa-lg mr-2"></i>
                                 </button>
-                                {{--                                <button type="submit" class="btn btn-primary p-3 ml-3 bg-primary-gridant" id="save">--}}
-                                {{--                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>--}}
-                                {{--                                    @lang('site.add-to-cart')--}}
-                                {{--                                </button>--}}
-
-
                             </div>
                         </div>
                     </form>
@@ -503,6 +556,7 @@
         </section>
         <!-- /.content -->
     </div>
+    {{--    </div>--}}
 @endsection
 
 @section('scripts')
@@ -511,7 +565,20 @@
 
     <!-- Footer ================================================== -->
     <script>
+        $(function () {
+            $("#add_sizes").on('click', function () {
+                console.log('test')
+                var ele = $('#size_form').clone(true);
+                $('#size_form').closest('#size_form').before(ele);
+            });
+            $("#remove_sizes").on('click', function () {
+                console.log('test remove')
+                $(this).closest('#size_form').remove();
+            });
+        })
         $(document).ready(function () {
+
+
             $("#drawingArea").hover(
                 function () {
                     canvas.add(line1);
@@ -605,15 +672,14 @@
                 }, 200);
             });
 
-        $('#changeColorBtn').click(
-            function () {
-                $('#color_id').val($(this).data('color-id'));
-            });
-
         $('#removeColorBtn').click(
             function () {
-                $('#color_id').val('');
+                $('#design_color_id').val('#ffffff');
             });
+
+        function changeColor(id) {
+            $('#design_color_id').val($('#changeColorBtn' + id).data('color-id'));
+        }
     </script>
     <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('site_assets/designs/js/tshirtEditor.js') }}"></script>

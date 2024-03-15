@@ -907,7 +907,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 	color: #7f53a4;
   }
   .product-page-info {
-	height: 220px;
+      height: 15rem;
 	overflow: auto;
 }
 .design-page-info {

@@ -37,19 +37,19 @@
 								<div class="form-group row">
 
 
-									<div class="col-md-3">
-										<div  class='mb-2' >
-											<label class="col-form-label"> الدوله </label>
-											<select class='form-control' name="country_id" id="">
-												@foreach ($countries as $country)
-												<option value="{{ $country->id }}"> {{ $country->name }} </option>
-												@endforeach
-											</select>
-											@error('image')
-											<p  class='text-danger' >  {{ $message }} </p>
-											@enderror
-										</div>
-									</div>
+{{--									<div class="col-md-3">--}}
+{{--										<div  class='mb-2' >--}}
+{{--											<label class="col-form-label"> الدوله </label>--}}
+{{--											<select class='form-control' name="country_id" id="">--}}
+{{--												@foreach ($countries as $country)--}}
+{{--												<option value="{{ $country->id }}"> {{ $country->name }} </option>--}}
+{{--												@endforeach--}}
+{{--											</select>--}}
+{{--											@error('image')--}}
+{{--											<p  class='text-danger' >  {{ $message }} </p>--}}
+{{--											@enderror--}}
+{{--										</div>--}}
+{{--									</div>--}}
 
 
 

@@ -25,17 +25,17 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-sm-6  pl-3">
+        <div class="col-12 col-sm-6  p-3">
           @livewire('site.add-product-to-wishlist' , ['product' => $product ] )
           <h3 class="mb-3"> {{ $product->name }} </h3>
-          <div class="starrating risingstar d-inline-flex flex-row-reverse">
-            <input type="radio" id="star5" name="rating" value="5" /><label class="fa fa-star" for="star5" title="5 star"></label>
-            <input type="radio" id="star4" name="rating" value="4" /><label class="fa fa-star" for="star4" title="4 star"></label>
-            <input type="radio" id="star3" name="rating" value="3" /><label class="fa fa-star" for="star3" title="3 star"></label>
-            <input type="radio" id="star2" name="rating" value="2" /><label class="fa fa-star" for="star2" title="2 star"></label>
-            <input type="radio" id="star1" name="rating" value="1" /><label class="fa fa-star" for="star1" title="1 star"></label>
-          </div>
-          <span class="px-2">(2 @lang('site.Review') )</span>
+{{--          <div class="starrating risingstar d-inline-flex flex-row-reverse">--}}
+{{--            <input type="radio" id="star5" name="rating" value="5" /><label class="fa fa-star" for="star5" title="5 star"></label>--}}
+{{--            <input type="radio" id="star4" name="rating" value="4" /><label class="fa fa-star" for="star4" title="4 star"></label>--}}
+{{--            <input type="radio" id="star3" name="rating" value="3" /><label class="fa fa-star" for="star3" title="3 star"></label>--}}
+{{--            <input type="radio" id="star2" name="rating" value="2" /><label class="fa fa-star" for="star2" title="2 star"></label>--}}
+{{--            <input type="radio" id="star1" name="rating" value="1" /><label class="fa fa-star" for="star1" title="1 star"></label>--}}
+{{--          </div>--}}
+{{--          <span class="px-2">(2 @lang('site.Review') )</span>--}}
 
           <p class="product-page-info">
             {!! $product->description !!}
@@ -47,36 +47,37 @@
               <i class="far fa-gem mr-1"></i>
               {{$product->diamonds}} {{__('site.Diamond')}}
             </div>
+
           </div>
           <!-- <hr> -->
 
 
 
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+{{--          <div class="btn-group btn-group-toggle" data-toggle="buttons">--}}
 
-            @foreach ($product->variations->unique('color_id') as $product_color_variation)
-            <label class="btn text-center p-2 active">
-              <input type="radio" name="color_option" id="color_option_a1" autocomplete="off">
-              <i class="fas fa-circle fa-1x" style="color: {{ $product_color_variation->color }};"></i>
-            </label>
-            @endforeach
+{{--            @foreach ($product->variations->unique('color_id') as $product_color_variation)--}}
+{{--            <label class="btn text-center p-2 active">--}}
+{{--              <input type="radio" name="color_option" id="color_option_a1" autocomplete="off">--}}
+{{--              <i class="fas fa-circle fa-1x" style="color: {{ $product_color_variation->color }};"></i>--}}
+{{--            </label>--}}
+{{--            @endforeach--}}
 
 
-          </div>
+{{--          </div>--}}
 
-          <div class="select">
-            <select>
-                <option> @lang('site.Select Size') </option>
-                @foreach ($product->variations->unique('size_id') as $product_color_variation)
-                    <option>{{$product_color_variation->size->name}}</option>
-                @endforeach
-            </select>
-          </div>
+{{--          <div class="select">--}}
+{{--            <select>--}}
+{{--                <option> @lang('site.Select Size') </option>--}}
+{{--                @foreach ($product->variations->unique('size_id') as $product_color_variation)--}}
+{{--                    <option>{{$product_color_variation->size->name}}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--          </div>--}}
 
-          <a href="{{ route('custom-designs', $product->id) }}" class="btn btn-primary p-3 ml-3 bg-primary-gridant">
-            <i class="fas fa-cart-plus fa-lg mr-2"></i>
-            @lang('site.custom-design')
-          </a>
+            <a href="{{ route('custom-designs', $product->id) }}" class="btn btn-primary p-3 ml-3 bg-primary-gridant">
+                <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                @lang('site.custom-design')
+            </a>
 
         </div>
       </div>
