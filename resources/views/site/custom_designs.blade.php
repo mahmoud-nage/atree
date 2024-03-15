@@ -449,7 +449,8 @@
                                         <div class="form-row">
                                             <div class="row" id="size_form">
                                                 <div class="form-group col-4">
-                                                    <select name="color_id[]" required class="form-control @error('color_id') is-invalid @enderror">
+                                                    <select name="color_id[]" required
+                                                            class="form-control @error('color_id') is-invalid @enderror">
                                                         <option> @lang('site.Select Color') </option>
                                                         @foreach ($record->variations->unique('color_id') as $record_color_variation)
                                                             <option
@@ -463,7 +464,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-4">
-                                                    <select name="size_id[]" required class="form-control @error('size_id') is-invalid @enderror">
+                                                    <select name="size_id[]" required
+                                                            class="form-control @error('size_id') is-invalid @enderror">
                                                         <option> @lang('site.Select Size') </option>
                                                         @foreach ($record->variations->unique('size_id') as $record_color_variation)
                                                             <option
@@ -675,10 +677,13 @@
         $('#removeColorBtn').click(
             function () {
                 $('#design_color_id').val('#ffffff');
+                document.getElementById("shirtDiv").style.backgroundColor = '#ffffff';
             });
 
         function changeColor(id) {
-            $('#design_color_id').val($('#changeColorBtn' + id).data('color-id'));
+            let color = $('#changeColorBtn' + id).data('color-id');
+            $('#design_color_id').val(color);
+            document.getElementById("shirtDiv").style.backgroundColor = color;
         }
     </script>
     <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
