@@ -2,7 +2,7 @@
     <td class="col-2">
         <figure class="itemside">
             <div class="aside">
-                <a href="{{ $item->variation?->product?->url() }}">
+                <a href="{{ Storage::url('designs/'.$item->design_front_image) }}" target="_blank">
                     <img src="{{ Storage::url('designs/'.$item->design_front_image) }}" class="img-sm">
                 </a>
             </div>
