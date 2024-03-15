@@ -50,7 +50,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         // StoreProductRequest
         $image = basename($request->file('front_image')->store('products'));
 //
