@@ -5,24 +5,9 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\CartRequest;
 use App\Models\Cart;
-use App\Models\Color;
-use App\Models\Design;
 use App\Models\UserDesign;
 use App\Models\Variation;
-use Illuminate\Http\Request;
-use App\Http\Requests\Site\RegisterRequest;
-use App\Http\Requests\Site\SoreOrderRequest;
-use App\Http\Requests\Site\LoginRequest;
-use App\Http\Requests\Site\StoreComplainRequest;
-use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
-use App\Jobs\IncreasProductSalesCountJob;
-use App\Jobs\IncreasProductViewsCountJob;
-
-use App\Models\Slide;
-use App\Models\Page;
-use App\Models\User;
 use App\Models\Product;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
