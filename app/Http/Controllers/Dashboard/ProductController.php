@@ -76,7 +76,7 @@ class ProductController extends Controller
         $product->price = $request->price;
 
         $product->diamonds = $request->diamonds;
-        $product->country_id = $request->country_id;
+//        $product->country_id = $request->country_id;
         $product->price_full_design = $request->price_full_design;
         $product->user_id = Auth::id();
         $product->front_image = basename($request->file('front_image')->store('products'));
