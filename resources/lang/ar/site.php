@@ -124,7 +124,7 @@ return array(
     'pay' => 'أكمل الدفع',
 
     'product' => 'المنتج',
-    'product_price' => 'السعر المنتج الاصلى',
+    'product_price' => 'سعر المنتج',
     'selling_price' => 'سعر البيع للعميل',
     'quantity' => 'الكميه',
     'profit' => 'صافى الربح',
@@ -150,7 +150,7 @@ return array(
     'alert_quantity' => 'يرجى تحديد اللون حتى تظهر لكم المقاسات',
     'Select Color' => 'اختر اللون',
     'add' => 'اضافه',
-    '' => '',
+    'design_image' => 'صوره التصميم',
     '' => '',
     '' => '',
     '' => '',

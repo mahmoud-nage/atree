@@ -5,10 +5,11 @@
                 <thead class="text-muted">
                 <tr class="small text-uppercase">
                     <th scope="col">{{__('site.product')}}</th>
+                    <th scope="col" width="150">{{__('site.design_image')}}</th>
                     <th scope="col" width="150">{{__('site.product_price')}}</th>
-                    <th scope="col" width="150">{{__('site.selling_price')}}</th>
+{{--                    <th scope="col" width="150">{{__('site.selling_price')}}</th>--}}
                     <th scope="col" width="120">{{__('site.quantity')}}</th>
-                    <th scope="col" width="120">{{__('site.profit')}}</th>
+{{--                    <th scope="col" width="120">{{__('site.profit')}}</th>--}}
                     <th scope="col" class="text-right" width="200"></th>
                 </tr>
                 </thead>
@@ -58,11 +59,11 @@
                     <dd class="text-right">{{ $this->sub_total }} <span class='text-muted'> {{__('site.SAR')}}</span>
                     </dd>
                 </dl>
-                <dl class="dlist-align">
-                    <dt style="width:143px !important;">{{__('site.profit')}} :</dt>
-                    <dd class="text-right">{{ $this->marketer_bounse }} <span
-                            class='text-muted'> {{__('site.SAR')}}</span></dd>
-                </dl>
+{{--                <dl class="dlist-align">--}}
+{{--                    <dt style="width:143px !important;">{{__('site.profit')}} :</dt>--}}
+{{--                    <dd class="text-right">{{ $this->marketer_bounse }} <span--}}
+{{--                            class='text-muted'> {{__('site.SAR')}}</span></dd>--}}
+{{--                </dl>--}}
                 <dl class="dlist-align">
                     <dt style="width:143px !important;">{{__('site.shipping_price')}} :</dt>
                     <dd class="text-right text-muted"> 0 <span class='text-muted'> {{__('site.SAR')}}</span></dd>

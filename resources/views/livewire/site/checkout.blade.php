@@ -8,10 +8,11 @@
                 <thead class="text-muted">
                 <tr class="small text-uppercase">
                     <th scope="col">{{__('site.product')}}</th>
+                    <th scope="col" width="150">{{__('site.design_image')}}</th>
                     <th scope="col" width="150">{{__('site.product_price')}}</th>
-                    <th scope="col" width="150">{{__('site.selling_price')}}</th>
+{{--                    <th scope="col" width="150">{{__('site.selling_price')}}</th>--}}
                     <th scope="col" width="120">{{__('site.quantity')}}</th>
-                    <th scope="col" width="120">{{__('site.profit')}}</th>
+{{--                    <th scope="col" width="120">{{__('site.profit')}}</th>--}}
                 </tr>
                 </thead>
                 <tbody>
@@ -19,12 +20,12 @@
                     <tr>
                         <td>
                             <figure class="itemside">
-                                <div class="aside">
-                                    <a href="{{ $item->variation?->product?->url() }}">
-                                        <img
-                                            src="{{ Storage::url('products/'.$item->variation?->product?->front_image) }}"
-                                            class="img-sm"> </a>
-                                </div>
+{{--                                <div class="aside">--}}
+{{--                                    <a href="{{ $item->variation?->product?->url() }}">--}}
+{{--                                        <img--}}
+{{--                                            src="{{ Storage::url('products/'.$item->variation?->product?->front_image) }}"--}}
+{{--                                            class="img-sm"> </a>--}}
+{{--                                </div>--}}
                                 <figcaption class="info">
                                     <a href="{{ $item->variation?->product?->url() }}"
                                        class="title text-dark">{{ $item->variation?->product?->name }}</a>
@@ -38,23 +39,33 @@
                             </figure>
                         </td>
                         <td>
+                            <figure class="itemside">
+                                <div class="aside">
+                                    <a href="{{ $item->variation?->product?->url() }}">
+                                        <img
+                                            src="{{ Storage::url('products/'.$item->variation?->product?->front_image) }}"
+                                            class="img-sm float-none"> </a>
+                                </div>
+                            </figure>
+                        </td>
+                        <td>
                             {{ $item->variation?->product?->getPrice() }} <span
                                 class="text-muted"> {{__('site.SAR')}} </span>
                         </td>
-                        <td>
-                            <div class="price-wrap">
-                                {{ $item->price }} <span class="text-muted"> {{__('site.SAR')}} </span>
-                            </div>
-                        </td>
+{{--                        <td>--}}
+{{--                            <div class="price-wrap">--}}
+{{--                                {{ $item->price }} <span class="text-muted"> {{__('site.SAR')}} </span>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
                         <td>
                             {{ $item->quantity }} <span class="text-muted"> {{__('site.piece')}} </span>
                         </td>
-                        <td>
-                            <div class="price-wrap">
-                                {{ ( $item->variation?->product->marketer_price * $item->quantity ) + ( ($item->price - $item->variation?->product->getPrice())) * $item->quantity }}
-                                <span class="text-muted"> {{__('site.SAR')}} </span>
-                            </div>
-                        </td>
+{{--                        <td>--}}
+{{--                            <div class="price-wrap">--}}
+{{--                                {{ ( $item->variation?->product->marketer_price * $item->quantity ) + ( ($item->price - $item->variation?->product->getPrice())) * $item->quantity }}--}}
+{{--                                <span class="text-muted"> {{__('site.SAR')}} </span>--}}
+{{--                            </div>--}}
+{{--                        </td>--}}
                     </tr>
                 @endforeach
                 </tbody>

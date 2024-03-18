@@ -128,6 +128,7 @@ return array(
     'alert_quantity' => 'select the color to view the sizes',
     'Select Color' => 'Select Color',
     'add' => 'add',
+    'design_image' => 'Design Image',
     '' => '',
     '' => '',
     '' => '',
