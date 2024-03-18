@@ -229,6 +229,9 @@ $(document).ready(function () {
             canvas.renderAll();
         }
     });
+    $("#font-family").click(function () {
+        $('#dropdown-menu').toggle();
+    });
     $('#text-bgcolor').miniColors({
         change: function (hex, rgb) {
             var activeObject = canvas.getActiveObject();
@@ -379,6 +382,7 @@ function setFont(font) {
         activeObject.fontFamily = font;
         canvas.renderAll();
     }
+    $('#dropdown-menu').toggle();
 }
 
 function removeWhite() {

@@ -182,12 +182,19 @@
         .color-picker {
             width: 1rem;
             height: 2rem !important;
-            margin-top: 0.6rem;
         }
 
         #tshirtFacing, #tshirtFacingBack {
             margin: auto;
             display: block;
+        }
+        .btn{
+            min-width: 50px;
+        }
+        .dropdown-menu {
+            top: 50%;
+            right: 0;
+            left: auto;
         }
 
     </style>
@@ -277,10 +284,7 @@
                                                         <div class="input-append">
                                                             <input class="span2" id="text-string" type="text"
                                                                    placeholder="{{__('site.add text here...')}}">
-                                                            <button id="add-text" class="btn btn-sm"
-                                                                    title="Add text"
-                                                                    type="button"><i class="fa fa-share"></i>
-                                                            </button>
+                                                            <a href="#" id="add-text" type="button" class="btn btn-sm btn-success float-left">@lang('site.add')</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -306,12 +310,12 @@
                                             <div class="clearfix">
                                                 <div class="btn-group inline pull-right" id="texteditor"
                                                      style="display:none">
-                                                    <button id="font-family" class="btn dropdown-toggle"
+                                                    <button id="font-family" class="btn btn-xs btn-default dropdown-toggle"
                                                             type="button"
                                                             data-toggle="dropdown" title="Font Style"><i
                                                             class="icon-font" style="width:19px;height:19px;"></i>
                                                     </button>
-                                                    <ul class="dropdown-menu" role="menu"
+                                                    <ul class="dropdown-menu" role="menu" id="dropdown-menu"
                                                         aria-labelledby="font-family">
                                                         <li><a tabindex="-1" href="#" onclick="setFont('Arial');"
                                                                class="Arial dropdown-item">Arial</a></li>
@@ -349,49 +353,49 @@
                                                                onclick="setFont('Engagement');"
                                                                class="Engagement dropdown-item">Engagement</a></li>
                                                     </ul>
-                                                    <button id="text-bold" type="button" class="btn"
+                                                    <button id="text-bold" type="button" class="btn btn-xs btn-default"
                                                             data-original-title="Bold"><img
                                                             src="{{ asset('site_assets/designs/img/font_bold.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-italic" type="button" class="btn"
+                                                    <button id="text-italic" type="button" class="btn btn-xs btn-default"
                                                             data-original-title="Italic"><img
                                                             src="{{ asset('site_assets/designs/img/font_italic.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-strike" type="button" class="btn"
+                                                    <button id="text-strike" type="button" class="btn btn-xs btn-default"
                                                             title="Strike"
                                                             style=""><img
                                                             src="{{ asset('site_assets/designs/img/font_strikethrough.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-underline" type="button" class="btn"
+                                                    <button id="text-underline" type="button" class="btn btn-xs btn-default"
                                                             title="Underline" style=""><img
                                                             src="{{ asset('site_assets/designs/img/font_underline.png') }}">
                                                     </button>
                                                     <input type="color"
                                                            id="text-fontcolor"
-                                                           class="color-picker btn" title="Text Color"
+                                                           class="color-picker btn btn-xs btn-default" title="Text Color"
                                                            size="7" value="#000000">
                                                     <input type="color" id="text-strokecolor"
-                                                           class="color-picker btn" title="Border Color"
+                                                           class="color-picker d-none" title="Border Color"
                                                            size="7"
                                                            value="#000000">
                                                 </div>
                                                 <div class="pull-right" align="" id="imageeditor"
                                                      style="display:none">
                                                     <div class="btn-group">
-                                                        <button class="btn" type="button" id="bring-to-front"
+                                                        <button class="btn d-none" type="button" id="bring-to-front"
                                                                 title="Bring to Front"><i
                                                                 class="fa fa-fast-backward rotate d-none"
                                                                 style="height:19px;"></i></button>
-                                                        <button class="btn" type="button" id="send-to-back"
+                                                        <button class="btn d-none" type="button" id="send-to-back"
                                                                 title="Send to Back"><i
-                                                                class="fa fa-fast-forward rotate d-none"
+                                                                class="fa fa-fast-forward rotate"
                                                                 style="height:19px;"></i>
                                                         </button>
-                                                        <button id="flip" type="button" class="btn"
+                                                        <button id="flip" type="button" class="btn d-none"
                                                                 title="Show Back View"><i class="icon-retweet"
                                                                                           style="height:19px;"></i>
                                                         </button>
-                                                        <button id="remove-selected" type="button" class="btn"
+                                                        <button id="remove-selected" type="button" class="btn btn-xs btn-default"
                                                                 title="Delete selected item"><i
                                                                 class="fa fa-trash text-danger"
                                                                 style="height:19px;"></i>
@@ -406,7 +410,8 @@
                                         {{--                                                    class="fa fa-download"></i></a>--}}
                                         <!--	EDITOR      -->
                                         <button id="flipback" type="button" class="flip-shirt" title="Rotate View">
-                                            <i class="fa fa-rotate-right fa-lg"></i></button>
+                                            <i class="fa fa-rotate-right fa-lg"></i>
+                                        </button>
                                         <div id="shirtDiv" class="page"
                                              style="position: relative; background-color: rgb(255, 255, 255);">
                                             {{--                                            width: 530px; height: 630px;--}}
@@ -491,10 +496,6 @@
                                                     </div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group col-1">
-                                                    <a href="#" class="text-danger float-left"
-                                                       id="remove_sizes"><i class="fa fa-times"></i></a>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -529,35 +530,10 @@
                         </div>
                     </form>
                     <!-------------------------- Products List --------------------------->
-                    <div class="mt-4">
-                        <!-------------------------- Used Design --------------------------->
-                        <div class="section used-design same-designes">
-                            <div class="title d-flex justify-content-between col-md-12">
-                                <h5 class="mb-2"> @lang('site.Same Designer Designes') </h5>
-                            </div>
-
-                            <ul class="users-list clearfix">
-                                @foreach($designs as $design)
-                                    <li>
-                                        <a href="#">
-                                            <div class="image-container">
-                                                <img src="{{Storage::url('designs/'.$design->image)}}"
-                                                     alt="User Image">
-                                            </div>
-                                        </a>
-                                        <a class="users-list-name" href="{{$design->user->url() ?? ''}}"
-                                           title="{{$design->user->name() ?? ''}}"> {{$design->user->name() ?? ''}} </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.col-md-12 -->
                 </div>
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
-
         </section>
         <!-- /.content -->
     </div>
@@ -574,16 +550,20 @@
             $("#add_sizes").on('click', function () {
                 console.log('test')
                 var ele = $('#size_form').clone(true);
-                $('#size_form').closest('#size_form').before(ele);
+                $('#size_form').closest('#size_form').before(ele).append(`
+                                                <div class="form-group col-1">
+                                                    <a href="#" class="text-danger float-left"
+                                                       id="remove_sizes" onclick="removeCart(this)"><i class="fa fa-times"></i></a>
+                                                </div>`);
             });
-            $("#remove_sizes").on('click', function () {
-                console.log('test remove')
-                $(this).closest('#size_form').remove();
+            $('#fileToUpload').on('change',function(e) {
+                $('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')
+            });
+            $('#add-text').on('click',function(e) {
+                $('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')
             });
         })
         $(document).ready(function () {
-
-
             $("#drawingArea").hover(
                 function () {
                     canvas.add(line1);
@@ -687,6 +667,9 @@
             let color = $('#changeColorBtn' + id).data('color-id');
             $('#design_color_id').val(color);
             document.getElementById("shirtDiv").style.backgroundColor = color;
+        }
+        function removeCart(e) {
+            e.closest('#size_form').remove();
         }
     </script>
     <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
