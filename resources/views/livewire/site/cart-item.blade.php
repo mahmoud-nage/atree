@@ -23,6 +23,9 @@
                 <a href="{{ Storage::url('designs/'.$item->design_front_image) }}" target="_blank">
                     <img src="{{ Storage::url('designs/'.$item->design_front_image) }}" class="img-sm float-none">
                 </a>
+                <a href="{{ Storage::url('designs/'.$item->design_back_image) }}" target="_blank">
+                    <img src="{{ Storage::url('designs/'.$item->design_back_image) }}" class="img-sm float-none">
+                </a>
             </div>
         </figure>
     </td>

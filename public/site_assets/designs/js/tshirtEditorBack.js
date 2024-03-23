@@ -3,7 +3,7 @@ var a;
 var b;
 $(document).ready(function () {
     //setup front side canvasBack
-    canvasBack = new fabric.Canvas('backCanvas', {
+    canvasBack = new fabric.Canvas('canvasBack', {
         hoverCursor: 'pointer',
         selection: true,
         selectionBorderColor: 'blue',

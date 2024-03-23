@@ -188,9 +188,11 @@
             margin: auto;
             display: block;
         }
-        .btn{
+
+        .btn {
             min-width: 50px;
         }
+
         .dropdown-menu {
             top: 50%;
             right: 0;
@@ -201,7 +203,6 @@
 @endsection
 @section('page_content')
     <div class="container">
-        {{--                <div class="content-wrapper">--}}
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
@@ -223,6 +224,7 @@
                         @csrf
                         <input type="hidden" name="product_id" id="product_id" value="{{$record->id}}"/>
                         <input type="hidden" id="design_front_photo" name="design_front_photo"/>
+                        <input type="hidden" id="design_back_photo" name="design_back_photo"/>
                         <input type="hidden" id="design_color_id" name="design_color_id"/>
                         <input type="hidden" id="main_image_width" name="main_image_width" value="530"/>
                         <input type="hidden" id="main_image_height" name="main_image_height" value="630"/>
@@ -232,12 +234,9 @@
                                     <div class="span3">
                                         <div class="tabbable"> <!-- Only required for left/right tabs -->
                                             <ul class="nav nav-tabs">
-                                                {{--                                                    <li class=""><a href="#tab1"--}}
-                                                {{--                                                                    data-toggle="tab">{{__('site.colors')}} <i--}}
-                                                {{--                                                                class="fa fa-palette"></i></a></li>--}}
-                                                <li><a href="#tab2" data-toggle="tab">{{__('site.text')}} <i
+                                                <li><a href="#tab1" data-toggle="tab">{{__('site.text')}} <i
                                                             class="fa fa-pen"></i></a></li>
-                                                <li><a href="#tab3" data-toggle="tab">{{__('site.image')}} <i
+                                                <li><a href="#tab2" data-toggle="tab">{{__('site.image')}} <i
                                                             class="fa fa-image"></i></a></li>
                                             </ul>
                                             <div class="tab-content">
@@ -247,48 +246,16 @@
                                                             onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <div class="well d-none">
-                                                        <!--					      	<h3>Tee Styles</h3>-->
-                                                        <!--						      <p>-->
-                                                        <select id="tshirttype">
-                                                            <option
-                                                                value="{{ Storage::url('products/'.$record->front_image) }}"
-                                                                selected="selected">Short Sleeve Shirts
-                                                            </option>
-                                                        </select>
-                                                        <!--						      </p>-->
-                                                    </div>
-                                                    {{--                                                    <div class="well">--}}
-                                                    {{--                                                        <ul class="nav">--}}
-                                                    {{--                                                            <li class="color-preview" id="removeColorBtn"--}}
-                                                    {{--                                                                data-color-id="#ffffff"--}}
-                                                    {{--                                                                title="white"--}}
-                                                    {{--                                                                style="background-color:#ffffff"></li>--}}
-                                                    {{--                                                            @foreach ($record->variations->unique('color_id') as $record_color_variation)--}}
-                                                    {{--                                                                <li class="color-preview" id="changeColorBtn"--}}
-                                                    {{--                                                                    data-color-id="{{$record_color_variation->color->code}}"--}}
-                                                    {{--                                                                    title="{{$record_color_variation->color->name}}"--}}
-                                                    {{--                                                                    style="background-color:{{$record_color_variation->color->code}};">--}}
-                                                    {{--                                                                </li>--}}
-                                                    {{--                                                            @endforeach--}}
-                                                    {{--                                                        </ul>--}}
-                                                    {{--                                                    </div>--}}
-                                                </div>
-                                                <div class="tab-pane" id="tab2">
-                                                    <button type="button" class="close remove-btn text-danger"
-                                                            aria-label="Close"
-                                                            onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
                                                     <div class="well">
                                                         <div class="input-append">
                                                             <input class="span2" id="text-string" type="text"
                                                                    placeholder="{{__('site.add text here...')}}">
-                                                            <a href="#" id="add-text" type="button" class="btn btn-sm btn-success float-left">@lang('site.add')</a>
+                                                            <a href="#" id="add-text" type="button"
+                                                               class="btn btn-sm btn-success float-left">@lang('site.add')</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="tab3">
+                                                <div class="tab-pane" id="tab2">
                                                     <button type="button" class="close remove-btn text-danger"
                                                             aria-label="Close"
                                                             onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
@@ -310,7 +277,8 @@
                                             <div class="clearfix">
                                                 <div class="btn-group inline pull-right" id="texteditor"
                                                      style="display:none">
-                                                    <button id="font-family" class="btn btn-xs btn-default dropdown-toggle"
+                                                    <button id="font-family"
+                                                            class="btn btn-xs btn-default dropdown-toggle"
                                                             type="button"
                                                             data-toggle="dropdown" title="Font Style"><i
                                                             class="icon-font" style="width:19px;height:19px;"></i>
@@ -357,45 +325,33 @@
                                                             data-original-title="Bold"><img
                                                             src="{{ asset('site_assets/designs/img/font_bold.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-italic" type="button" class="btn btn-xs btn-default"
+                                                    <button id="text-italic" type="button"
+                                                            class="btn btn-xs btn-default"
                                                             data-original-title="Italic"><img
                                                             src="{{ asset('site_assets/designs/img/font_italic.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-strike" type="button" class="btn btn-xs btn-default"
+                                                    <button id="text-strike" type="button"
+                                                            class="btn btn-xs btn-default"
                                                             title="Strike"
                                                             style=""><img
                                                             src="{{ asset('site_assets/designs/img/font_strikethrough.png') }}"
                                                             height="" width=""></button>
-                                                    <button id="text-underline" type="button" class="btn btn-xs btn-default"
+                                                    <button id="text-underline" type="button"
+                                                            class="btn btn-xs btn-default"
                                                             title="Underline" style=""><img
                                                             src="{{ asset('site_assets/designs/img/font_underline.png') }}">
                                                     </button>
                                                     <input type="color"
                                                            id="text-fontcolor"
-                                                           class="color-picker btn btn-xs btn-default" title="Text Color"
+                                                           class="color-picker btn btn-xs btn-default"
+                                                           title="Text Color"
                                                            size="7" value="#000000">
-                                                    <input type="color" id="text-strokecolor"
-                                                           class="color-picker d-none" title="Border Color"
-                                                           size="7"
-                                                           value="#000000">
                                                 </div>
                                                 <div class="pull-right" align="" id="imageeditor"
                                                      style="display:none">
                                                     <div class="btn-group">
-                                                        <button class="btn d-none" type="button" id="bring-to-front"
-                                                                title="Bring to Front"><i
-                                                                class="fa fa-fast-backward rotate d-none"
-                                                                style="height:19px;"></i></button>
-                                                        <button class="btn d-none" type="button" id="send-to-back"
-                                                                title="Send to Back"><i
-                                                                class="fa fa-fast-forward rotate"
-                                                                style="height:19px;"></i>
-                                                        </button>
-                                                        <button id="flip" type="button" class="btn d-none"
-                                                                title="Show Back View"><i class="icon-retweet"
-                                                                                          style="height:19px;"></i>
-                                                        </button>
-                                                        <button id="remove-selected" type="button" class="btn btn-xs btn-default"
+                                                        <button id="remove-selected" type="button"
+                                                                class="btn btn-xs btn-default"
                                                                 title="Delete selected item"><i
                                                                 class="fa fa-trash text-danger"
                                                                 style="height:19px;"></i>
@@ -404,39 +360,27 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--	EDITOR      -->
-                                        {{--                                            <a href="#" id="downloadDesign" type="button" class="flip-shirt"--}}
-                                        {{--                                               style="top: 9%;right: 5%;" title="save View"><i--}}
-                                        {{--                                                    class="fa fa-download"></i></a>--}}
-                                        <!--	EDITOR      -->
-                                        <button id="flipback" type="button" class="flip-shirt" title="Rotate View">
+                                        <button id="flipback" type="button" class="flip-shirt" title="Rotate View"
+                                                data-original-title="Show Back View">
                                             <i class="fa fa-rotate-right fa-lg"></i>
                                         </button>
                                         <div id="shirtDiv" class="page"
                                              style="position: relative; background-color: rgb(255, 255, 255);">
-                                            {{--                                            width: 530px; height: 630px;--}}
                                             <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
                                                  src="{{ Storage::url('products/'.$record->front_image) }}">
                                             <div id="drawingArea"
-                                                 style="position: absolute;top: {{$record->site_front_top}}px;left: {{$record->site_front_left}}px;z-index: 1;width: {{$record->site_front_width}}px;height: {{$record->site_front_height}}px;">
+                                                 style="position: absolute;top: {{$record->site_front_top}}px;left: {{$record->site_front_left}}px;z-index: 99;width: {{$record->site_front_width}}px;height: {{$record->site_front_height}}px;">
                                                 <canvas id="tcanvas" width="{{$record->site_front_width}}"
                                                         height="{{$record->site_front_height}}" class="hover"
-                                                        style="-webkit-user-select: none;"></canvas>
+                                                        style=""></canvas>
                                             </div>
-                                        </div>
-                                        <div id="shirtBack" class="page"
-                                             style="position: relative; background-color: rgb(255, 255, 255); display:none;">
-                                            {{--                                            width: 530px; height: 630px;--}}
-                                            <img name="tshirtviewBack" id="tshirtFacingBack"
-                                                 src="{{ Storage::url('products/'.$record->back_image) }}">
-                                            <div id="drawingArea"
-                                                 style="position: absolute;top: {{$record->site_back_top}}px;left: {{$record->site_back_left}}px;z-index: 1;width: {{$record->site_back_width}}px;height: {{$record->site_back_height}}px;">
-                                                <canvas id="backCanvas" width="{{$record->site_back_width}}"
+                                            <div id="drawingAreaBack" class="d-none"
+                                                 style="position: absolute;top: {{$record->site_back_top}}px;left: {{$record->site_back_left}}px;z-index: 99;width: {{$record->site_back_width}}px;height: {{$record->site_back_height}}px;">
+                                                <canvas id="canvasBack" width="{{$record->site_back_width}}"
                                                         height="{{$record->site_back_height}}" class="hover"
-                                                        style="-webkit-user-select: none;"></canvas>
+                                                        style=""></canvas>
                                             </div>
                                         </div>
-                                        <!--	/EDITOR		-->
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +400,7 @@
                                         <hr>
                                         <div class="form-row">
                                             <div class="row" id="size_form">
-                                                <div class="form-group col-4">
+                                                <div class="form-group col-3 p-1">
                                                     <select name="color_id[]" required
                                                             class="form-control @error('color_id') is-invalid @enderror">
                                                         <option> @lang('site.Select Color') </option>
@@ -471,7 +415,7 @@
                                                     </div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group col-4">
+                                                <div class="form-group col-3 p-1">
                                                     <select name="size_id[]" required
                                                             class="form-control @error('size_id') is-invalid @enderror">
                                                         <option> @lang('site.Select Size') </option>
@@ -486,8 +430,10 @@
                                                     </div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group col-3">
+                                                <div class="form-group col-2 p-1">
                                                     <input name="quantities[]" min="0" value="1" type="number"
+                                                           onchange="changeQty()"
+                                                           id="quantities"
                                                            class="form-control @error('quantities') is-invalid @enderror"
                                                            required>
                                                     @error('quantities')
@@ -495,6 +441,10 @@
                                                         {{$message}}
                                                     </div>
                                                     @enderror
+                                                </div>
+                                                <div class="form-group col-3 p-1">
+                                                    <input min="0" value="{{$record->price}} {{__('site.SAR')}}"
+                                                           type="text" disabled class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -543,24 +493,29 @@
 @section('scripts')
 
     <!----------- Slider Scripts --------->
-
+    <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('site_assets/designs/js/tshirtEditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>
     <!-- Footer ================================================== -->
     <script>
         $(function () {
             $("#add_sizes").on('click', function () {
                 console.log('test')
                 var ele = $('#size_form').clone(true);
+                console.log('test')
                 $('#size_form').closest('#size_form').before(ele).append(`
                                                 <div class="form-group col-1">
                                                     <a href="#" class="text-danger float-left"
                                                        id="remove_sizes" onclick="removeCart(this)"><i class="fa fa-times"></i></a>
                                                 </div>`);
             });
-            $('#fileToUpload').on('change',function(e) {
-                $('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')
+            $('#fileToUpload').on('change', function (e) {
+                $('.tab-pane').removeClass('active');
+                $('.nav-tabs li').removeClass('active')
             });
-            $('#add-text').on('click',function(e) {
-                $('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')
+            $('#add-text').on('click', function (e) {
+                $('.tab-pane').removeClass('active');
+                $('.nav-tabs li').removeClass('active')
             });
         })
         $(document).ready(function () {
@@ -579,7 +534,6 @@
                     canvas.renderAll();
                 }
             );
-
             line1 = new fabric.Line([0, 0, {{$record->site_front_width}}, 0], {
                 "stroke": "#000000",
                 "strokeWidth": 1,
@@ -613,8 +567,54 @@
                 selectable: false
             });
 
-            $("#tshirttype").change(function () {
-                $("img[name=tshirtview]").attr("src", $(this).val());
+
+            $("#drawingAreaBack").hover(
+                function () {
+                    canvasBack.add(line1Back);
+                    canvasBack.add(line2Back);
+                    canvasBack.add(line3Back);
+                    canvasBack.add(line4Back);
+                    canvasBack.renderAll();
+                },
+                function () {
+                    canvasBack.remove(line1Back);
+                    canvasBack.remove(line2Back);
+                    canvasBack.remove(line3Back);
+                    canvasBack.remove(line4Back);
+                    canvasBack.renderAll();
+                }
+            );
+            line1Back = new fabric.Line([0, 0, {{$record->site_back_width}}, 0], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line2Back = new fabric.Line([{{$record->site_back_width-1}}, 0, {{$record->site_back_width}}, {{$record->site_back_height-1}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line3Back = new fabric.Line([0, 0, 0, {{$record->site_back_height}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line4Back = new fabric.Line([0, {{$record->site_back_height}}, {{$record->site_back_width}}, {{$record->site_back_height-1}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
             });
         });
     </script>
@@ -622,58 +622,62 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script>
-        var valueSelect = $("#tshirttype").val();
-        $("#tshirttype").change(function () {
-            valueSelect = $(this).val();
-        });
-        $('#flipback').click(
-            function () {
-                if (valueSelect === "{{ Storage::url('products/'.$record->front_image) }}") {
-                    if ($(this).attr("data-original-title") == "Show Back View") {
+        $(document).ready(function () {
+            var count = 0;
+            $('#flipback').click(
+                function () {
+                    if ($(this).attr("data-original-title") === "Show Back View") {
+                        if (count === 0) {
+                            Swal.fire({
+                                title: "",
+                                text: "{{__('site.additional_price')}}",
+                                icon: "warning"
+                            });
+                            count++;
+                        }
+
+                        canvasBack.renderAll();
                         $('#flipback').attr('data-original-title', 'Show Front View');
                         $("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->back_image) }}");
-                        a = JSON.stringify(canvas);
-                        canvas.clear();
-                        try {
-                            var json = JSON.parse(b);
-                            canvas.loadFromJSON(b);
-                        } catch (e) {
-                        }
+                        $('#drawingAreaBack').removeClass('d-none');
+                        $('#drawingArea').addClass('d-none');
                     } else {
+                        canvas.renderAll();
                         $('#flipback').attr('data-original-title', 'Show Back View');
                         $("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->front_image) }}");
-                        b = JSON.stringify(canvas);
-                        canvas.clear();
-                        try {
-                            var json = JSON.parse(a);
-                            canvas.loadFromJSON(a);
-                        } catch (e) {
-                        }
+                        $('#drawingAreaBack').addClass('d-none');
+                        $('#drawingArea').removeClass('d-none');
                     }
-                }
-                canvas.renderAll();
-                setTimeout(function () {
-                    canvas.calcOffset();
-                }, 200);
-            });
 
-        $('#removeColorBtn').click(
-            function () {
-                $('#design_color_id').val('#ffffff');
-                document.getElementById("shirtDiv").style.backgroundColor = '#ffffff';
-            });
+                });
+
+            $('#removeColorBtn').click(
+                function () {
+                    $('#design_color_id').val('#ffffff');
+                    document.getElementById("shirtDiv").style.backgroundColor = '#ffffff';
+                });
+        });
 
         function changeColor(id) {
             let color = $('#changeColorBtn' + id).data('color-id');
             $('#design_color_id').val(color);
             document.getElementById("shirtDiv").style.backgroundColor = color;
         }
+
         function removeCart(e) {
             e.closest('#size_form').remove();
         }
+
+        function changeQty() {
+            let price = parseInt({{$record->price}});
+            let qty = 0;
+            $("#quantities").each(function (index, obj) {
+                console.log('obh: ' + $(obj).val())
+
+                qty += parseInt($(obj).val());
+            });
+            console.log('total: ' + price * qty)
+        }
     </script>
-    <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('site_assets/designs/js/tshirtEditor.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>
 
 @endsection
