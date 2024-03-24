@@ -386,7 +386,7 @@
                             </div>
                             <div class="col-5">
                                 <div class="ProductPrice mb-3">
-                                    <span class="price mr-3"> {{$record->price}} @lang('site.SAR') </span>
+                                    <span class="price mr-3" id="price"> {{$record->price}} @lang('site.SAR') </span>
                                 </div>
                                 <div class="alert alert-warning" role="alert"
                                      style="background-color: #fff3cd;border-color: #fff3cd">
@@ -447,6 +447,18 @@
                                                            type="text" disabled class="form-control">
                                                 </div>
                                             </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <input value="{{__('site.total')}}" type="text" disabled
+                                                           class="form-control">
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <input value="{{$record->price}} {{__('site.SAR')}}" type="text" disabled
+                                                           id="total_amount"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -500,14 +512,13 @@
     <script>
         $(function () {
             $("#add_sizes").on('click', function () {
-                console.log('test')
                 var ele = $('#size_form').clone(true);
-                console.log('test')
                 $('#size_form').closest('#size_form').before(ele).append(`
                                                 <div class="form-group col-1">
                                                     <a href="#" class="text-danger float-left"
                                                        id="remove_sizes" onclick="removeCart(this)"><i class="fa fa-times"></i></a>
                                                 </div>`);
+                changeQty();
             });
             $('#fileToUpload').on('change', function (e) {
                 $('.tab-pane').removeClass('active');
@@ -629,11 +640,12 @@
                     if ($(this).attr("data-original-title") === "Show Back View") {
                         if (count === 0) {
                             Swal.fire({
-                                title: "",
+                                title: "{{__('site.alert')}}",
                                 text: "{{__('site.additional_price')}}",
                                 icon: "warning"
                             });
                             count++;
+                            $('#price').html('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
                         }
 
                         canvasBack.renderAll();
@@ -666,17 +678,16 @@
 
         function removeCart(e) {
             e.closest('#size_form').remove();
+            changeQty();
         }
 
         function changeQty() {
             let price = parseInt({{$record->price}});
             let qty = 0;
-            $("#quantities").each(function (index, obj) {
-                console.log('obh: ' + $(obj).val())
-
-                qty += parseInt($(obj).val());
+            $("input[name='quantities[]']").each(function () {
+                qty += parseInt($(this).val());
             });
-            console.log('total: ' + price * qty)
+            $('#total_amount').val('' + price * qty + ' {{__('site.SAR')}}');
         }
     </script>
 

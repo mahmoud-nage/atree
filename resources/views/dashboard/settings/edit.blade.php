@@ -49,7 +49,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 									<p  class='text-danger' >  {{ $message }} </p>
 									@enderror
 								</div>
-							</div>	
+							</div>
 							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> صور المستخدم الافتراضيه </label>
@@ -58,9 +58,9 @@ $lang = LaravelLocalization::getCurrentLocale();
 									<p  class='text-danger' >  {{ $message }} </p>
 									@enderror
 								</div>
-							</div>	
+							</div>
 
-							
+
 							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> من نحن بالعربيه </label>
@@ -69,7 +69,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 									<p  class='text-danger' >  {{ $message }} </p>
 									@enderror
 								</div>
-							</div>			
+							</div>
 							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> من نحن بالانجليزيه </label>
@@ -126,7 +126,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 								</div>
 							</div>
 
-							
+
 							<div class="col-md-4">
 								<div  class='mb-2' >
 									<label class="col-form-label"> رابط تطبيق Android </label>
@@ -145,6 +145,24 @@ $lang = LaravelLocalization::getCurrentLocale();
 									@enderror
 								</div>
 							</div>
+							<div class="col-md-4">
+								<div  class='mb-2' >
+									<label class="col-form-label">  رابط هيئة الضريبه والذكاه  </label>
+									<input type="text" class="form-control @error('vat') is-invalid @enderror" name="vat" value="{{ $info->vat }}" >
+									@error('vat')
+									<p  class='text-danger' >  {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div  class='mb-2' >
+									<label class="col-form-label">  رابط معروف  </label>
+									<input type="text" class="form-control @error('maroof') is-invalid @enderror" name="maroof" value="{{ $info->maroof }}" >
+									@error('maroof')
+									<p  class='text-danger' >  {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
 
 							<div class="col-md-12">
 								<div  class='mb-2' >
@@ -155,23 +173,23 @@ $lang = LaravelLocalization::getCurrentLocale();
 								</div>
 							</div>
 
-							
+
 
 							<div class="col-md-12">
 								<div  class='mb-2' >
 									<label class="col-form-label">شعار الموقع الحالى </label>
 									<img class='img-thumbnail img-responsive' src="{{ Storage::url('settings/'.$info->logo) }}" alt="">
 								</div>
-							</div>	
+							</div>
 
 							<div class="col-md-12">
 								<div  class='mb-2' >
 									<label class="col-form-label"> صوره الملف الشخصى للمستخدم  الافتراضيه الحاليه </label>
 									<img class='img-thumbnail img-responsive' src="{{ Storage::url('users/user-default.png') }}" alt="">
 								</div>
-							</div>	
+							</div>
 
-						</div>						
+						</div>
 					</fieldset>
 				</div>
 

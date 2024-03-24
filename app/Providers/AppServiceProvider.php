@@ -41,6 +41,5 @@ class AppServiceProvider extends ServiceProvider
         $data['categories'] = Category::where('active' , 1)->where('show_in_header' , 1)->where('category_id' , null )->latest()->get();
         $data['countries'] = Country::where('active' , 1 )->latest()->get();
         view()->share('data' , $data);
-
     }
 }

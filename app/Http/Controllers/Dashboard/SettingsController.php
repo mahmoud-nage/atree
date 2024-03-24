@@ -44,6 +44,8 @@ class SettingsController extends Controller
         $info->long = $request->longitude;
         $info->android_link = $request->android_link;
         $info->ios_link = $request->ios_link;
+        $info->vat = $request->vat;
+        $info->maroof = $request->maroof;
         if ($request->hasFile('logo')) {
             $info->logo =  basename($request->file('logo')->store('settings'));
         }

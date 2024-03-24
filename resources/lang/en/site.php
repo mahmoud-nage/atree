@@ -131,8 +131,8 @@ return array(
     'design_image' => 'Design Image',
     'front' => 'Front',
     'back' => 'Back',
-    '' => '',
-    '' => '',
+    'additional_price' => 'There will be an additional cost for printing back',
+    'alert' => '!alert',
     '' => '',
 
 );
