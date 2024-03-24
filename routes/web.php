@@ -45,6 +45,8 @@ Route::group([
     Route::get('/Dashboard/login', [AuthController::class, 'form'])->name('dashboard.login_form');
     Route::post('/Dashboard/login', [AuthController::class, 'login'])->name('dashboard.login');
     Route::group(['prefix' => 'Dashboard', 'as' => 'dashboard.', 'middleware' => ['admin']], function () {
+        Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::resource('sizes', SizeController::class);
         Route::resource('designs', DesignController::class);

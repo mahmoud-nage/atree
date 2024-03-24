@@ -41,5 +41,10 @@ class AuthController extends Controller
 
         return back()->with('error' , 'بيانات الدخول غير صحيحه' );
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(route('dashboard.login_form'));
+    }
 
 }
