@@ -692,6 +692,7 @@
                 function () {
                     $('#design_color_id').val('#ffffff');
                     document.getElementById("shirtDiv").style.backgroundColor = '#ffffff';
+                    document.getElementById("shirtDivBack").style.backgroundColor = '#ffffff';
                 });
         });
 

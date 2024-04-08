@@ -88,11 +88,11 @@ $(document).ready(function () {
             centeredRotation: true,
         });
         if ($('#drawingArea').hasClass('d-none')) {
-            console.log('back',canvasBack)
+            console.log('back', canvasBack)
             canvasBack.centerObject(textSample).add(textSample);
             canvasBack.renderAll();
         } else {
-            console.log('front',canvas)
+            console.log('front', canvas)
             canvas.centerObject(textSample).add(textSample);
             canvas.renderAll();
         }
@@ -310,16 +310,16 @@ $(document).ready(function () {
         $('#drawingArea').removeClass('d-none');
         $('#drawingAreaBack').removeClass('d-none');
 
-        html2canvas(document.getElementById("shirtDiv"), {removeContainer: true}).then(function (canvas, iframe) {
+        html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas1, iframe) {
             console.log('test')
             // document.body.appendChild(canvas)
-            var data = canvas.toDataURL({
+            var data = canvas1.toDataURL({
                 format: "png"
             });
             $('#download').val(data);
         });
 
-        html2canvas(document.getElementById("shirtDivBack"), {removeContainer: true}).then(function (canvas1) {
+        html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas1) {
             console.log('test1')
             // document.body.appendChild(canvas)
             var data = canvas1.toDataURL({
@@ -343,7 +343,10 @@ $(document).ready(function () {
         $('#design_back_photo').val(pngBackURL);
         $('#main_image_width').val($('#tshirtFacing').outerWidth());
         $('#main_image_height').val($('#tshirtFacing').outerHeight());
-        setInterval(function () {$('#myForm').submit();}, 100);
+        setTimeout(
+            function () {
+                $('#myForm').submit();
+            }, 500);
     };
 });
 
@@ -382,11 +385,13 @@ function onObjectSelectedBack(e) {
         $("#imageeditor").css('display', 'block');
     }
 }
+
 function onSelectedCleared(e) {
     $("#texteditor").css('display', 'none');
     $("#text-string").val("");
     $("#imageeditor").css('display', 'none');
 }
+
 function onSelectedClearedBack(e) {
     $("#texteditor").css('display', 'none');
     $("#text-string").val("");
