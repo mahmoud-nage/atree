@@ -374,11 +374,6 @@
                                                         height="{{$record->site_front_height}}" class="hover"
                                                         style=""></canvas>
                                             </div>
-                                        </div>
-                                        <div id="shirtDivBack" class="page d-none"
-                                             style="position: relative; background-color: rgb(255, 255, 255);">
-                                            <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
-                                                 src="{{ Storage::url('products/'.$record->back_image) }}">
                                             <div id="drawingAreaBack" class="d-none"
                                                  style="position: absolute;top: {{$record->site_back_top}}px;left: {{$record->site_back_left}}px;z-index: 99;width: {{$record->site_back_width}}px;height: {{$record->site_back_height}}px;">
                                                 <canvas id="canvasBack" width="{{$record->site_back_width}}"
@@ -459,8 +454,7 @@
                                                            class="form-control">
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <input value="{{$record->price}} {{__('site.SAR')}}" type="text"
-                                                           disabled
+                                                    <input value="{{$record->price}} {{__('site.SAR')}}" type="text" disabled
                                                            id="total_amount"
                                                            class="form-control">
                                                 </div>
@@ -488,8 +482,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <input type="hidden" name="image" id="download">
-                                <input type="hidden" name="image1" id="download1">
+                                <input type="hidden" name="image" id="download" href="triangle.png">
 
                                 <button type="button"
                                         class="btn btn-large btn-block btn-primary bg-primary-gridant span6"
@@ -521,6 +514,12 @@
     <!-- Footer ================================================== -->
     <script>
         $(function () {
+
+
+
+
+
+
             $("#add_sizes").on('click', function () {
                 var ele = $('#size_form').clone(true);
                 $('#size_form').closest('#size_form').before(ele).append(`
@@ -658,12 +657,7 @@
                             $('#price').html('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
                         }
                         $('#flipback').attr('data-original-title', 'Show Front View');
-
-                        $('#shirtDiv').addClass('d-none');
-                        $('#shirtDivBack').removeClass('d-none');
-
-
-                        {{--$("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->back_image) }}");--}}
+                        $("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->back_image) }}");
 
                         // $('#canvas1').parent().css('display', 'block');
                         $('#canvasBack').parent().removeClass('d-none');
@@ -673,11 +667,7 @@
                         $('#drawingArea').addClass('d-none');
                     } else {
                         $('#flipback').attr('data-original-title', 'Show Back View');
-                        {{--$("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->front_image) }}");--}}
-
-
-                        $('#shirtDivBack').addClass('d-none');
-                        $('#shirtDiv').removeClass('d-none');
+                        $("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->front_image) }}");
 
                         $('#canvasBack').parent().addClass('d-none');
                         $('#tcanvas').parent().removeClass('d-none');
@@ -699,7 +689,6 @@
             let color = $('#changeColorBtn' + id).data('color-id');
             $('#design_color_id').val(color);
             document.getElementById("shirtDiv").style.backgroundColor = color;
-            document.getElementById("shirtDivBack").style.backgroundColor = color;
         }
 
         function removeCart(e) {

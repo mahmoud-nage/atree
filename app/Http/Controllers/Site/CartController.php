@@ -25,6 +25,17 @@ class CartController extends Controller
 
     public function store(CartRequest $request)
     {
+        if($request->image){
+//            $waterMarkExtension = explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
+            $designFrontFileName = time() . Str::random(10).'test1.png';
+            Image::make(file_get_contents($request->image))->save(storage_path('app/public/designs/' . $designFrontFileName));
+        }
+        if($request->image1){
+//            $waterMarkExtension = explode('/', explode(':', substr($request->image1, 0, strpos($request->image1, ';')))[1])[1];
+            $designBackFileName = time() . Str::random(10).'test1.png';
+            Image::make(file_get_contents($request->image1))->save(storage_path('app/public/designs/' . $designBackFileName));
+        }
+
         $product = Product::find($request->product_id);
         $color = $request->design_color_id;
         if ($request->design_front_photo && $request->design_back_photo) {
@@ -34,24 +45,24 @@ class CartController extends Controller
         }
         if ($request->design_front_photo) {
             $waterMarkExtension = explode('/', explode(':', substr($request->design_front_photo, 0, strpos($request->design_front_photo, ';')))[1])[1];
-            $designFrontFileName = time() . Str::random(10) . '.jpeg';
+//            $designFrontFileName = time() . Str::random(10) . '.jpeg';
             $waterMarkFrontFileName = time() . Str::random(10) . '.' . $waterMarkExtension;
             $waterMarkUrl = Image::make(file_get_contents($request->design_front_photo));
-            $image = Image::make(file_get_contents(storage_path('app/public/products/' . $product->front_image)));
-            $image->resize($request->main_image_width, $request->main_image_height)->colorize($this->hexToRgb($color, 'r'), $this->hexToRgb($color, 'g'), $this->hexToRgb($color, 'b'))
-                ->insert($waterMarkUrl, 'top-left', $product->site_front_top, $product->site_front_left)->encode('jpeg', 100)
-                ->save(storage_path('app/public/designs/' . $designFrontFileName));
+//            $image = Image::make(file_get_contents(storage_path('app/public/products/' . $product->front_image)));
+//            $image->resize($request->main_image_width, $request->main_image_height)->colorize($this->hexToRgb($color, 'r'), $this->hexToRgb($color, 'g'), $this->hexToRgb($color, 'b'))
+//                ->insert($waterMarkUrl, 'top-left', $product->site_front_top, $product->site_front_left)->encode('jpeg', 100)
+//                ->save(storage_path('app/public/designs/' . $designFrontFileName));
             $waterMarkUrl->save(storage_path('app/public/designs/' . $waterMarkFrontFileName));
         }
         if ($request->design_back_photo) {
             $waterMarkExtension = explode('/', explode(':', substr($request->design_back_photo, 0, strpos($request->design_back_photo, ';')))[1])[1];
-            $designBackFileName = time() . Str::random(10) . '.jpeg';
+//            $designBackFileName = time() . Str::random(10) . '.jpeg';
             $waterMarkBackFileName = time() . Str::random(10) . '.' . $waterMarkExtension;
             $waterMarkBackUrl = Image::make(file_get_contents($request->design_back_photo));
-            $image = Image::make(file_get_contents(storage_path('app/public/products/' . $product->back_image)));
-            $image->resize($request->main_image_width, $request->main_image_height)->colorize($this->hexToRgb($color, 'r'), $this->hexToRgb($color, 'g'), $this->hexToRgb($color, 'b'))
-                ->insert($waterMarkBackUrl, 'top-left', $product->site_back_top, $product->site_back_left)->encode('jpeg', 100)
-                ->save(storage_path('app/public/designs/' . $designBackFileName));
+//            $image = Image::make(file_get_contents(storage_path('app/public/products/' . $product->back_image)));
+//            $image->resize($request->main_image_width, $request->main_image_height)->colorize($this->hexToRgb($color, 'r'), $this->hexToRgb($color, 'g'), $this->hexToRgb($color, 'b'))
+//                ->insert($waterMarkBackUrl, 'top-left', $product->site_back_top, $product->site_back_left)->encode('jpeg', 100)
+//                ->save(storage_path('app/public/designs/' . $designBackFileName));
             $waterMarkBackUrl->save(storage_path('app/public/designs/' . $waterMarkBackFileName));
         }
         UserDesign::create([

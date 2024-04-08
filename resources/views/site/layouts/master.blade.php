@@ -76,8 +76,8 @@
 <script src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery-1.1.min.js') }}"></script>
 <script src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script src="{{ asset('site_assets/'.$dir.'/js/PushMenu.js') }}"></script>
-{{--<script src="{{ asset('fabric.min.js') }}"></script>--}}
-
+<script src="{{ asset('html2canvas.min.js') }}"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js" integrity="sha512-CeIsOAsgJnmevfCi2C7Zsyy6bQKi43utIjdA87Q0ZY84oDqnI0uwfM9+bKiIkI75lUeI00WG/+uJzOmuHlesMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
 <!-- jQuery -->
 
 
