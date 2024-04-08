@@ -343,7 +343,7 @@ $(document).ready(function () {
         $('#design_back_photo').val(pngBackURL);
         $('#main_image_width').val($('#tshirtFacing').outerWidth());
         $('#main_image_height').val($('#tshirtFacing').outerHeight());
-        setInterval(function () {$('#myForm').submit();}, 1000);
+        setInterval(function () {$('#myForm').submit();}, 100);
     };
 });
 
