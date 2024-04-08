@@ -126,10 +126,10 @@
                                                     @foreach($record->items as $item)
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
-                                                            <td>{{$item->variation?->product->name}}</td>
+                                                            <td>{{$item->variation?->product?->name}}</td>
                                                             <td>{{$item->quantity}}</td>
-                                                            <td>{{$item->variation?->size->name}}</td>
-                                                            <td>{{$item->variation?->color->name}}</td>
+                                                            <td>{{$item->variation?->size?->name}}</td>
+                                                            <td>{{$item->variation?->color?->name}}</td>
                                                             <td>{{$item->price}} <span> @lang('site.SAR') </span></td>
                                                         </tr>
                                                     @endforeach
