@@ -25,7 +25,7 @@ class CartController extends Controller
 
     public function store(CartRequest $request)
     {
-        dd($request->all());
+//        dd($request->all());
         if($request->image){
 //            $waterMarkExtension = explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
             $designFrontFileName = time() . Str::random(10).'test1.png';

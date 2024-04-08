@@ -346,7 +346,7 @@ $(document).ready(function () {
         setTimeout(
             function () {
                 $('#myForm').submit();
-            }, 500);
+            }, 1000);
     };
 });
 
