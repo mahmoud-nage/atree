@@ -311,26 +311,26 @@ $(document).ready(function () {
         $('#drawingAreaBack').removeClass('d-none');
 
 
-                html2canvas(document.getElementById("shirtDiv"), {removeContainer: true}).then(function (canvas) {
-                    console.log('test')
-                    // document.body.appendChild(canvas)
-                    var data = canvas.toDataURL({
-                        format: "png"
-                    });
-                    $('#download').val(data);
-                });
-
-    setTimeout(
-        function () {
-        html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas) {
-            console.log('test1')
+        html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas) {
+            console.log('test')
             // document.body.appendChild(canvas)
             var data = canvas.toDataURL({
                 format: "png"
             });
-            $('#download1').val(data);
+            $('#download').val(data);
         });
-        }, 1000);
+
+        // setTimeout(
+        //     function () {
+                html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas) {
+                    console.log('test1')
+                    // document.body.appendChild(canvas)
+                    var data = canvas.toDataURL({
+                        format: "png"
+                    });
+                    $('#download1').val(data);
+                });
+            // }, 1000);
 
         $('#shirtDiv').addClass('d-none');
         $('#shirtDivBack').addClass('d-none');
@@ -350,7 +350,7 @@ $(document).ready(function () {
         setTimeout(
             function () {
                 $('#myForm').submit();
-            }, 2000);
+            }, 1000);
     };
 });
 
