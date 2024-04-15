@@ -133,6 +133,18 @@ return array(
     'back' => 'Back',
     'additional_price' => 'There will be an additional cost for printing back',
     'alert' => '!alert',
+    'cancel' => 'cancel',
+    'ok' => 'ok',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
     '' => '',
 
 );

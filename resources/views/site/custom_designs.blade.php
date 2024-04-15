@@ -659,7 +659,8 @@
                                 showCancelButton: true,
                                 confirmButtonColor: "#3085d6",
                                 cancelButtonColor: "#d33",
-                                confirmButtonText: "Ok"
+                                confirmButtonText: "{{__('site.ok')}}",
+                                cancelButtonText: "{{__('site.cancel')}}"
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     count++;
