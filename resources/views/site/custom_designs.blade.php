@@ -9,9 +9,9 @@
 @extends('site.layouts.master')
 @section('styles')
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script type="text/javascript" src="{{ asset('site_assets/designs/js/excanvas.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/excanvas.js') }}"></script>--}}
     {{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>--}}
-    <script type="text/javascript" src="{{ asset('site_assets/designs/js/fabric.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/fabric.js') }}"></script>--}}
     <script type="text/javascript"></script>
     <!-- Le styles -->
     {{--    <link type="text/css" rel="stylesheet" href="{{ asset('site_assets/designs/css/jquery.miniColors.css') }}"/>--}}
@@ -515,9 +515,12 @@
 @section('scripts')
 
     <!----------- Slider Scripts --------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.20/fabric.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
     <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('site_assets/designs/js/tshirtEditor.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>--}}
     <!-- Footer ================================================== -->
     <script>
         $(function () {
@@ -652,30 +655,43 @@
                             Swal.fire({
                                 title: "{{__('site.alert')}}",
                                 text: "{{__('site.additional_price')}}",
-                                icon: "warning"
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Ok"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    count++;
+                                    $('#price').html('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
+                                    $('#flipback').attr('data-original-title', 'Show Front View');
+
+                                    $('#shirtDiv').addClass('d-none');
+                                    $('#shirtDivBack').removeClass('d-none');
+                                    $('#canvasBack').parent().removeClass('d-none');
+                                    $('#tcanvas').parent().addClass('d-none');
+
+                                    $('#drawingAreaBack').removeClass('d-none');
+                                    $('#drawingArea').addClass('d-none');
+                                    canvasBack.renderAll();
+                                }
                             });
-                            count++;
+                        }else{
                             $('#price').html('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
+                            $('#flipback').attr('data-original-title', 'Show Front View');
+
+                            $('#shirtDiv').addClass('d-none');
+                            $('#shirtDivBack').removeClass('d-none');
+                            $('#canvasBack').parent().removeClass('d-none');
+                            $('#tcanvas').parent().addClass('d-none');
+
+                            $('#drawingAreaBack').removeClass('d-none');
+                            $('#drawingArea').addClass('d-none');
+                            canvasBack.renderAll();
                         }
-                        $('#flipback').attr('data-original-title', 'Show Front View');
 
-                        $('#shirtDiv').addClass('d-none');
-                        $('#shirtDivBack').removeClass('d-none');
-
-
-                        {{--$("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->back_image) }}");--}}
-
-                        // $('#canvas1').parent().css('display', 'block');
-                        $('#canvasBack').parent().removeClass('d-none');
-                        $('#tcanvas').parent().addClass('d-none');
-
-                        $('#drawingAreaBack').removeClass('d-none');
-                        $('#drawingArea').addClass('d-none');
                     } else {
                         $('#flipback').attr('data-original-title', 'Show Back View');
-                        {{--$("#tshirtFacing").attr("src", "{{ Storage::url('products/'.$record->front_image) }}");--}}
-
-
                         $('#shirtDivBack').addClass('d-none');
                         $('#shirtDiv').removeClass('d-none');
 

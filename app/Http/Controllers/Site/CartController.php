@@ -25,17 +25,19 @@ class CartController extends Controller
 
     public function store(CartRequest $request)
     {
+        dd($request->all());
 //        dd($request->all());
         if($request->image){
 //            $waterMarkExtension = explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-            $designFrontFileName = time() . Str::random(10).'test1.png';
+            $designFrontFileName = time() . Str::random(10).'test12.png';
             Image::make(file_get_contents($request->image))->save(storage_path('app/public/designs/' . $designFrontFileName));
         }
         if($request->image1){
 //            $waterMarkExtension = explode('/', explode(':', substr($request->image1, 0, strpos($request->image1, ';')))[1])[1];
-            $designBackFileName = time() . Str::random(10).'test1.png';
+            $designBackFileName = time() . Str::random(10).'test12.png';
             Image::make(file_get_contents($request->image1))->save(storage_path('app/public/designs/' . $designBackFileName));
         }
+        dd('test');
 
         $product = Product::find($request->product_id);
         $color = $request->design_color_id;

@@ -4,9 +4,15 @@ var a;
 var b;
 $(document).ready(function () {
     //setup front side canvas
+    canvasBack = new fabric.Canvas('canvasBack', {
+        hoverCursor: 'pointer',
+        selection: false,
+        // selectionBorderColor: 'blue',
+        // hasBorders:true
+    });
     canvas = new fabric.Canvas('tcanvas', {
         hoverCursor: 'pointer',
-        // selection: true,
+        selection: true,
         // selectionBorderColor: 'blue',
         // hasBorders:true
     });
@@ -40,12 +46,6 @@ $(document).ready(function () {
     //     };
     // })(canvas.findTarget);
 
-    canvasBack = new fabric.Canvas('canvasBack', {
-        hoverCursor: 'pointer',
-        // selection: true,
-        // selectionBorderColor: 'blue',
-        // hasBorders:true
-    });
     // canvasBack.on({
     //     'object:moving': function (e) {
     //         e.target.opacity = 0.5;
@@ -131,8 +131,8 @@ $(document).ready(function () {
                 // left: left,
                 // top: top,
                 angle: 0,
-                scaleX: 0.5,
-                scaleY: 0.5,
+                scaleX: 0.2,
+                scaleY: 0.2,
                 hasRotatingPoint: true
             });
             //image.scale(getRandomNum(0.1, 0.25)).setCoords();
@@ -154,8 +154,8 @@ $(document).ready(function () {
                     // left: left,
                     // top: top,
                     angle: 0,
-                    scaleX: 0.5,
-                    scaleY: 0.5,
+                    scaleX: 0.2,
+                    scaleY: 0.2,
                     hasRotatingPoint: true
                 });
                 if ($('#drawingArea').hasClass('d-none')) {
@@ -310,23 +310,27 @@ $(document).ready(function () {
         $('#drawingArea').removeClass('d-none');
         $('#drawingAreaBack').removeClass('d-none');
 
-        html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas1, iframe) {
-            console.log('test')
-            // document.body.appendChild(canvas)
-            var data = canvas1.toDataURL({
-                format: "png"
-            });
-            $('#download').val(data);
-        });
 
-        html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas1) {
+                html2canvas(document.getElementById("shirtDiv"), {removeContainer: true}).then(function (canvas) {
+                    console.log('test')
+                    // document.body.appendChild(canvas)
+                    var data = canvas.toDataURL({
+                        format: "png"
+                    });
+                    $('#download').val(data);
+                });
+
+    setTimeout(
+        function () {
+        html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas) {
             console.log('test1')
             // document.body.appendChild(canvas)
-            var data = canvas1.toDataURL({
+            var data = canvas.toDataURL({
                 format: "png"
             });
             $('#download1').val(data);
         });
+        }, 1000);
 
         $('#shirtDiv').addClass('d-none');
         $('#shirtDivBack').addClass('d-none');
@@ -346,7 +350,7 @@ $(document).ready(function () {
         setTimeout(
             function () {
                 $('#myForm').submit();
-            }, 1000);
+            }, 2000);
     };
 });
 
