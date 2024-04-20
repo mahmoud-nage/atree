@@ -79,17 +79,6 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="inputName" class=" col-form-label"> @lang('site.Username') </label>
-                    <div class="col-sm-12 p-0">
-                        <input type="text" wire:model='username' class="form-control" id="inputName" placeholder="Name">
-                        @error('username')
-                        <p class="text-danger"> {{ $message }} </p>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
                     <label for="image"
                            class="col-form-label"> @lang('site.image') </label>
                     <div class="col-md-12 p-0">

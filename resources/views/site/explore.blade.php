@@ -89,8 +89,10 @@
                                             <img src="{{ Storage::url('users/'.$user->image) }}"
                                                  alt="{{$user->name()}}">
                                         </div>
+
                                         <h5 class="card-title text-truncate">{{ $user->name() }}</h5>
-                                        <a class="card-text text-truncate"> @lang('site.Profile') </a>
+                                        <a href='{{ $user->url() }}'
+                                           class="card-text text-truncate"> @lang('site.Profile') </a>
                                     </div>
                                     <div class="card-footer">
                                         @livewire('site.follow-user' , ['designer' => $user ] , key($user->id) )
