@@ -647,6 +647,55 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script>
         $(document).ready(function () {
+            document.getElementById("save").onclick = function () {
+                $('#shirtDiv').removeClass('d-none');
+                $('#shirtDivBack').removeClass('d-none');
+                $('#drawingArea').removeClass('d-none');
+                $('#drawingAreaBack').removeClass('d-none');
+
+                $('#canvasBack').parent().removeClass('d-none');
+                $('#tcanvas').parent().removeClass('d-none');
+                html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas) {
+                    console.log('test')
+                    // document.body.appendChild(canvas)
+                    var data = canvas.toDataURL({
+                        format: "png"
+                    });
+                    $('#download').val(data);
+                });
+
+                // setTimeout(
+                //     function () {
+                html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas1) {
+                    console.log('test1')
+                    // document.body.appendChild(canvas)
+                    var data = canvas1.toDataURL({
+                        format: "png"
+                    });
+                    $('#download1').val(data);
+                });
+                // }, 1000);
+
+                $('#shirtDiv').addClass('d-none');
+                $('#shirtDivBack').addClass('d-none');
+                $('#drawingArea').addClass('d-none');
+                $('#drawingAreaBack').addClass('d-none');
+                var pngFrontURL = canvas.toDataURL({
+                    format: "png"
+                });
+                var pngBackURL = canvasBack.toDataURL({
+                    format: "png"
+                });
+                console.log(pngFrontURL);
+                $('#design_front_photo').val(pngFrontURL);
+                $('#design_back_photo').val(pngBackURL);
+                $('#main_image_width').val($('#tshirtFacing').outerWidth());
+                $('#main_image_height').val($('#tshirtFacing').outerHeight());
+                setTimeout(
+                    function () {
+                        $('#myForm').submit();
+                    }, 1000);
+            };
             var count = 0;
             $('#flipback').click(
                 function () {
