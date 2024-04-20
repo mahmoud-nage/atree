@@ -53,8 +53,7 @@
                                 <ul class="color-list">
                                     @foreach ($product->variations->unique('color_id') as $prodict_color_variate)
                                         <li class="color-item"
-                                            style="background:{{ $prodict_color_variate->color?->code }}"
-                                            data-image="img/color-2.jpg"></li>
+                                            style="background:{{ $prodict_color_variate->color?->code }}"></li>
                                     @endforeach
 
                                 </ul>

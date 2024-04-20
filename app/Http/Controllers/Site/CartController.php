@@ -25,14 +25,14 @@ class CartController extends Controller
 
     public function store(CartRequest $request)
     {
-        if($request->image){
+        if ($request->image && $request->image != 'data:,') {
 //            $waterMarkExtension = explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-            $designFrontFileName = time() . Str::random(10).'test12.png';
+            $designFrontFileName = time() . Str::random(10) . '.png';
             Image::make(file_get_contents($request->image))->save(storage_path('app/public/designs/' . $designFrontFileName));
         }
-        if($request->image1 && $request->image1 != 'data:,'){
+        if ($request->image1 && $request->image1 != 'data:,') {
 //            $waterMarkExtension = explode('/', explode(':', substr($request->image1, 0, strpos($request->image1, ';')))[1])[1];
-            $designBackFileName = time() . Str::random(10).'test12.png';
+            $designBackFileName = time() . Str::random(10) . '.png';
             Image::make(file_get_contents($request->image1))->save(storage_path('app/public/designs/' . $designBackFileName));
         }
 
@@ -96,11 +96,11 @@ class CartController extends Controller
         $hex = str_replace('#', '', $hex);
         $length = strlen($hex);
         if ($alpha == 'r') {
-            $rgb = hexdec(substr($hex, 0, 2)) * 100/255;
+            $rgb = hexdec(substr($hex, 0, 2)) * 100 / 255;
         } elseif ($alpha == 'g') {
-            $rgb = hexdec(substr($hex, 2, 2)) * 100/255;
+            $rgb = hexdec(substr($hex, 2, 2)) * 100 / 255;
         } elseif ($alpha == 'b') {
-            $rgb = hexdec(substr($hex, 4, 2)) * 100/255;
+            $rgb = hexdec(substr($hex, 4, 2)) * 100 / 255;
         }
         return ceil($rgb);
     }

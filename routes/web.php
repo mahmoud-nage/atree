@@ -106,7 +106,7 @@ Route::group([
 //    Route::post('/verify', [VerifyEmailController::class, 'verify'])->name('verify.post');
 
     Route::get('pages/{page}', [SiteController::class, 'page'])->name('pages.show');
-    Route::get('users/{user_id}', [SiteController::class, 'user'])->name('users.show');
+    Route::get('users/{user}', [SiteController::class, 'user'])->name('users.show');
     Route::get('contact', [SiteController::class, 'contact'])->name('contact');
     Route::get('search', [SiteController::class, 'search'])->name('search');
     Route::get('products/{product}', [SiteController::class, 'product'])->name('products.show');

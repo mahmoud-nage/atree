@@ -22,7 +22,7 @@
         <div class="section Products-list">
           <div class="title d-flex justify-content-between col-md-12">
             <h5 class="mb-2"> @lang('site.Search For') : {{ $search }} </h5>
-          </div>                   
+          </div>
           <ul class="users-list clearfix">
             @foreach ($products as $product)
             <li>
@@ -33,9 +33,9 @@
                 </a>
                 <ul class="color-list">
                   @foreach ($product->variations->unique('color_id') as $prodict_color_variate)
-                  <li class="color-item" style="background:{{ $prodict_color_variate->color?->code }}" data-image="img/color-2.jpg"></li>
+                  <li class="color-item" style="background:{{ $prodict_color_variate->color?->code }}" ></li>
                   @endforeach
-                  
+
                 </ul>
               </div>
               <a class="users-list-name" href="{{ $product->url() }}">{{ $product->name }}</a>
@@ -47,7 +47,7 @@
       </div>
 
 
-      <div class="tab-pane fade py-3" id="Designes" role="tabpanel" aria-labelledby="Designes-tab">              
+      <div class="tab-pane fade py-3" id="Designes" role="tabpanel" aria-labelledby="Designes-tab">
 
         <div class="card card-widget">
           <div class="card-header">
@@ -87,7 +87,7 @@
 
 
       </div>
-      
+
 
       <div class="card card-widget">
         <div class="card-header">

@@ -46,7 +46,7 @@ if ($lang == 'ar') {
                 <form action="{{ route('login.post') }}" method="POST" class="login-form">
                   @csrf
                   <div class="form-group mb-4">
-                    <label class="label" for="name"> @lang('site.phone') </label>
+                    <label class="label" for="name"> @lang('site.Phone') </label>
                     <input type="text" name='phone' value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror " autocapitalize="off" placeholder="@lang('site.phone')" >
                     @error('phone')
                     <p class='text-danger' > {{ $message }} </p>
