@@ -53,7 +53,7 @@ if ($lang == 'ar') {
                       <i class="fa fa-camera"></i>
                     </label>
                   </div>
-                  <div class="row">                        
+                  <div class="row">
                     <div class="col-md-6">
                       <div class="form-group mb-2">
                         <label class="label" for="name">@lang('site.First Name') </label>
@@ -71,7 +71,7 @@ if ($lang == 'ar') {
                         <p class='text-danger' > {{ $message }} </p>
                         @enderror
                       </div>
-                    </div>                        
+                    </div>
                     <div class="col-md-6">
                       <div class="form-group mb-2">
                         <label class="label" for="name">@lang('site.Email') </label>
@@ -127,7 +127,7 @@ if ($lang == 'ar') {
       </div>
     </div>
   </div>
-</section>  
+</section>
 @include('site.layouts.footer')
 </div>
 
@@ -135,4 +135,20 @@ if ($lang == 'ar') {
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/login.css') }}">
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $(".show-pass").click(function(){
+                $(this).toggleClass("fa-eye-slash fa-eye");
+                if($(this).prev("input").attr("type") == "text"){
+                    $(this).prev("input").prop("type", "password");
+                }
+                else{
+                    $(this).prev("input").prop("type", "text");
+                }
+            })
+        })
+    </script>
 @endsection

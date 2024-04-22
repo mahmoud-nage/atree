@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Dashboard\DesignController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CheckoutController;
@@ -46,7 +47,6 @@ Route::group([
     Route::post('/Dashboard/login', [AuthController::class, 'login'])->name('dashboard.login');
     Route::group(['prefix' => 'Dashboard', 'as' => 'dashboard.', 'middleware' => ['admin']], function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::resource('sizes', SizeController::class);
         Route::resource('designs', DesignController::class);
@@ -89,6 +89,20 @@ Route::group([
     });
 
     Route::get('/', [SiteController::class, 'index'])->name('home');
+    Route::group(['prefix' => 'forgot-password'], function () {
+        Route::get('/', [PasswordResetLinkController::class, 'create'])
+            ->middleware('guest')
+            ->name('password.request');
+        Route::post('send-code/', [PasswordResetLinkController::class, 'send'])
+            ->middleware('guest')
+            ->name('password.send');
+        Route::post('check-code/', [PasswordResetLinkController::class, 'check'])
+            ->middleware('guest')
+            ->name('password.check');
+        Route::post('/', [PasswordResetLinkController::class, 'store'])
+            ->middleware('guest')
+            ->name('password.newPassword');
+    });
     Route::group(['prefix' => 'login'], function () {
         Route::get('/', [LoginController::class, 'form'])->name('login.form');
         Route::post('/', [LoginController::class, 'login'])->name('login.post');

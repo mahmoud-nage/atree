@@ -38,7 +38,7 @@
                 @enderror
               </div>
               <div class="form-group">
-                <input class="form-control @error('phone') @enderror " name='phone' value='{{ old('phone') }}' type="text" placeholder="@lang('site.phone')">
+                <input class="form-control @error('phone') @enderror " name='phone' value='{{ old('phone') }}' type="text" placeholder="@lang('site.Phone')">
                 @error('phone')
                 <p class='text-danger'> {{ $message }} </p>
                 @enderror

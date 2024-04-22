@@ -47,7 +47,7 @@ if ($lang == 'ar') {
                   @csrf
                   <div class="form-group mb-4">
                     <label class="label" for="name"> @lang('site.Phone') </label>
-                    <input type="text" name='phone' value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror " autocapitalize="off" placeholder="@lang('site.phone')" >
+                    <input type="text" name='phone' value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror " autocapitalize="off" placeholder="@lang('site.Phone')" >
                     @error('phone')
                     <p class='text-danger' > {{ $message }} </p>
                     @enderror
@@ -55,7 +55,7 @@ if ($lang == 'ar') {
                   <div class="form-group mb-4">
                     <div class="d-flex justify-content-between align-items-end">
                       <label class="label" for="password"> @lang('site.Password') </label>
-                      <a class="forget-password" href="Forget-password.html"> @lang('site.Forgot Password ?') </a>
+                      <a class="forget-password" href="{{route('password.request')}}"> @lang('site.Forgot Password ?') </a>
                     </div>
                     <div class="password-container">
                       <input type="Password" name='password' class="form-control @error('password') is-invalid @enderror " placeholder="" >
@@ -91,4 +91,19 @@ if ($lang == 'ar') {
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/login.css') }}">
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $(".show-pass").click(function(){
+            $(this).toggleClass("fa-eye-slash fa-eye");
+            if($(this).prev("input").attr("type") == "text"){
+                $(this).prev("input").prop("type", "password");
+            }
+            else{
+                $(this).prev("input").prop("type", "text");
+            }
+        })
+    })
+</script>
 @endsection
