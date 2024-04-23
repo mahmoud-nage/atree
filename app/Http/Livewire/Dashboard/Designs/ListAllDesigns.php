@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard\Designs;
 
 use App\Models\Design;
+use App\Models\UserDesign;
 use Livewire\Component;
 use App\Models\Size;
 use Livewire\WithPagination;
@@ -36,7 +37,7 @@ class ListAllDesigns extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $records = Design::query()->with(['user', 'products'])->latest()->paginate($this->rows);
+        $records = UserDesign::query()->with(['user', 'products'])->latest()->paginate($this->rows);
         return view('livewire.dashboard.designs.list-all-designs' , compact('records'));
     }
 }

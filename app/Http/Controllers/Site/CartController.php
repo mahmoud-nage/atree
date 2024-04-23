@@ -70,7 +70,6 @@ class CartController extends Controller
         UserDesign::create([
             'user_id' => auth()->id(),
             'product_id' => $product->id,
-//            'designer_id' => auth()->id(),
             'image' => $waterMarkFrontFileName,
             'back_image' => $waterMarkBackFileName,
         ]);
@@ -89,19 +88,5 @@ class CartController extends Controller
             ]);
         }
         return view('site.cart');
-    }
-
-    function hexToRgb($hex, $alpha)
-    {
-        $hex = str_replace('#', '', $hex);
-        $length = strlen($hex);
-        if ($alpha == 'r') {
-            $rgb = hexdec(substr($hex, 0, 2)) * 100 / 255;
-        } elseif ($alpha == 'g') {
-            $rgb = hexdec(substr($hex, 2, 2)) * 100 / 255;
-        } elseif ($alpha == 'b') {
-            $rgb = hexdec(substr($hex, 4, 2)) * 100 / 255;
-        }
-        return ceil($rgb);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Design;
+use App\Models\UserDesign;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\Site\RegisterRequest;
 use App\Http\Requests\Site\SoreOrderRequest;
@@ -28,7 +30,7 @@ class SiteController extends Controller
         $slides = Slide::where('is_active', 1)->latest()->get();
         $recomanded_users = User::where('type', User::USER)->orderByRaw("RAND()")->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
-        $designs = Design::inRandomOrder()->take(6)->get();
+        $designs = UserDesign::inRandomOrder()->take(6)->get();
         return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs'));
     }
 
@@ -46,8 +48,8 @@ class SiteController extends Controller
     public function user(User $user)
     {
         $user->load('designs')->loadCount('followers');
-        $latest_designs = Design::where('user_id', auth()->id())->latest()->get()->take(4);
-        return view('site.bio', compact('user','latest_designs'));
+        $latest_designs = UserDesign::where('user_id', auth()->id())->latest()->get()->take(4);
+        return view('site.bio', compact('user', 'latest_designs'));
     }
 
 
@@ -86,12 +88,10 @@ class SiteController extends Controller
     }
 
 
-
-
     public function custom_designs($product_id)
     {
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
-        $designs = Design::where('user_id' , '='  , Auth::id())->with('products', 'user')->get();
+        $designs = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
         return view('site.custom_designs', compact('record', 'designs'));
     }
 
@@ -100,7 +100,7 @@ class SiteController extends Controller
     {
         $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
         $users = User::latest()->where('type', User::USER)->take(15)->get();
-        $designs = Design::latest()->take(15)->get();
+        $designs = UserDesign::latest()->take(15)->get();
         return view('site.explore', compact('products', 'users', 'designs'));
     }
 
@@ -125,8 +125,24 @@ class SiteController extends Controller
      */
     public function designs()
     {
-        $records = Design::latest()->get();
+        $records = UserDesign::latest()->get();
         return view('site.designs', compact('records'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updateDesign(Request $request, $id): RedirectResponse
+    {
+        $record = UserDesign::findOrFail($id);
+        $record->description = $request->description;
+        $record->is_active = $request->is_active == 'on' ? 1 : 0;
+        $record->save();
+        $record->products()->sync($request->product_id);
+        return back()->with('success', 'success');
     }
 
     /**

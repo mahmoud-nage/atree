@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Design;
 use App\Models\Order;
 use App\Models\Follower;
+use App\Models\UserDesign;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -31,7 +32,7 @@ class ProfileController extends Controller
 
     public function my_designs()
     {
-        $records = Design::where('user_id' , '='  , Auth::id())->with('products', 'user')->get();
+        $records = UserDesign::where('user_id' , '='  , Auth::id())->with('products', 'user')->latest()->get();
         return view('site.my_designs' , compact('records') );
     }
 

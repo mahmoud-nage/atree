@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Site;
 use App\Models\Design;
 use App\Models\DesignProduct;
 use App\Models\Product;
+use App\Models\UserDesign;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
@@ -22,15 +23,15 @@ class CreateDesign extends Component
     protected $rules = [
         'product_id' => 'required',
         'description' => 'required',
-        'image' => 'required',
     ];
 
 //
     public function mount($id = null)
     {
-        $design = Design::find($id);
+        $design = UserDesign::find($id);
         if($design){
-            $this->user_id = $design->id;
+            $this->id = $design->id;
+            $this->user_id = $design->user_id;
             $this->description = $design->description;
             $this->product_id = $design->products()->pluck('product_id');
         }
@@ -45,10 +46,8 @@ class CreateDesign extends Component
     public function save()
     {
         $this->validate();
-        $design = new Design;
-        $design->user_id = auth()->id();
+        $design = UserDesign::find($this->id);
         $design->description = $this->description;
-        $design->image = basename($this->image->store('designs'));
         $design->save();
         $design->products()->sync($this->product_id);
         $this->emit('addressAdded');
@@ -57,17 +56,28 @@ class CreateDesign extends Component
 
     public function deleteItem($item_id)
     {
-        $item = Design::find($item_id);
+        $item = UserDesign::find($item_id);
         if ($item) {
             $item->products()->detach();
             $item->delete();
             $this->alert('success', trans('site.Address deleted successfully'));
         }
     }
+    public function getInfo($item_id)
+    {
+        $item = UserDesign::find($item_id);
+        if ($item) {
+            $this->id = $item->id;
+            $this->user_id = $item->user_id;
+            $this->description = $item->description;
+            $this->product_id = $item->products()->pluck('product_id');
+
+        }
+    }
 
     public function render()
     {
-        $records = Design::with(['products'])->where('user_id', auth()->id())->get();
+        $records = UserDesign::with(['products'])->where('user_id', auth()->id())->latest()->get();
         return view('livewire.site.create-design', compact('records'));
     }
 }

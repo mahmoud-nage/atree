@@ -119,7 +119,7 @@ class User extends Authenticatable
 
     public function designs(): HasMany
     {
-        return $this->hasMany(Design::class, 'user_id');
+        return $this->hasMany(UserDesign::class, 'user_id');
     }
 
     public function followers(): HasMany

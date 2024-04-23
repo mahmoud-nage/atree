@@ -10,15 +10,15 @@ class DesignProduct extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'design_id',
         'product_id',
         'diamonds',
     ];
 
 
-    public function user(): BelongsTo
+    public function design(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserDesign::class, 'design_id');
     }
 
     public function product(): BelongsTo

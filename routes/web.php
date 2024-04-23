@@ -128,6 +128,7 @@ Route::group([
     Route::get('/explore', [SiteController::class, 'explore'])->name('explore');
     Route::get('/products', [SiteController::class, 'products'])->name('products');
     Route::get('/designs', [SiteController::class, 'designs'])->name('designs');
+    Route::post('/designs/{id}', [SiteController::class, 'updateDesign'])->name('designs.update');
     Route::get('/cart', [SiteController::class, 'cart'])->name('cart');
 
 

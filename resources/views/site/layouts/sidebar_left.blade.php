@@ -34,13 +34,13 @@
 
 
         <!--------- Heigh Recomanded Designs List --------->
-        @if(\App\Models\Design::count() > 0)
+        @if(\App\Models\UserDesign::count() > 0)
             <div class="section">
                 <div class="title col-md-12 mt-4">
                     <h5 class="mb-2"> @lang('site.Heigh Recomanded Designs') </h5>
                 </div>
                 <div class="list-group heigh-recomanded-list">
-                    @foreach(\App\Models\Design::inRandomOrder()->get()->take(3) as $record)
+                    @foreach(\App\Models\UserDesign::inRandomOrder()->get()->take(3) as $record)
                         <!-- list-item -->
                         <div class="list-item ">
                             <div class="media">

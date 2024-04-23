@@ -19,14 +19,14 @@
             </ul>
         </div>
         <!---------- Used Design ------------>
-        @if(\App\Models\Design::count() > 0)
+        @if(\App\Models\UserDesign::count() > 0)
             <div class="section used-design most-bought-designes mt-4">
                 <div class="title d-flex justify-content-between col-md-12">
                     <h5 class="card-title font-weight-bold">@lang('site.Heigh Recomanded Designs')</h5>
                 </div>
 
                 <ul class="users-list clearfix">
-                    @foreach(\App\Models\Design::inRandomOrder()->get()->take(3) as $record)
+                    @foreach(\App\Models\UserDesign::inRandomOrder()->get()->take(3) as $record)
                         <li>
                             <a href="#">
                                 <div class="image-container">

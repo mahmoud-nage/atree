@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Design;
 use App\Models\Order;
 use App\Models\Follower;
+use App\Models\UserDesign;
 use App\Models\Wishlist;
 use App\Trait\ApiResponse;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,7 @@ class ProfileController extends Controller
 
     public function my_designs()
     {
-        $records = Design::where('user_id', '=', Auth::id())->with('products', 'user')->get();
+        $records = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
         return self::makeSuccess(Response::HTTP_OK, '', $records, false);
     }
 
