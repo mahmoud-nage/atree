@@ -41,6 +41,36 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="followersPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            @foreach ($user->followers as $follower)
+                                <div class="card artest-card">
+                                    <div class="card-body">
+                                        <div class="img-container">
+                                            <img src="{{ Storage::url('users/'.$follower->designer->image) }}" alt="">
+                                        </div>
+                                        <h5 class="card-title text-truncate"> {{ $follower?->designer->name() }} </h5>
+                                        <a href='{{ $follower->designer?->url() }}'
+                                           class="card-text text-truncate"> @lang('site.Profile') </a>
+                                    </div>
+                                    <div class="card-footer">
+                                        @livewire('site.follow-user', ['designer' => $follower->designer ] ,
+                                        key($follower->designer->id) )
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- //////////////////////////////////// -->
             <div class="col-md-4">
                 <div class="card p-2">

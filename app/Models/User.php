@@ -124,7 +124,7 @@ class User extends Authenticatable
 
     public function followers(): HasMany
     {
-        return $this->hasMany(Follower::class, 'designer_id');
+        return $this->hasMany(Follower::class, 'user_id');
     }
 
     public function admin(): \Illuminate\Database\Eloquent\Relations\BelongsTo

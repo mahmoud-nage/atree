@@ -26,7 +26,7 @@ class ProfileController extends Controller
 
     public function followers()
     {
-        $followers = Follower::with('user')->where('designer_id' , '='  , Auth::id())->get();
+        $followers = Follower::with('designer')->where('user_id' , '='  , Auth::id())->get();
         return view('site.followers' , compact('followers') );
     }
 

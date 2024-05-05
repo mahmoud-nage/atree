@@ -9,9 +9,9 @@
 @extends('site.layouts.master')
 @section('styles')
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-{{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/excanvas.js') }}"></script>--}}
+    {{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/excanvas.js') }}"></script>--}}
     {{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>--}}
-{{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/fabric.js') }}"></script>--}}
+    {{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/fabric.js') }}"></script>--}}
     <script type="text/javascript"></script>
     <!-- Le styles -->
     {{--    <link type="text/css" rel="stylesheet" href="{{ asset('site_assets/designs/css/jquery.miniColors.css') }}"/>--}}
@@ -154,11 +154,11 @@
 
         .flip-shirt {
             position: absolute;
-            right: 5%;
-            top: 10%;
+            right: 3%;
+            top: 7%;
             z-index: 99;
-            width: 3rem;
-            height: 3rem;
+            width: 4rem;
+            height: 2rem;
         }
 
         .span6 .clearfix {
@@ -222,12 +222,15 @@
                 <div class="card-body">
                     <form method="post" action="{{route('cart.store')}}" enctype="multipart/form-data" id="myForm">
                         @csrf
-                        <input type="hidden" name="product_id" id="product_id" value="{{$record->id}}"/>
+                        <input type="hidden" name="product_id[]" value="{{$record->id}}"/>
                         <input type="hidden" id="design_front_photo" name="design_front_photo"/>
                         <input type="hidden" id="design_back_photo" name="design_back_photo"/>
                         <input type="hidden" id="design_color_id" name="design_color_id"/>
-                        <input type="hidden" id="main_image_width" name="main_image_width" value="530"/>
-                        <input type="hidden" id="main_image_height" name="main_image_height" value="630"/>
+                        <input type="hidden" id="front_image_width" name="front_image_width" value="50"/>
+                        <input type="hidden" id="front_image_height" name="front_image_height" value="50"/>
+                        <input type="hidden" id="back_image_width" name="back_image_width" value="50"/>
+                        <input type="hidden" id="back_image_height" name="back_image_height" value="50"/>
+                        <input type="hidden" id="type" name="type" value="2"/>
                         <div class="row">
                             <div class="col-7" style="box-shadow: 0 0 10px 10px #00000012;">
                                 <div class="row">
@@ -266,7 +269,6 @@
                                                             <input type="file" name="fileToUpload"
                                                                    id="fileToUpload">
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,9 +362,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button id="flipback" type="button" class="flip-shirt" title="Rotate View"
-                                                data-original-title="Show Back View">
-                                            <i class="fa fa-rotate-right fa-lg"></i>
+                                        <button id="flipback" type="button" class="flip-shirt btn btn-primary p-3 ml-3 bg-primary-gridant"
+                                                title="Rotate View" data-original-title="Show Back View">
+                                            {{__('site.back')}}
                                         </button>
                                         <div id="shirtDiv" class="page"
                                              style="position: relative; background-color: rgb(255, 255, 255);">
@@ -449,7 +451,7 @@
                                                 </div>
                                                 <div class="form-group col-3 p-1">
                                                     <input min="0" value="{{$record->price}} {{__('site.SAR')}}"
-                                                           type="text" disabled class="form-control">
+                                                           type="text" id="price1" disabled class="form-control">
                                                 </div>
                                             </div>
                                             <hr>
@@ -487,13 +489,39 @@
                                             @endforeach
                                         </ul>
                                     </div>
+
                                 </div>
                                 <input type="hidden" name="image" id="download">
                                 <input type="hidden" name="image1" id="download1">
 
-                                <button type="button"
-                                        class="btn btn-large btn-block btn-primary bg-primary-gridant span6"
-                                        style="margin-top: 1rem;width: 90%"
+
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 form-group">
+                                <div class="title">
+                                    <h5 class="mb-2"> @lang('site.Products') </h5>
+                                </div>
+                                <select class='form-control' id="product_id" name="product_id[]" multiple>
+                                    <option value="">@lang('site.choice_product')</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}"> {{ $product->name }} </option>
+                                    @endforeach
+                                </select>
+                                @error('product_id')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                            <div class="col-12 form-group">
+                                <button type="button" onclick="addType(2)"
+                                        class="btn  btn-success bg-success-gridant span6"
+                                        style="width: 49% !important;"
+                                        id="save">@lang('site.add-design')
+                                    <i class="fa fa-crop-alt fa-lg mr-2"></i>
+                                </button>
+                                <button type="button" onclick="addType(1)"
+                                        class="btn   btn-primary bg-primary-gridant span6"
+                                        style="width: 50% !important;"
                                         id="save">@lang('site.add-to-cart')
                                     <i class="fas fa-cart-plus fa-lg mr-2"></i>
                                 </button>
@@ -520,7 +548,7 @@
 
     <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('site_assets/designs/js/tshirtEditor.js') }}"></script>
-{{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>--}}
+    {{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>--}}
     <!-- Footer ================================================== -->
     <script>
         $(function () {
@@ -646,60 +674,65 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script>
-        $(document).ready(function () {
-            document.getElementById("save").onclick = function () {
-                $('#shirtDiv').removeClass('d-none');
-                $('#shirtDivBack').removeClass('d-none');
-                $('#drawingArea').removeClass('d-none');
-                $('#drawingAreaBack').removeClass('d-none');
+        function save() {
+            $("#myForm").validate();
+            $('#shirtDiv').removeClass('d-none');
+            $('#shirtDivBack').removeClass('d-none');
+            $('#drawingArea').removeClass('d-none');
+            $('#drawingAreaBack').removeClass('d-none');
 
-                $('#canvasBack').parent().removeClass('d-none');
-                $('#tcanvas').parent().removeClass('d-none');
-                html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas) {
-                    console.log('test')
-                    // document.body.appendChild(canvas)
-                    var data = canvas.toDataURL({
-                        format: "png"
-                    });
-                    $('#download').val(data);
-                });
-
-                // setTimeout(
-                //     function () {
-                html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas1) {
-                    console.log('test1')
-                    // document.body.appendChild(canvas)
-                    var data = canvas1.toDataURL({
-                        format: "png"
-                    });
-                    $('#download1').val(data);
-                });
-                // }, 1000);
-
-                $('#shirtDiv').addClass('d-none');
-                $('#shirtDivBack').addClass('d-none');
-                $('#drawingArea').addClass('d-none');
-                $('#drawingAreaBack').addClass('d-none');
-                var pngFrontURL = canvas.toDataURL({
+            $('#canvasBack').parent().removeClass('d-none');
+            $('#tcanvas').parent().removeClass('d-none');
+            html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas) {
+                console.log('test')
+                // document.body.appendChild(canvas)
+                var data = canvas.toDataURL({
                     format: "png"
                 });
-                var pngBackURL = canvasBack.toDataURL({
+                $('#download').val(data);
+            });
+
+            // setTimeout(
+            //     function () {
+            html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas1) {
+                console.log('test1')
+                // document.body.appendChild(canvas)
+                var data = canvas1.toDataURL({
                     format: "png"
                 });
-                console.log(pngFrontURL);
-                $('#design_front_photo').val(pngFrontURL);
-                $('#design_back_photo').val(pngBackURL);
-                $('#main_image_width').val($('#tshirtFacing').outerWidth());
-                $('#main_image_height').val($('#tshirtFacing').outerHeight());
+                $('#download1').val(data);
+            });
+            // }, 1000);
+
+            $('#shirtDiv').addClass('d-none');
+            $('#shirtDivBack').addClass('d-none');
+            $('#drawingArea').addClass('d-none');
+            $('#drawingAreaBack').addClass('d-none');
+            var pngFrontURL = canvas.toDataURL({
+                format: "png"
+            });
+            var pngBackURL = canvasBack.toDataURL({
+                format: "png"
+            });
+            console.log(pngFrontURL);
+            $('#design_front_photo').val(pngFrontURL);
+            $('#design_back_photo').val(pngBackURL);
+            $('#main_image_width').val($('#tshirtFacing').outerWidth());
+            $('#main_image_height').val($('#tshirtFacing').outerHeight());
+            if ($('#myForm').valid())
+            {
                 setTimeout(
                     function () {
                         $('#myForm').submit();
                     }, 1000);
-            };
-            var count = 0;
+            }
+        }
+        var count = 0;
+        $(function () {
             $('#flipback').click(
                 function () {
                     if ($(this).attr("data-original-title") === "Show Back View") {
+                        $(this).html('{{__('site.front')}}')
                         if (count === 0) {
                             Swal.fire({
                                 title: "{{__('site.alert')}}",
@@ -714,6 +747,8 @@
                                 if (result.isConfirmed) {
                                     count++;
                                     $('#price').html('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
+                                    $('#price1').val('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
+                                    $('#total_amount').val('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
                                     $('#flipback').attr('data-original-title', 'Show Front View');
 
                                     $('#shirtDiv').addClass('d-none');
@@ -726,8 +761,10 @@
                                     canvasBack.renderAll();
                                 }
                             });
-                        }else{
+                        } else {
                             $('#price').html('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
+                            $('#price1').val('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
+                            $('#total_amount').val('{{$record->price_full_design}}' + '{{__('site.SAR')}}');
                             $('#flipback').attr('data-original-title', 'Show Front View');
 
                             $('#shirtDiv').addClass('d-none');
@@ -740,7 +777,9 @@
                             canvasBack.renderAll();
                         }
 
-                    } else {
+                    }
+                    else {
+                        $(this).html('{{__('site.back')}}')
                         $('#flipback').attr('data-original-title', 'Show Back View');
                         $('#shirtDivBack').addClass('d-none');
                         $('#shirtDiv').removeClass('d-none');
@@ -775,12 +814,18 @@
         }
 
         function changeQty() {
-            let price = parseInt({{$record->price}});
+            let price = count>1?parseInt({{$record->price}}):parseInt({{$record->price_full_design}});
             let qty = 0;
             $("input[name='quantities[]']").each(function () {
                 qty += parseInt($(this).val());
             });
             $('#total_amount').val('' + price * qty + ' {{__('site.SAR')}}');
+        }
+
+        function addType(type) {
+            console.log(type);
+            $("#type").val(type);
+            this.save();
         }
     </script>
 

@@ -24,10 +24,11 @@ class CartRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id' => 'required|exists:products,id',
+            'product_id' => 'required|array',
+            'products.*' => 'exists:products,id',
             'color_id.*' => 'required|exists:colors,id',
             'size_id.*' => 'required|exists:sizes,id',
-            'quantities.*' => 'required|numeric|min:1'
+            'quantities.*' => 'required|numeric|min:1',
         ];
     }
 }

@@ -9,7 +9,7 @@
 
             <div class="sugested-designer-list">
 
-                @foreach (\App\Models\User::inRandomOrder()->where('type', \App\Models\User::USER)->take(3)->get() as $user)
+                @foreach (\App\Models\User::inRandomOrder()->where('type', \App\Models\User::USER)->where('id', '!=', auth()->id())->take(3)->get() as $user)
                     <div class="media">
                         <a href="{{ route('users.show' , $user ) }}">
                             <div class="mr-3 media-img">

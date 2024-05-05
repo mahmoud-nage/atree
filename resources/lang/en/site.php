@@ -137,6 +137,8 @@ return array(
     'status' => 'Status',
     'active' => 'Active',
     'deactive' => 'de Active',
+    'add-design' => 'Add Design',
+    'choice_product' => 'Choice Product',
     '' => '',
     '' => '',
     '' => '',

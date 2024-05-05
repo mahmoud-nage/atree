@@ -28,7 +28,7 @@ class SiteController extends Controller
     public function index()
     {
         $slides = Slide::where('is_active', 1)->latest()->get();
-        $recomanded_users = User::where('type', User::USER)->orderByRaw("RAND()")->take(8)->get();
+        $recomanded_users = User::where('type', User::USER)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
         $designs = UserDesign::inRandomOrder()->take(6)->get();
         return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs'));
@@ -91,8 +91,9 @@ class SiteController extends Controller
     public function custom_designs($product_id)
     {
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
+        $products = Product::where('id', '!=', $product_id)->get();
         $designs = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
-        return view('site.custom_designs', compact('record', 'designs'));
+        return view('site.custom_designs', compact('record', 'designs','products'));
     }
 
 

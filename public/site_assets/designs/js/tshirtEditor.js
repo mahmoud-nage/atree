@@ -170,6 +170,7 @@ $(document).ready(function () {
             }
         }
         reader.readAsDataURL(e.target.files[0]);
+        $("#imageeditor").css('display', 'block');
     });
     document.getElementById('remove-selected').onclick = function () {
         if ($('#drawingArea').hasClass('d-none')) {

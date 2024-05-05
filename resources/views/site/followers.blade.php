@@ -13,15 +13,15 @@
                         <div class="card artest-card">
                             <div class="card-body">
                                 <div class="img-container">
-                                    <img src="{{ Storage::url('users/'.$follower->user->image) }}" alt="">
+                                    <img src="{{ Storage::url('users/'.$follower->designer->image) }}" alt="">
                                 </div>
-                                <h5 class="card-title text-truncate"> {{ $follower?->user->name() }} </h5>
-                                <a href='{{ $follower->user?->url() }}'
+                                <h5 class="card-title text-truncate"> {{ $follower?->designer->name() }} </h5>
+                                <a href='{{ $follower->designer?->url() }}'
                                    class="card-text text-truncate"> @lang('site.Profile') </a>
                             </div>
                             <div class="card-footer">
-                                @livewire('site.follow-user', ['designer' => $follower->user ] ,
-                                key($follower->user->id) )
+                                @livewire('site.follow-user', ['designer' => $follower->designer ] ,
+                                key($follower->designer->id) )
                             </div>
                         </div>
                     @endforeach
