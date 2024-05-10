@@ -51,9 +51,9 @@ class CheckoutController extends Controller
         $address = UserAddress::find($request->address_id);
         $city = $address->city;
         $governorate = $address->governorate;
-        $shipping_cost = $city->shipping_cost ? $city->shipping_cost : $governorate->shipping_cost;
-        $total = $sub_total + $shipping_cost - $discount;
-
+        $shipping_cost = $governorate->shipping_cost ?? 0;
+        $total = $sub_total * 1.15 + $shipping_cost - $discount;
+        $vat = $sub_total * 0.15;
         $order = Order::create([
             'number' => time() . mt_rand(1, 1000) . auth()->id(),
             'user_id' => auth()->id(),
@@ -61,6 +61,7 @@ class CheckoutController extends Controller
             'shipping_cost' => $shipping_cost,
             'total' => $total,
             'discount' => $discount,
+            'vat' => $vat,
             'coupon_id' => $request->coupon_id,
             'governorate_id' => $address->governorate_id,
             'city_id' => $address->city_id,
@@ -93,8 +94,15 @@ class CheckoutController extends Controller
         if ($request->payment_method_id == 2) { // bank
             if ($shipping_cost) {
                 $itemsPayment[] = [
-                    'name' => 'Shipping Cost',
+                    'name' => __('site.shipping_price'),
                     'price' => $shipping_cost,
+                    'quantity' => 1,
+                ];
+            }
+            if ($vat) {
+                $itemsPayment[] = [
+                    'name' => __('site.vat'),
+                    'price' => $vat,
                     'quantity' => 1,
                 ];
             }
@@ -129,8 +137,15 @@ class CheckoutController extends Controller
         }
         if ($order->shipping_cost) {
             $itemsPayment[] = [
-                'name' => 'Shipping Cost',
+                'name' => __('site.shipping_price'),
                 'price' => $order->shipping_cost,
+                'quantity' => 1,
+            ];
+        }
+        if ($order->vat) {
+            $itemsPayment[] = [
+                'name' => __('site.vat'),
+                'price' => $order->vat,
                 'quantity' => 1,
             ];
         }

@@ -134,21 +134,29 @@
                                                         </tr>
                                                     @endforeach
                                                     <tr class="bg-light font-weight-bold">
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th>Total Price</th>
+                                                        <th >{{__('site.sub_total')}}</th>
+                                                        <td></td>
+                                                        <th class="totalPrice">{{$record->subtotal}} <span> @lang('site.SAR') </span></th>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="bg-light font-weight-bold">
+                                                        <th >{{__('site.discount')}}</th>
                                                         <td></td>
+                                                        <th class="totalPrice">{{$record->discount}} <span> @lang('site.SAR') </span></th>
+                                                    </tr>
+                                                    <tr class="bg-light font-weight-bold">
+                                                        <th >{{__('site.shipping_price')}}</th>
                                                         <td></td>
+                                                        <th class="totalPrice">{{$record->shipping_cost}} <span> @lang('site.SAR') </span></th>
+                                                    </tr>
+                                                    <tr class="bg-light font-weight-bold">
+                                                        <th >{{__('site.vat')}}</th>
                                                         <td></td>
+                                                        <th class="totalPrice">{{$record->vat}} <span> @lang('site.SAR') </span></th>
+                                                    </tr>
+                                                    <tr class="bg-light font-weight-bold">
+                                                        <th >{{__('site.total')}}</th>
                                                         <td></td>
-                                                        <td></td>
-                                                        <td class="totalPrice">{{$record->total}} <span> @lang('site.SAR') </span>
-                                                        </td>
+                                                        <th class="totalPrice">{{$record->total}} <span> @lang('site.SAR') </span></th>
                                                     </tr>
                                                     </tbody>
                                                 </table>

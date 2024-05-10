@@ -74,7 +74,7 @@
                             @break
                             @endswitch
                         </td>
-                        <td> {{ $record->created_at->diffForHumans() }} </td>
+                        <td> {{ $record->created_at?$record->created_at->diffForHumans():'-' }} </td>
                         <td>
 {{--                            <a href='{{ route('dashboard.designs.show' , $record ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>--}}
                         </td>

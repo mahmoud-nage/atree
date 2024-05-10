@@ -17,7 +17,7 @@ class UserAddresses extends Component
     public $user;
     public $country_id;
     public $governorate_id;
-    public $city_id;
+//    public $city_id;
     public $building_number;
     public $street_name;
     public $district;
@@ -27,7 +27,7 @@ class UserAddresses extends Component
     protected $rules = [
         'country_id' => 'required',
         'governorate_id' => 'required',
-        'city_id' => 'required',
+//        'city_id' => 'required',
         'building_number' => 'required',
         'street_name' => 'required',
         'district' => 'required',
@@ -51,10 +51,10 @@ class UserAddresses extends Component
     }
 
 
-    public function getCitiesProperty()
-    {
-        return City::where('active', 1)->where('governorate_id', $this->governorate_id)->get();
-    }
+//    public function getCitiesProperty()
+//    {
+//        return City::where('active', 1)->where('governorate_id', $this->governorate_id)->get();
+//    }
 
 
     public function save()
@@ -64,7 +64,7 @@ class UserAddresses extends Component
         $address = new UserAddress;
         $address->user_id = Auth::id();
         $address->governorate_id = $this->governorate_id;
-        $address->city_id = $this->city_id;
+//        $address->city_id = $this->city_id;
         $address->country_id = $this->country_id;
         $address->building_number = $this->building_number;
         $address->street_name = $this->street_name;
@@ -100,7 +100,7 @@ class UserAddresses extends Component
 
     public function render()
     {
-        $addresses = UserAddress::with(['country', 'city', 'governorate'])->where('user_id', Auth::id())->get();
+        $addresses = UserAddress::with(['country', 'governorate'])->where('user_id', Auth::id())->get();
         return view('livewire.site.user-addresses', compact('addresses'));
     }
 }

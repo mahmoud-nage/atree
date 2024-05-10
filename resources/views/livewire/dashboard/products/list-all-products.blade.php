@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -27,7 +27,7 @@
                         <option value="200">200 </option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="form-group-feedback form-group-feedback-right">
                         <input type="search" wire:model='search' class="form-control wmin-sm-200" placeholder=" @lang('dashboard.search') ...">
                         <div class="form-control-feedback">
@@ -78,7 +78,7 @@
                             <a href='{{ route('dashboard.products.edit' , ['product' => $product->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $product->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

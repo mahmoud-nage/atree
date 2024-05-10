@@ -97,15 +97,15 @@
                     {{--                    //{{$this->discount}}--}}
                 </dl>
                 <dl class="dlist-align">
+                    <dt style="width:143px !important;"> {{__('site.vat')}} :</dt>
+                    <dd class="text-right  h5"><strong>{{ $this->vat }} </strong> <span
+                            class="text-muted"> {{__('site.SAR')}} </span>
+                    </dd>
+                </dl>
+                <dl class="dlist-align">
                     <dt style="width:143px !important;"> {{__('site.total')}} :</dt>
                     <dd class="text-right  h5"><strong>{{ $this->total }} </strong> <span
                             class="text-muted"> {{__('site.SAR')}} </span></dd>
-                </dl>
-                <dl class="dlist-align">
-                    <dt style="width:143px !important;"> {{__('site.profit')}} :</dt>
-                    <dd class="text-right  h5"><strong>{{ $this->marketer_bounse }} </strong> <span
-                            class="text-muted"> {{__('site.SAR')}} </span>
-                    </dd>
                 </dl>
             </div> <!-- card-body.// -->
         </div>  <!-- card .// -->
@@ -121,7 +121,7 @@
                                         class="form-control">
                                     <option value=""></option>
                                     @foreach ($this->addresses as $address)
-                                        <option value="{{ $address->id }}">{{ $address->city?->name }}
+                                        <option value="{{ $address->id }}">{{ $address->country?->name }}
                                             - {{$address->governorate?->name}} </option>
                                     @endforeach
                                 </select>

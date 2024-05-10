@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard\Orders;
 
+use App\Models\Country;
 use Livewire\Component;
 use App\Models\Order;
 use App\Models\City;
@@ -22,6 +23,7 @@ class ListAllOrders extends Component
     public $start_date;
     public $end_date;
     public $file;
+    public $country_id;
     public $governorate_id;
     public $city_id;
 
@@ -43,9 +45,13 @@ class ListAllOrders extends Component
     }
 
 
+    public function getCountriesProperty()
+    {
+        return Country::all();
+    }
     public function getGovernoratesProperty()
     {
-        return Governorate::all();
+        return Governorate::where('country_id' , $this->country_id )->get();
     }
 
     public function getCitiesProperty()
@@ -70,17 +76,26 @@ class ListAllOrders extends Component
 
     public function ExcelReport() {
         $orders = Order::when($this->search , function($query){
-            $query->where('number' , 'LIKE' , '%'.$this->search.'%' );
+            $query->where('number' , 'LIKE' , '%'.$this->search.'%' )
+                ->orWhere('order_phone' ,  'LIKE' , '%'.$this->search.'%'  )
+                ->orWhere('client_name' ,  'LIKE' , '%'.$this->search.'%'  );
         })
-        ->when($this->shipping_status != 'all' , function($query){
-            $query->where('shipping_statues_id' , $this->shipping_status );
-        })
-        ->when($this->start_date , function($query){
-            $query->whereDate('created_at' , '>=' , $this->start_date );
-        })
-        ->when($this->end_date , function($query){
-            $query->whereDate('created_at' , '<=' , $this->end_date );
-        })->get();    
+            ->when($this->shipping_status != 'all' , function($query){
+                $query->where('shipping_statues_id' , $this->shipping_status );
+            })
+            ->when($this->start_date , function($query){
+                $query->whereDate('created_at' , '>=' , $this->start_date );
+            })
+            ->when($this->end_date , function($query){
+                $query->whereDate('created_at' , '<=' , $this->end_date );
+            })
+            ->when($this->country_id , function($query){
+                $query->where('country_id' ,$this->country_id );
+            })
+            ->when($this->governorate_id , function($query){
+                $query->where('governorate_id' ,$this->governorate_id );
+            })
+            ->latest()->get();
 
         return Excel::download(new OrdersExcelReportExport($orders), 'orders.xlsx');
     }
@@ -101,8 +116,8 @@ class ListAllOrders extends Component
         ->when($this->end_date , function($query){
             $query->whereDate('created_at' , '<=' , $this->end_date );
         })
-        ->when($this->city_id , function($query){
-            $query->where('city_id' ,$this->city_id );
+        ->when($this->country_id , function($query){
+            $query->where('country_id' ,$this->country_id );
         })
         ->when($this->governorate_id , function($query){
             $query->where('governorate_id' ,$this->governorate_id );

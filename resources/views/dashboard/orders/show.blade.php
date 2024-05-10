@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_header')
-<a href="{{ route('dashboard.orders.index') }}" class="breadcrumb-item"><i class="icon-equalizer   mr-2"></i> 
+<a href="{{ route('dashboard.orders.index') }}" class="breadcrumb-item"><i class="icon-equalizer   mr-2"></i>
 	الطلبات
 </a>
 <span class="breadcrumb-item active"> بيانات الطلب  </span>
@@ -43,7 +43,7 @@
 							</tr>
 							<tr>
 								<th> تعديل حاله الطلب   </th>
-								<td> 
+								<td>
 									<form  action="{{ route('dashboard.orders.update' , $order ) }}" method='POST' >
 										@csrf
 										@method('PATCH')
@@ -81,7 +81,7 @@
 								<th> المحافظه  </th>
 								<td> {{ $order->governorate?->name }} </td>
 							</tr>
-							
+
 							<tr>
 								<th> المدنيه  </th>
 								<td> {{ $order->city?->name }} </td>
@@ -93,15 +93,15 @@
 							<tr>
 								<th> رقم الجوال   </th>
 								<td> {{ $order->order_phone }} </td>
-							</tr>	
+							</tr>
 							<tr>
 								<th>  اسم العميل   </th>
 								<td> {{ $order->order_phone }} </td>
-							</tr>		
+							</tr>
 							<tr>
 								<th>  قيمه ربح المسوق   </th>
 								<td> {{ $order->marketer_price() }} <span class="text-muted"> جنيه </span> </td>
-							</tr>										
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -128,6 +128,7 @@
 							<tr>
 								<th> # </th>
 								<th> اسم المنتج </th>
+								<th> صور التصميم </th>
 								<th> تفاصيل </th>
 								<th> سعر البيع </th>
 								<th> الكميه </th>
@@ -141,16 +142,17 @@
 							<tr>
 								<td> {{ $i++ }} </td>
 								<td> <a href="{{ route('dashboard.products.show' , $item->variation->product ) }}"> {{ $item->variation->product?->name }} </a> </td>
+                                <td>
+                                    <a target="_blank" href="{{ Storage::url('designs/'.$item->design_front_image) }}"><img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1" src="{{ Storage::url('designs/'.$item->design_front_image) }}" alt=""></a>
+                                    <a target="_blank" href="{{ Storage::url('designs/'.$item->design_back_image) }}"><img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1" src="{{ Storage::url('designs/'.$item->design_back_image) }}" alt=""></a>
+                                </td>
 								<td>
-									{{ $item->variation?->title }}
-									@if ($item->variation->parent_id)
-								 --	{{ $item->variation?->parent?->title }}
-									@endif
+									{{ $item->variation?->color?->name }} -- {{ $item->variation?->size?->name }}
 								</td>
 								<td> {{ $item->price }} <span class='text-muted' >جنيه </span> </td>
 								<td> {{ $item->quantity }}   <span class='text-muted' >قطعه </span>  </td>
 							</tr>
-							@endforeach							
+							@endforeach
 						</tbody>
 					</table>
 				</div>

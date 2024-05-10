@@ -46,20 +46,20 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group ">
-                                    <label for="inputCity" class="col-md-12 form-label"> @lang('site.City') </label>
-                                    <div class="col-md-12">
-                                        <select wire:model='city_id' class='form-control' id="">
-                                            <option value=""></option>
-                                            @foreach ($this->cities as $city)
-                                            <option value="{{ $city->id }}"> {{ $city->name }} </option>
-                                            @endforeach
-                                        </select>
-                                        @error('city_id')
-                                        <p class='text-danger'> {{ $message }} </p>
-                                        @enderror
-                                    </div>
-                                </div>
+{{--                                <div class="form-group ">--}}
+{{--                                    <label for="inputCity" class="col-md-12 form-label"> @lang('site.City') </label>--}}
+{{--                                    <div class="col-md-12">--}}
+{{--                                        <select wire:model='city_id' class='form-control' id="">--}}
+{{--                                            <option value=""></option>--}}
+{{--                                            @foreach ($this->cities as $city)--}}
+{{--                                            <option value="{{ $city->id }}"> {{ $city->name }} </option>--}}
+{{--                                            @endforeach--}}
+{{--                                        </select>--}}
+{{--                                        @error('city_id')--}}
+{{--                                        <p class='text-danger'> {{ $message }} </p>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="form-group row">
                                     <label for="ApartmentNumber" class="col-md-12 form-label"> @lang('site.District') </label>
                                     <div class="col-md-12">
@@ -104,7 +104,7 @@
                     <div class="card-body">
                         <h5 class="card-title"> {{ $address->country?->name }} </h5>
                         <h6 class="card-subtitle mb-2 text-muted"> {{ $address->building_number }} -  {{ $address->street_name }} - {{ $address->district }}   </h6>
-                        <h6 class="card-subtitle mb-2 text-muted"> {{ $address->city?->name }} </h6>
+{{--                        <h6 class="card-subtitle mb-2 text-muted"> {{ $address->city?->name }} </h6>--}}
                         <h6 class="card-subtitle mb-2 text-muted"> {{ $address->governorate?->name }} </h6>
                         <h6 class="card-subtitle mb-2 text-muted">{{ Auth::user()->phone }} </h6>
                         <button data-item_id='{{ $address->id }}' type="button" class="delete_address btn card-link text-primary p-0"> @lang('site.Remove') </button>

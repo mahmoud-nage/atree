@@ -77,7 +77,13 @@ class CreateDesign extends Component
 
     public function render()
     {
-        $records = UserDesign::with(['products'])->where('user_id', auth()->id())->latest()->get();
+        $user_id = null;
+        if(auth()->check()){
+            $user_id = auth()->id();
+        }elseif(request()->route('user')){
+            $user_id = request()->route('user')->id;
+        }
+        $records = UserDesign::with(['products'])->where('user_id', $user_id)->latest()->get();
         return view('livewire.site.create-design', compact('records'));
     }
 }

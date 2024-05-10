@@ -91,10 +91,11 @@
 
             <!-- Order list Container -->
             <div class="col-md-8">
+                @livewire('site.create-design')
 
                 <!-- Order list item -->
-                <div class="card card-primary bio-content">
-                    <div class="card-header">
+{{--                <div class="card card-primary bio-content">--}}
+{{--                    <div class="card-header">--}}
 {{--                        <div>--}}
 {{--                            <p class="card-title text-lg font-weight-bold mb-0">Create</p>--}}
 {{--                            <p class="font-weight-normal mb-0">Your Owen Design</p>--}}
@@ -104,68 +105,69 @@
 {{--                        <div class="ml-auto">--}}
 {{--                            <a href="custom-designs.html" class="btn circle-btn fa fa-plus"></a>--}}
 {{--                        </div>--}}
-                    </div>
-                    <div class="card-body">
-                        @forelse($user->designs as $record)
-                            <!-------------------------- Posts List --------------------------->
-                            <div class="card card-widget mb-3">
-                                <div class="card-header">
-                                    <div class="user-block">
-                                        <img class="img-circle" src="{{ Storage::url('users/'.$user->image) }}" alt="User Image">
-                                        <span class="username"><a href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a></span>
-                                        <span class="description">@ {{$record->user->username ?? ''}}</span>
-                                    </div>
-                                    <!-- /.user-block -->
-                                    <div class="card-tools">
+{{--                    </div>--}}
+{{--                    <div class="card-body">--}}
+{{--                        @forelse($user->designs as $record)--}}
+{{--                            <!-------------------------- Posts List --------------------------->--}}
+{{--                            <div class="card card-widget mb-3">--}}
+{{--                                <div class="card-header">--}}
+{{--                                    <div class="user-block">--}}
+{{--                                        <img class="img-circle" src="{{ Storage::url('users/'.$user->image) }}" alt="User Image">--}}
+{{--                                        <span class="username"><a href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a></span>--}}
+{{--                                        <span class="description">@ {{$record->user->username ?? ''}}</span>--}}
+{{--                                        <span class=" @if($record->is_active) text-success @else text-danger @endif">@if($record->is_active) {{__('site.active')}} @else {{__('site.deactive')}} @endif</span>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- /.user-block -->--}}
+{{--                                    <div class="card-tools">--}}
 {{--                                        <span class="text-muted p-4"> 12 H </span>--}}
-                                    </div>
-                                    <!-- /.card-tools -->
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <a href="#" class="text-center post-image-container">
+{{--                                    </div>--}}
+{{--                                    <!-- /.card-tools -->--}}
+{{--                                </div>--}}
+{{--                                <!-- /.card-header -->--}}
+{{--                                <div class="card-body">--}}
+{{--                                    <a href="#" class="text-center post-image-container">--}}
 {{--                                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
-                                        <img class="img-fluid pad" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
-                                    </a>
+{{--                                        <img class="img-fluid pad" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
+{{--                                    </a>--}}
 
-                                    <p>{{$record->description}}</p>
-                                    <div class="tag-btns-container">
-                                        <ul>
-                                            @foreach($record->products as $product)
-                                                <a href="{{ $product->url() }}" class="btn tag-btn"> {{$product->name}} </a>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+{{--                                    <p>{{$record->description}}</p>--}}
+{{--                                    <div class="tag-btns-container">--}}
+{{--                                        <ul>--}}
+{{--                                            @foreach($record->products as $product)--}}
+{{--                                                <a href="{{ $product->url() }}" class="btn tag-btn"> {{$product->name}} </a>--}}
+{{--                                            @endforeach--}}
+{{--                                        </ul>--}}
+{{--                                    </div>--}}
 
-                                </div>
-                            </div>
-                        @empty
-                            <div class="alert alert-primary" role="alert">
-                                @lang('site.no_records')
-                            </div>
-                        @endforelse
-                        <!-------------------------- Posts List --------------------------->
-                        <div class="section used-design">
-                            <div class="title d-flex justify-content-between col-md-12">
-                                <h5 class="mb-2">@lang('site.latest_designs')</h5>
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        @empty--}}
+{{--                            <div class="alert alert-primary" role="alert">--}}
+{{--                                @lang('site.no_records')--}}
+{{--                            </div>--}}
+{{--                        @endforelse--}}
+{{--                        <!-------------------------- Posts List --------------------------->--}}
+{{--                        <div class="section used-design">--}}
+{{--                            <div class="title d-flex justify-content-between col-md-12">--}}
+{{--                                <h5 class="mb-2">@lang('site.latest_designs')</h5>--}}
 {{--                                <a href="{{route('my_designs')}}" class="text-sm text-dark"> more</a>--}}
-                            </div>
+{{--                            </div>--}}
 
-                            <ul class="users-list clearfix">
-                                @foreach($latest_designs as $latest_design)
-                                    <li>
-                                        <a href="{{$record->user->url() ?? ''}}">
-                                            <div class="image-container">
-                                                <img src="{{ Storage::url('designs/'.$record->image) }}" alt="User Image">
-                                            </div>
-                                        </a>
-                                        <a class="users-list-name" href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+{{--                            <ul class="users-list clearfix">--}}
+{{--                                @foreach($latest_designs as $latest_design)--}}
+{{--                                    <li>--}}
+{{--                                        <a href="{{$record->user->url() ?? ''}}">--}}
+{{--                                            <div class="image-container">--}}
+{{--                                                <img src="{{ Storage::url('designs/'.$record->image) }}" alt="User Image">--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                        <a class="users-list-name" href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a>--}}
+{{--                                    </li>--}}
+{{--                                @endforeach--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
         <!-- /.row -->

@@ -52,13 +52,13 @@ class OrdersExcelReportExport implements FromCollection , WithHeadings  , WithMa
     public function map($order): array
     {
         return [
-            $this->i++ , 
+            $this->i++ ,
             $order->number,
             $order->user?->name,
             $order->total,
             $order->order_phone,
+            $order->country?->name,
             $order->governorate?->name,
-            $order->city?->name,
             $order->address,
             $order->status?->name,
             $order->created_at,
@@ -69,16 +69,16 @@ class OrdersExcelReportExport implements FromCollection , WithHeadings  , WithMa
     public function headings(): array
     {
         return [
-            '#' , 
-            'رقم الطلب' , 
-            'اسم المسوق' , 
-            'قيمه الطلب' , 
-            'رقم موبيل العميل' , 
-            'المحافظه' , 
-            'المدينه' , 
-            'العنوان' , 
-            'حاله الطلب' , 
-            'تاريخ انشاء الطلب' , 
+            '#' ,
+            'رقم الطلب' ,
+            'اسم المسوق' ,
+            'قيمه الطلب' ,
+            'رقم موبيل العميل' ,
+            'الدوله' ,
+            'المدينه' ,
+            'العنوان' ,
+            'حاله الطلب' ,
+            'تاريخ انشاء الطلب' ,
         ];
     }
 

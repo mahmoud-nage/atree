@@ -14,19 +14,19 @@ class Checkout extends Component
 {
 
     public $governorate_id;
-    public $city_id;
+//    public $city_id;
     public $address_id;
     public $payment_method_id;
 
     public function getGovernoratesProperty()
     {
-        return Governorate::all();
+        return Governorate::where('active', 1)->get();
     }
 
-    public function getCitiesProperty()
-    {
-        return City::where('governorate_id', $this->governorate_id)->get();
-    }
+//    public function getCitiesProperty()
+//    {
+//        return City::where('governorate_id', $this->governorate_id)->get();
+//    }
 
     public function getMethodsProperty()
     {
@@ -42,19 +42,14 @@ class Checkout extends Component
     {
         if ($this->address_id) {
             $address = UserAddress::find($this->address_id);
-            return $address?->city?->shipping_cost ?? $address?->governorate?->shipping_cost;
+            return $address?->governorate?->shipping_cost ?? $address?->governorate?->shipping_cost;
         }
         return 0;
     }
 
-    public function getMarketerBounseProperty()
+    public function getVatProperty()
     {
-        $marketer_bounse = 0;
-        $items = Cart::where('user_id', Auth::id())->get();
-        foreach ($items as $item) {
-            $marketer_bounse += $item->variation?->product->marketer_price + (($item->price - $item->variation?->product->getPrice()) * $item->quantity);
-        }
-        return $marketer_bounse;
+        return $this->sub_total * 0.15;
     }
 
 
@@ -63,7 +58,6 @@ class Checkout extends Component
         $total = 0;
         $items = Cart::where('user_id', Auth::id())->get();
         foreach ($items as $item) {
-
             $total += $item->quantity * $item->price;
         }
         return $total;
@@ -72,7 +66,7 @@ class Checkout extends Component
 
     public function getTotalProperty()
     {
-        return $this->sub_total + $this->shipping_price;
+        return $this->sub_total * 1.15 + $this->shipping_price;
     }
 
 

@@ -38,8 +38,8 @@
 			<ul class="nav nav-sidebar" data-nav-type="accordion">
 
 				@php
-				$home = $admins = $governorates = $cities = $coupons = $pages = $products = $countries =  $slides = $orders = $settings = $users = $colors = $sizes  = $messages = $designs = '';
-
+				$home = $admins = $governorates = $coupons = $pages = $products = $countries =  $slides = $orders = $settings = $users = $colors = $sizes  = $messages = $designs = '';
+// = $cities
 
 				switch (request()->segment(3)) {
 					case null:
@@ -81,9 +81,9 @@
 					case 'messages':
 					$messages = 'active';
 					break;
-					case 'cities':
-					$cities = 'active';
-					break;
+//					case 'cities':
+//					$cities = 'active';
+//					break;
 					case 'coupons':
 					$coupons = 'active';
 					break;
@@ -91,7 +91,7 @@
 					$orders = 'active';
 					break;
 					case 'designs':
-					$orders = 'active';
+					$designs = 'active';
 					break;
 
 					default:
@@ -176,7 +176,7 @@
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
-					<a href="#" class="nav-link {{ $designs }}"><i class="icon-ampersand "></i> <span> @lang('site.Designs') </span></a>
+					<a href="{{ route('dashboard.designs.index') }}" class="nav-link {{ $designs }}"><i class="icon-ampersand "></i> <span> @lang('site.Designs') </span></a>
 					<ul class="nav nav-group-sub" >
 						<li class="nav-item"><a href="{{ route('dashboard.designs.index') }}" class="nav-link">@lang('site.show_all_designs')</a></li>
 					</ul>
@@ -226,21 +226,21 @@
 				</li>
 
 				<li class="nav-item nav-item-submenu">
-					<a href="#" class="nav-link {{ $governorates }}"><i class="icon-images3"></i> <span> المحافظات </span></a>
+					<a href="#" class="nav-link {{ $governorates }}"><i class="icon-images3"></i> <span> المدن </span></a>
 					<ul class="nav nav-group-sub" >
-						<li class="nav-item"><a href="{{ route('dashboard.governorates.index') }}" class="nav-link"> عرض كافه المحافظات </a></li>
-						<li class="nav-item"><a href="{{ route('dashboard.governorates.create') }}" class="nav-link">  انشاء محافظه جديده </a></li>
+						<li class="nav-item"><a href="{{ route('dashboard.governorates.index') }}" class="nav-link"> عرض كافه المدن </a></li>
+						<li class="nav-item"><a href="{{ route('dashboard.governorates.create') }}" class="nav-link">  انشاء مدينه جديده </a></li>
 					</ul>
 				</li>
 
 
-				<li class="nav-item nav-item-submenu">
-					<a href="#" class="nav-link {{ $cities }}"><i class="icon-images3"></i> <span> المدن </span></a>
-					<ul class="nav nav-group-sub" >
-						<li class="nav-item"><a href="{{ route('dashboard.cities.index') }}" class="nav-link"> عرض كافه المدن</a></li>
-						<li class="nav-item"><a href="{{ route('dashboard.cities.create') }}" class="nav-link"> إنشاء مدينه جديده</a></li>
-					</ul>
-				</li>
+{{--				<li class="nav-item nav-item-submenu">--}}
+{{--					<a href="#" class="nav-link {{ $cities }}"><i class="icon-images3"></i> <span> المدن </span></a>--}}
+{{--					<ul class="nav nav-group-sub" >--}}
+{{--						<li class="nav-item"><a href="{{ route('dashboard.cities.index') }}" class="nav-link"> عرض كافه المدن</a></li>--}}
+{{--						<li class="nav-item"><a href="{{ route('dashboard.cities.create') }}" class="nav-link"> إنشاء مدينه جديده</a></li>--}}
+{{--					</ul>--}}
+{{--				</li>--}}
 
 
 

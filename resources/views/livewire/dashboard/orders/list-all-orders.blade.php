@@ -1,9 +1,9 @@
 <div>
- <div class="row">
-    <div class="col-md-12">
-        <a data-toggle="modal" data-target="#modal_form_vertical" class="btn btn-primary float-right "><i class="icon-plus3 mr-2 "></i> ارفاق ملف حاله الطلب </a>
-    </div>
-</div>
+{{-- <div class="row">--}}
+{{--    <div class="col-md-12">--}}
+{{--        <a data-toggle="modal" data-target="#modal_form_vertical" class="btn btn-primary float-right "><i class="icon-plus3 mr-2 "></i> ارفاق ملف حاله الطلب </a>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <hr>
 
 <div class="card">
@@ -23,7 +23,7 @@
     <div class="card-body">
         <div class="row">
 
-            <div class="col-md-1" wire:ignore>
+            <div class="col-md-2" wire:ignore>
                 <select name="select" wire:model='rows' class="form-control form-control-select2" >
                     <option value="10"> @lang('dashboard.rows') </option>
                     <option value="20">20 </option>
@@ -32,7 +32,7 @@
                     <option value="100">100 </option>
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
                 <div class="form-group-feedback form-group-feedback-right">
                     <input type="search" wire:model='search' class="form-control wmin-sm-200" placeholder=" @lang('dashboard.search') ...">
                     <div class="form-control-feedback">
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2 ml-1" >
+            <div class="col-md-3 ml-1" >
                 <select wire:model='shipping_status' class="form-control form-control-select2" >
                     <option value="all"> جميع الحالات </option>
                     @foreach ($shipping_statues as $shipping_status)
@@ -49,30 +49,38 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-2 ml-1" >
+            <div class="col-md-3 mt-2" >
+                <select wire:model='country_id' class="form-control form-control-select2" >
+                    <option value=""> جميع الدول </option>
+                    @foreach ($this->countries as $country)
+                    <option value="{{ $country->id }}"> {{ $country->name }} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-3 mt-2" >
                 <select wire:model='governorate_id' class="form-control form-control-select2" >
-                    <option value=""> جميع المحافظات </option>
+                    <option value=""> جميع المدن </option>
                     @foreach ($this->governorates as $governorate)
                     <option value="{{ $governorate->id }}"> {{ $governorate->name }} </option>
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-2 ml-1" >
-                <select wire:model='city_id' class="form-control form-control-select2" >
-                    <option value=""> جميع المدن </option>
-                    @foreach ($this->cities as $city)
-                    <option value="{{ $city->id }}"> {{ $city->name }} </option>
-                    @endforeach
-                </select>
-            </div>
+{{--            <div class="col-md-2 ml-1" >--}}
+{{--                <select wire:model='city_id' class="form-control form-control-select2" >--}}
+{{--                    <option value=""> جميع المدن </option>--}}
+{{--                    @foreach ($this->cities as $city)--}}
+{{--                    <option value="{{ $city->id }}"> {{ $city->name }} </option>--}}
+{{--                    @endforeach--}}
+{{--                </select>--}}
+{{--            </div>--}}
 
-            <div class="col-md-2 " >
+            <div class="col-md-3 mt-2" >
                 <input type="date" wire:model='start_date' class="form-control" >
             </div>
-            <div class="col-md-2 mt-2 " >
+            <div class="col-md-3 mt-2 " >
                 <input type="date" wire:model='end_date' class="form-control">
             </div>
-            <div class="col-md-1 mt-2" >
+            <div class="col-md-3 mt-2" >
                 <button wire:click='ExcelReport()' class='btn btn-primary' > <i class='icon-file-excel ' ></i> تقرير  </button>
             </div>
         </div>
@@ -85,6 +93,7 @@
                 <tr>
                     <th> # </th>
                     <th> رقم الطلب </th>
+                    <th> صور التصميم </th>
                     <th> المستخدم </th>
                     <th> قيمه الطلب </th>
                     <th> حاله الطلب </th>
@@ -102,10 +111,14 @@
                 <tr>
                     <td> {{ $i++}} </td>
                     <td> {{ $order->number }} </td>
+                    <td>
+                        <img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1" src="{{ Storage::url('designs/'.$order?->items?->first()?->design_front_image) }}" alt="">
+                        <img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1" src="{{ Storage::url('designs/'.$order?->items?->first()?->design_back_image) }}" alt="">
+                    </td>
                     <td> <a target="_blank" href="{{ route('dashboard.users.show'  , $order->user_id ) }}"> {{ $order->user?->name }} </a> </td>
                     <td> {{ $order->total }} <span class='text-muted' > ريال </span> </td>
-                    <td> 
-                        {{ $order->status?->name }}                            
+                    <td>
+                        {{ $order->status?->name }}
                     </td>
 
                     <td> {{ $order->created_at->diffForHumans() }} </td>
@@ -159,11 +172,11 @@
                                             <li> <a href=""> حاله الطلبات هيا كالاتى </a>
                                                 <ul>
                                                  @foreach ($shipping_statues as $shipping_statue)
-                                                 <li> {{ $shipping_statue->name }} ({{ $shipping_statue->id }}) </li>   
+                                                 <li> {{ $shipping_statue->name }} ({{ $shipping_statue->id }}) </li>
                                                  @endforeach
                                              </ul>
                                          </li>
-                                     </ul> 
+                                     </ul>
                                  </div>
                              </div>
                          </div>

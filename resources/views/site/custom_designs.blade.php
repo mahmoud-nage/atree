@@ -675,7 +675,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script>
         function save() {
-            $("#myForm").validate();
+            // $("#myForm").validate();
             $('#shirtDiv').removeClass('d-none');
             $('#shirtDivBack').removeClass('d-none');
             $('#drawingArea').removeClass('d-none');
@@ -719,13 +719,13 @@
             $('#design_back_photo').val(pngBackURL);
             $('#main_image_width').val($('#tshirtFacing').outerWidth());
             $('#main_image_height').val($('#tshirtFacing').outerHeight());
-            if ($('#myForm').valid())
-            {
+            // if ($('#myForm').valid())
+            // {
                 setTimeout(
                     function () {
                         $('#myForm').submit();
                     }, 1000);
-            }
+            // }
         }
         var count = 0;
         $(function () {

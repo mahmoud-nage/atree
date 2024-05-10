@@ -20,6 +20,10 @@ class Order extends Model
         return $this->belongsTo(User::class  , 'user_id');
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
     public function governorate()
     {
         return $this->belongsTo(Governorate::class);

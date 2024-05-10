@@ -19,6 +19,7 @@
                         <span class=" @if($record->is_active) text-success @else text-danger @endif">@if($record->is_active) {{__('site.active')}} @else {{__('site.deactive')}} @endif</span>
                     </div>
                     <!-- /.user-block -->
+                    @if(auth()->check() && auth()->id() == $record->user_id)
                     <div class="card-tools">
                         <span class="text-muted p-4">
 {{--                            <button data-item_id='{{ $record->id }}' type="button"--}}
@@ -26,11 +27,12 @@
 {{--                                    style="min-width: auto !important;font-size: 1.5rem;"> <i class="fa fa-trash"></i> </button>--}}
                             <button data-item_id='{{ $record->id }}' type="button" data-toggle="modal"
                                     data-target="#addAddressPopup{{$record->id}}"
-                                    class="btn card-link text-info p-0"
+                                    class="btn card-link text-primary p-0"
                                     style="min-width: auto !important;font-size: 1.5rem;"> <i
                                     class="fa fa-pen-square"></i> </button>
                         </span>
                     </div>
+                    @endif
                     <div class="ml-auto">
                         {{--            <a class="btn circle-btn fa fa-plus" data-toggle="modal" data-target="#addAddressPopup"></a>--}}
                         <div class="row">
