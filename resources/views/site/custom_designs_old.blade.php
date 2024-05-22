@@ -168,7 +168,7 @@
                                     <li>
                                         <a href="#">
                                             <div class="image-container">
-                                                <img src="{{Storage::url('designs/'.$design->image)}}"
+                                                <img   style="background-color: {{$design->main_color_code}}" src="{{Storage::url('designs/'.$design->image)}}"
                                                      alt="User Image">
                                             </div>
                                         </a>

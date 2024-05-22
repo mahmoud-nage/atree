@@ -80,6 +80,8 @@ class User extends Authenticatable
     {
         $this->name = $data['name'];
         $this->email = $data['email'];
+        $this->phone = $data['phone'];
+        $this->active = isset($data['active']) && $data['active'] == 'on' ? 1 : 0;
         $this->password = isset($data['password']) ? Hash::make($data['password']) : $this->password;
         return $this->save();
     }

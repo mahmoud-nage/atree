@@ -31,16 +31,16 @@ switch (request()->segment(5)) {
 		</a>
 	</li>
 	<li class="nav-item">
-		<a href="{{ route('dashboard.users.desgins' , $user ) }}" class="nav-link {{ $desgins }} " >
+		<a href="{{ route('dashboard.designs.index').'?user_id='.$user->id }}" class="nav-link {{ $desgins }} " >
 			<i class="icon-cart2"></i>
 				التصميمات
-			<span class="badge badge-dark badge-pill ml-auto"> {{ $user->orders()->count() }} </span>
+			<span class="badge badge-dark badge-pill ml-auto"> {{ $user->designs()->count() }} </span>
 		</a>
 	</li>
 
 	<li class="nav-item">
 {{--        //{{ route('dashboard.users.orders' , $user ) }}--}}
-		<a href="#" class="nav-link {{ $orders }} ">
+		<a href="{{ route('dashboard.orders.index').'?user_id='.$user->id}}" class="nav-link {{ $orders }} " target="_blank">
 			<i class="icon-cart2"></i>
 			الطلبات
 			<span class="badge badge-dark badge-pill ml-auto"> {{ $user->orders()->count() }} </span>
@@ -48,11 +48,11 @@ switch (request()->segment(5)) {
 	</li>
 
 
-	<li class="nav-item-divider"></li>
-	<li class="nav-item">
-		<a target="_blank" href="{{ route('dashboard.users.login' , $user ) }}" class="nav-link" >
-			<i class="icon-switch2"></i>
-			تسجيل الدخول باسم المسوق
-		</a>
-	</li>
+{{--	<li class="nav-item-divider"></li>--}}
+{{--	<li class="nav-item">--}}
+{{--		<a target="_blank" href="{{ route('dashboard.users.login' , $user ) }}" class="nav-link" >--}}
+{{--			<i class="icon-switch2"></i>--}}
+{{--			تسجيل الدخول باسم المسوق--}}
+{{--		</a>--}}
+{{--	</li>--}}
 </ul>

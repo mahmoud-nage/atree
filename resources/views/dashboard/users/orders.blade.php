@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_header')
-<a href="{{ route('dashboard.marketers.index') }}" class="breadcrumb-item"><i class="icon-users4  mr-2"></i> المسوقين </a>
+<a href="{{ route('dashboard.users.index') }}" class="breadcrumb-item"><i class="icon-users4  mr-2"></i> المسوقين </a>
 <span class="breadcrumb-item active"> عرض بيانات المسوق </span>
 
 @endsection
@@ -28,7 +28,7 @@
 					<span class="d-block opacity-75"> مسوق </span>
 				</div>
 
-				@include('dashboard.marketers.sidebar')
+				@include('dashboard.users.sidebar')
 
 			</div>
 		</div>

@@ -107,6 +107,9 @@ class ListAllOrders extends Component
         $orders = Order::when($this->search , function($query){
             $query->where('number' , 'LIKE' , '%'.$this->search.'%' )->orWhere('order_phone' ,  'LIKE' , '%'.$this->search.'%'  )->orWhere('client_name' ,  'LIKE' , '%'.$this->search.'%'  );
         })
+        ->when(request()->user_id , function($query){
+            $query->where('user_id' , request()->user_id );
+        })
         ->when($this->shipping_status != 'all' , function($query){
             $query->where('shipping_statues_id' , $this->shipping_status );
         })

@@ -57,10 +57,10 @@ class CartController extends Controller
                 $designFrontFileName = time() . Str::random(10) . '.png';
                 $waterMarkFrontFileName = time() . Str::random(10) . '.' . $waterMarkExtension;
                 $waterMarkUrl = Image::make(file_get_contents($request->design_front_photo))
-                    ->resize(50, 50);
+                    ->resize((int)$request->front_image_width, (int)$request->front_image_height);
 //                    ->resize(floor($request->front_image_width / $product->site_front_width) * $request->front_image_width, floor($request->front_image_height / $product->site_front_height) * $request->front_image_height);
                 $image = Image::make(file_get_contents(storage_path('app/public/products/' . $product->front_image)));
-                $image->insert($waterMarkUrl, 'top-left', $product->site_front_top, $product->site_front_left)->encode('png', 100)
+                $image->insert($waterMarkUrl, 'top-left', (int)$product->site_front_top, (int)$product->site_front_left)->encode('png', 100)
                     ->save(storage_path('app/public/designs/' . $designFrontFileName));
                 $waterMarkUrl->save(storage_path('app/public/designs/' . $waterMarkFrontFileName));
             }
@@ -69,10 +69,10 @@ class CartController extends Controller
                 $designBackFileName = time() . Str::random(10) . '.png';
                 $waterMarkBackFileName = time() . Str::random(10) . '.' . $waterMarkExtension;
                 $waterMarkBackUrl = Image::make(file_get_contents($request->design_back_photo))
-                    ->resize(50, 50);
+                    ->resize((int)$request->back_image_width, (int)$request->back_image_height);
 //                    ->resize(floor($request->back_image_width / $product->site_back_width) * $request->back_image_width, floor($request->back_image_height / $product->site_back_height) * $request->back_image_height);
                 $image = Image::make(file_get_contents(storage_path('app/public/products/' . $product->back_image)));
-                $image->insert($waterMarkBackUrl, 'top-left', $product->site_back_top, $product->site_back_left)->encode('png', 100)
+                $image->insert($waterMarkBackUrl, 'top-left', (int)$product->site_back_top, (int)$product->site_back_left)->encode('png', 100)
                     ->save(storage_path('app/public/designs/' . $designBackFileName));
                 $waterMarkBackUrl->save(storage_path('app/public/designs/' . $waterMarkBackFileName));
             }
@@ -84,10 +84,11 @@ class CartController extends Controller
                 'design_image_front' => $waterMarkFrontFileName,
                 'design_image_back' => $waterMarkBackFileName,
                 'main_color_code' => $request->design_color_id,
+                'created_at' => now(),
             ];
         }
-
         DB::table('user_designs')->insert($designs);
+        $design = auth()->user()->designs()->whereDate('created_at', now())->first();
         if ($request->type == 1) {
             $product = Product::find($request->product_id[0]);
             $color = $request->design_color_id;
@@ -101,7 +102,8 @@ class CartController extends Controller
                     ->where('color_id', $request->color_id[$key])
                     ->where('size_id', $size)->first();
                 Cart::create([
-                    'product_id' => $request->product_id,
+                    'design_id' => $design->id,
+                    'product_id' => $product->id,
                     'variation_id' => $variation->id,
                     'price' => $price,
                     'quantity' => $request->quantities[$key],

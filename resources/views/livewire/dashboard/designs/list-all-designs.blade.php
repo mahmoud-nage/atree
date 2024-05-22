@@ -60,7 +60,7 @@
                     <tr>
                         <td> {{ $record->id}} </td>
                         <td> {{ $record->user->name() ?? ''}} </td>
-                        <td> <img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1" src="{{ Storage::url('designs/'.$record->image) }}" alt=""> </td>
+                        <td> <img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1"  style="background-color: {{$record->main_color_code}}" src="{{ Storage::url('designs/'.$record->image) }}" alt=""> </td>
                         <td> {{ $record->description}} </td>
                         <td> {{ $record->times_used_count}} </td>
                         <td> {{ $record->diamonds_earned}} </td>

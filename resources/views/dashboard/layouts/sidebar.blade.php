@@ -175,12 +175,6 @@
 						<li class="nav-item"><a href="{{ route('dashboard.products.create') }}" class="nav-link">@lang('products.add_new_product')</a></li>
 					</ul>
 				</li>
-				<li class="nav-item nav-item-submenu">
-					<a href="{{ route('dashboard.designs.index') }}" class="nav-link {{ $designs }}"><i class="icon-ampersand "></i> <span> @lang('site.Designs') </span></a>
-					<ul class="nav nav-group-sub" >
-						<li class="nav-item"><a href="{{ route('dashboard.designs.index') }}" class="nav-link">@lang('site.show_all_designs')</a></li>
-					</ul>
-				</li>
 
 				<li class="nav-item nav-item-submenu">
 					<a href="#" class="nav-link {{ $pages }}"><i class="icon-newspaper2 "></i> <span> @lang('pages.pages') </span></a>
@@ -207,11 +201,19 @@
 				</li>
 
 
+                <li class="nav-item nav-item-submenu">
+                    <a href="{{ route('dashboard.designs.index') }}" class="nav-link {{ $designs }}"><i class="icon-ampersand "></i> <span> @lang('site.Designs') </span></a>
+                    <ul class="nav nav-group-sub" >
+                        <li class="nav-item"><a href="{{ route('dashboard.designs.index') }}" class="nav-link">@lang('site.show_all_designs')</a></li>
+                    </ul>
+                </li>
+
+
 				<li class="nav-item nav-item-submenu">
 					<a href="#" class="nav-link {{ $coupons }}"><i class="icon-images3"></i> <span> كوبونات الخصم </span></a>
 					<ul class="nav nav-group-sub" >
 						<li class="nav-item"><a href="{{ route('dashboard.coupons.index') }}" class="nav-link">عرض كافه الكوبونات</a></li>
-						<li class="nav-item"><a href="{{ route('dashboard.coupons.create') }}" class="nav-link">إضاهف كوبون جديد</a></li>
+						<li class="nav-item"><a href="{{ route('dashboard.coupons.create') }}" class="nav-link">إضافه كوبون جديد</a></li>
 					</ul>
 				</li>
 

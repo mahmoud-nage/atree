@@ -76,10 +76,9 @@
                         <td> {{ $user->created_at->diffForHumans() }} </td>
                         <td>
                             <a href='{{ route('dashboard.users.show' , $user ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
-                          
+                            <a href='{{ route('dashboard.users.edit' , $user ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $user->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
                     </tr>
                     @endforeach
 

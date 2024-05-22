@@ -37,7 +37,10 @@ class ListAllDesigns extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $records = UserDesign::query()->with(['user', 'products'])->latest()->paginate($this->rows);
+        $records = UserDesign::query()
+            ->when(request()->user_id , function($query){
+                $query->where('user_id' , request()->user_id );
+            })->with(['user', 'products'])->latest()->paginate($this->rows);
         return view('livewire.dashboard.designs.list-all-designs' , compact('records'));
     }
 }

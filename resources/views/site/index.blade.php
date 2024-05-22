@@ -113,7 +113,7 @@
                     <div class="card-body">
                         <a href="#" class="text-center post-image-container">
                             {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
-                            <img class="img-fluid pad" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
+                            <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
                         </a>
 
                         <p>{{$record->description}}</p>

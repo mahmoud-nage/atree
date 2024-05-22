@@ -44,7 +44,7 @@
                         <!-- list-item -->
                         <div class="list-item ">
                             <div class="media">
-                                <a class="mr-3 heigh-recomanded-img" href="#"> <img
+                                <a class="mr-3 heigh-recomanded-img" href="#"> <img   style="background-color: {{$record->main_color_code}}"
                                         src="{{Storage::url('designs/'.$record->image)}}"> </a>
                                 <div class="media-body">
                                     <a href="#" class="m-0">{{$record->description}}</a>
