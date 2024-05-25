@@ -29,7 +29,7 @@ class CartController extends Controller
         $designs = [];
         foreach ($request->product_id as $key => $product) {
             $product = Product::find($product);
-            if ($key == 1) {
+            if ($key == 0) {
                 if ($request->image && $request->image != 'data:,') {
                     $designFrontFileName1 = time() . Str::random(10) . '.png';
                     Image::make(file_get_contents($request->image))->save(storage_path('app/public/designs/' . $designFrontFileName1));
@@ -38,6 +38,7 @@ class CartController extends Controller
                     $designBackFileName1 = time() . Str::random(10) . '.png';
                     Image::make(file_get_contents($request->image1))->save(storage_path('app/public/designs/' . $designBackFileName1));
                 }
+
                 if ($request->design_front_photo) {
                     $waterMarkExtension = explode('/', explode(':', substr($request->design_front_photo, 0, strpos($request->design_front_photo, ';')))[1])[1];
                     $waterMarkFrontFileName = time() . Str::random(10) . '.' . $waterMarkExtension;

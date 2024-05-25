@@ -30,7 +30,7 @@
         </figure>
     </td>
     <td class="col-3">
-        {{ $item->variation?->product?->getPrice() }} <span class="text-muted"> {{__('site.SAR')}} </span>
+        {{ $item->price }} <span class="text-muted"> {{__('site.SAR')}} </span>
     </td>
 {{--    <td class="col-2">--}}
 {{--        <div class="price-wrap">--}}

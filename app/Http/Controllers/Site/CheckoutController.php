@@ -81,6 +81,7 @@ class CheckoutController extends Controller
             ];
             $order_item = [
                 'variation_id' => $item->variation_id,
+                'design_id' => $item->design_id,
                 'price' => $item->price,
                 'quantity' => $item->quantity,
                 'design_front_image' => $item->design_front_image ?? null,

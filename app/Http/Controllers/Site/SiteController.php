@@ -48,7 +48,7 @@ class SiteController extends Controller
     public function user(User $user)
     {
         $user->load('designs')->loadCount('followers');
-        $latest_designs = UserDesign::where('user_id', auth()->id())->latest()->get()->take(4);
+        $latest_designs = UserDesign::where('user_id', $user->id)->latest()->get()->take(4);
         return view('site.bio', compact('user', 'latest_designs'));
     }
 

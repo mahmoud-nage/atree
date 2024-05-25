@@ -41,15 +41,19 @@
                         <td>
                             <figure class="itemside">
                                 <div class="aside">
-                                    <a href="{{ $item->variation?->product?->url() }}">
+                                    <a href="{{ Storage::url('designs/'.$item->design_front_image) }}" target="_blank">
                                         <img
-                                            src="{{ Storage::url('products/'.$item->variation?->product?->front_image) }}"
+                                            src="{{ Storage::url('designs/'.$item->design_front_image) }}"
+                                            class="img-sm float-none"> </a>
+                                    <a href="{{ Storage::url('designs/'.$item->design_back_image) }}" target="_blank">
+                                        <img
+                                            src="{{ Storage::url('designs/'.$item->design_back_image) }}"
                                             class="img-sm float-none"> </a>
                                 </div>
                             </figure>
                         </td>
                         <td>
-                            {{ $item->variation?->product?->getPrice() }} <span
+                            {{ $item->price }} <span
                                 class="text-muted"> {{__('site.SAR')}} </span>
                         </td>
 {{--                        <td>--}}

@@ -225,7 +225,7 @@
                         <input type="hidden" name="product_id[]" value="{{$record->id}}"/>
                         <input type="hidden" id="design_front_photo" name="design_front_photo"/>
                         <input type="hidden" id="design_back_photo" name="design_back_photo"/>
-                        <input type="hidden" id="design_color_id" name="design_color_id"/>
+                        <input type="hidden" id="design_color_id" name="design_color_id" value="@if(isset($record->variations->unique('color_id')->last()->color->code)) {{$record->variations->unique('color_id')->last()->color->code}} @else #000000 @endif"/>
                         <input type="hidden" id="front_image_width" name="front_image_width" value="50"/>
                         <input type="hidden" id="front_image_height" name="front_image_height" value="50"/>
                         <input type="hidden" id="back_image_width" name="back_image_width" value="50"/>
@@ -347,7 +347,8 @@
                                                            id="text-fontcolor"
                                                            class="color-picker btn btn-xs btn-default"
                                                            title="Text Color"
-                                                           size="7" value="#000000">
+                                                           size="7"
+                                                           value="@if(isset($record->variations->unique('color_id')->last()->color->code)) {{$record->variations->unique('color_id')->last()->color->code}} @else #000000 @endif">
                                                 </div>
                                                 <div class="pull-right" align="" id="imageeditor"
                                                      style="display:none">
@@ -362,12 +363,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button id="flipback" type="button" class="flip-shirt btn btn-primary p-3 ml-3 bg-primary-gridant"
+                                        <button id="flipback" type="button"
+                                                class="flip-shirt btn btn-primary p-3 ml-3 bg-primary-gridant"
                                                 title="Rotate View" data-original-title="Show Back View">
                                             {{__('site.back')}}
                                         </button>
                                         <div id="shirtDiv" class="page"
-                                             style="position: relative; background-color: rgb(255, 255, 255);">
+                                             style="position: relative; background-color: @if(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
                                             <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
                                                  src="{{ Storage::url('products/'.$record->front_image) }}">
                                             <div id="drawingArea"
@@ -378,7 +380,7 @@
                                             </div>
                                         </div>
                                         <div id="shirtDivBack" class="page d-none"
-                                             style="position: relative; background-color: rgb(255, 255, 255);">
+                                             style="position: relative; background-color: @if(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
                                             <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
                                                  src="{{ Storage::url('products/'.$record->back_image) }}">
                                             <div id="drawingAreaBack" class="d-none"
@@ -412,7 +414,7 @@
                                                             class="form-control @error('color_id') is-invalid @enderror">
                                                         <option> @lang('site.Select Color') </option>
                                                         @foreach ($record->variations->unique('color_id') as $record_color_variation)
-                                                            <option
+                                                            <option @if($loop->first) selected @endif
                                                                 value="{{$record_color_variation->color->id}}">{{$record_color_variation->color->name}}</option>
                                                         @endforeach
                                                     </select>
@@ -474,10 +476,10 @@
                                         <h6>@lang('site.product_preview_color')</h6>
                                         <hr>
                                         <ul class="nav">
-                                            <li class="color-preview" id="removeColorBtn"
-                                                data-color-id="#ffffff"
-                                                title="white"
-                                                style="background-color:#ffffff"></li>
+{{--                                            <li class="color-preview" id="removeColorBtn"--}}
+{{--                                                data-color-id="#ffffff"--}}
+{{--                                                title="white"--}}
+{{--                                                style="background-color:#ffffff"></li>--}}
                                             @foreach ($record->variations->unique('color_id') as $record_color_variation)
                                                 <li class="color-preview"
                                                     id="changeColorBtn{{$record_color_variation->color->id}}"
@@ -498,20 +500,22 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-12 form-group">
-                                <div class="title">
-                                    <h5 class="mb-2"> @lang('site.Products') </h5>
+                            @if(count($products) > 0)
+                                <div class="col-12 form-group">
+                                    <div class="title">
+                                        <h5 class="mb-2"> @lang('site.Products') </h5>
+                                    </div>
+                                    <select class='form-control' id="product_id" name="product_id[]" multiple>
+                                        <option value="">@lang('site.choice_product')</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}"> {{ $product->name }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('product_id')
+                                    <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
                                 </div>
-                                <select class='form-control' id="product_id" name="product_id[]" multiple>
-                                    <option value="">@lang('site.choice_product')</option>
-                                    @foreach ($products as $product)
-                                        <option value="{{ $product->id }}"> {{ $product->name }} </option>
-                                    @endforeach
-                                </select>
-                                @error('product_id')
-                                <p class='text-danger'> {{ $message }} </p>
-                                @enderror
-                            </div>
+                            @endif
                             <div class="col-12 form-group">
                                 <button type="button" onclick="addType(2)"
                                         class="btn  btn-success bg-success-gridant span6"
@@ -721,12 +725,13 @@
             $('#main_image_height').val($('#tshirtFacing').outerHeight());
             // if ($('#myForm').valid())
             // {
-                setTimeout(
-                    function () {
-                        $('#myForm').submit();
-                    }, 1000);
+            setTimeout(
+                function () {
+                    $('#myForm').submit();
+                }, 1000);
             // }
         }
+
         var count = 0;
         $(function () {
             $('#flipback').click(
@@ -777,8 +782,7 @@
                             canvasBack.renderAll();
                         }
 
-                    }
-                    else {
+                    } else {
                         $(this).html('{{__('site.back')}}')
                         $('#flipback').attr('data-original-title', 'Show Back View');
                         $('#shirtDivBack').addClass('d-none');
@@ -814,7 +818,7 @@
         }
 
         function changeQty() {
-            let price = count>1?parseInt({{$record->price}}):parseInt({{$record->price_full_design}});
+            let price = count > 1 ? parseInt({{$record->price}}) : parseInt({{$record->price_full_design}});
             let qty = 0;
             $("input[name='quantities[]']").each(function () {
                 qty += parseInt($(this).val());

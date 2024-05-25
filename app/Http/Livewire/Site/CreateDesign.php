@@ -29,7 +29,7 @@ class CreateDesign extends Component
     public function mount($id = null)
     {
         $design = UserDesign::find($id);
-        if($design){
+        if ($design) {
             $this->id = $design->id;
             $this->user_id = $design->user_id;
             $this->description = $design->description;
@@ -63,6 +63,7 @@ class CreateDesign extends Component
             $this->alert('success', trans('site.Address deleted successfully'));
         }
     }
+
     public function getInfo($item_id)
     {
         $item = UserDesign::find($item_id);
@@ -78,9 +79,7 @@ class CreateDesign extends Component
     public function render()
     {
         $user_id = null;
-        if(auth()->check()){
-            $user_id = auth()->id();
-        }elseif(request()->route('user')){
+        if (request()->route('user')) {
             $user_id = request()->route('user')->id;
         }
         $records = UserDesign::with(['products'])->where('user_id', $user_id)->latest()->get();

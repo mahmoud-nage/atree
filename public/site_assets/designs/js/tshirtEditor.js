@@ -220,12 +220,15 @@ $(document).ready(function () {
         if ($('#drawingArea').hasClass('d-none')) {
             let activeObject = canvasBack.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('italic if')
                 activeObject.fontWeight = (activeObject.fontWeight == 'italic' ? '' : 'italic');
                 canvasBack.renderAll();
             }
         } else {
             let activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('italic else')
+
                 activeObject.fontWeight = (activeObject.fontWeight == 'italic' ? '' : 'italic');
                 canvas.renderAll();
             }
@@ -235,12 +238,16 @@ $(document).ready(function () {
         if ($('#drawingArea').hasClass('d-none')) {
             let activeObject = canvasBack.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('line-through if')
+
                 activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
                 canvasBack.renderAll();
             }
         } else {
             let activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('line-through else')
+
                 activeObject.textDecoration = (activeObject.textDecoration == 'line-through' ? '' : 'line-through');
                 canvas.renderAll();
             }
@@ -250,12 +257,16 @@ $(document).ready(function () {
         if ($('#drawingArea').hasClass('d-none')) {
             let activeObject = canvasBack.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('underline if')
+
                 activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
                 canvasBack.renderAll();
             }
         } else {
             let activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('underline else')
+
                 activeObject.textDecoration = (activeObject.textDecoration == 'underline' ? '' : 'underline');
                 canvas.renderAll();
             }
@@ -284,12 +295,16 @@ $(document).ready(function () {
         if ($('#drawingArea').hasClass('d-none')) {
             let activeObject = canvasBack.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('color if')
+
                 activeObject.fill = this.value;
                 canvasBack.renderAll();
             }
         } else {
             let activeObject = canvas.getActiveObject();
             if (activeObject && activeObject.type === 'text') {
+                console.log('color else')
+
                 activeObject.fill = this.value;
                 canvas.renderAll();
             }

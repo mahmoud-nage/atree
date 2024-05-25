@@ -36,14 +36,14 @@
                         </div>
                         <div class="card-body">
 
-                            <div class="d-flex flex-fill">
+                            <div class="d-flex flex-fill row">
                                 @foreach($record->items->take(4) as $item)
-                                    <div class="category-left">
-                                        <div class="category-title">
+                                    <div class="category-left col-10 row">
+                                        <div class="category-title col-12">
                                             <h4 class="card-title">{{$item->variation->product->name ?? ''}}</h4>
                                         </div>
 
-                                        <div class="square-img d-table-cell">
+                                        <div class="square-img col-2">
                                             @if($item->design_front_image)
                                                 <img
                                                     src="{{ Storage::url('designs/'.$item->design_front_image)}}">
@@ -52,15 +52,15 @@
                                                     src="{{ Storage::url('products/'.$item?->variation?->product->front_image)}}">
                                             @endif
                                         </div>
-                                        <div class="order-info">
+                                        <div class="order-info col-8">
                                             <p class="card-text">
-                                                {!! $item->variation->product->description ?? ''!!}
+                                                {!! $item->variation->product->description?substr($item->variation->product->description,0, 500) : ''!!}
                                             </p>
                                         </div>
                                     </div>
                                 @endforeach
 
-                                <div class="buttons-container">
+                                <div class="buttons-container col-2">
                                     <a href="#" data-toggle="modal" data-target="#invoice-popup{{$record->id}}"
                                        class=" btn btn-primary">{{__('site.invoice')}}</a>
                                     <a href="{{route('track_order', $record->id)}}"
@@ -76,7 +76,8 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="invoice-popup{{$record->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="invoice-popup{{$record->id}}" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -134,29 +135,34 @@
                                                         </tr>
                                                     @endforeach
                                                     <tr class="bg-light font-weight-bold">
-                                                        <th >{{__('site.sub_total')}}</th>
+                                                        <th>{{__('site.sub_total')}}</th>
                                                         <td></td>
-                                                        <th class="totalPrice">{{$record->subtotal}} <span> @lang('site.SAR') </span></th>
+                                                        <th class="totalPrice">{{$record->subtotal}}
+                                                            <span> @lang('site.SAR') </span></th>
                                                     </tr>
                                                     <tr class="bg-light font-weight-bold">
-                                                        <th >{{__('site.discount')}}</th>
+                                                        <th>{{__('site.discount')}}</th>
                                                         <td></td>
-                                                        <th class="totalPrice">{{$record->discount}} <span> @lang('site.SAR') </span></th>
+                                                        <th class="totalPrice">{{$record->discount}}
+                                                            <span> @lang('site.SAR') </span></th>
                                                     </tr>
                                                     <tr class="bg-light font-weight-bold">
-                                                        <th >{{__('site.shipping_price')}}</th>
+                                                        <th>{{__('site.shipping_price')}}</th>
                                                         <td></td>
-                                                        <th class="totalPrice">{{$record->shipping_cost}} <span> @lang('site.SAR') </span></th>
+                                                        <th class="totalPrice">{{$record->shipping_cost}}
+                                                            <span> @lang('site.SAR') </span></th>
                                                     </tr>
                                                     <tr class="bg-light font-weight-bold">
-                                                        <th >{{__('site.vat')}}</th>
+                                                        <th>{{__('site.vat')}}</th>
                                                         <td></td>
-                                                        <th class="totalPrice">{{$record->vat}} <span> @lang('site.SAR') </span></th>
+                                                        <th class="totalPrice">{{$record->vat}}
+                                                            <span> @lang('site.SAR') </span></th>
                                                     </tr>
                                                     <tr class="bg-light font-weight-bold">
-                                                        <th >{{__('site.total')}}</th>
+                                                        <th>{{__('site.total')}}</th>
                                                         <td></td>
-                                                        <th class="totalPrice">{{$record->total}} <span> @lang('site.SAR') </span></th>
+                                                        <th class="totalPrice">{{$record->total}}
+                                                            <span> @lang('site.SAR') </span></th>
                                                     </tr>
                                                     </tbody>
                                                 </table>
