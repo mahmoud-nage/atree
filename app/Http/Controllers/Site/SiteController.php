@@ -66,7 +66,7 @@ class SiteController extends Controller
             $query
                 ->where('name->ar', 'LIKE', '%' . $search . '%')
                 ->orWhere('name->en', 'LIKE', '%' . $search . '%')
-                ->orWhere('description->en', 'LIKE', '%' . $search . '%')
+                ->orWhere('description->ar', 'LIKE', '%' . $search . '%')
                 ->orWhere('description->en', 'LIKE', '%' . $search . '%');
         })->paginate(30);
 
