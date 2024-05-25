@@ -225,7 +225,7 @@
                         <input type="hidden" name="product_id[]" value="{{$record->id}}"/>
                         <input type="hidden" id="design_front_photo" name="design_front_photo"/>
                         <input type="hidden" id="design_back_photo" name="design_back_photo"/>
-                        <input type="hidden" id="design_color_id" name="design_color_id" value="@if(isset($record->variations->unique('color_id')->last()->color->code)) {{$record->variations->unique('color_id')->last()->color->code}} @else #000000 @endif"/>
+                        <input type="hidden" id="design_color_id" name="design_color_id" value="@if(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @endif"/>
                         <input type="hidden" id="front_image_width" name="front_image_width" value="50"/>
                         <input type="hidden" id="front_image_height" name="front_image_height" value="50"/>
                         <input type="hidden" id="back_image_width" name="back_image_width" value="50"/>
