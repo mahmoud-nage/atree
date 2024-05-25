@@ -9,9 +9,9 @@
         <button class="nav-link active" id="Products-tab" data-toggle="tab" data-target="#Products" type="button" role="tab" aria-controls="Products" aria-selected="true"> @lang('site.Products') </button>
       </li>
 
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="Designes-tab" data-toggle="tab" data-target="#Designes" type="button" role="tab" aria-controls="Designes" aria-selected="true"> @lang('site.Designes') </button>
-      </li>
+{{--      <li class="nav-item" role="presentation">--}}
+{{--        <button class="nav-link" id="Designes-tab" data-toggle="tab" data-target="#Designes" type="button" role="tab" aria-controls="Designes" aria-selected="true"> @lang('site.Designes') </button>--}}
+{{--      </li>--}}
     </ul>
 
     <div class="tab-content" id="myTabContent">
@@ -136,114 +136,7 @@
 </div>
 <!-- /.col -->
 
-<div class="col-md-3 right-sidebar">
-  <div class="home-sidebar">
-
-    <!--------- Suggested Designers List --------->
-    <div class="section">
-      <div class="title col-md-12">
-        <h5 class="mb-2">Suggested Designers</h5>
-      </div>
-
-      <div class="sugested-designer-list">
-        <!-- list-item -->
-        <div class="media">
-          <div class="mr-3 media-img"> <img src="img/avatar4.png" /> </div>
-          <div class="media-body">
-            <p class="m-0">Moataz Ibrahim</p>
-          </div>
-          <div class="ml-auto"> <button type="button" class="btn text-primary">follow </button> </div>
-        </div>
-        <!-- list-item -->
-        <div class="media">
-          <div class="mr-3 media-img"> <img src="img/avatar4.png" /> </div>
-          <div class="media-body">
-            <p class="m-0">Moataz Ibrahim</p>
-          </div>
-          <div class="ml-auto"> <button type="button" class="btn text-primary">follow </button> </div>
-        </div>
-        <!-- list-item -->
-        <div class="media">
-          <div class="mr-3 media-img"> <img src="img/avatar4.png" /> </div>
-          <div class="media-body">
-            <p class="m-0">Moataz Ibrahim</p>
-          </div>
-          <div class="ml-auto"> <button type="button" class="btn text-primary">follow </button> </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!--------- Heigh Recomanded Designs List --------->
-    <div class="section">
-      <div class="title col-md-12 mt-4">
-        <h5 class="mb-2">Heigh Recomanded Designs</h5>
-      </div>
-      <div class="list-group heigh-recomanded-list">
-
-        <!-- list-item -->
-        <div class="list-item ">
-          <div class="media">
-            <a class="mr-3 heigh-recomanded-img" href="#"> <img src="img/photo1.png"> </a>
-            <div class="media-body">
-              <a href="#" class="m-0">Design Recomanded Number 1</a>
-              <!-- designer-item -->
-              <a href="#" class="media">
-                <div class="mr-2 media-img"> <img src="img/avatar4.png" /> </div>
-                <div class="media-body">
-                  <p class="m-0 text-gray">Moataz Ibrahim</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- list-item -->
-        <div class="list-item ">
-          <div class="media">
-            <a class="mr-3 heigh-recomanded-img" href="#"> <img src="img/photo3.jpg"> </a>
-            <div class="media-body">
-              <a href="#" class="m-0">Design Recomanded Number 2</a>
-              <!-- designer-item -->
-              <a href="#" class="media">
-                <div class="mr-2 media-img"> <img src="img/avatar4.png" /> </div>
-                <div class="media-body">
-                  <p class="m-0 text-gray">Moataz Ibrahim</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- list-item -->
-        <div class="list-item ">
-          <div class="media">
-            <a class="mr-3 heigh-recomanded-img" href="#"> <img src="img/photo2.png"> </a>
-            <div class="media-body">
-              <a href="#" class="m-0">Design Recomanded Number 3</a>
-              <!-- designer-item -->
-              <a href="#" class="media">
-                <div class="mr-2 media-img"> <img src="img/avatar4.png" /> </div>
-                <div class="media-body">
-                  <p class="m-0 text-gray">Moataz Ibrahim</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
-    <!--------- Heigh Recomanded Designs List --------->
-
-    @include('site.layouts.footer')
-
-  </div>
-</div>
+    @include('site.layouts.sidebar_left')
 
 </div>
 @endsection
