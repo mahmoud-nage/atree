@@ -114,6 +114,6 @@ class CartController extends Controller
                 ]);
             }
         }
-        return $request->type == 1 ? view('site.cart') : view('site.my_designs');
+        return $request->type == 1 ? view('site.cart') : redirect(route('users.show', auth()->user()));
     }
 }
