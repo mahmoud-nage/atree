@@ -97,7 +97,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <a href="#" class="text-center post-image-container">
+                    <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">
                         <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}"  src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
                     </a>
                     <p>{{$record->description}}</p>

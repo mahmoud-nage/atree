@@ -16,64 +16,80 @@ $(document).ready(function () {
         // selectionBorderColor: 'blue',
         // hasBorders:true
     });
-    // canvas.on({
-    //     'object:moving': function (e) {
-    //         e.target.opacity = 0.5;
-    //     },
-    //     'object:modified': function (e) {
-    //         e.target.opacity = 1;
-    //     },
-    //     'object:selected': onObjectSelected,
-    //     'selection:cleared': onSelectedCleared
-    // });
+    canvas.on({
+        'object:moving': function (e) {
+            e.target.opacity = 0.5;
+            $('#front_image_width').val(Math.ceil(e.target.getWidth()));
+            $('#front_image_height').val(Math.ceil(e.target.getHeight()));
+            $('#front_image_top').val(Math.ceil(e.target.top));
+            $('#front_image_left').val(Math.ceil(e.target.left));
+        },
+        'object:modified': function (e) {
+            e.target.opacity = 1;
+            $('#front_image_width').val(Math.ceil(e.target.getWidth()));
+            $('#front_image_height').val(Math.ceil(e.target.getHeight()));
+            $('#front_image_top').val(Math.ceil(e.target.top));
+            $('#front_image_left').val(Math.ceil(e.target.left));
+        },
+        'object:selected': onObjectSelected,
+        'selection:cleared': onSelectedCleared
+    });
     // piggyback on `canvas.findTarget`, to fire "object:over" and "object:out" events
-    // canvas.findTarget = (function (originalFn) {
-    //     return function () {
-    //         var target = originalFn.apply(this, arguments);
-    //         if (target) {
-    //             if (this._hoveredTarget !== target) {
-    //                 canvas.fire('object:over', {target: target});
-    //                 if (this._hoveredTarget) {
-    //                     canvas.fire('object:out', {target: this._hoveredTarget});
-    //                 }
-    //                 this._hoveredTarget = target;
-    //             }
-    //         } else if (this._hoveredTarget) {
-    //             canvas.fire('object:out', {target: this._hoveredTarget});
-    //             this._hoveredTarget = null;
-    //         }
-    //         return target;
-    //     };
-    // })(canvas.findTarget);
+    canvas.findTarget = (function (originalFn) {
+        return function () {
+            var target = originalFn.apply(this, arguments);
+            if (target) {
+                if (this._hoveredTarget !== target) {
+                    canvas.fire('object:over', {target: target});
+                    if (this._hoveredTarget) {
+                        canvas.fire('object:out', {target: this._hoveredTarget});
+                    }
+                    this._hoveredTarget = target;
+                }
+            } else if (this._hoveredTarget) {
+                canvas.fire('object:out', {target: this._hoveredTarget});
+                this._hoveredTarget = null;
+            }
+            return target;
+        };
+    })(canvas.findTarget);
 
-    // canvasBack.on({
-    //     'object:moving': function (e) {
-    //         e.target.opacity = 0.5;
-    //     },
-    //     'object:modified': function (e) {
-    //         e.target.opacity = 1;
-    //     },
-    //     'object:selected': onObjectSelectedBack,
-    //     'selection:cleared': onSelectedClearedBack
-    // });
-    // canvasBack.findTarget = (function (originalFn) {
-    //     return function () {
-    //         var target = originalFn.apply(this, arguments);
-    //         if (target) {
-    //             if (this._hoveredTarget !== target) {
-    //                 canvasBack.fire('object:over', {target: target});
-    //                 if (this._hoveredTarget) {
-    //                     canvasBack.fire('object:out', {target: this._hoveredTarget});
-    //                 }
-    //                 this._hoveredTarget = target;
-    //             }
-    //         } else if (this._hoveredTarget) {
-    //             canvasBack.fire('object:out', {target: this._hoveredTarget});
-    //             this._hoveredTarget = null;
-    //         }
-    //         return target;
-    //     };
-    // })(canvasBack.findTarget);
+    canvasBack.on({
+        'object:moving': function (e) {
+            e.target.opacity = 0.5;
+            $('#back_image_width').val(Math.ceil(e.target.getWidth()));
+            $('#back_image_height').val(Math.ceil(e.target.getHeight()));
+            $('#back_image_top').val(Math.ceil(e.target.top));
+            $('#back_image_left').val(Math.ceil(e.target.left));
+        },
+        'object:modified': function (e) {
+            e.target.opacity = 1;
+            $('#back_image_width').val(Math.ceil(e.target.getWidth()));
+            $('#back_image_height').val(Math.ceil(e.target.getHeight()));
+            $('#back_image_top').val(Math.ceil(e.target.top));
+            $('#back_image_left').val(Math.ceil(e.target.left));
+        },
+        'object:selected': onObjectSelectedBack,
+        'selection:cleared': onSelectedClearedBack
+    });
+    canvasBack.findTarget = (function (originalFn) {
+        return function () {
+            var target = originalFn.apply(this, arguments);
+            if (target) {
+                if (this._hoveredTarget !== target) {
+                    canvasBack.fire('object:over', {target: target});
+                    if (this._hoveredTarget) {
+                        canvasBack.fire('object:out', {target: this._hoveredTarget});
+                    }
+                    this._hoveredTarget = target;
+                }
+            } else if (this._hoveredTarget) {
+                canvasBack.fire('object:out', {target: this._hoveredTarget});
+                this._hoveredTarget = null;
+            }
+            return target;
+        };
+    })(canvasBack.findTarget);
 
     document.getElementById('add-text').onclick = function () {
         var text = $("#text-string").val();

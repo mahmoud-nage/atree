@@ -225,11 +225,18 @@
                         <input type="hidden" name="product_id[]" value="{{$record->id}}"/>
                         <input type="hidden" id="design_front_photo" name="design_front_photo"/>
                         <input type="hidden" id="design_back_photo" name="design_back_photo"/>
-                        <input type="hidden" id="design_color_id" name="design_color_id" value="@if(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @endif"/>
+                        <input type="hidden" id="design_color_id" name="design_color_id"
+                               value="@if($design) {{$design->main_color_code}}  @elseif(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @endif"/>
+
                         <input type="hidden" id="front_image_width" name="front_image_width" value="50"/>
                         <input type="hidden" id="front_image_height" name="front_image_height" value="50"/>
+                        <input type="hidden" id="front_image_top" name="front_image_top" value="50"/>
+                        <input type="hidden" id="front_image_left" name="front_image_left" value="50"/>
+
                         <input type="hidden" id="back_image_width" name="back_image_width" value="50"/>
                         <input type="hidden" id="back_image_height" name="back_image_height" value="50"/>
+                        <input type="hidden" id="back_image_top" name="back_image_top" value="50"/>
+                        <input type="hidden" id="back_image_left" name="back_image_left" value="50"/>
                         <input type="hidden" id="type" name="type" value="2"/>
                         <div class="row">
                             <div class="col-7" style="box-shadow: 0 0 10px 10px #00000012;">
@@ -369,9 +376,9 @@
                                             {{__('site.back')}}
                                         </button>
                                         <div id="shirtDiv" class="page"
-                                             style="position: relative; background-color: @if(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
+                                             style="position: relative; background-color: @if($design) {{$design->main_color_code}}  @elseif(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
                                             <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
-                                                 src="{{ Storage::url('products/'.$record->front_image) }}">
+                                                 src="{{ Storage::url($design ? 'designs/'.$design->image : 'products/'.$record->front_image)}}">
                                             <div id="drawingArea"
                                                  style="position: absolute;top: {{$record->site_front_top}}px;left: {{$record->site_front_left}}px;z-index: 99;width: {{$record->site_front_width}}px;height: {{$record->site_front_height}}px;">
                                                 <canvas id="tcanvas" width="{{$record->site_front_width}}"
@@ -380,9 +387,9 @@
                                             </div>
                                         </div>
                                         <div id="shirtDivBack" class="page d-none"
-                                             style="position: relative; background-color: @if(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
+                                             style="position: relative; background-color: @if($design) {{$design->main_color_code}}  @elseif (isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
                                             <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
-                                                 src="{{ Storage::url('products/'.$record->back_image) }}">
+                                                 src="{{ Storage::url($design ? 'designs/'.$design->back_image : 'products/'.$record->back_image)}}">
                                             <div id="drawingAreaBack" class="d-none"
                                                  style="position: absolute;top: {{$record->site_back_top}}px;left: {{$record->site_back_left}}px;z-index: 99;width: {{$record->site_back_width}}px;height: {{$record->site_back_height}}px;">
                                                 <canvas id="canvasBack" width="{{$record->site_back_width}}"
@@ -414,8 +421,8 @@
                                                             class="form-control @error('color_id') is-invalid @enderror">
                                                         <option> @lang('site.Select Color') </option>
                                                         @foreach ($record->variations->unique('color_id') as $record_color_variation)
-                                                            <option @if($loop->first) selected @endif
-                                                                value="{{$record_color_variation->color->id}}">{{$record_color_variation->color->name}}</option>
+                                                            <option @if($design && $design->main_color_code == $record_color_variation->color->code) selected @elseif($loop->first) selected @endif
+                                                            value="{{$record_color_variation->color->id}}">{{$record_color_variation->color->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('color_id')
@@ -476,10 +483,10 @@
                                         <h6>@lang('site.product_preview_color')</h6>
                                         <hr>
                                         <ul class="nav">
-{{--                                            <li class="color-preview" id="removeColorBtn"--}}
-{{--                                                data-color-id="#ffffff"--}}
-{{--                                                title="white"--}}
-{{--                                                style="background-color:#ffffff"></li>--}}
+                                            {{--                                            <li class="color-preview" id="removeColorBtn"--}}
+                                            {{--                                                data-color-id="#ffffff"--}}
+                                            {{--                                                title="white"--}}
+                                            {{--                                                style="background-color:#ffffff"></li>--}}
                                             @foreach ($record->variations->unique('color_id') as $record_color_variation)
                                                 <li class="color-preview"
                                                     id="changeColorBtn{{$record_color_variation->color->id}}"
@@ -721,6 +728,7 @@
             console.log(pngFrontURL);
             $('#design_front_photo').val(pngFrontURL);
             $('#design_back_photo').val(pngBackURL);
+
             $('#main_image_width').val($('#tshirtFacing').outerWidth());
             $('#main_image_height').val($('#tshirtFacing').outerHeight());
             // if ($('#myForm').valid())
@@ -796,7 +804,6 @@
                     }
 
                 });
-
             $('#removeColorBtn').click(
                 function () {
                     $('#design_color_id').val('#ffffff');

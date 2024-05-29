@@ -28,7 +28,7 @@
                 <ul class="users-list clearfix">
                     @foreach(\App\Models\UserDesign::inRandomOrder()->get()->take(3) as $record)
                         <li>
-                            <a href="#">
+                            <a href="{{ route('custom-designs', $record->id).'?type=design' }}">
                                 <div class="image-container">
                                     <img   style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="User Image">
                                 </div>

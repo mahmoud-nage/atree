@@ -88,12 +88,17 @@ class SiteController extends Controller
     }
 
 
-    public function custom_designs($product_id)
+    public function custom_designs(Request $request, $product_id)
     {
+        $design = null;
+        if ($request->type == 'design') {
+            $design = UserDesign::findOrFail($product_id);
+            $product_id = $design->product_id;
+        }
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
         $products = Product::where('id', '!=', $product_id)->get();
         $designs = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
-        return view('site.custom_designs', compact('record', 'designs','products'));
+        return view('site.custom_designs', compact('record', 'designs', 'products', 'design'));
     }
 
 
