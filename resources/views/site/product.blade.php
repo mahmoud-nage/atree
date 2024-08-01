@@ -3,7 +3,7 @@
     {{--    <link rel="stylesheet" href="{{ Storage::url('site_assets/css/slick-theme.css') }}">--}}
 @endsection
 @section('page_content')
-    <div class="content-wrapper pt-3" style="margin-right: 0 !important;">
+    <div class="content-wrapper pt-3" style="margin-right: 0 !important;margin-left: 0 !important;">
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
@@ -37,14 +37,24 @@
                         <div class="col-12 col-sm-6  p-3">
                             @livewire('site.add-product-to-wishlist' , ['product' => $product ] )
                             <h3 class="mb-3"> {{ $product->name }} </h3>
-                            {{--          <div class="starrating risingstar d-inline-flex flex-row-reverse">--}}
-                            {{--            <input type="radio" id="star5" name="rating" value="5" /><label class="fa fa-star" for="star5" title="5 star"></label>--}}
-                            {{--            <input type="radio" id="star4" name="rating" value="4" /><label class="fa fa-star" for="star4" title="4 star"></label>--}}
-                            {{--            <input type="radio" id="star3" name="rating" value="3" /><label class="fa fa-star" for="star3" title="3 star"></label>--}}
-                            {{--            <input type="radio" id="star2" name="rating" value="2" /><label class="fa fa-star" for="star2" title="2 star"></label>--}}
-                            {{--            <input type="radio" id="star1" name="rating" value="1" /><label class="fa fa-star" for="star1" title="1 star"></label>--}}
-                            {{--          </div>--}}
-                            {{--          <span class="px-2">(2 @lang('site.Review') )</span>--}}
+{{--                            <div class="starrating risingstar d-inline-flex flex-row-reverse">--}}
+{{--                                <input type="radio" id="star5" name="rating" value="5"/><label class="fa fa-star"--}}
+{{--                                                                                               for="star5"--}}
+{{--                                                                                               title="5 star"></label>--}}
+{{--                                <input type="radio" id="star4" name="rating" value="4"/><label class="fa fa-star"--}}
+{{--                                                                                               for="star4"--}}
+{{--                                                                                               title="4 star"></label>--}}
+{{--                                <input type="radio" id="star3" name="rating" value="3"/><label class="fa fa-star"--}}
+{{--                                                                                               for="star3"--}}
+{{--                                                                                               title="3 star"></label>--}}
+{{--                                <input type="radio" id="star2" name="rating" value="2"/><label class="fa fa-star"--}}
+{{--                                                                                               for="star2"--}}
+{{--                                                                                               title="2 star"></label>--}}
+{{--                                <input type="radio" id="star1" name="rating" value="1"/><label class="fa fa-star"--}}
+{{--                                                                                               for="star1"--}}
+{{--                                                                                               title="1 star"></label>--}}
+{{--                            </div>--}}
+{{--                            <span class="px-2">(2 @lang('site.Review') )</span>--}}
 
                             <p class="product-page-info">
                                 {!! $product->description !!}
@@ -52,11 +62,11 @@
 
                             <div class="ProductPrice mb-3">
                                 <span class="price mr-3"> {{$product->price}} @lang('site.SAR') </span>
-                                <div class="diamondPriceContainer bg-primary-gridant d-inline-block"
-                                     style="cursor:default">
-                                    <i class="far fa-gem mr-1"></i>
-                                    {{$product->diamonds}} {{__('site.Diamond')}}
-                                </div>
+{{--                                <div class="diamondPriceContainer bg-primary-gridant d-inline-block"--}}
+{{--                                     style="cursor:default">--}}
+{{--                                    <i class="far fa-gem mr-1"></i>--}}
+{{--                                    {{$product->diamonds}} {{__('site.Diamond')}}--}}
+{{--                                </div>--}}
 
                             </div>
                             <!-- <hr> -->
@@ -83,8 +93,8 @@
                             {{--            </select>--}}
                             {{--          </div>--}}
 
-                            <a href="{{ route('custom-designs', $product->id) }}"
-                               class="btn btn-primary p-3 ml-3 bg-primary-gridant">
+                            <a  onclick="goToDesignPage()"
+                               class="btn btn-primary p-3 bg-primary-gridant">
                                 <i class="fas fa-cart-plus fa-lg mr-2"></i>
                                 @lang('site.custom-design')
                             </a>
@@ -108,18 +118,20 @@
                                         <div class="product-container">
                                             <a href="{{ $product->url() }}" class="image-container"
                                                data-image="{{ Storage::url('products/'.$product->front_image) }}">
-                                                <div class="card-front"><img
-                                                        src="{{ Storage::url('products/'.$product->front_image) }}"/>
+                                                <div class="card-front" id="0-card-front{{$product->id}}"
+                                                     style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                 </div>
-                                                <div class="card-back"><img
-                                                        src="{{ Storage::url('products/'.$product->back_image) }}"/>
+                                                <div class="card-back" id="0-card-back{{$product->id}}"
+                                                     style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                 </div>
                                             </a>
                                             <ul class="color-list">
-                                                @foreach ($product->variations->unique('color_id') as $product_color_variation)
+                                                @foreach ($product->variations->unique('color_id') as $record_color_variation)
                                                     <li class="color-item"
-                                                        style="background:{{ $product_color_variation->color->code }}"
-                                                        data-image="{{ Storage::url('products/'.$product->front_image) }}"></li>
+                                                        onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
+                                                        onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
+                                                        style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
+                                                        id="color-Button"></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -196,6 +208,43 @@
                 $(this).closest('.product-container').find(".card-front img").attr('src', mainImage);
             });
         });
+    </script>
+    <script>
+        function goToDesignPage() {
+            const product =
+                {
+                    id: "1",
+                    front: {
+                        boundaryBox: { top: '{{$product->site_front_top}}%', left: "{{$product->site_front_left}}%", width: "{{$product->site_front_width}}%", height: "{{$product->site_front_height}}%" },
+                        boundaryBoxChildren: [],
+                        "name": "T-shirt",
+                        "price": 200,
+                        "currency": "SAR",
+                        "frontImage": "{{ Storage::url('products/'.$product->front_image) }}",
+                        "colors": [
+                            { "color": "black", "image": "img/color-1.jpg" },
+                            { "color": "#darkblue", "image": "img/color-3.jpg" },
+                            { "color": "#fcdb86", "image": "img/color-2.jpg" }
+                        ]
+                    }, back: {
+                        boundaryBox: { top: '{{$product->site_back_top}}%', left: "{{$product->site_back_left}}%", width: "{{$product->site_back_width}}%", height: "{{$product->site_back_height}}%" },
+                        boundaryBoxChildren: [],
+                        "name": "T-shirt",
+                        "price": 200,
+                        "currency": "SAR",
+                        "backImage": "{{ Storage::url('products/'.$product->back_image) }}",
+                        "colors": [
+                            { "color": "black", "image": "img/color-1.jpg" },
+                            { "color": "#darkblue", "image": "img/color-3.jpg" },
+                            { "color": "#fcdb86", "image": "img/color-2.jpg" }
+                        ]
+                    }
+                }
+
+            const productJSON = JSON.stringify(product);
+            localStorage.setItem('product', productJSON);
+            window.location.href = '{{ route('custom-designs', $product->id) }}';
+        }
     </script>
     {{--<script type="text/javascript">--}}
     {{--  $(function() {--}}

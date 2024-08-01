@@ -24,7 +24,8 @@ class SendCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|unique:users,phone' ,
+            'code' => 'nullable' ,
+            'phone' => 'required|exists:users,phone' ,
         ];
     }
 }

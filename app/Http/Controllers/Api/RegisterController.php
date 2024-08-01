@@ -4,38 +4,43 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\RegisterRequest;
+use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use App\Models\User;
-use App\Models\EmailVerificationCode;
+use App\Trait\ApiResponse;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
+use function GuzzleHttp\Promise\all;
 
 class RegisterController extends Controller
 {
+    use ApiResponse;
 
-    public function form()
+    /**
+     * @param RegisterRequest $request
+     * @return JsonResponse
+     */
+    public function register(RegisterRequest $request): JsonResponse
     {
-        return view('site.register');
-    }
-
-    public function register(RegisterRequest$request)
-    {
-
-        $user = new User;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = Hash::make($request->password);
-        $user->type = 1;
-        $user->username = substr(str_shuffle('abcdefghijklmnobqrstuvwxyz'), 0 , 12);
+        $request->merge(['password' => Hash::make($request->password)]);
+        $validated = $request->validated();
+        unset($validated['image']);
+        $user = User::create($validated + [
+                'type' => User::USER,
+                'name' => $request->first_name.' '.$request->last_name,
+                'username' => substr(str_shuffle('abcdefghijklmnobqrstuvwxyz'), 0, 12)
+            ]);
         if ($request->hasFile('image')) {
-            $user->image = basename($request->file('image')->store('users'));
+            $image = basename($request->file('image')->store('users'));
+            $user->update(['image' => $image]);
         }
-        $user->save();
-        $code = new EmailVerificationCode;
-        // $code->code = substr(str_shuffle(time()),0 , 4) ;
-        $code->code = 1234 ;
-        $code->email = $user->email;
-        $code->save();
-        return redirect(url('verify?email='.$user->email ));
+        Auth::login($user);
+        $accessToken = \auth()->user()->createToken('mobile_app')->plainTextToken;
+        dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
+        $data = [
+            'token' => $accessToken
+        ];
+        return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
 }

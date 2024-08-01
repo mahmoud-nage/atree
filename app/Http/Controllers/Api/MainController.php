@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ContactUsRequest;
+use App\Http\Requests\Api\PageRequest;
+use App\Http\Resources\AuthResource;
+use App\Http\Resources\DesignsResource;
+use App\Http\Resources\ProductsResource;
+use App\Http\Resources\SliderResource;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Complain;
 use App\Models\Governorate;
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Page;
+use App\Models\UserDesign;
 use App\Trait\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,14 +41,14 @@ class MainController extends Controller
     public function index(): JsonResponse
     {
         $slides = Slide::where('is_active', 1)->latest()->get();
-        $recommend_users = User::where('type', User::USER)->inRandomOrder()->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
         $users = User::inRandomOrder()->take(3)->get();
+        $designs = UserDesign::inRandomOrder()->take(6)->get();
         $data = [
-            'slides' => $slides,
-            'recommend_users' => $recommend_users,
-            'products' => $products,
-            'users' => $users,
+            'slides' => SliderResource::collection($slides),
+            'products' => ProductsResource::collection($products),
+            'designers' => AuthResource::collection($users),
+            'designs' => DesignsResource::collection($designs),
         ];
         return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
@@ -55,9 +64,20 @@ class MainController extends Controller
                 ->orWhere('description->en', 'LIKE', '%' . $search . '%');
         })->paginate(30);
 
-        return self::makeSuccess(Response::HTTP_OK, '', $products);
+        return self::makeSuccess(Response::HTTP_OK, '', ProductsResource::collection($products));
     }
 
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return JsonResponse
+     */
+    public function products(): JsonResponse
+    {
+        $products = Product::with(['variations.color'])->latest()->paginate(15);
+        return self::makeSuccess(Response::HTTP_OK, '', ProductsResource::collection($products));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -69,8 +89,7 @@ class MainController extends Controller
     {
         dispatch(new IncreasProductViewsCountJob($product));
         $product->load(['images']);
-        $products = Product::with(['variations.color'])->inRandomOrder()->limit(9)->get();
-        return self::makeSuccess(Response::HTTP_OK, '', $products);
+        return self::makeSuccess(Response::HTTP_OK, '', ProductsResource::make($product));
     }
 
     /**
@@ -81,22 +100,21 @@ class MainController extends Controller
         $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
         $users = User::latest()->where('type', User::USER)->take(15)->get();
         $data = [
-            'products' => $products,
-            'users' => $users,
+            'products' => ProductsResource::collection($products),
+            'designers' => AuthResource::collection($users),
         ];
         return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @return JsonResponse
      */
-    public function products(): JsonResponse
+    public function designs(): JsonResponse
     {
-        $products = Product::with(['variations.color'])->latest()->paginate(15);
-        return self::makeSuccess(Response::HTTP_OK, '', $products, false);
+        $records = UserDesign::latest()->get();
+        return self::makeSuccess(Response::HTTP_OK, '', DesignsResource::collection($records));
     }
+
 
 
     /**
@@ -182,13 +200,9 @@ class MainController extends Controller
         return $zip_file;
     }
 
-    public function update_phone(Request $request)
+    public function pages(PageRequest $request): JsonResponse
     {
-        $user = Auth::user();
-        $user->phone = $request->phone;
-        $user->save();
-        dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
-        return self::makeSuccess(Response::HTTP_OK, __('messages.updated_successfully'));
+        $page = Page::where('slug', $request->slug)->first();
+        return self::makeSuccess(Response::HTTP_OK, '', $page);
     }
-
 }

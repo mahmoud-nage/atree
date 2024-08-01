@@ -159,8 +159,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_back_width')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_back_width')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_back_width') is-invalid @enderror"
                                                                        name="site_back_width"
                                                                        value="{{ $product->site_back_width ?: old('site_back_width') }}">
@@ -172,8 +172,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_back_height')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_back_height')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_back_height') is-invalid @enderror"
                                                                        name="site_back_height"
                                                                        value="{{ $product->site_back_height ?: old('site_back_height') }}">
@@ -185,8 +185,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_back_left')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_back_left')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_back_left') is-invalid @enderror"
                                                                        name="site_back_left"
                                                                        value="{{ $product->site_back_left ?: old('site_back_left') }}">
@@ -198,8 +198,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_back_top')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_back_top')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_back_top') is-invalid @enderror"
                                                                        name="site_back_top"
                                                                        value="{{ $product->site_back_top ?: old('site_back_top') }}">
@@ -212,8 +212,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_front_width')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_front_width')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_front_width') is-invalid @enderror"
                                                                        name="site_front_width"
                                                                        value="{{ $product->site_front_width ?: old('site_front_width') }}">
@@ -225,8 +225,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_front_height')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_front_height')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_front_height') is-invalid @enderror"
                                                                        name="site_front_height"
                                                                        value="{{ $product->site_front_height ?: old('site_front_height') }}">
@@ -238,8 +238,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_front_left')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_front_left')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_front_left') is-invalid @enderror"
                                                                        name="site_front_left"
                                                                        value="{{ $product->site_front_left ?: old('site_front_left') }}">
@@ -251,8 +251,8 @@
                                                         <div class="col-md-3">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.site_front_top')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.site_front_top')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('site_front_top') is-invalid @enderror"
                                                                        name="site_front_top"
                                                                        value="{{ $product->site_front_top ?: old('site_front_top') }}">
@@ -272,8 +272,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_back_image_width')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_back_image_width')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_back_image_width') is-invalid @enderror"
                                                                        name="mobile_back_image_width"
                                                                        value="{{ $product->mobile_back_image_width ?: old('mobile_back_image_width') }}">
@@ -285,8 +285,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_back_image_height')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_back_image_height')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_back_image_height') is-invalid @enderror"
                                                                        name="mobile_back_image_height"
                                                                        value="{{ $product->mobile_back_image_height ?: old('mobile_back_image_height') }}">
@@ -298,8 +298,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_back_width')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_back_width')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_back_width') is-invalid @enderror"
                                                                        name="mobile_back_width"
                                                                        value="{{ $product->mobile_back_width ?: old('mobile_back_width') }}">
@@ -311,8 +311,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_back_height')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_back_height')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_back_height') is-invalid @enderror"
                                                                        name="mobile_back_height"
                                                                        value="{{ $product->mobile_back_height ?: old('mobile_back_height') }}">
@@ -324,8 +324,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_back_left')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_back_left')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_back_left') is-invalid @enderror"
                                                                        name="mobile_back_left"
                                                                        value="{{ $product->mobile_back_left ?: old('mobile_back_left') }}">
@@ -337,8 +337,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_back_top')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_back_top')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_back_top') is-invalid @enderror"
                                                                        name="mobile_back_top"
                                                                        value="{{ $product->mobile_back_top ?: old('mobile_back_top') }}">
@@ -351,8 +351,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_front_image_width')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_front_image_width')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_front_image_width') is-invalid @enderror"
                                                                        name="mobile_front_image_width"
                                                                        value="{{ $product->mobile_front_image_width ?: old('mobile_front_image_width') }}">
@@ -364,8 +364,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_front_image_height')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_front_image_height')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_front_image_height') is-invalid @enderror"
                                                                        name="mobile_front_image_height"
                                                                        value="{{ $product->mobile_front_image_height ?: old('mobile_front_image_height') }}">
@@ -377,8 +377,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_front_width')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_front_width')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_front_width') is-invalid @enderror"
                                                                        name="mobile_front_width"
                                                                        value="{{ $product->mobile_front_width ?: old('mobile_front_width') }}">
@@ -390,8 +390,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_front_height')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_front_height')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_front_height') is-invalid @enderror"
                                                                        name="mobile_front_height"
                                                                        value="{{ $product->mobile_front_height ?: old('mobile_front_height') }}">
@@ -403,8 +403,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_front_left')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_front_left')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_front_left') is-invalid @enderror"
                                                                        name="mobile_front_left"
                                                                        value="{{ $product->mobile_front_left ?: old('mobile_front_left') }}">
@@ -416,8 +416,8 @@
                                                         <div class="col-md-2">
                                                             <div class='mb-2'>
                                                                 <label
-                                                                    class="col-form-label"> {{__('products.mobile_front_top')}} </label>
-                                                                <input type="text"
+                                                                    class="col-form-label"> {{__('products.mobile_front_top')}} (%) </label>
+                                                                <input type="number" min="1" max="100" step="1"
                                                                        class="form-control @error('mobile_front_top') is-invalid @enderror"
                                                                        name="mobile_front_top"
                                                                        value="{{ $product->mobile_front_top ?: old('mobile_front_top') }}">

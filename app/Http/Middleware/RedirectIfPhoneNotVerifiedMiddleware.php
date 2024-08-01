@@ -2,14 +2,18 @@
 
 namespace App\Http\Middleware;
 
+use App\Trait\ApiResponse;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class RedirectIfPhoneNotVerifiedMiddleware
 {
+    use ApiResponse;
+
     /**
      * Handle an incoming request.
      *
@@ -24,7 +28,7 @@ class RedirectIfPhoneNotVerifiedMiddleware
                 return redirect(route('site.phone'));
             }
             if (!auth()->user()->phone_verified_at) {
-                return redirect(route('verify_phone.index'));
+                return $request->expectsJson() ? self::makeError(ResponseAlias::HTTP_LOCKED, __('site.phone_not_verified')) : redirect(route('verify_phone.index'));
             }
         }
         return $next($request);

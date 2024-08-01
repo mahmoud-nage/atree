@@ -14,7 +14,7 @@ trait ApiResponse
      *
      * @return JsonResponse
      */
-    private static function makeSuccess(int $code = Response::HTTP_OK, string $message = '', ?array $data = [], bool $direct = true): JsonResponse
+    private static function makeSuccess(int $code = Response::HTTP_OK, string $message = '', $data = [], bool $direct = true): JsonResponse
     {
         return response()->json([
             'code' => $code,

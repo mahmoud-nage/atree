@@ -73,7 +73,7 @@ return array(
     'Review' => 'Review',
     'Select Size' => 'Select Size',
     'Related Products' => 'Related Products',
-    'custom-design' => '',
+    'custom-design' => 'Custom Design',
     'Same Designer Designes' => 'Same Designer Designes',
     'Artistes' => 'Artistes',
     'More' => 'More',

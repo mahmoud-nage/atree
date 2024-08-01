@@ -25,7 +25,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.css') }}">
 
     @if ($dir == 'rtl' )
         <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/rtl.css') }}">
@@ -49,7 +50,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper pt-3"
-         style="@if(request()->route()->getName() == 'products.show') margin-right: 0 !important; @endif">
+         style="@if(request()->route()->getName() == 'products.show') margin-right: 0 !important;margin-left: 0 !important; @endif">
 
         <!-- Main content -->
         <section class="content">
@@ -74,7 +75,8 @@
 <!-- Scripts -->
 <!-- custtom scroll -->
 <script src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery-1.1.min.js') }}"></script>
-<script src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script
+    src="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script src="{{ asset('site_assets/'.$dir.'/js/PushMenu.js') }}"></script>
 <script src="{{ asset('html2canvas.min.js') }}"></script>
 {{--<script src="{{ asset('fabric.js') }}"></script>--}}
@@ -93,6 +95,12 @@
             $(this).closest('.product-container').find(".card-front img").attr('src', mainImage);
         });
     });
+
+    function changeCardColor(color, id) {
+        const card = document.getElementById(id);
+        card.style.backgroundColor = color;
+
+    }
 </script>
 @livewireScripts
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

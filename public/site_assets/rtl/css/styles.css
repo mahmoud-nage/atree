@@ -1033,6 +1033,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 
 .product-page-info {
     height: 15rem;
+    padding-left: 15rem;
     overflow: auto;
 }
 

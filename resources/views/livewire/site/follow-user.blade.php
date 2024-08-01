@@ -1,8 +1,8 @@
-<button wire:click='follow()' class="btn btn-primary"> 
+<button wire:click='follow()' class="btn text-primary">
     @if ($is_in_my_follwe_list)
-    @lang('site.UnFollow') 
+    @lang('site.UnFollow')
     @else
-    @lang('site.Follow') 
+    @lang('site.Follow')
 
     @endif
 </button>
