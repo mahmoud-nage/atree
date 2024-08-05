@@ -23,10 +23,12 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-        $request->merge(['password' => Hash::make($request->password)]);
         $validated = $request->validated();
         unset($validated['image']);
+        unset($validated['password_confirmation']);
+        unset($validated['password']);
         $user = User::create($validated + [
+                'password' => Hash::make($request->password),
                 'type' => User::USER,
                 'name' => $request->first_name.' '.$request->last_name,
                 'username' => substr(str_shuffle('abcdefghijklmnobqrstuvwxyz'), 0, 12)
