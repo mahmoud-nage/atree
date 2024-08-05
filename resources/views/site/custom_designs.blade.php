@@ -8,347 +8,608 @@
 @endphp
 @extends('site.layouts.master')
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/custom-design.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.css"
-        integrity="sha512-087vysR/jM0N5cp13Vlp+ZF9wx6tKbvJLwPO8Iit6J7R+n7uIMMjg37dEgexOshDmDITHYY5useeSmfD1MYiQA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    >
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
-        integrity="sha512-UtLOu9C7NuThQhuXXrGwx9Jb/z9zPQJctuAgNUBK3Z6kkSYT9wJ+2+dh6klS+TDBCV9kNPBbAxbVD+vCcfGPaA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    >
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    {{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/excanvas.js') }}"></script>--}}
+    {{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>--}}
+    {{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/fabric.js') }}"></script>--}}
+    <script type="text/javascript"></script>
+    <!-- Le styles -->
+    {{--    <link type="text/css" rel="stylesheet" href="{{ asset('site_assets/designs/css/jquery.miniColors.css') }}"/>--}}
+    {{--    <link href="{{ asset('site_assets/designs/css/bootstrap.min.css') }}" rel="stylesheet">--}}
+    {{--    <link href="{{ asset('site_assets/designs/css/bootstrap-responsive.min.css') }}" rel="stylesheet">--}}
+    <script type="text/javascript"></script>
+    <style type="text/css">
+        .color-preview {
+            border: 1px solid #CCC;
+            margin: 2px;
+            zoom: 1;
+            vertical-align: top;
+            display: inline-block;
+            cursor: pointer;
+            overflow: hidden;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .rotate {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
+            -ms-transform: rotate(90deg);
+        }
+
+        .Arial {
+            font-family: "Arial";
+        }
+
+        .Helvetica {
+            font-family: "Helvetica";
+        }
+
+        .MyriadPro {
+            font-family: "Myriad Pro";
+        }
+
+        .Delicious {
+            font-family: "Delicious";
+        }
+
+        .Verdana {
+            font-family: "Verdana";
+        }
+
+        .Georgia {
+            font-family: "Georgia";
+        }
+
+        .Courier {
+            font-family: "Courier";
+        }
+
+        .ComicSansMS {
+            font-family: "Comic Sans MS";
+        }
+
+        .Impact {
+            font-family: "Impact";
+        }
+
+        .Monaco {
+            font-family: "Monaco";
+        }
+
+        .Optima {
+            font-family: "Optima";
+        }
+
+        .HoeflerText {
+            font-family: "Hoefler Text";
+        }
+
+        .Plaster {
+            font-family: "Plaster";
+        }
+
+        .Engagement {
+            font-family: "Engagement";
+        }
+
+        .span3, .span6 {
+            width: 80%;
+        }
+
+        .tab-content {
+            width: 60%;
+            position: absolute;
+            left: 1%;
+            height: 10rem;
+        }
+
+        .nav-tabs {
+            padding: 1rem;
+            font-size: 18px;
+            background: #552e90;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-tabs li a:hover {
+            background-color: #552e90;
+        }
+
+        .nav-tabs li a {
+            color: #ffffff;
+        }
+
+        .span3 {
+            position: absolute;
+            z-index: 9;
+            top: -1rem;
+        }
+
+        .span6 {
+            width: 100% !important;
+        }
+
+        .span3 {
+            width: 98% !important;
+        }
+
+        .tab-pane {
+            height: 100%;
+        }
+
+        .well {
+            background-color: #f5f5f575;
+            border-color: #ebebeb;
+            height: 100%;
+        }
+
+        #text-string {
+            height: auto;
+            width: 70%;
+            margin: auto 3%;
+        }
+
+        .flip-shirt {
+            position: absolute;
+            right: 3%;
+            top: 7%;
+            z-index: 99;
+            width: 4rem;
+            height: 2rem;
+        }
+
+        .span6 .clearfix {
+            position: absolute;
+            bottom: 0;
+            z-index: 99;
+        }
+
+        .remove-btn {
+            position: absolute;
+            right: 92%;
+            top: 3%;
+            border: none;
+            background: transparent;
+        }
+
+        .well {
+            padding-top: 15%;
+        }
+
+        .color-picker {
+            width: 1rem;
+            height: 2rem !important;
+        }
+
+        #tshirtFacing, #tshirtFacingBack {
+            margin: auto;
+            display: block;
+        }
+
+        .btn {
+            min-width: 50px;
+        }
+
+        .dropdown-menu {
+            top: 50%;
+            right: 0;
+            left: auto;
+        }
+
+    </style>
 @endsection
 @section('page_content')
-    <div class="content-wrapper pt-3  gap-3">
+    <div class="container">
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
             <div class="card-solid">
-                <div class="card-body">
-                    <div class="row d-flex">
-                        <!-- product-image -->
-                        <div class="d-flex flex-column justify-content-between align-items-center mx-auto">
-                            <div class="toggle-img-button d-flex">
-                                <div id="front-img-button" class="front">{{__('site.front')}}</div>
-                                <div id="back-img-button" class="back">{{__('site.back')}}</div>
-                            </div>
-                            <!-- main-image -->
-                            <div id="design-area" class="resize-container">
-                                <div id="boundary-box"
-                                     style="border: 2px dashed rgb(255, 5, 5); position: relative; width: {{$record->site_front_width}}%; height: {{$record->site_front_height}}%; top: {{$record->site_front_top}}%; left: {{$record->site_front_left}}%"></div>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// -->
-                        <!-- image controllers -->
-                        <div id="image-controls" style="display: none;">
-                            <div class="d-flex justify-content-between w-100 h-100"
-                                 style="border: 1px solid rgba(84, 84, 84, 0.263);">
-                                <div class="controls-new align-items-center w-fit">
-                                    <button class="btn-custom btn-primary bg-primary-gridant"
-                                            id="image-delete-button">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant"
-                                            id="image-rotate-left-button">
-                                        <i class="fa-solid fa-arrow-rotate-left"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant"
-                                            id="image-rotate-right-button">
-                                        <i class="fa-solid fa-arrow-rotate-right"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant" id="crop-btn">
-                                        <i class="fa-solid fa-crop-simple"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant" id="finish-btn"
-                                            style="display: none;">
-                                        <i class="fa-solid fa-check"></i>
-                                    </button>
-                                    <input id="image-size" type="range" max="300" min="10" value="100"
-                                           style="width: 6rem;">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- text controllers -->
-                        <div id="text-controls" style="display: none;">
-                            <div class="d-flex justify-content-between w-100 h-100"
-                                 style="border: 1px solid rgba(84, 84, 84, 0.263);">
-                                <div class="controls-new align-items-center w-fit">
-                                    <button class="btn-custom btn-primary bg-primary-gridant"
-                                            id="text-delete-button">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant" id="bold-text">
-                                        <i class="fa-solid fa-bold"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant" id="italic-text">
-                                        <i class="fa-solid fa-italic"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant"
-                                            id="strikethrough-text">
-                                        <i class="fa-solid fa-strikethrough"></i>
-                                    </button>
-                                    <button class="btn-custom btn-primary bg-primary-gridant"
-                                            id="underline-text-button">
-                                        <i class="fa-solid fa-underline"></i>
-                                    </button>
-                                    <input class="btn-custom btn-primary bg-primary-gridant" type="range"
-                                           id="text-size" max="50" min="8" value="12" style="width: 6rem;">
-                                    <input class="btn-primary bg-primary-gridant" type="color" style="width: 5rem;"
-                                           id="text-color" value="#ffffff">
-                                    <select id="font-family" style="width: 5rem;">
-                                        <option value="Arial">Arial</option>
-                                        <option value="Courier New">Courier New</option>
-                                        <option value="Georgia">Georgia</option>
-                                        <option value="Times New Roman">Times New Roman</option>
-                                        <option value="Verdana">Verdana</option>
-                                        <option value="Cairo-Regular">Cairo Regular</option>
-                                        <option value="Cairo-Medium">Cairo Medium</option>
-                                        <option value="OpenSansRegular">Open Sans Regular</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// -->
-                        <!-- operation column -->
-                        <div class="operation-column">
-                            <div class="card-sidebar">
-                                <ul class="list">
-                                    <li class="photo-item" style=" cursor: pointer;">
-                                        <i class="fa big fa-tshirt"></i>
-                                        <span class="d-flex">Add existing Design</span>
-                                    </li>
-                                    <li id="file-input-trigger" class="photo-item border-top border-white pt-4"
-                                        style=" cursor: pointer;">
-                                        <i class="fa big fa-camera" style="size: 5px;"></i>
-                                        <span class="d-flex">
-                                                    {{__('site.image')}}
-                                                </span>
-                                        <input
-                                            type="file"
-                                            id="file-input"
-                                            style="display: none;"
-                                            accept="image/*"
-                                        >
-                                    </li>
-                                    <li id="add-text" class="photo-item border-top border-white pt-4 text-sm"
-                                        style=" cursor: pointer;">
-                                        <i class="fa big fa-text-height"></i>
-                                        <span class="d-flex">
-                                                    {{__('site.text')}}
-                                                </span>
-                                    </li>
-                                    <li id="Layers" class="photo-item border-top border-white pt-4"
-                                        style=" cursor: pointer;">
-                                        <i class="fa big fa-solid fa-layer-group"></i>
-                                        <span class="d-flex">Layers</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- layers-div -->
-                        <div class="mx-auto flex-column"
-                             style="display: none;min-height: 100%;min-width:max-content;border: 1px solid #cc33;padding: 15px;align-items: space-between;"
-                             id="layers-container"></div>
-                        <!-- details & add to cart button -->
-                        <div class="cart-operation col-4 mx-auto px-0">
-                            <div class="well">
-                                <h6 class="d-inline">@lang('site.order_quantity')</h6>
-                                <a href="#" type="button" class="btn btn-success float-left"
-                                   id="add_sizes">@lang('site.add')</a>
-                                <hr>
-                                <div class="form-row">
-                                    <div class="row" id="size_form">
-                                        <div class="form-group col-3 p-1">
-                                            <select name="color_id[]" required
-                                                    class="form-control @error('color_id') is-invalid @enderror">
-                                                <option> @lang('site.Select Color') </option>
-                                                @foreach ($record->variations->unique('color_id') as $record_color_variation)
-                                                    <option
-                                                        @if($design && $design->main_color_code == $record_color_variation->color->code) selected
-                                                        @elseif($loop->first) selected @endif
-                                                        value="{{$record_color_variation->color->id}}">{{$record_color_variation->color->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('color_id')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-3 p-1">
-                                            <select name="size_id[]" required
-                                                    class="form-control @error('size_id') is-invalid @enderror">
-                                                <option> @lang('site.Select Size') </option>
-                                                @foreach ($record->variations->unique('size_id') as $record_color_variation)
-                                                    <option
-                                                        value="{{$record_color_variation->size->id}}">{{$record_color_variation->size->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('size_id')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-2 p-1">
-                                            <input name="quantities[]" min="0" value="1" type="number"
-                                                   onchange="changeQty()"
-                                                   id="quantities"
-                                                   class="form-control @error('quantities') is-invalid @enderror"
-                                                   required>
-                                            @error('quantities')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-3 p-1">
-                                            <input min="0" value="{{$record->price}} {{__('site.SAR')}}"
-                                                   type="text" id="price1" disabled class="form-control">
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <input value="{{__('site.total')}}" type="text" disabled
-                                                   class="form-control">
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <input value="{{$record->price}} {{__('site.SAR')}}" type="text"
-                                                   disabled
-                                                   id="total_amount"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column align-items-end p-2">
-                                <h6>@lang('site.product_preview_color')</h6>
-                                <hr class="w-100">
-                                <ul class="nav" id="colorList">
-                                    <li class="color-preview" data-color-id="#ffffff" title="white"
-                                        style="background-color: rgb(255, 255, 255);" onclick="changeColor('#fff')">
-                                    </li>
-                                    @foreach ($record->variations->unique('color_id') as $record_color_variation)
-                                        <li class="color-preview"
-                                            data-color-id="{{$record_color_variation->color->code}}"
-                                            title="{{$record_color_variation->color->name}}"
-                                            style="background-color: {{$record_color_variation->color->code}};"
-                                            onclick="changeColor('{{$record_color_variation->color->code}}')">
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="d-flex justify-content-between mt-2">
-                                <button type="button" onclick="addType(1)"
-                                        class="btn btn-primary bg-primary-gridant span6 py-2"
-                                        style="width: 50% !important;" id="save" fdprocessedid="p0s243">
-                                    @lang('site.add-to-cart')
-                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                <div class="card-header">
+                    @if(count($errors))
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                {{$error}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                 </button>
-                                <button type="button" class="btn btn-success bg-success-gridant span6 py-2"
-                                        style="width: 49% !important;" id="generate-cards" fdprocessedid="0tvxz">
-                                    @lang('site.add-design')
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{route('cart.store')}}" enctype="multipart/form-data" id="myForm">
+                        @csrf
+                        <input type="hidden" name="product_id[]" value="{{$record->id}}"/>
+                        <input type="hidden" id="design_front_photo" name="design_front_photo"/>
+                        <input type="hidden" id="design_back_photo" name="design_back_photo"/>
+                        <input type="hidden" id="design_color_id" name="design_color_id"
+                               value="@if($design) {{$design->main_color_code}}  @elseif(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @endif"/>
+
+                        <input type="hidden" id="front_image_width" name="front_image_width" value="50"/>
+                        <input type="hidden" id="front_image_height" name="front_image_height" value="50"/>
+                        <input type="hidden" id="front_image_top" name="front_image_top" value="50"/>
+                        <input type="hidden" id="front_image_left" name="front_image_left" value="50"/>
+
+                        <input type="hidden" id="back_image_width" name="back_image_width" value="50"/>
+                        <input type="hidden" id="back_image_height" name="back_image_height" value="50"/>
+                        <input type="hidden" id="back_image_top" name="back_image_top" value="50"/>
+                        <input type="hidden" id="back_image_left" name="back_image_left" value="50"/>
+                        <input type="hidden" id="type" name="type" value="2"/>
+                        <div class="row">
+                            <div class="col-2">
+                                <nav class="mt-2" style="height: 100%">
+                                    <ul class="nav nav-pills nav-sidebar flex-column nav-legacy" data-widget="treeview" role="menu"
+                                        style="    background: #592A81;
+    color: white;
+    height: 100%;"
+                                        data-accordion="false">
+                                        <!-- <li class="nav-header">EXAMPLES</li> -->
+                                        <li class="nav-item">
+                                            <a href="{{ url('/') }}" class="nav-link @if(request()->route()->getName() == 'home') active @endif"
+                                            style="display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    /* align-items: baseline; */
+    flex-direction: column;
+    color: white;
+    padding: 2rem;
+}">
+                                                <i class="nav-icon fas fa-home"></i>
+                                                <p> @lang('site.Home') </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('explore') }}" class="nav-link @if(request()->route()->getName() == 'explore') active @endif">
+                                                <i class="nav-icon far fa-compass"></i>
+                                                <p>
+                                                    @lang('site.Explore')
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('products') }}" class="nav-link @if(request()->route()->getName() == 'products') active @endif">
+                                                <i class="nav-icon fas fa-tshirt"></i>
+                                                <p>
+                                                    @lang('site.Products')
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('designs') }}" class="nav-link @if(request()->route()->getName() == 'designs') active @endif">
+                                                <i class="nav-icon fas fa-palette"></i>
+                                                <p>
+                                                    @lang('site.Designs')
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="col-10" style="box-shadow: 0 0 10px 10px #00000012;">
+                                <div class="row">
+                                    <div class="span3">
+                                        <div class="tabbable"> <!-- Only required for left/right tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li><a href="#tab1" data-toggle="tab">{{__('site.text')}} <i
+                                                            class="fa fa-pen"></i></a></li>
+                                                <li><a href="#tab2" data-toggle="tab">{{__('site.image')}} <i
+                                                            class="fa fa-image"></i></a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane" id="tab1">
+                                                    <button type="button" class="close remove-btn text-danger"
+                                                            aria-label="Close"
+                                                            onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <div class="well">
+                                                        <div class="input-append">
+                                                            <input class="span2" id="text-string" type="text"
+                                                                   placeholder="{{__('site.add text here...')}}">
+                                                            <a href="#" id="add-text" type="button"
+                                                               class="btn btn-sm btn-success float-left">@lang('site.add')</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="tab2">
+                                                    <button type="button" class="close remove-btn text-danger"
+                                                            aria-label="Close"
+                                                            onclick="$('.tab-pane').removeClass('active');$('.nav-tabs li').removeClass('active')">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <div class="well">
+                                                        <div>
+                                                            <input type="file" name="fileToUpload"
+                                                                   id="fileToUpload">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div align="center" style="min-height: 32px;">
+                                            <div class="clearfix">
+                                                <div class="btn-group inline pull-right" id="texteditor"
+                                                     style="display:none">
+                                                    <button id="font-family"
+                                                            class="btn btn-xs btn-default dropdown-toggle"
+                                                            type="button"
+                                                            data-toggle="dropdown" title="Font Style"><i
+                                                            class="icon-font" style="width:19px;height:19px;"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu" id="dropdown-menu"
+                                                        aria-labelledby="font-family">
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Arial');"
+                                                               class="Arial dropdown-item">Arial</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Helvetica');"
+                                                               class="Helvetica dropdown-item">Helvetica</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Myriad Pro');"
+                                                               class="MyriadPro dropdown-item">Myriad Pro</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Delicious');"
+                                                               class="Delicious dropdown-item">Delicious</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Verdana');"
+                                                               class="Verdana dropdown-item">Verdana</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Georgia');"
+                                                               class="Georgia dropdown-item">Georgia</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Courier');"
+                                                               class="Courier dropdown-item">Courier</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Comic Sans MS');"
+                                                               class="ComicSansMS dropdown-item">Comic
+                                                                Sans MS</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Impact');"
+                                                               class="Impact dropdown-item">Impact</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Monaco');"
+                                                               class="Monaco dropdown-item">Monaco</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Optima');"
+                                                               class="Optima dropdown-item">Optima</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Hoefler Text');"
+                                                               class="Hoefler Text dropdown-item">Hoefler Text</a></li>
+                                                        <li><a tabindex="-1" href="#" onclick="setFont('Plaster');"
+                                                               class="Plaster dropdown-item">Plaster</a></li>
+                                                        <li><a tabindex="-1" href="#"
+                                                               onclick="setFont('Engagement');"
+                                                               class="Engagement dropdown-item">Engagement</a></li>
+                                                    </ul>
+                                                    <button id="text-bold" type="button" class="btn btn-xs btn-default"
+                                                            data-original-title="Bold"><img
+                                                            src="{{ asset('site_assets/designs/img/font_bold.png') }}"
+                                                            height="" width=""></button>
+                                                    <button id="text-italic" type="button"
+                                                            class="btn btn-xs btn-default"
+                                                            data-original-title="Italic"><img
+                                                            src="{{ asset('site_assets/designs/img/font_italic.png') }}"
+                                                            height="" width=""></button>
+                                                    <button id="text-strike" type="button"
+                                                            class="btn btn-xs btn-default"
+                                                            title="Strike"
+                                                            style=""><img
+                                                            src="{{ asset('site_assets/designs/img/font_strikethrough.png') }}"
+                                                            height="" width=""></button>
+                                                    <button id="text-underline" type="button"
+                                                            class="btn btn-xs btn-default"
+                                                            title="Underline" style=""><img
+                                                            src="{{ asset('site_assets/designs/img/font_underline.png') }}">
+                                                    </button>
+                                                    <input type="color"
+                                                           id="text-fontcolor"
+                                                           class="color-picker btn btn-xs btn-default"
+                                                           title="Text Color"
+                                                           size="7"
+                                                           value="@if(isset($record->variations->unique('color_id')->last()->color->code)) {{$record->variations->unique('color_id')->last()->color->code}} @else #000000 @endif">
+                                                </div>
+                                                <div class="pull-right" align="" id="imageeditor"
+                                                     style="display:none">
+                                                    <div class="btn-group">
+                                                        <button id="remove-selected" type="button"
+                                                                class="btn btn-xs btn-default"
+                                                                title="Delete selected item"><i
+                                                                class="fa fa-trash text-danger"
+                                                                style="height:19px;"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button id="flipback" type="button"
+                                                class="flip-shirt btn btn-primary p-3 ml-3 bg-primary-gridant"
+                                                title="Rotate View" data-original-title="Show Back View">
+                                            {{__('site.back')}}
+                                        </button>
+                                        <div id="shirtDiv" class="page"
+                                             style="position: relative; background-color: @if($design) {{$design->main_color_code}}  @elseif(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
+                                            <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
+                                                 src="{{ Storage::url($design ? 'designs/'.$design->image : 'products/'.$record->front_image)}}">
+                                            <div id="drawingArea"
+                                                 style="position: absolute;top: {{$record->site_front_top}}px;left: {{$record->site_front_left}}px;z-index: 99;width: {{$record->site_front_width}}px;height: {{$record->site_front_height}}px;">
+                                                <canvas id="tcanvas" width="{{$record->site_front_width}}"
+                                                        height="{{$record->site_front_height}}" class="hover"
+                                                        style=""></canvas>
+                                            </div>
+                                        </div>
+                                        <div id="shirtDivBack" class="page d-none"
+                                             style="position: relative; background-color: @if($design) {{$design->main_color_code}}  @elseif (isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @else  rgb(255, 255, 255); @endif">
+                                            <img name="tshirtview" id="tshirtFacing" style="width: 100%;height: 38rem;"
+                                                 src="{{ Storage::url($design ? 'designs/'.$design->back_image : 'products/'.$record->back_image)}}">
+                                            <div id="drawingAreaBack" class="d-none"
+                                                 style="position: absolute;top: {{$record->site_back_top}}px;left: {{$record->site_back_left}}px;z-index: 99;width: {{$record->site_back_width}}px;height: {{$record->site_back_height}}px;">
+                                                <canvas id="canvasBack" width="{{$record->site_back_width}}"
+                                                        height="{{$record->site_back_height}}" class="hover"
+                                                        style=""></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="ProductPrice mb-3">
+                                    <span class="price mr-3" id="price"> {{$record->price}} @lang('site.SAR') </span>
+                                </div>
+                                <div class="alert alert-warning" role="alert"
+                                     style="background-color: #fff3cd;border-color: #fff3cd">
+                                    @lang('site.alert_quantity')
+                                </div>
+                                <div class="span6" style="width: 90%;margin-top: 1rem;">
+                                    <div class="well" style="border: 1px solid #ccc3c3;padding: 15px;">
+                                        <h6 class="d-inline">@lang('site.order_quantity')</h6>
+                                        <a href="#" type="button" class="btn btn-success float-left"
+                                           id="add_sizes">@lang('site.add')</a>
+                                        <hr>
+                                        <div class="form-row">
+                                            <div class="row" id="size_form">
+                                                <div class="form-group col-3 p-1">
+                                                    <select name="color_id[]" required
+                                                            class="form-control @error('color_id') is-invalid @enderror">
+                                                        <option> @lang('site.Select Color') </option>
+                                                        @foreach ($record->variations->unique('color_id') as $record_color_variation)
+                                                            <option @if($design && $design->main_color_code == $record_color_variation->color->code) selected @elseif($loop->first) selected @endif
+                                                            value="{{$record_color_variation->color->id}}">{{$record_color_variation->color->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('color_id')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-3 p-1">
+                                                    <select name="size_id[]" required
+                                                            class="form-control @error('size_id') is-invalid @enderror">
+                                                        <option> @lang('site.Select Size') </option>
+                                                        @foreach ($record->variations->unique('size_id') as $record_color_variation)
+                                                            <option
+                                                                value="{{$record_color_variation->size->id}}">{{$record_color_variation->size->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('size_id')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-2 p-1">
+                                                    <input name="quantities[]" min="0" value="1" type="number"
+                                                           onchange="changeQty()"
+                                                           id="quantities"
+                                                           class="form-control @error('quantities') is-invalid @enderror"
+                                                           required>
+                                                    @error('quantities')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-3 p-1">
+                                                    <input min="0" value="{{$record->price}} {{__('site.SAR')}}"
+                                                           type="text" id="price1" disabled class="form-control">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="form-group col-6">
+                                                    <input value="{{__('site.total')}}" type="text" disabled
+                                                           class="form-control">
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <input value="{{$record->price}} {{__('site.SAR')}}" type="text"
+                                                           disabled
+                                                           id="total_amount"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="well">
+                                        <h6>@lang('site.product_preview_color')</h6>
+                                        <hr>
+                                        <ul class="nav">
+                                            {{--                                            <li class="color-preview" id="removeColorBtn"--}}
+                                            {{--                                                data-color-id="#ffffff"--}}
+                                            {{--                                                title="white"--}}
+                                            {{--                                                style="background-color:#ffffff"></li>--}}
+                                            @foreach ($record->variations->unique('color_id') as $record_color_variation)
+                                                <li class="color-preview"
+                                                    id="changeColorBtn{{$record_color_variation->color->id}}"
+                                                    onclick="changeColor({{$record_color_variation->color->id}})"
+                                                    data-color-id="{{$record_color_variation->color->code}}"
+                                                    title="{{$record_color_variation->color->name}}"
+                                                    style="background-color:{{$record_color_variation->color->code}};">
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <input type="hidden" name="image" id="download">
+                                <input type="hidden" name="image1" id="download1">
+
+
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            @if(count($products) > 0)
+                                <div class="col-12 form-group">
+                                    <div class="title">
+                                        <h5 class="mb-2"> @lang('site.Products') </h5>
+                                    </div>
+                                    <select class='form-control' id="product_id" name="product_id[]" multiple>
+                                        <option value="">@lang('site.choice_product')</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}"> {{ $product->name }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('product_id')
+                                    <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            @endif
+                            <div class="col-12 form-group">
+                                <button type="button" onclick="addType(2)"
+                                        class="btn  btn-success bg-success-gridant span6"
+                                        style="width: 49% !important;"
+                                        id="save">@lang('site.add-design')
                                     <i class="fa fa-crop-alt fa-lg mr-2"></i>
                                 </button>
+                                <button type="button" onclick="addType(1)"
+                                        class="btn   btn-primary bg-primary-gridant span6"
+                                        style="width: 50% !important;"
+                                        id="save">@lang('site.add-to-cart')
+                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="section relatedProducts Products-list w-100 mt-2" style="border: 1px solid rgba(148, 148, 148, 0.2);padding: 15px;align-items: space-between;">
-                            <div class="title d-flex justify-content-between">
-                                <h3 class="mb-2">@lang('site.Products')</h3>
-                            </div>
-                            <ul class="users-list clearfix" id="products-list">
-                                @foreach ($products as $product)
-                                    <li id="product{{$product->id}}" style="
-                                        position: relative;
-                                    ">
-                                        <div style="
-                                        position: absolute;
-                                        z-index: 10;
-                                        left: 15px;
-                                        top: 15px;
-                                    ">
-                                            <label for="product{{$product->id}}-checkbox" class="custom-checkbox">
-                                                <input
-                                                    type="checkbox"
-                                                    id="product{{$product->id}}-checkbox"
-                                                    name="products[]"
-                                                    value="{{$product->id}}"
-                                                >
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="product-container">
-                                            <a class="image-container" data-image="{{ Storage::url('products/'.$product->front_image) }}" onclick="changeNewDesignProduct('card-product{{$product->id}}')">
-                                                <div class="card-front" id="card-product{{$product->id}}"
-                                                     style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
-                                                    <div
-                                                        style="border: 0px dashed rgb(255, 5, 5); position: relative; width: {{$product->site_front_width}}%; height: {{$product->site_front_height}}%; top: {{$product->site_front_top}}%; left: {{$product->site_front_left}}%;"></div>
-                                                </div>
-                                                <div class="card-back" id="card-product{{$product->id}}"
-                                                     style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
-                                                    <div
-                                                        style="border: 0px dashed rgb(255, 5, 5); position: relative; width: {{$product->site_back_width}}%; height: {{$product->site_back_height}}%; top: {{$product->site_back_top}}%; left: {{$product->site_back_left}}%;"></div>
-                                                </div>
-                                            </a>
-                                            <ul class="color-list">
-                                                @foreach ($product->variations->unique('color_id') as $record_color_variation)
-                                                    <li class="color-item"
-                                                        onmouseover="changeCardColor('{{$record_color_variation->color->code}}','card-product{{$product->id}}')"
-                                                        onmouseleave="changeCardColor('rgb(255, 250, 255)','card-product{{$product->id}}')"
-                                                        style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
-                                                        id="color-Button"></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <a class="users-list-name" href="{{ $product->url() }}">{{$product->name}}</a>
-                                        <div class="users-list-date">{{$product->price}} <span>{{__('site.SAR')}}</span></div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- //////////////////////////////////////////////////////////////// -->
-                <!-- old designs  -->
-                <!-- <div class="card-body section used-design">
-                        <div class="title d-flex justify-content-between align-items-center col-md-12">
-                            <h5 class="mb-2">Most used design</h5>
-                            <a href="Products.html" class="text-sm text-dark">more</a>
-                        </div>
-                        <ul id="designs-list" class="users-list clearfix"> -->
-                <!-- List items will be inserted here dynamically -->
-                <!-- </ul>
-                    </div> -->
-                <!-- old designs  -->
-                <!-- <div class="section relatedProducts Products-list">
-                        <div class="title d-flex justify-content-between">
-                            <h3 class="mb-2">Related Products</h3>
-                        </div>
-                        <ul class="users-list clearfix" id="products-list"> -->
-                <!-- Products will be generated here by JavaScript -->
-                <!-- </ul>
-                    </div> -->
-                <!-- container for adding new design  -->
-                <div class="card-body">
-                    <div class="row d-flex justify-content-between">
-                        <div id="cards-container"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
+                    </form>
+                    <!-------------------------- Products List --------------------------->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </section>
+        <!-- /.content -->
+    </div>
+    {{--    </div>--}}
 @endsection
 
 @section('scripts')
+
+    <!----------- Slider Scripts --------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.20/fabric.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <script src="{{ asset('site_assets/designs/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('site_assets/designs/js/tshirtEditor.js') }}"></script>
+    {{--    <script type="text/javascript" src="{{ asset('site_assets/designs/js/jquery.miniColors.min.js') }}"></script>--}}
+    <!-- Footer ================================================== -->
     <script>
         $(function () {
             $("#add_sizes").on('click', function () {
@@ -360,7 +621,176 @@
                                                 </div>`);
                 changeQty();
             });
+            $('#fileToUpload').on('change', function (e) {
+                $('.tab-pane').removeClass('active');
+                $('.nav-tabs li').removeClass('active')
+            });
+            $('#add-text').on('click', function (e) {
+                $('.tab-pane').removeClass('active');
+                $('.nav-tabs li').removeClass('active')
+            });
+        })
+        $(document).ready(function () {
+            $("#drawingArea").hover(
+                function () {
+                    canvas.add(line1);
+                    canvas.add(line2);
+                    canvas.add(line3);
+                    canvas.add(line4);
+                    canvas.renderAll();
+                }, function () {
+                    canvas.remove(line1);
+                    canvas.remove(line2);
+                    canvas.remove(line3);
+                    canvas.remove(line4);
+                    canvas.renderAll();
+                }
+            );
+            line1 = new fabric.Line([0, 0, {{$record->site_front_width}}, 0], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line2 = new fabric.Line([{{$record->site_front_width-1}}, 0, {{$record->site_front_width}}, {{$record->site_front_height-1}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line3 = new fabric.Line([0, 0, 0, {{$record->site_front_height}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line4 = new fabric.Line([0, {{$record->site_front_height}}, {{$record->site_front_width}}, {{$record->site_front_height-1}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
 
+
+            $("#drawingAreaBack").hover(
+                function () {
+                    canvasBack.add(line1Back);
+                    canvasBack.add(line2Back);
+                    canvasBack.add(line3Back);
+                    canvasBack.add(line4Back);
+                    canvasBack.renderAll();
+                },
+                function () {
+                    canvasBack.remove(line1Back);
+                    canvasBack.remove(line2Back);
+                    canvasBack.remove(line3Back);
+                    canvasBack.remove(line4Back);
+                    canvasBack.renderAll();
+                }
+            );
+            line1Back = new fabric.Line([0, 0, {{$record->site_back_width}}, 0], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line2Back = new fabric.Line([{{$record->site_back_width-1}}, 0, {{$record->site_back_width}}, {{$record->site_back_height-1}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line3Back = new fabric.Line([0, 0, 0, {{$record->site_back_height}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+            line4Back = new fabric.Line([0, {{$record->site_back_height}}, {{$record->site_back_width}}, {{$record->site_back_height-1}}], {
+                "stroke": "#000000",
+                "strokeWidth": 1,
+                hasBorders: false,
+                hasControls: false,
+                hasRotatingPoint: false,
+                selectable: false
+            });
+        });
+    </script>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+        function save() {
+            // $("#myForm").validate();
+            $('#shirtDiv').removeClass('d-none');
+            $('#shirtDivBack').removeClass('d-none');
+            $('#drawingArea').removeClass('d-none');
+            $('#drawingAreaBack').removeClass('d-none');
+
+            $('#canvasBack').parent().removeClass('d-none');
+            $('#tcanvas').parent().removeClass('d-none');
+            html2canvas(document.getElementById("shirtDiv"), {removeContainer: false}).then(function (canvas) {
+                console.log('test')
+                // document.body.appendChild(canvas)
+                var data = canvas.toDataURL({
+                    format: "png"
+                });
+                $('#download').val(data);
+            });
+
+            // setTimeout(
+            //     function () {
+            html2canvas(document.getElementById("shirtDivBack"), {removeContainer: false}).then(function (canvas1) {
+                console.log('test1')
+                // document.body.appendChild(canvas)
+                var data = canvas1.toDataURL({
+                    format: "png"
+                });
+                $('#download1').val(data);
+            });
+            // }, 1000);
+
+            $('#shirtDiv').addClass('d-none');
+            $('#shirtDivBack').addClass('d-none');
+            $('#drawingArea').addClass('d-none');
+            $('#drawingAreaBack').addClass('d-none');
+            var pngFrontURL = canvas.toDataURL({
+                format: "png"
+            });
+            var pngBackURL = canvasBack.toDataURL({
+                format: "png"
+            });
+            console.log(pngFrontURL);
+            $('#design_front_photo').val(pngFrontURL);
+            $('#design_back_photo').val(pngBackURL);
+
+            $('#main_image_width').val($('#tshirtFacing').outerWidth());
+            $('#main_image_height').val($('#tshirtFacing').outerHeight());
+            // if ($('#myForm').valid())
+            // {
+            setTimeout(
+                function () {
+                    $('#myForm').submit();
+                }, 1000);
+            // }
+        }
+
+        var count = 0;
+        $(function () {
             $('#flipback').click(
                 function () {
                     if ($(this).attr("data-original-title") === "Show Back View") {
@@ -431,6 +861,13 @@
                 });
         });
 
+        function changeColor(id) {
+            let color = $('#changeColorBtn' + id).data('color-id');
+            $('#design_color_id').val(color);
+            document.getElementById("shirtDiv").style.backgroundColor = color;
+            document.getElementById("shirtDivBack").style.backgroundColor = color;
+        }
+
         function removeCart(e) {
             e.closest('#size_form').remove();
             changeQty();
@@ -450,33 +887,6 @@
             $("#type").val(type);
             this.save();
         }
-
-
-        function changeColor(color) {
-            const designArea = document.getElementById('design-area');
-            designArea.style.backgroundColor = color;
-        }
-
-        function changeCardColor(color, id) {
-            const card = document.getElementById(id);
-            card.style.backgroundColor = color;
-
-        }
-
-        function changeDesignProduct(newProduct) {
-            const productJSON = JSON.stringify(newProduct);
-            localStorage.setItem('product', productJSON);
-            GLOBAL_PRODUCT = newProduct
-            TEM_Product = newProduct
-            initPage(newProduct)
-        }
     </script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"
-    ></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.js"
-    ></script>
-    <script src="{{ asset('site_assets/'.$dir.'/js/custom-design.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
 @endsection
