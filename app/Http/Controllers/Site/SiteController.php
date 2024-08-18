@@ -112,7 +112,7 @@ class SiteController extends Controller
     {
         $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
         $users = User::latest()->where('type', User::USER)->take(15)->get();
-        $designs = UserDesign::latest()->take(15)->get();
+        $designs = UserDesign::with('product')->latest()->take(15)->get();
         return view('site.explore', compact('products', 'users', 'designs'));
     }
 
