@@ -27,11 +27,15 @@
                                 onclick="goToDesignPage({{$record}})"
                                 {{--                                        href="{{ route('custom-designs', $record->id).'?type=design' }}"--}}
                                 data-image="{{ Storage::url('products/'.$record->product->front_image) }}"
-                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"
+                                {{--                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"--}}
                                 class="text-center post-image-container">
                                 <div class="badge badge-light">
-                                    200
-                                    <span>SAR</span>
+                                    @if($record->design_image_front && $record->design_image_back)
+                                        {{$record->product->price_full_design}}
+                                    @else
+                                        {{$record->product->price}}
+                                    @endif
+                                    <span>{{__('site.SAR')}}</span>
                                 </div>
                                 <div style="position: relative; direction: ltr">
                                     {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
