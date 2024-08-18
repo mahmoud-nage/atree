@@ -47,12 +47,15 @@
                                 <a class="mr-3 heigh-recomanded-img"
                                    href="{{ route('custom-designs', $record->id).'?type=design' }}">
                                     <div style="width: 130px; height: 155px">
-                                        <img
-                                            style="background-color: {{$record->main_color_code}}"
-                                            src="{{Storage::url('products/'.$record->image)}}">
-                                        <img class="img-fluid pad" alt="design"
+                                        <img style="background-color: {{$record->main_color_code}}"
                                              src="{{Storage::url('designs/'.$record->design_image_front)}}"
-                                             style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">
+                                             alt="User Image">
+{{--                                        <img--}}
+{{--                                            style="background-color: {{$record->main_color_code}}"--}}
+{{--                                            src="{{Storage::url('products/'.$record->image)}}">--}}
+{{--                                        <img class="img-fluid pad" alt="design"--}}
+{{--                                             src="{{Storage::url('designs/'.$record->design_image_front)}}"--}}
+{{--                                             style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">--}}
                                     </div>
                                 </a>
                                 <div class="media-body">
