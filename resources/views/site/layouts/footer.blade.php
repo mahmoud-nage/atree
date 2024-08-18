@@ -35,8 +35,6 @@
             <li><a
                     href="{{ route('pages.show' , ['page' => $page->id.'-'.$page->title ] ) }}"> {{ $page->title }} </a>
             </li>
-            <p> @lang('site.All Rights Reserved') </p>
-
         @endforeach
     </ul>
     <ul class="footer-sidebar-list">
