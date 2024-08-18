@@ -97,7 +97,7 @@
                 </ul>
             </div>
             <!-------------------------- Posts List --------------------------->
-            @forelse($designs as $record)
+            @foreach($designs as $record)
                 <div class="card card-widget">
                     <div class="card-header">
                         <div class="user-block">
@@ -141,11 +141,7 @@
 
                     </div>
                 </div>
-            @empty
-                <div class="alert alert-primary" role="alert">
-                    @lang('site.no_records')
-                </div>
-            @endforelse
+            @endforeach
         </div>
         <!-- /.col -->
         @include('site.layouts.sidebar_left')
