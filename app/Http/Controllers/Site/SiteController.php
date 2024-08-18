@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Design;
 use App\Models\UserDesign;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\Site\RegisterRequest;
@@ -19,6 +22,7 @@ use App\Models\Slide;
 use App\Models\Page;
 use App\Models\User;
 use App\Models\Product;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
@@ -93,10 +97,12 @@ class SiteController extends Controller
         $design = null;
         if ($request->type == 'design') {
             $design = UserDesign::findOrFail($product_id);
+            $products = Product::whereIn('id', $design->products->where('id','!=',$design->product_id)->pluck('id'))->get();
             $product_id = $design->product_id;
+        }else{
+            $products = Product::where('id', '!=', $product_id)->get();
         }
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
-        $products = Product::where('id', '!=', $product_id)->get();
         $designs = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
         return view('site.custom_designs', compact('record', 'designs', 'products', 'design'));
     }
@@ -126,12 +132,17 @@ class SiteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function designs()
+    public function designs(Request $request)
     {
-        $records = UserDesign::latest()->get();
+        $records = UserDesign::with('product');
+        if($request->product_id){
+            $records->whereHas('design_products', function ($q)use($request){
+                $q->where('product_id', $request->product_id);
+            });
+        }
+        $records = $records->latest()->get();
         return view('site.designs', compact('records'));
     }
 

@@ -26,4 +26,9 @@ class Cart extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function design()
+    {
+        return $this->belongsTo(UserDesign::class, 'design_id');
+    }
 }

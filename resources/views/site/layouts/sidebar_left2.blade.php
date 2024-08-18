@@ -30,7 +30,14 @@
                         <li>
                             <a href="{{ route('custom-designs', $record->id).'?type=design' }}">
                                 <div class="image-container">
-                                    <img   style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="User Image">
+{{--                                    <img   style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="User Image">--}}
+                                    <img
+                                        style="background-color: {{$record->main_color_code}}"
+                                        src="{{Storage::url('products/'.$record->image)}}">
+                                    <img class="img-fluid pad" alt="design"
+                                         src="{{Storage::url('designs/'.$record->design_image_front)}}"
+                                         style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">
+
                                 </div>
                             </a>
                             <a class="users-list-name" href="{{$record->user->url() ?? ''}}"

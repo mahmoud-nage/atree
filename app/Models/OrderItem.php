@@ -20,6 +20,10 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Variation::class);
     }
+    public function design()
+    {
+        return $this->belongsTo(UserDesign::class, 'design_id');
+    }
 
 
     public function calculateMarketerMoney()

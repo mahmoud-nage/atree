@@ -4,12 +4,13 @@ let lastText; // Declare lastImg outside to keep track of the last uploaded imag
 let cropper;
 let isClickedAddDesign = false;
 let GLOBAL_PRODUCT = JSON.parse(localStorage.getItem('product'));
-let TEM_Product = { ...GLOBAL_PRODUCT };
+let TEM_Product = {...GLOBAL_PRODUCT};
 let allProducts;
 
 document.getElementById('file-input-trigger').addEventListener('click', fileInputTrigger)
 document.getElementById('file-input').addEventListener('change', handleFileSelect);
-document.getElementById('generate-cards').addEventListener('click', generateCards);
+document.getElementById('existing-design').addEventListener('click', handleAddExistingDesignClick);
+document.getElementById('close-exsiting-designs-div').addEventListener('click', handleCloseExistingDesignClick);
 document.getElementById('add-text').addEventListener('click', addText);
 document.getElementById('Layers').addEventListener('click', getLayers);
 document.getElementById('image-rotate-right-button').addEventListener('click', rotateRightImage);
@@ -69,6 +70,10 @@ function handleFileSelect(event) {
             if (designArea.childNodes.length === 0) {
                 imageControls.style.display = 'none';
             }
+            const index = TEM_Product[designSide].boundaryBoxChildren.indexOf(lastImg);
+            if (index > -1) {
+                TEM_Product[designSide].boundaryBoxChildren.splice(index, 1);
+            }
         });
         TEM_Product[designSide].boundaryBoxChildren.push(img)
         boundaryBox.appendChild(img);
@@ -85,6 +90,7 @@ function handleFileSelect(event) {
             lastImg.style.height = `${imageSize}px`;
         }
     }
+
     centerElement(lastImg);
     initializeInteract();
     const inputField = document.getElementById('file-input');
@@ -92,7 +98,7 @@ function handleFileSelect(event) {
 }
 
 function addText() {
-    TEM_Product = { ...GLOBAL_PRODUCT }
+    TEM_Product = {...GLOBAL_PRODUCT}
     const designArea = document.getElementById('design-area');
     const textControls = document.getElementById('text-controls');
     const imageControls = document.getElementById('image-controls');
@@ -137,6 +143,10 @@ function addText() {
         textControls.style.display = 'none';
         if (designArea.childNodes.length === 0) {
             textControls.style.display = 'none';
+        }
+        const index = TEM_Product[designSide].boundaryBoxChildren.indexOf(lastText);
+        if (index > -1) {
+            TEM_Product[designSide].boundaryBoxChildren.splice(index, 1);
         }
     });
 
@@ -191,7 +201,7 @@ function initializeInteract() {
     });
 
     interact('.resizable').resizable({
-        edges: { left: true, right: true, bottom: true, top: true },
+        edges: {left: true, right: true, bottom: true, top: true},
         listeners: {
             move(event) {
                 const target = event.target;
@@ -214,7 +224,7 @@ function initializeInteract() {
         },
         modifiers: [
             interact.modifiers.restrictSize({
-                min: { width: 50, height: 50 }
+                min: {width: 50, height: 50}
             }),
             interact.modifiers.restrictEdges({
                 outer: 'parent',
@@ -229,161 +239,259 @@ function generateCards() {
     isClickedAddDesign = true;
     const designArea = document.getElementById('design-area');
     const designAreaClone = designArea.cloneNode(true);
-    designAreaClone.style.width = `${designArea.offsetWidth * 0.3}px`
-    designAreaClone.style.height = `${designArea.offsetHeight * 0.397}px`
+    designAreaClone.style.width = `${designArea.offsetWidth}px`;
+    designAreaClone.style.height = `${designArea.offsetHeight}px`;
     const productItem = document.createElement('li');
-    designAreaClone.childNodes[1].style.border = 'none'
+    designAreaClone.childNodes[1].style.border = 'none';
+
     TEM_Product.front.boundaryBoxChildren.forEach(child => {
         if (designAreaClone.childNodes[1].childNodes.length) {
             if (child.nodeType === 1) {
                 const x = parseFloat(child.getAttribute('data-x')) || 0;
                 const y = parseFloat(child.getAttribute('data-y')) || 0;
-                const fontSize = parseFloat(child.getAttribute('font-size'));
 
                 if (child.tagName === 'IMG') {
                     child.classList.remove('draggable', 'resizable');
-                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',')
-                    child.dataset.translateValues = translateValues
-                    child.style.transform = `rotate(${child.dataset.rotation || 0}deg)`
+                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',');
+                    child.dataset.translateValues = translateValues;
+                    child.style.transform = `rotate(${child.dataset.rotation || 0}deg)`;
                     const width = parseFloat(child.style.width);
                     const height = parseFloat(child.style.height);
-                    child.style.width = `${width * 0.3}px`;
-                    child.style.height = `${height * 0.397}px`;
+                    child.style.width = `${width}px`;
+                    child.style.height = `${height}px`;
                 }
 
                 if (child.tagName === 'DIV' && child.classList.contains('text-element')) {
                     child.classList.remove('draggable', 'resizable');
-                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',')
-                    child.dataset.translateValues = translateValues
+                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',');
+                    child.dataset.translateValues = translateValues;
                     child.style.transform = ''; // Remove transform styles
                     const fontSize = parseFloat(window.getComputedStyle(child).fontSize);
-                    child.style.fontSize = `${parseFloat(lastText.style.fontSize) * 0.3}px`;
+                    child.style.fontSize = `${fontSize}px`;
                     const padding = parseFloat(window.getComputedStyle(child).padding);
-                    child.style.padding = `${parseFloat(lastText.style.padding) * 0.3}px`;
+                    child.style.padding = `${padding}px`;
                     child.style.textWrap = "nowrap";
                 }
 
                 child.style.position = 'absolute';
-                child.style.left = `${x * 0.3}px`;
-                child.style.top = `${y * 0.397}px`;
+                child.style.left = `${x}px`;
+                child.style.top = `${y}px`;
             }
             productItem.appendChild(designAreaClone);
         }
-    }
-    );
+    });
+
     TEM_Product.back.boundaryBoxChildren.forEach(child => {
         if (designAreaClone.childNodes[1].childNodes.length) {
             if (child.nodeType === 1) {
                 const x = parseFloat(child.getAttribute('data-x')) || 0;
                 const y = parseFloat(child.getAttribute('data-y')) || 0;
-                const fontSize = parseFloat(child.getAttribute('font-size'));
 
                 if (child.tagName === 'IMG') {
                     child.classList.remove('draggable', 'resizable');
-                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',')
-                    child.dataset.translateValues = translateValues
-                    child.style.transform = `rotate(${child.dataset.rotation || 0}deg)`
+                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',');
+                    child.dataset.translateValues = translateValues;
+                    child.style.transform = `rotate(${child.dataset.rotation || 0}deg)`;
                     const width = parseFloat(child.style.width);
                     const height = parseFloat(child.style.height);
-                    child.style.width = `${width * 0.3}px`;
-                    child.style.height = `${height * 0.397}px`;
+                    child.style.width = `${width}px`;
+                    child.style.height = `${height}px`;
                 }
 
                 if (child.tagName === 'DIV' && child.classList.contains('text-element')) {
                     child.classList.remove('draggable', 'resizable');
-                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',')
-                    child.dataset.translateValues = translateValues
+                    let translateValues = child.style.transform.match(/translate\(([^)]+)\)/)[1].split(',');
+                    child.dataset.translateValues = translateValues;
                     child.style.transform = ''; // Remove transform styles
                     const fontSize = parseFloat(window.getComputedStyle(child).fontSize);
-                    child.style.fontSize = `${parseFloat(lastText.style.fontSize) * 0.3}px`;
+                    child.style.fontSize = `${fontSize}px`;
                     const padding = parseFloat(window.getComputedStyle(child).padding);
-                    child.style.padding = `${parseFloat(lastText.style.padding) * 0.3}px`;
+                    child.style.padding = `${padding}px`;
                 }
 
                 child.style.position = 'absolute';
-                child.style.left = `${x * 0.3}px`;
-                child.style.top = `${y * 0.397}px`;
+                child.style.left = `${x}px`;
+                child.style.top = `${y}px`;
             }
             productItem.appendChild(designAreaClone);
         }
+    });
 
-    }
-    );
     const myDesignObject = generateDesignObject(TEM_Product);
-    renderProducts([myDesignObject], designSide)
+
+    const productDesign = document.createElement('li');
+
+    const boundaryBoxChildrenHTMLFront = myDesignObject.front.boundaryBoxChildren.map(child => {
+        const {tagName, attributes, innerText} = child;
+        let attributesString = Object.entries(attributes).map(([key, value]) => `${key}='${value}'`).join(' ');
+        if (innerText) {
+            return `<${tagName} ${attributesString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName} ${attributesString}></${tagName}>`;
+        }
+    }).join('');
+
+    const boundaryBoxChildrenHTMLBack = myDesignObject.back.boundaryBoxChildren.map(child => {
+        const {tagName, attributes, innerText} = child;
+        let attributesString = Object.entries(attributes).map(([key, value]) => `${key}='${value}'`).join(' ');
+        if (innerText) {
+            return `<${tagName} ${attributesString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName} ${attributesString}></${tagName}>`;
+        }
+    }).join('');
+
+    productDesign.innerHTML = `
+            <div id="image-front" style="border: 0px dashed rgb(255, 5, 5); position: relative; width: ${myDesignObject[designSide].boundaryBox.width}; height:${myDesignObject[designSide].boundaryBox.height}; top: ${myDesignObject[designSide].boundaryBox.top}; left: ${myDesignObject[designSide].boundaryBox.left};">${boundaryBoxChildrenHTMLFront}</div>
+            <div id="image-back" style="border: 0px dashed rgb(255, 5, 5); position: relative; width: ${myDesignObject[designSide].boundaryBox.width}; height:${myDesignObject[designSide].boundaryBox.height}; top: ${myDesignObject[designSide].boundaryBox.top}; left: ${myDesignObject[designSide].boundaryBox.left};">${boundaryBoxChildrenHTMLBack}</div>
+    `;
+
+
+    // Append the productDesign to the DOM
+    document.body.appendChild(productDesign);
+
+    // Convert the front and back to images after a short delay to ensure the DOM updates
+    setTimeout(() => {
+        convertFrontToImage(productDesign);
+        convertBackToImage(productDesign);
+    }, 100);
+
+    return productDesign;
 }
+
+function convertFrontToImage(productDesign) {
+    html2canvas(productDesign, {useCORS: true, allowTaint: true}).then(canvas => {
+        let img = canvas.toDataURL("image/png");
+        let imgElement = document.createElement("img");
+        imgElement.src = img;
+        const elementnew = document.createElement("input")
+        elementnew.value(imgElement);
+    }).catch(error => {
+        console.error("Error converting front to image: ", error);
+    });
+}
+
+function convertBackToImage(productDesign) {
+    html2canvas(productDesign, {useCORS: true, allowTaint: true}).then(canvas => {
+        let img = canvas.toDataURL("image/png");
+        let imgElement = document.createElement("img");
+        imgElement.src = img;
+        const elementnew = document.getElementById("card-product1")
+        elementnew.appendChild(imgElement);
+    }).catch(error => {
+        console.error("Error converting back to image: ", error);
+    });
+}
+
 
 function getLayers() {
     const layersContainer = document.getElementById('layers-container');
     const designArea = document.getElementById('design-area');
 
-    // Clear the layers container before adding new layers
-    while (layersContainer.firstChild) {
-        layersContainer.removeChild(layersContainer.firstChild);
-    }
-    const header = document.createElement('h3')
-    header.innerText = 'Layers'
-    header.style.display = 'flex'
-    header.style.justifyContent = 'center'
-    layersContainer.appendChild(header);
-    for (const child of designArea.childNodes[1].childNodes) {
-        if (child.tagName === 'IMG' || child.classList?.contains('text-element')) {
-            const deleteButton = document.createElement('button');
-            deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
-            deleteButton.classList.add('btn-custom', 'btn-primary', 'bg-primary-gridant');
-            deleteButton.style.marginLeft = '0';
-            deleteButton.style.marginRight = '0';
+    // Function to update the layers
+    function updateLayers() {
+        // Clear the layers container before adding new layers
+        while (layersContainer.firstChild) {
+            layersContainer.removeChild(layersContainer.firstChild);
+        }
 
-            const clone = child.cloneNode(true);
-            const layerItem = document.createElement('div');
+        // Create and style the hide button
+        const hideButton = document.createElement('button');
+        hideButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        hideButton.classList.add('btn-custom', 'btn-primary', 'bg-primary-gridant');
 
-            layerItem.classList.add('layer-item');
-            layerItem.style.borderBottom = '0.1px solid rgba(113, 113, 110, 0.2)';
-            clone.classList.remove('draggable', 'resizable', 'text-element');
-            clone.style.display = 'flex';
-            clone.style = '';
+        hideButton.style.backgroundColor = 'red';
+        hideButton.style.color = 'white';
+        hideButton.style.display = 'flex';
+        hideButton.style.justifyContent = 'center';
+        hideButton.style.alignItems = 'center';
+        hideButton.style.width = '20px';
+        hideButton.style.height = '30px';
+
+        hideButton.style.position = 'absolute';
+        hideButton.style.top = '10px';
+        hideButton.style.left = '10px';
+        hideButton.addEventListener('click', () => {
+            layersContainer.style.display = 'none';
+        });
+        layersContainer.appendChild(hideButton);
+
+        const header = document.createElement('h3');
+        header.innerText = 'Layers';
+        header.style.display = 'flex';
+        header.style.justifyContent = 'center';
+        layersContainer.appendChild(header);
+
+        let hasChildren = false;
+
+        for (const child of designArea.childNodes[1].childNodes) {
+            if (child.tagName === 'IMG' || child.classList?.contains('text-element')) {
+                hasChildren = true;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                deleteButton.classList.add('btn-custom', 'btn-primary', 'bg-primary-gridant');
+                deleteButton.style.marginLeft = '0';
+                deleteButton.style.marginRight = '0';
+
+                const clone = child.cloneNode(true);
+                const layerItem = document.createElement('div');
+
+                layerItem.classList.add('layer-item', 'exsiting-designs-item');
+                layerItem.style.borderBottom = '0.1px solid rgba(113, 113, 110, 0.2)';
+                clone.classList.remove('draggable', 'resizable', 'text-element');
+                clone.style.display = 'flex';
+                clone.contentEditable = "false";
+                clone.style = '';
 
 
-            if (clone.tagName === 'IMG') {
-                clone.style.height = '50px';
-            }
-
-            deleteButton.addEventListener('click', () => {
-                // Reset the value of input field 
-                if (child.tagName === 'IMG') {
-                    const inputField = document.getElementById('file-input');
-                    inputField.value = '';
+                if (clone.tagName === 'IMG') {
+                    clone.style.height = '50px';
                 }
-                // Remove the element from the design area
-                designArea.childNodes[1].removeChild(child);
-                // Remove the layer item from the layers container
-                layersContainer.removeChild(layerItem);
 
-                // Hide image or text controls if designArea is empty
-                const imageControls = document.getElementById('image-controls');
-                const textControls = document.getElementById('text-controls');
-                if (designArea.childNodes[1].childNodes.length === 0) {
-                    imageControls.style.display = 'none';
-                    textControls.style.display = 'none';
-                    header.innerText = ''
-                    layersContainer.style.display = 'none'
-                }
-            });
+                deleteButton.addEventListener('click', () => {
+                    // Remove the element from the design area
+                    designArea.childNodes[1].removeChild(child);
 
-            layerItem.appendChild(clone);
-            layerItem.appendChild(deleteButton);
-            layerItem.classList.add("w-100");
-            layersContainer.appendChild(layerItem);
-            layersContainer.classList.add('col-3', 'col-md-4', 'my-2');
-            if (layersContainer.childNodes.length <= 1) {
-                layersContainer.style.display = "none";
-            } else {
-                layersContainer.style.display = "flex";
+                    // Remove the image from the TEM_Product[designSide].boundaryBoxChildren array
+                    const index = TEM_Product[designSide].boundaryBoxChildren.indexOf(child);
+                    if (index > -1) {
+                        TEM_Product[designSide].boundaryBoxChildren.splice(index, 1);
+                    }
+
+                    // Update the layers
+                    updateLayers();
+                });
+
+                layerItem.appendChild(clone);
+                layerItem.appendChild(deleteButton);
+                layerItem.classList.add("w-100");
+                layersContainer.appendChild(layerItem);
+                layersContainer.classList.add('col-3', 'col-md-4', 'my-2');
             }
+        }
+
+        if (!hasChildren) {
+            layersContainer.style.display = "none";
+        } else {
+            layersContainer.style.display = "flex";
         }
     }
 
+    // Create a MutationObserver to watch for changes in the design area
+    const observer = new MutationObserver(updateLayers);
+
+    // Configure the observer to watch for changes to child elements and their attributes
+    observer.observe(designArea.childNodes[1], {
+        childList: true,
+        attributes: true,
+        subtree: true
+    });
+
+    // Initial update of layers
+    updateLayers();
 }
+
 
 function rotateRightImage() {
     if (lastImg) {
@@ -496,6 +604,7 @@ function setFrontImage() {
     backDiv.style.color = '#6200ea';
     isClickedAddDesign ? initializeMainProduct(product, designSide) : initializeMainProductBeforNewDesign(product, designSide)
 }
+
 function setBackImage() {
     let product = TEM_Product || GLOBAL_PRODUCT;
     designSide = "back";
@@ -566,7 +675,7 @@ handleMediaQueryChange(mediaQuery);
 async function initPage(product) {
     // Retrieve the product data from local storage
 
-    const productJSON = { ...product }
+    const productJSON = {...product}
     if (productJSON) {
         const product = productJSON;
         // const sidebar = document.getElementById('sidebar-product-image');
@@ -665,24 +774,32 @@ function renderProducts(products, designSide) {
         const productItem = document.createElement('li');
 
         const boundaryBoxChildrenHTMLFront = product.front.boundaryBoxChildren.map(child => {
-            const { tagName, attributes, style, innerText } = child;
+            const {tagName, attributes, style, innerText} = child;
             const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
             let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-            if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+            if (innerText) {
+                return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+            } else {
+                return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+            }
         }).join('');
         const boundaryBoxChildrenHTMLBack = product.back.boundaryBoxChildren.map(child => {
-            const { tagName, attributes, style, innerText } = child;
+            const {tagName, attributes, style, innerText} = child;
             const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
             let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-            if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+            if (innerText) {
+                return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+            } else {
+                return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+            }
         }).join('');
 
         productItem.innerHTML = `
             <div class="product-container">
                 <a class="image-container" data-image="${product[designSide].frontImage}">
-                    <div class="card-front"  id="${index}-card-front" style="background-image: url(${product.front.frontImage});background-color:${product.color}; background-size: contain; background-position: center; background-repeat: no-repeat;">   
+                    <div class="card-front"  id="${index}-card-front" style="background-image: url(${product.front.frontImage});background-color:${product.color}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                     <div style="border: 0px dashed rgb(255, 5, 5); position: relative; width: ${product[designSide].boundaryBox.width}; height:${product[designSide].boundaryBox.height}; top: ${product[designSide].boundaryBox.top}; left: ${product[designSide].boundaryBox.left};">${boundaryBoxChildrenHTMLFront}</div>
                     </div>
                     <div class="card-back" id="${index}-card-back" style="position: relative; background-image: url(${product.back.backImage});background-color:${product.color}; background-size: contain; background-position: center; background-repeat: no-repeat;">
@@ -726,6 +843,7 @@ function changeCardColor(color, id) {
     card.style.backgroundColor = color;
 
 }
+
 //                                              *************************** Alert ********************************
 
 //             ***********************************************When click on custom design set the product object on localStorage***************************************
@@ -777,9 +895,9 @@ function generateDesignObject(product) {
             currency: "SAR",
             frontImage: product.front.frontImage,
             colors: [
-                { color: "black", image: "img/color-1.jpg" },
-                { color: "darkblue", image: "img/color-3.jpg" },
-                { color: "fcdb86", image: "img/color-2.jpg" }
+                {color: "black", image: "img/color-1.jpg"},
+                {color: "darkblue", image: "img/color-3.jpg"},
+                {color: "fcdb86", image: "img/color-2.jpg"}
             ]
         },
         back: {
@@ -790,9 +908,9 @@ function generateDesignObject(product) {
             currency: "SAR",
             backImage: product.back.backImage,
             colors: [
-                { color: "black", image: "img/color-1.jpg" },
-                { color: "darkblue", image: "img/color-3.jpg" },
-                { color: "fcdb86", image: "img/color-2.jpg" }
+                {color: "black", image: "img/color-1.jpg"},
+                {color: "darkblue", image: "img/color-3.jpg"},
+                {color: "fcdb86", image: "img/color-2.jpg"}
             ]
         }
     };
@@ -861,17 +979,25 @@ function initializeMainProduct(newProduct, designSide) {
     boundaryBox.style.left = newProduct[designSide].boundaryBox.left;
     boundaryBox.style.top = newProduct[designSide].boundaryBox.top;
     const boundaryBoxChildrenHTMLFront = newProduct.front.boundaryBoxChildren.map(child => {
-        const { tagName, attributes, style, innerText } = child;
+        const {tagName, attributes, style, innerText} = child;
         const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-        if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+        if (innerText) {
+            return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+        }
     }).join('');
     const boundaryBoxChildrenHTMLBack = newProduct.back.boundaryBoxChildren.map(child => {
-        const { tagName, attributes, style, innerText } = child;
+        const {tagName, attributes, style, innerText} = child;
         const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-        if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+        if (innerText) {
+            return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+        }
     }).join('');
     if (designSide === "front") {
         boundaryBox.innerHTML = boundaryBoxChildrenHTMLFront;
@@ -954,7 +1080,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
     boundaryBox.style.left = newProduct[designSide].boundaryBox.left;
     boundaryBox.style.top = newProduct[designSide].boundaryBox.top;
     const boundaryBoxChildrenHTMLFront = newProduct.front.boundaryBoxChildren.map(child => {
-        const { tagName, innerText } = child;
+        const {tagName, innerText} = child;
 
         // Get all attributes
         const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
@@ -970,7 +1096,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
         }
     }).join('');
     const boundaryBoxChildrenHTMLBack = newProduct.back.boundaryBoxChildren.map(child => {
-        const { tagName, innerText } = child;
+        const {tagName, innerText} = child;
 
         // Get all attributes
         const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
@@ -1004,10 +1130,18 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
 
                 if (child.tagName === 'IMG') {
                     let transform = child.style.transform;
-                    let translateValues = child.dataset.translateValues.split(',');
-                    let translateX = parseFloat(translateValues[0]);
-                    let translateY = parseFloat(translateValues[1]);
-                    child.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${child.dataset.rotation || 0}deg)`;
+                    let translateX;
+                    let translateY;
+                    if (child.dataset.translateValues) {
+                        let translateValues = child.dataset.translateValues.split(',');
+                        translateX = parseFloat(translateValues[0]);
+                        translateY = parseFloat(translateValues[1]);
+                    } else {
+                        translateX = 0;
+                        translateY = 0;
+                    }
+                    transform = `translate(${translateX}px, ${translateY}px) rotate(${child.dataset.rotation || 0}deg)`;
+
                     child.style.top = "0px";
                     child.style.left = "0px";
                     child.addEventListener("click", () => {
@@ -1040,7 +1174,6 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
 
 function changeNewDesignProduct(productId) {
     const productElementFront = document.querySelector(`#${productId}.card-front`);
-    console.log(productElementFront);
     const boundaryBoxFront = productElementFront.childNodes[1];
     const productElementBack = document.querySelector(`#${productId}.card-back`);
     const boundaryBoxBack = productElementBack.childNodes[1];
@@ -1092,7 +1225,6 @@ function changeNewDesignProduct(productId) {
                 styleBoundaryBoxBack[key.trim()] = value.trim();
             }
         });
-        console.log(styleObjectFront)
         const designObject = {
             id: productElementFront.id,
             color: styleObjectFront['background-color'],
@@ -1104,9 +1236,9 @@ function changeNewDesignProduct(productId) {
                 currency: "SAR",
                 frontImage: styleObjectFront['background-image'].slice(4, -1).replace(/"/g, ""),
                 colors: [
-                    { color: "black", image: "img/color-1.jpg" },
-                    { color: "darkblue", image: "img/color-3.jpg" },
-                    { color: "fcdb86", image: "img/color-2.jpg" }
+                    {color: "black", image: "img/color-1.jpg"},
+                    {color: "darkblue", image: "img/color-3.jpg"},
+                    {color: "fcdb86", image: "img/color-2.jpg"}
                 ]
             },
             back: {
@@ -1117,14 +1249,13 @@ function changeNewDesignProduct(productId) {
                 currency: "SAR",
                 backImage: styleObjectBack['background-image'].slice(4, -1).replace(/"/g, ""),
                 colors: [
-                    { color: "black", image: "img/color-1.jpg" },
-                    { color: "darkblue", image: "img/color-3.jpg" },
-                    { color: "fcdb86", image: "img/color-2.jpg" }
+                    {color: "black", image: "img/color-1.jpg"},
+                    {color: "darkblue", image: "img/color-3.jpg"},
+                    {color: "fcdb86", image: "img/color-2.jpg"}
                 ]
             }
         };
 
-        console.log(designObject);
         changeDesignProduct(designObject)
         setFrontImage();
     } else {
@@ -1132,3 +1263,161 @@ function changeNewDesignProduct(productId) {
     }
 }
 
+document.getElementById('convertToImage').addEventListener('click', function () {
+    const sides = ["front", "back"];
+
+    function processSide(side) {
+        if (side === "front") {
+            setFrontImage();
+        } else {
+            setBackImage();
+        }
+
+        var box = document.getElementById('boundary-box');
+        if (!box) {
+            console.error('Boundary box not found');
+            return;
+        }
+
+        var originalBorder = box.style.border;
+        box.style.border = 'none';
+
+        var images = box.getElementsByTagName('img');
+        var loadCount = 0;
+
+        function checkImagesLoaded() {
+            loadCount++;
+            if (loadCount === images.length) {
+                captureCanvas();
+            }
+        }
+
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+                checkImagesLoaded();
+            } else {
+                images[i].onload = checkImagesLoaded;
+                images[i].onerror = checkImagesLoaded;
+            }
+        }
+
+        if (images.length === 0) {
+            captureCanvas();
+        }
+
+        function captureCanvas() {
+            html2canvas(box, {
+                useCORS: true,
+                backgroundColor: 'rgba(0,0,0,0)', // Set background to transparent
+                // scale: 2 // Increase the scale for better resolution
+            }).then(canvas => {
+                var imgData = canvas.toDataURL('image/png');
+                var imgElement = document.createElement('img');
+                imgElement.src = imgData;
+                imgElement.id = (side === "front") ? "frontdesign" : "backdesign";
+
+                // Create a file input element to hold the image data
+                var fileInput = document.createElement('input');
+                fileInput.type = 'hidden';
+                fileInput.id = `${side}ImageFile`;
+                fileInput.name = `${side}ImageFile`;
+                fileInput.value = `${imgData}`;
+
+                // Convert the base64 data to a blob and create a file from it
+                fetch(imgData)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], `${side}Design.png`, {type: 'image/png'});
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        fileInput.files = dataTransfer.files;
+                    });
+
+                document.getElementById('cart-destails').appendChild(fileInput);
+
+                box.style.border = originalBorder;
+            }).catch(error => {
+                console.error("Error capturing canvas: ", error);
+                box.style.border = originalBorder;
+            });
+        }
+    }
+
+    sides.forEach(side => {
+        processSide(side);
+    });
+
+    setTimeout(
+        function () {
+            $('#myForm').submit();
+        }, 1000);
+});
+
+function handleUploadExistingDesign(src) {
+    const designArea = document.getElementById('design-area');
+    const imageControls = document.getElementById('image-controls');
+    const textControls = document.getElementById('text-controls');
+    textControls.style.display = 'none';
+    imageControls.classList.add('image-controls');
+    imageControls.style.display = 'flex';
+
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.width = '100px'; // Initial size
+    img.style.height = '100px';
+    img.classList.add('draggable', 'resizable');
+    img.style.position = 'absolute';
+    img.style.top = '0';
+    img.style.left = '0';
+    lastImg = img; // Update lastImg to the current image
+
+    img.addEventListener('click', () => {
+        lastImg = img;
+        imageControls.style.display = 'flex';
+        textControls.style.display = 'none';
+    });
+
+    // Add delete button to the image
+    const deleteButton = document.getElementById('image-delete-button');
+    deleteButton.addEventListener('click', () => {
+
+        const inputField = document.getElementById('file-input');
+        inputField.value = '';
+
+        lastImg.remove();
+        imageControls.style.display = 'none';
+        if (designArea.childNodes.length === 0) {
+            imageControls.style.display = 'none';
+        }
+    });
+    TEM_Product[designSide].boundaryBoxChildren.push(img)
+    boundaryBox.appendChild(img);
+
+
+    const rangeInput = document.getElementById('image-size');
+    rangeInput.removeEventListener('input', updateImageSize); // Remove previous listener
+    rangeInput.addEventListener('input', updateImageSize);
+
+    function updateImageSize() {
+        const imageSize = rangeInput.value;
+        if (lastImg) { // Ensure lastImg is defined
+            lastImg.style.width = `${imageSize}px`;
+            lastImg.style.height = `${imageSize}px`;
+        }
+    }
+
+    centerElement(lastImg);
+    initializeInteract();
+
+}
+
+function handleAddExistingDesignClick() {
+    const addExistingDesignElement = document.getElementById('exsiting-designs-container')
+    addExistingDesignElement.style.display = "flex"
+}
+
+function handleCloseExistingDesignClick() {
+    const addExistingDesignElement = document.getElementById('exsiting-designs-container')
+    addExistingDesignElement.style.display = "none"
+}

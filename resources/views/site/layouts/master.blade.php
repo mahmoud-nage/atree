@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/styles.css') }}">
     <link rel="stylesheet"
           href="{{ asset('site_assets/'.$dir.'/plugins/CustomScrollbar/jquery.mCustomScrollbar.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.css">
+
 
     @if ($dir == 'rtl' )
         <link rel="stylesheet" href="{{ asset('site_assets/'.$dir.'/css/rtl.css') }}">
@@ -36,15 +38,18 @@
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-
-@include('site.layouts.header')
+@if(!in_array(request()->route()->getName(), ['login.post', 'login.form', 'register.form','register.post','verify_phone.index','verify_phone.store',
+'password.request','password.send','password.check','password.newPassword']))
+    @include('site.layouts.header')
+@else
+    @include('site.layouts.authHeader')
+@endif
 <div class="wrapper">
 
 
     <!-- Main Sidebar Container -->
-
-
-    @if(request()->route()->getName() != 'products.show')
+    @if(!in_array(request()->route()->getName(), ['login.post', 'login.form', 'register.form','register.post','verify_phone.index','verify_phone.store',
+'password.request','password.send','password.check','password.newPassword','products.show']))
         @include('site.layouts.sidebar')
     @endif
 
@@ -83,9 +88,10 @@
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js" integrity="sha512-CeIsOAsgJnmevfCi2C7Zsyy6bQKi43utIjdA87Q0ZY84oDqnI0uwfM9+bKiIkI75lUeI00WG/+uJzOmuHlesMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
 <!-- jQuery -->
 
-
+<script src="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.js"></script>
 <script>
     $("document").ready(function () {
+
         $(".users-list .color-list li").mouseenter(function () {
             var hoverImage = $(this).data("image");
             $(this).closest('.product-container').find(".image-container .card-front img").attr('src', hoverImage);
@@ -102,6 +108,7 @@
 
     }
 </script>
+
 @livewireScripts
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <x-livewire-alert::scripts/>

@@ -115,10 +115,20 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">
+{{--                        <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">--}}
                             {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
-                            <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
-                        </a>
+{{--                            <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
+                            <a href="{{ route('custom-designs', $record->id).'?type=design' }}"
+                               class="text-center post-image-container">
+                                {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
+                                <img class="img-fluid pad"
+                                     style="background-color: {{$record->main_color_code}}"
+                                     src="{{Storage::url('products/'.$record->image)}}" alt="Photo">
+                            </a>
+                            <img class="img-fluid pad" alt="design"
+                                 src="{{Storage::url('designs/'.$record->design_image_front)}}"
+                                 style="width:50px;height:50px;z-index:156445;top: 50%;left: 50%;position: absolute;">
+{{--                        </a>--}}
 
                         <p>{{$record->description}}</p>
                         <div class="tag-btns-container">

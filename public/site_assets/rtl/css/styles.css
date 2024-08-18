@@ -327,7 +327,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    object-fit: cover;
+    object-fit: contain;
     width: 10rem;
     height: 7rem;
     object-position: center;

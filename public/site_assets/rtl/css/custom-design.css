@@ -59,6 +59,17 @@
     margin-top: 5px;
   }
 }
+@media screen and (max-width:1226px) {
+  #layers-container,
+  #exsiting-designs-container{
+    margin-top: 40px !important;
+  }
+}
+@media screen and (max-width:1226px) {
+  #cart-destails{
+    margin-top: 15px !important;
+  }
+}
 
 @media screen and (max-width:900px) {
   #layers-container {
@@ -314,6 +325,7 @@ button {
 }
 
 #design-area {
+  overflow: hidden;
   direction: ltr;
   width: 500px;
   height: 500px;
@@ -474,4 +486,22 @@ button {
 
 .custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
   display: block;
+}
+
+        
+.design-thumbnail {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.design-thumbnail:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exsiting-designs-item {
+  transition: background-color 0.2s ease;
+}
+
+.exsiting-designs-item:hover {
+  background-color: #efefef;
 }

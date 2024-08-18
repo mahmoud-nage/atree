@@ -40,40 +40,56 @@
 
             <!-- Notifications Dropdown Menu -->
             @if (Auth::check())
-{{--                <li class="nav-item dropdown">--}}
-{{--                    <a class="nav-link" data-toggle="dropdown" href="#">--}}
-{{--                        <i class="far fa-bell"></i>--}}
-{{--                        <span class="badge badge-danger navbar-badge">15</span>--}}
-{{--                    </a>--}}
-{{--                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
+                {{--                <li class="nav-item dropdown">--}}
+                {{--                    <a class="nav-link" data-toggle="dropdown" href="#">--}}
+                {{--                        <i class="far fa-bell"></i>--}}
+                {{--                        <span class="badge badge-danger navbar-badge">15</span>--}}
+                {{--                    </a>--}}
+                {{--                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
 
-{{--                        <a href="#" class="list-group-item list-group-item-action active">--}}
-{{--                            <div class="d-flex w-100 justify-content-between">--}}
-{{--                                <h5 class="text-sm mb-1 text-bold">List group item heading</h5>--}}
-{{--                                <small>3 days ago</small>--}}
-{{--                            </div>--}}
-{{--                            <small>And some small print.</small>--}}
-{{--                        </a>--}}
-{{--                        <a href="#" class="list-group-item list-group-item-action">--}}
-{{--                            <div class="d-flex w-100 justify-content-between">--}}
-{{--                                <h5 class="text-sm mb-1 text-bold">List group item heading</h5>--}}
-{{--                                <small class="text-muted">3 days ago</small>--}}
-{{--                            </div>--}}
-{{--                            <small class="text-muted">And some muted small print.</small>--}}
-{{--                        </a>--}}
-{{--                        <a href="#" class="list-group-item list-group-item-action">--}}
-{{--                            <div class="d-flex w-100 justify-content-between">--}}
-{{--                                <h5 class="text-sm mb-1 text-bold">List group item heading</h5>--}}
-{{--                                <small class="text-muted">3 days ago</small>--}}
-{{--                            </div>--}}
-{{--                            <small class="text-muted">And some muted small print.</small>--}}
-{{--                        </a>--}}
+                {{--                        <a href="#" class="list-group-item list-group-item-action active">--}}
+                {{--                            <div class="d-flex w-100 justify-content-between">--}}
+                {{--                                <h5 class="text-sm mb-1 text-bold">List group item heading</h5>--}}
+                {{--                                <small>3 days ago</small>--}}
+                {{--                            </div>--}}
+                {{--                            <small>And some small print.</small>--}}
+                {{--                        </a>--}}
+                {{--                        <a href="#" class="list-group-item list-group-item-action">--}}
+                {{--                            <div class="d-flex w-100 justify-content-between">--}}
+                {{--                                <h5 class="text-sm mb-1 text-bold">List group item heading</h5>--}}
+                {{--                                <small class="text-muted">3 days ago</small>--}}
+                {{--                            </div>--}}
+                {{--                            <small class="text-muted">And some muted small print.</small>--}}
+                {{--                        </a>--}}
+                {{--                        <a href="#" class="list-group-item list-group-item-action">--}}
+                {{--                            <div class="d-flex w-100 justify-content-between">--}}
+                {{--                                <h5 class="text-sm mb-1 text-bold">List group item heading</h5>--}}
+                {{--                                <small class="text-muted">3 days ago</small>--}}
+                {{--                            </div>--}}
+                {{--                            <small class="text-muted">And some muted small print.</small>--}}
+                {{--                        </a>--}}
 
-{{--                    </div>--}}
-{{--                </li>--}}
+                {{--                    </div>--}}
+                {{--                </li>--}}
             @endif
 
             <!-- Messages Dropdown Menu -->
+            @if (!Auth::check())
+                @if ($lang == 'ar')
+                    <li class="nav-item">
+                        <a href="{{  LaravelLocalization::getLocalizedURL('en') }}" class="nav-link">
+                            <i class="fas fa-language"></i>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{  LaravelLocalization::getLocalizedURL('ar') }}" class="nav-link">
+                            <i class="fas fa-language"></i>
+                        </a>
+                    </li>
+                @endif
+            @endif
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('cart.index') }}">
                     <i class="fas fa-shopping-cart">
@@ -138,11 +154,11 @@
                                     <i class="far fa-user"></i> @lang('site.My Followers')
                                 </a>
                             </li>
-{{--                            <li class="nav-item">--}}
-{{--                                <a href="{{ route('my_designs') }}" class="nav-link">--}}
-{{--                                    <i class="fas fa-palette"></i> @lang('site.my_designs')--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="nav-item">--}}
+                            {{--                                <a href="{{ route('my_designs') }}" class="nav-link">--}}
+                            {{--                                    <i class="fas fa-palette"></i> @lang('site.my_designs')--}}
+                            {{--                                </a>--}}
+                            {{--                            </li>--}}
                             <li class="nav-item">
                                 <a href="{{ route('diamond') }}" class="nav-link">
                                     <i class="far fa-gem"></i> @lang('site.My Diamonds')

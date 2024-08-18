@@ -19,12 +19,27 @@
     </td>
     <td class="col-2">
         <figure class="itemside">
-            <div class="aside">
-                <a href="{{ Storage::url('designs/'.$item->design_front_image) }}" target="_blank">
-                    <img src="{{ Storage::url('designs/'.$item->design_front_image) }}" class="img-sm float-none">
+            <div class="aside d-flex">
+                <a href="#">
+{{--                    //{{ Storage::url('designs/'.$item->design_front_image) }}--}}
+{{--                    <img src="{{ Storage::url('designs/'.$item->design_front_image) }}" class="img-sm float-none">--}}
+                    <img
+                        style="background-color: {{$item->design->main_color_code}}"
+                        src="{{Storage::url('products/'.$item->design->image)}}">
+                    <img class="img-fluid pad" alt="design"
+                         src="{{Storage::url('designs/'.$item->design->design_image_front)}}"
+                         style="width: {{$item->product->site_front_width}}%; height: {{$item->product->site_front_height}}%; top: {{$item->product->site_front_top}}%; left: {{$item->product->site_front_left}}%;position: absolute;">
+
                 </a>
-                <a href="{{ Storage::url('designs/'.$item->design_back_image) }}" target="_blank">
-                    <img src="{{ Storage::url('designs/'.$item->design_back_image) }}" class="img-sm float-none">
+                <a href="#">
+                    <img
+                        style="background-color: {{$item->design->main_color_code}}"
+                        src="{{Storage::url('products/'.$item->design->back_image)}}">
+                    <img class="img-fluid pad" alt="design"
+                         src="{{Storage::url('designs/'.$item->design->design_image_back)}}"
+                         style="width: {{$item->product->site_back_width}}%; height: {{$item->product->site_back_height}}%; top: {{$item->product->site_back_top}}%; left: {{$item->product->site_back_left}}%;position: absolute;">
+
+{{--                    <img src="{{ Storage::url('designs/'.$item->design_back_image) }}" class="img-sm float-none">--}}
                 </a>
             </div>
         </figure>

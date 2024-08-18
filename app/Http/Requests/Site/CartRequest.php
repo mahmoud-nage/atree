@@ -24,14 +24,17 @@ class CartRequest extends FormRequest
     public function rules()
     {
         $validate = [
-            'product_id' => 'required|array',
-            'products.*' => 'nullable|exists:products,id'
+            'products' => 'required|array',
+            'products.*' => 'required|exists:products,id'
         ];
 
-        if (request()->type == 1) {
+        if (request()->type == 1 || request()->type = 'design') {
             $validate['color_id.*'] = 'required|exists:colors,id';
             $validate['size_id.*'] = 'required|exists:sizes,id';
             $validate['quantities.*'] = 'required|numeric|min:1';
+        }
+        if (request()->type = 'design') {
+            $validate['design_id'] = 'required|exists:user_designs,id';
         }
         return $validate;
 

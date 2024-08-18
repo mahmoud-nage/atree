@@ -21,7 +21,7 @@ class CreateDesign extends Component
 
     protected $listeners = ['addressAdded' => '$refresh', 'deleteItem'];
     protected $rules = [
-//        'product_id' => 'required',
+        'product_id' => 'required',
         'description' => 'required',
     ];
 
@@ -49,7 +49,7 @@ class CreateDesign extends Component
         $design = UserDesign::find($this->id);
         $design->description = $this->description;
         $design->save();
-//        $design->products()->sync($this->product_id);
+        $design->products()->sync($this->product_id);
         $this->emit('addressAdded');
         $this->alert('success', trans('site.Design Updated successfully'));
     }

@@ -29,7 +29,6 @@
                                 <p class="font-weight-normal">{{$record->total}} <span> @lang('site.SAR') </span></p>
                             </div>
 
-
                             <div class="ml-auto">
                                 <p class="font-weight-normal">Order #{{$record->number}}</p>
                             </div>
@@ -45,16 +44,28 @@
 
                                         <div class="square-img col-2">
                                             @if($item->design_front_image)
+                                                    <img
+                                                        style="background-color: {{$item->design?->main_color_code}}"
+                                                        src="{{Storage::url('products/'.$item->design?->image)}}">
+                                                    <img class="img-fluid pad" alt="design"
+                                                         src="{{Storage::url('designs/'.$item->design?->design_image_front)}}"
+                                                         style="width: {{$item->design?->product->site_front_width}}%; height: {{$item->design?->product->site_front_height}}%; top: {{$item->design?->product->site_front_top}}%; left: {{$item->design?->product->site_front_left}}%;position: absolute;">
                                                 <img
                                                     src="{{ Storage::url('designs/'.$item->design_front_image)}}">
                                             @else
                                                 <img
-                                                    src="{{ Storage::url('products/'.$item?->variation?->product->front_image)}}">
+                                                    style="background-color: {{$item->design?->main_color_code}}"
+                                                    src="{{Storage::url('products/'.$item->design?->back_image)}}">
+                                                <img class="img-fluid pad" alt="design"
+                                                     src="{{Storage::url('designs/'.$item->design?->design_image_back)}}"
+                                                     style="width: {{$item->design?->product->site_back_width}}%; height: {{$item->design?->product->site_back_height}}%;
+                                                      top: {{$item->design?->product->site_back_top}}%; left: {{$item->design?->product->site_back_left}}%;position: absolute;">
+
                                             @endif
                                         </div>
                                         <div class="order-info col-8">
                                             <p class="card-text">
-                                                {!! $item->variation->product->description?substr($item->variation->product->description,0, 500) : ''!!}
+                                                {!! $item->variation->product->description?substr($item->variation->product->description,0, 200) : ''!!}
                                             </p>
                                         </div>
                                     </div>

@@ -44,21 +44,21 @@
                                         <div class="modal-body">
                                             <form class="form-horizontal" method="post" action="{{route('designs.update', $record->id)}}">
                                                 @csrf
-{{--                                                <div class="form-group ">--}}
-{{--                                                    <label for="product_id"--}}
-{{--                                                           class="col-md-12 form-label"> @lang('site.products') </label>--}}
-{{--                                                    <div class="col-md-12">--}}
-{{--                                                        <select class='form-control' id="product_id" name="product_id[]" multiple>--}}
-{{--                                                            <option value="">@lang('site.Products')</option>--}}
-{{--                                                            @foreach ($this->products as $product)--}}
-{{--                                                                <option value="{{ $product->id }}" @foreach($record->products as $pro) @if($product->id == $pro->id) selected @endif @endforeach> {{ $product->name }} </option>--}}
-{{--                                                            @endforeach--}}
-{{--                                                        </select>--}}
-{{--                                                        @error('product_id')--}}
-{{--                                                        <p class='text-danger'> {{ $message }} </p>--}}
-{{--                                                        @enderror--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
+                                                <div class="form-group ">
+                                                    <label for="product_id"
+                                                           class="col-md-12 form-label"> @lang('site.products') </label>
+                                                    <div class="col-md-12">
+                                                        <select class='form-control' id="product_id" name="product_id[]" multiple="multiple">
+                                                            <option value="">@lang('site.Products')</option>
+                                                            @foreach ($this->products as $product)
+                                                                <option value="{{ $product->id }}" @foreach($record->products as $pro) @if($product->id == $pro->id) selected @endif @endforeach> {{ $product->name }} </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('product_id')
+                                                        <p class='text-danger'> {{ $message }} </p>
+                                                        @enderror
+                                                    </div>
+                                                </div>
                                                 <div class="form-group row">
                                                     <label for="description"
                                                            class="col-md-12 form-label"> @lang('site.description') </label>
@@ -98,13 +98,20 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                     <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">
-                        <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}"  src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">
+{{--                        <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}"  src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
+                        <img
+                            style="background-color: {{$record->main_color_code}}"
+                            src="{{Storage::url('products/'.$record->image)}}">
+                        <img class="img-fluid pad" alt="design"
+                             src="{{Storage::url('designs/'.$record->design_image_front)}}"
+                             style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">
+
                     </a>
                     <p>{{$record->description}}</p>
                     <div class="tag-btns-container">
                         <ul>
                             @foreach($record->products as $product)
-                                <a href="{{ $product->url() }}" class="btn tag-btn"> {{$product->name}} </a>
+                                <a href="{{ route('designs').'?product_id='.$product->id }}" class="btn tag-btn"> {{$product->name}} </a>
                             @endforeach
                         </ul>
                     </div>
