@@ -60,6 +60,65 @@
                 </ul>
 
             </div>
+            <!-------------------------- Best Selling --------------------------->
+            <div class="section best-selling">
+                <div class="title d-flex justify-content-between col-md-12">
+                    <h5 class="mb-2"> @lang('site.Best Selling Products') </h5>
+                    <a href="{{route('designs')}}" class="text-sm text-dark"> @lang('site.More') </a>
+                </div>
+                <ul class="users-list clearfix">
+                    @foreach($bestSellingProducts as $record)
+                        <li>
+                            <a onclick="goToDesignPage({{$record}})"
+                               data-image="{{ Storage::url('products/'.$record->product->front_image) }}">
+                                <div class="image-container">
+                                    {{--                                    <img src="{{ Storage::url('users/'.$record->user->image) ?? '' }}" alt="User Image">--}}
+                                    <img
+                                        style="background-color: {{$record->main_color_code}}"
+                                        src="{{Storage::url('products/'.$record->product->front_image)}}"
+                                        alt="Photo">
+                                    <img alt="design"
+                                         src="{{Storage::url('designs/'.$record->design_image_front)}}"
+                                         style="width: {{$record->product->site_front_width}}% !important; height: {{$record->product->site_front_height}}% !important;
+                                          top: {{$record->product->site_front_top}}% !important; left: {{$record->product->site_front_left}}% !important; position: absolute;">
+
+                                </div>
+                                <a class="users-list-name"
+                                   href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a>
+                                <div class="users-list-date">
+                                    @if($record->design_image_front && $record->design_image_back)
+                                        {{$record->product->price_full_design}}
+                                    @else
+                                        {{$record->product->price}}
+                                    @endif
+                                    <span>{{__('site.SAR')}}</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <!-------------------------- Used Design --------------------------->
+            <div class="section used-design">
+                <div class="title d-flex justify-content-between col-md-12">
+                    <h5 class="mb-2">@lang('site.Most Viewed design')</h5>
+{{--                    <a href="Products.html" class="text-sm text-dark"> more</a>--}}
+                </div>
+                <ul class="users-list clearfix">
+                    @foreach($mostViewedDesigns as $record)
+                        <li>
+                            <a onclick="goToDesignPage({{$record}})">
+                                <div class="image-container">
+                                    <img src="{{Storage::url('designs/'.$record->design_image_front)}}" alt="User Image"
+                                         style="background-color: {{$record->main_color_code}}">
+                                </div>
+                            </a>
+                            <a class="users-list-name"
+                               href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
             <!-------------------------- Products List --------------------------->
             <div class="section Products-list">
                 <div class="title d-flex justify-content-between col-md-12">
@@ -85,7 +144,8 @@
                                         <li class="color-item"
                                             onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
                                             onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
-                                            style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
+                                            style="background:{{$record_color_variation->color->code}}"
+                                            data-image="img/color-1.jpg"
                                             id="color-Button"></li>
                                     @endforeach
                                 </ul>
@@ -107,38 +167,44 @@
                                     href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a></span>
                             <span class="description">@ {{$record->user->username ?? ''}}</span>
                         </div>
-                        <!-- /.user-block -->
-                        <div class="card-tools">
-                            <span class="text-muted p-4"></span>
-                        </div>
-                        <!-- /.card-tools -->
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-{{--                        <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">--}}
-                            {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
-{{--                            <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
-                            <a href="{{ route('custom-designs', $record->id).'?type=design' }}"
-                               class="text-center post-image-container">
-                                {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
-                                <img class="img-fluid pad"
-                                     style="background-color: {{$record->main_color_code}}"
-                                     src="{{Storage::url('products/'.$record->image)}}" alt="Photo">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <a
+                                onclick="goToDesignPage({{$record}})"
+                                {{--                                        href="{{ route('custom-designs', $record->id).'?type=design' }}"--}}
+                                data-image="{{ Storage::url('products/'.$record->product->front_image) }}"
+                                {{--                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"--}}
+                                class="text-center post-image-container">
+                                <div class="badge badge-light">
+                                    @if($record->design_image_front && $record->design_image_back)
+                                        {{$record->product->price_full_design}}
+                                    @else
+                                        {{$record->product->price}}
+                                    @endif
+                                    <span>{{__('site.SAR')}}</span>
+                                </div>
+                                <div style="position: relative; direction: ltr">
+                                    {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
+                                    <img class="img-fluid pad"
+                                         style="background-color: {{$record->main_color_code}}"
+                                         src="{{Storage::url('products/'.$record->product->front_image)}}"
+                                         alt="Photo">
+                                    <img class="img-fluid pad" alt="design"
+                                         src="{{Storage::url('designs/'.$record->design_image_front)}}"
+                                         style="width: {{$record->product->site_front_width}}% !important; height: {{$record->product->site_front_height}}% !important;
+                                          top: {{$record->product->site_front_top}}% !important; left: {{$record->product->site_front_left}}% !important; position: absolute;">
+                                </div>
                             </a>
-                            <img class="img-fluid pad" alt="design"
-                                 src="{{Storage::url('designs/'.$record->design_image_front)}}"
-                                 style="width:50px;height:50px;z-index:156445;top: 50%;left: 50%;position: absolute;">
-{{--                        </a>--}}
-
-                        <p>{{$record->description}}</p>
-                        <div class="tag-btns-container">
-                            <ul>
-                                @foreach($record->products as $product)
-                                    <a href="{{ $product->url() }}" class="btn tag-btn"> {{$product->name}} </a>
-                                @endforeach
-                            </ul>
+                            <p>{{$record->description}}</p>
+                            <div class="tag-btns-container">
+                                <ul>
+                                    @foreach($record->products as $product)
+                                        <a href="{{ route('designs').'?product_id='.$product->id }}"
+                                           class="btn tag-btn"> {{$product->name}} </a>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             @endforeach

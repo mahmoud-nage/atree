@@ -166,7 +166,7 @@ return array(
     'add existing Design' => 'اضافة تصميم سابق',
     'existing Design' => ' تصميمات سابقة',
     'Download App Now' => 'حمل التطبيق الأن',
-    '' => '',
+    'Most Viewed design' => 'التصميمات الاكثر مشاهدة',
     '' => '',
     '' => '',
     '' => '',

@@ -143,7 +143,7 @@ return array(
     'add existing Design' => 'Add Existing Design',
     'existing Design' => 'Existing Designs',
     'Download App Now' => 'Download App Now',
-    '' => '',
+    'Most Viewed design' => 'Most Viewed Design',
     '' => '',
     '' => '',
     '' => '',

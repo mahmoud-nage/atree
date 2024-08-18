@@ -35,7 +35,9 @@ class SiteController extends Controller
         $recomanded_users = User::where('type', User::USER)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
         $designs = UserDesign::inRandomOrder()->take(6)->get();
-        return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs'));
+        $bestSellingProducts = UserDesign::inRandomOrder()->with('product')->orderBy('times_used_count','desc')->take(10)->get();
+        $mostViewedDesigns = UserDesign::inRandomOrder()->with('product')->orderBy('views_count','desc')->take(8)->get();
+        return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs','bestSellingProducts','mostViewedDesigns'));
     }
 
 
@@ -97,6 +99,7 @@ class SiteController extends Controller
         $design = null;
         if ($request->type == 'design') {
             $design = UserDesign::findOrFail($product_id);
+            $design->increment('times_used_count');
             $products = Product::whereIn('id', $design->products->where('id','!=',$design->product_id)->pluck('id'))->get();
             $product_id = $design->product_id;
         }else{
@@ -142,7 +145,7 @@ class SiteController extends Controller
                 $q->where('product_id', $request->product_id);
             });
         }
-        $records = $records->latest()->get();
+        $records = $records->latest()->orderBy('times_used_count','desc')->get();
         return view('site.designs', compact('records'));
     }
 

@@ -31,6 +31,7 @@ class CartController extends Controller
     {
         if($request->type == 'design'){
             $design = UserDesign::find($request->design_id);
+            $design->increment('views_count');
             $product = Product::find($request->products[0]);
             if ($design->design_image_front && $design->design_image_back) {
                 $price = $product->price_full_design;

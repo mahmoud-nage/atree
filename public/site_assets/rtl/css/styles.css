@@ -617,7 +617,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 .footer-sidebar-list {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+     justify-content: center;
     flex-wrap: wrap;
 }
 
