@@ -113,7 +113,6 @@ class CartController extends Controller
             }
         }
 
-        dd($request->all());
         return $request->type == 1 ? view('site.cart') : redirect(route('users.show', auth()->user()));
     }
 //    public function store(CartRequest $request) //
