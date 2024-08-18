@@ -59,7 +59,7 @@ body{
 }
 
 body:not(.sidebar-collapse) .main-sidebar .nav-legacy .nav-link,
-.sidebar-mini:not(.sidebar-collapse) .main-sidebar .nav-legacy .nav-link {	
+.sidebar-mini:not(.sidebar-collapse) .main-sidebar .nav-legacy .nav-link {
 	text-align: right;
 	direction: rtl;
 }
@@ -87,7 +87,7 @@ body .main-sidebar .nav-legacy .nav-link, .sidebar-mini .main-sidebar .nav-legac
 	-ms-transition: margin-right 0.3s ease-in-out, width 0.3s ease-in-out;
 	-o-transition: margin-right 0.3s ease-in-out, width 0.3s ease-in-out;
 }
-.sidebar .user-panel, 
+.sidebar .user-panel,
 .user-panel .info {
 	direction: rtl;
 }
@@ -125,16 +125,16 @@ body .main-sidebar .nav-legacy .nav-link, .sidebar-mini .main-sidebar .nav-legac
 		-ms-transition: margin-right 0.3s ease-in-out;
 		-o-transition: margin-right 0.3s ease-in-out;
 	}
-		
+
 	body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) .content-wrapper {
-		margin-right: 0;	
+		margin-right: 0;
 	}
 	.sidebar-collapse.sidebar-mini .main-sidebar, .sidebar-collapse .main-sidebar::before {
 		margin-right: 0px;
 	}
 }
 /*************** Index ***************/
-.home-users h5.mb-2 {
+.home-users h5.mb-2,.best-selling h5.mb-2.user-design h5.mb-2.Products-list h5.mb-2 {
 	font-weight: bold;
 }
 .post-image-container .badge {
@@ -255,7 +255,7 @@ body .main-sidebar .nav-legacy .nav-link, .sidebar-mini .main-sidebar .nav-legac
 	margin-left: 20px;
 }
 
-	
+
 .category-container .AddToWishlist {
 	float: right;
 	margin-left: 10px;
@@ -301,5 +301,5 @@ body .main-sidebar .nav-legacy .nav-link, .sidebar-mini .main-sidebar .nav-legac
 		margin-right: -250px;
 		margin-left: 0;
 	}
-	
+
 }

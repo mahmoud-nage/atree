@@ -34,7 +34,7 @@ class SiteController extends Controller
         $slides = Slide::where('is_active', 1)->latest()->get();
         $recomanded_users = User::where('type', User::USER)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
         $products = Product::inRandomOrder()->take(9)->get();
-        $designs = UserDesign::inRandomOrder()->take(6)->get();
+        $designs = UserDesign::inRandomOrder()->with('product')->take(6)->get();
         $bestSellingProducts = UserDesign::inRandomOrder()->with('product')->orderBy('times_used_count','desc')->take(10)->get();
         $mostViewedDesigns = UserDesign::inRandomOrder()->with('product')->orderBy('views_count','desc')->take(8)->get();
         return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs','bestSellingProducts','mostViewedDesigns'));

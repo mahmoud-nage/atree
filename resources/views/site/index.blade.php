@@ -122,7 +122,7 @@
             <!-------------------------- Products List --------------------------->
             <div class="section Products-list">
                 <div class="title d-flex justify-content-between col-md-12">
-                    <h5 class="mb-2"> @lang('site.Best Selling Products') </h5>
+                    <h5 class="mb-2"> @lang('site.Products') </h5>
                     <a href="{{ route('products') }}" class="text-sm text-dark"> @lang('site.More') </a>
                 </div>
 
@@ -214,4 +214,47 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        function goToDesignPage(newProduct) {
+            const product =
+                {
+                    id: "1",
+                    front: {
+                        boundaryBox: {
+                            top: newProduct['product']['site_front_top'] + '%',
+                            left: newProduct['product']['site_front_left'] + '%',
+                            width: newProduct['product']['site_front_width'] + '%',
+                            height: newProduct['product']['site_front_height'] + '%',
+                        },
+                        boundaryBoxChildren: [],
+                        "name": "T-shirt",
+                        "price": 200,
+                        "currency": "SAR",
+                        "frontImage": '/storage/products/' + newProduct['product']['front_image'],
+                    }, back: {
+                        boundaryBox: {
+                            top: newProduct['product']['site_back_top'] + '%',
+                            left: newProduct['product']['site_back_left'] + '%',
+                            width: newProduct['product']['site_back_width'] + '%',
+                            height: newProduct['product']['site_back_height'] + '%',
+                        },
+                        boundaryBoxChildren: [],
+                        "name": "T-shirt",
+                        "price": 200,
+                        "currency": "SAR",
+                        "backImage": '/storage/products/' + newProduct['product']['back_image'],
+                        "colors": [
+                            {"color": "black", "image": "img/color-1.jpg"},
+                            {"color": "#darkblue", "image": "img/color-3.jpg"},
+                            {"color": "#fcdb86", "image": "img/color-2.jpg"}
+                        ]
+                    }
+                }
+            const productJSON = JSON.stringify(product);
+            localStorage.setItem('product', productJSON);
+            let url = '{{ route('custom-designs', 'id').'?type=design' }}';
+            url = url.replace("id", newProduct['id']);
+            window.location.href = url;
+        }
+    </script>
 @endsection
