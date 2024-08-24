@@ -1,7 +1,7 @@
 <div class="card card-primary bio-content">
     <div class="card-header">
         <div>
-{{--            <p class="card-title text-lg font-weight-bold mb-0">@lang('site.create')</p>--}}
+            {{--            <p class="card-title text-lg font-weight-bold mb-0">@lang('site.create')</p>--}}
             <p class="font-weight-normal mb-0">@lang('site.Your Owen Design') </p>
         </div>
 
@@ -16,22 +16,26 @@
                         <span class="username"><a
                                 href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a></span>
                         <span class="description">@ {{$record->user->username ?? ''}}</span>
-                        <span class=" @if($record->is_active) text-success @else text-danger @endif">@if($record->is_active) {{__('site.active')}} @else {{__('site.deactive')}} @endif</span>
+                        <span class=" @if($record->is_active) text-success @else text-danger @endif">@if($record->is_active)
+                                {{__('site.active')}}
+                            @else
+                                {{__('site.deactive')}}
+                            @endif</span>
                     </div>
                     <!-- /.user-block -->
                     @if(auth()->check() && auth()->id() == $record->user_id)
-                    <div class="card-tools">
+                        <div class="card-tools">
                         <span class="text-muted p-4">
 {{--                            <button data-item_id='{{ $record->id }}' type="button"--}}
-{{--                                    class="delete_address btn card-link text-danger p-0"--}}
-{{--                                    style="min-width: auto !important;font-size: 1.5rem;"> <i class="fa fa-trash"></i> </button>--}}
+                            {{--                                    class="delete_address btn card-link text-danger p-0"--}}
+                            {{--                                    style="min-width: auto !important;font-size: 1.5rem;"> <i class="fa fa-trash"></i> </button>--}}
                             <button data-item_id='{{ $record->id }}' type="button" data-toggle="modal"
                                     data-target="#addAddressPopup{{$record->id}}"
                                     class="btn card-link text-primary p-0"
                                     style="min-width: auto !important;font-size: 1.5rem;"> <i
                                     class="fa fa-pen-square"></i> </button>
                         </span>
-                    </div>
+                        </div>
                     @endif
                     <div class="ml-auto">
                         {{--            <a class="btn circle-btn fa fa-plus" data-toggle="modal" data-target="#addAddressPopup"></a>--}}
@@ -42,16 +46,19 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <form class="form-horizontal" method="post" action="{{route('designs.update', $record->id)}}">
+                                            <form class="form-horizontal" method="post"
+                                                  action="{{route('designs.update', $record->id)}}">
                                                 @csrf
                                                 <div class="form-group ">
                                                     <label for="product_id"
                                                            class="col-md-12 form-label"> @lang('site.products') </label>
                                                     <div class="col-md-12">
-                                                        <select class='form-control' id="product_id" name="product_id[]" multiple="multiple">
+                                                        <select class='form-control' id="product_id" name="product_id[]"
+                                                                multiple="multiple">
                                                             <option value="">@lang('site.Products')</option>
                                                             @foreach ($this->products as $product)
-                                                                <option value="{{ $product->id }}" @foreach($record->products as $pro) @if($product->id == $pro->id) selected @endif @endforeach> {{ $product->name }} </option>
+                                                                <option value="{{ $product->id }}"
+                                                                        @foreach($record->products as $pro) @if($product->id == $pro->id) selected @endif @endforeach> {{ $product->name }} </option>
                                                             @endforeach
                                                         </select>
                                                         @error('product_id')
@@ -63,8 +70,10 @@
                                                     <label for="description"
                                                            class="col-md-12 form-label"> @lang('site.description') </label>
                                                     <div class="col-md-12">
-                                                        <input type="text" class="form-control" value="{{$record->description}}"
-                                                               id="description" name="description" placeholder="@lang('site.description')">
+                                                        <input type="text" class="form-control"
+                                                               value="{{$record->description}}"
+                                                               id="description" name="description"
+                                                               placeholder="@lang('site.description')">
                                                         @error('description')
                                                         <p class='text-danger'> {{ $message }} </p>
                                                         @enderror
@@ -74,8 +83,10 @@
                                                     <label for="description"
                                                            class="col-md-6 form-label"> @lang('site.status') </label>
                                                     <div class="col-md-6">
-                                                        <input type="checkbox" class="form-control" @if($record->is_active) checked @endif
-                                                               id="is_active" name="is_active" placeholder="@lang('site.is_active')">
+                                                        <input type="checkbox" class="form-control"
+                                                               @if($record->is_active) checked @endif
+                                                               id="is_active" name="is_active"
+                                                               placeholder="@lang('site.is_active')">
                                                         @error('description')
                                                         <p class='text-danger'> {{ $message }} </p>
                                                         @enderror
@@ -83,7 +94,8 @@
                                                 </div>
                                                 <div class="form-group mt-2 mb-0">
                                                     <div class="text-center col-md-12">
-                                                        <button type="submit" class="btn btn-primary"> @lang('site.Add') </button>
+                                                        <button type="submit"
+                                                                class="btn btn-primary"> @lang('site.Add') </button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -97,21 +109,25 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">
-{{--                        <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}"  src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
-                        <img
-                            style="background-color: {{$record->main_color_code}}"
-                            src="{{Storage::url('products/'.$record->image)}}">
-                        <img class="img-fluid pad" alt="design"
-                             src="{{Storage::url('designs/'.$record->design_image_front)}}"
-                             style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">
-
+                    <a href="{{ route('custom-designs', $record->id).'?type=design' }}"
+                       class="text-center post-image-container d-flex justify-content-around">
+                        <div style="position: relative; direction: ltr; max-width: 500px">
+                            {{--                        <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}"  src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
+                            <img
+                                style="background-color: {{$record->main_color_code}}"
+                                src="{{Storage::url('products/'.$record->image)}}">
+                            <img class="img-fluid pad" alt="design"
+                                 src="{{Storage::url('designs/'.$record->design_image_front)}}"
+                                 style="width: {{$record->product->site_front_width}}% !important; height: {{$record->product->site_front_height}}% !important;
+                                          top: {{$record->product->site_front_top}}% !important; left: {{$record->product->site_front_left}}% !important; position: absolute;">
+                        </div>
                     </a>
                     <p>{{$record->description}}</p>
                     <div class="tag-btns-container">
                         <ul>
                             @foreach($record->products as $product)
-                                <a href="{{ route('designs').'?product_id='.$product->id }}" class="btn tag-btn"> {{$product->name}} </a>
+                                <a href="{{ route('designs').'?product_id='.$product->id }}"
+                                   class="btn tag-btn"> {{$product->name}} </a>
                             @endforeach
                         </ul>
                     </div>

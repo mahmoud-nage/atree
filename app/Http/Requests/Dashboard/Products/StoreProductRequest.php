@@ -24,18 +24,19 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name_ar' => 'required', 
-            'name_en' => 'required', 
-            'description_ar' => 'nullable' ,  
-            'description_en' => 'nullable' ,  
-            'front_image' => 'required|image' , 
-            'back_image' => 'required|image' , 
-            'images' => 'nullable'  , 
-            'images.*' => 'image' , 
-            'price' => 'required' , 
-            'price_full_design' => 'required' , 
-            'diamonds' => 'required' , 
-            'country_id' => 'required' , 
+            'name_ar' => 'required',
+            'name_en' => 'required',
+            'description_ar' => 'nullable' ,
+            'description_en' => 'nullable' ,
+            'front_image' => 'required|image' ,
+            'back_image' => 'required|image' ,
+            'images' => 'nullable'  ,
+            'images.*' => 'image' ,
+            'price' => 'required' ,
+            'price_full_design' => 'required' ,
+            'diamonds' => 'required' ,
+            'category_id' => 'required' ,
+//            'country_id' => 'required' ,
         ];
     }
 }

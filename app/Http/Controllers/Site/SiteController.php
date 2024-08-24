@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Design;
 use App\Models\UserDesign;
 use Illuminate\Contracts\Foundation\Application;
@@ -33,11 +34,13 @@ class SiteController extends Controller
     {
         $slides = Slide::where('is_active', 1)->latest()->get();
         $recomanded_users = User::where('type', User::USER)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
-        $products = Product::inRandomOrder()->take(9)->get();
+        $categories = Category::inRandomOrder()->where('show_in_home_page', 1)->where('active', 1)->with(['products' => function ($q) {
+            $q->where('show_in_home_page',1);
+        }])->get();
         $designs = UserDesign::inRandomOrder()->with('product')->take(6)->get();
-        $bestSellingProducts = UserDesign::inRandomOrder()->with('product')->orderBy('times_used_count','desc')->take(10)->get();
-        $mostViewedDesigns = UserDesign::inRandomOrder()->with('product')->orderBy('views_count','desc')->take(8)->get();
-        return view('site.index', compact('slides', 'recomanded_users', 'products', 'designs','bestSellingProducts','mostViewedDesigns'));
+        $bestSellingProducts = UserDesign::inRandomOrder()->with('product')->orderBy('times_used_count', 'desc')->take(10)->get();
+        $mostViewedDesigns = UserDesign::inRandomOrder()->with('product')->orderBy('views_count', 'desc')->take(8)->get();
+        return view('site.index', compact('slides', 'recomanded_users', 'categories', 'designs', 'bestSellingProducts', 'mostViewedDesigns'));
     }
 
 
@@ -68,7 +71,7 @@ class SiteController extends Controller
     {
         $search = $request->search;
 
-        $products = Product::with(['variations', 'variations.color'])->where(function ($query) use ($search) {
+        $products = Product::with(['variations', 'variations.color'])->whereActive(1)->where(function ($query) use ($search) {
             $query
                 ->where('name->ar', 'LIKE', '%' . $search . '%')
                 ->orWhere('name->en', 'LIKE', '%' . $search . '%')
@@ -89,7 +92,7 @@ class SiteController extends Controller
     {
         dispatch(new IncreasProductViewsCountJob($product));
         $product->load(['images']);
-        $products = Product::with(['variations.color'])->inRandomOrder()->limit(9)->get();
+        $products = Product::with(['variations.color'])->inRandomOrder()->whereActive(1)->limit(9)->get();
         return view('site.product', compact('product', 'products'));
     }
 
@@ -100,9 +103,9 @@ class SiteController extends Controller
         if ($request->type == 'design') {
             $design = UserDesign::findOrFail($product_id);
             $design->increment('times_used_count');
-            $products = Product::whereIn('id', $design->products->where('id','!=',$design->product_id)->pluck('id'))->get();
+            $products = Product::whereIn('id', $design->products->where('id', '!=', $design->product_id)->pluck('id'))->whereActive(1)->get();
             $product_id = $design->product_id;
-        }else{
+        } else {
             $products = Product::where('id', '!=', $product_id)->get();
         }
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
@@ -113,7 +116,7 @@ class SiteController extends Controller
 
     public function explore()
     {
-        $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
+        $products = Product::with(['variations.color', 'variations.size'])->whereActive(1)->latest('sales_count')->take(15)->get();
         $users = User::latest()->where('type', User::USER)->take(15)->get();
         $designs = UserDesign::with('product')->latest()->take(15)->get();
         return view('site.explore', compact('products', 'users', 'designs'));
@@ -123,13 +126,20 @@ class SiteController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function products()
+    public function products(Request $request)
     {
-        $products = Product::with(['variations.color'])->latest()->get();
-        $best_sellings = Product::with(['variations.color'])->latest()->get();
-        return view('site.products', compact('products', 'best_sellings'));
+        $products = Product::with(['variations.color'])->whereActive(1);
+        $best_sellings = Product::with(['variations.color'])->whereActive(1);
+        if ($request->category_id && $request->category_id != 'all' ) {
+            $products->where('category_id', $request->category_id);
+            $best_sellings->where('category_id', $request->category_id);
+        }
+        $products = $products->latest()->get();
+        $best_sellings = $best_sellings->latest('sales_count')->take(10)->get();
+        $categories = Category::has('products')->whereActive(1)->get();
+        return view('site.products', compact('products', 'best_sellings','categories'));
     }
 
     /**
@@ -140,13 +150,14 @@ class SiteController extends Controller
     public function designs(Request $request)
     {
         $records = UserDesign::with('product');
-        if($request->product_id){
-            $records->whereHas('design_products', function ($q)use($request){
+        if ($request->product_id && $request->product_id != 'all' ) {
+            $records->whereHas('design_products', function ($q) use ($request) {
                 $q->where('product_id', $request->product_id);
             });
         }
-        $records = $records->latest()->orderBy('times_used_count','desc')->get();
-        return view('site.designs', compact('records'));
+        $records = $records->latest()->orderBy('times_used_count', 'desc')->get();
+        $products = Product::has('design_products')->whereActive(1)->get();
+        return view('site.designs', compact('records','products'));
     }
 
     /**

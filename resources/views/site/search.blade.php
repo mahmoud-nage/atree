@@ -24,7 +24,7 @@
             <h5 class="mb-2"> @lang('site.Search For') : {{ $search }} </h5>
           </div>
           <ul class="users-list clearfix">
-            @foreach ($products as $product)
+            @forelse ($products as $product)
             <li>
               <div class="product-container">
                 <a href="{{ $product->url() }}" class="image-container" data-image="{{ Storage::url('products/'.$product->front_image) }}">
@@ -48,7 +48,11 @@
               <a class="users-list-name" href="{{ $product->url() }}">{{ $product->name }}</a>
               <div class="users-list-date"> {{ $product->price }} <span> @lang('site.SAR')</span></div>
             </li>
-            @endforeach
+                  @empty
+                      <div class="alert alert-primary col-12 text-center" role="alert">
+                          @lang('site.no_records')
+                      </div>
+                  @endforelse
           </ul>
         </div>
       </div>

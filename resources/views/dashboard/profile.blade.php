@@ -4,7 +4,7 @@
 $lang = LaravelLocalization::getCurrentLocale();
 @endphp
 @section('page_title')
-تعديل بيانات الملف الشخصى 
+تعديل بيانات الملف الشخصى
 @endsection
 
 @section('page_header')
@@ -34,10 +34,9 @@ $lang = LaravelLocalization::getCurrentLocale();
 				@csrf
 				<div class="card-body">
 
-
 					<fieldset class="mb-3">
 						<legend class="text-uppercase font-size-sm font-weight-bold"> بيانات الملف الشخصى </legend>
-						<div class="form-group row">							
+						<div class="form-group row">
 							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> اسم المسخدم </label>
@@ -46,8 +45,8 @@ $lang = LaravelLocalization::getCurrentLocale();
 									<p  class='text-danger' >  {{ $message }} </p>
 									@enderror
 								</div>
-							</div>			
-							
+							</div>
+
 							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> @lang('settings.email') </label>
@@ -67,7 +66,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 									@enderror
 								</div>
 							</div>
-							
+
 							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> صوره الملف الشخصى </label>
@@ -86,7 +85,7 @@ $lang = LaravelLocalization::getCurrentLocale();
 								</div>
 							</div>
 
-						</div>						
+						</div>
 					</fieldset>
 				</div>
 

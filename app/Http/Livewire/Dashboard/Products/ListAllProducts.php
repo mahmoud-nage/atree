@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard\Products;
 
+use App\Models\Category;
 use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithPagination;
@@ -11,10 +12,11 @@ class ListAllProducts extends Component
     use WithPagination;
     public $rows = 10;
     public $search = '';
+    public $category_id;
 
     protected $listeners = ['deleteItem'];
 
- 
+
 
     public function deleteItem($item_id)
     {
@@ -36,6 +38,11 @@ class ListAllProducts extends Component
         $this->resetPage();
     }
 
+    public function mount()
+    {
+        $this->category_id = 'all';
+    }
+
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
@@ -43,9 +50,12 @@ class ListAllProducts extends Component
 
         if($this->search != '')
             $products = $products->where('name->en' , 'LIKE' , '%'.$this->search.'%' )->orWhere('name->ar' , 'LIKE' , '%'.$this->search.'%' );
+        if($this->category_id != 'all')
+            $products = $products->where('category_id' , $this->category_id);
 
         $products = $products->latest()->paginate($this->rows);
 
-        return view('livewire.dashboard.products.list-all-products' , compact('products'));
+        $categories = Category::all();
+        return view('livewire.dashboard.products.list-all-products' , compact('products','categories'));
     }
 }

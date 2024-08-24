@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -85,14 +85,14 @@
                         <td> {{ $expense->category?->name }} </td>
                         <td> {{ $expense->money }} جنيه </td>
                         <td> {{ $expense->user?->name }} </td>
-                        
+
                         <td> {{ $expense->created_at->diffForHumans() }} </td>
                         <td>
                             <a href='{{ route('dashboard.expenses.show' , ['expense' => $expense->id ] ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
                             <a href='{{ route('dashboard.expenses.edit' , ['expense' => $expense->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $expense->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

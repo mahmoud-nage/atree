@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -67,7 +67,7 @@
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $warehouse->id }}' ><i class="icon-trash "></i></a>
                             <a class="btn btn-info btn-icon " href="{{ route('dashboard.warehouse.excel'  , $warehouse ) }}" ><i class="icon-file-excel "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

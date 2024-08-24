@@ -1,11 +1,11 @@
 @extends('dashboard.layouts.master')
 
 @section('page_title')
-{{ trans('dashboard.show_all_products') }}
+{{ trans('products.show_all_products') }}
 @endsection
 
 @section('page_header')
-<span class="breadcrumb-item active"> @lang('dashboard.show_all_products') </span>
+<span class="breadcrumb-item active"> @lang('products.show_all_products') </span>
 
 @endsection
 

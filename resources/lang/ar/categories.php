@@ -3,6 +3,7 @@
 return array (
   'active' => 'مفعل',
   'add_new_category' => 'إضافه تصنيف جديد',
+  'edit_category' => 'تعديل التصنيف',
   'adding_error' => 'خطا عند الاضافه حاول مره اخرى',
   'adding_success' => 'تم الاضافه بنجاح',
   'categories' => 'التصنيفات',
@@ -20,5 +21,10 @@ return array (
   'show_all_categories' => 'عرض كافه التصنيفات',
   'status' => 'الحاله',
   'added_by' => 'تم الاضافه بواسطته',
+
   'show_category_details' => 'عرض بيانات التصنيف',
+  'category_details' => 'بيانات التصنيف',
+  'show_in_home_page' => 'عرض داخل الصفحه الرئيسيه',
+  'yes' => 'نعم',
+  'no' => 'لا',
 );

@@ -34,6 +34,7 @@ class UpdateProductRequest extends FormRequest
             'price' => 'required' ,
             'price_full_design' => 'required' ,
             'diamonds' => 'required' ,
+            'category_id' => 'required' ,
 //            'country_id' => 'required' ,
         ];
     }

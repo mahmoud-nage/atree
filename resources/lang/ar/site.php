@@ -167,8 +167,8 @@ return array(
     'existing Design' => ' تصميمات سابقة',
     'Download App Now' => 'حمل التطبيق الأن',
     'Most Viewed design' => 'التصميمات الاكثر مشاهدة',
-    '' => '',
-    '' => '',
+    'Select Category' => 'أختر تصنيف',
+    'Select Product' => 'أختر منتج',
     '' => '',
     '' => '',
 );

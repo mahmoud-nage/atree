@@ -51,6 +51,20 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>  @lang('categories.show_in_home_page') </th>
+                                <td>
+                                    @if ($product->show_in_home_page)
+                                        <span class='badge badge-success' > @lang('categories.yes')</span>
+                                    @else
+                                        <span class='badge badge-secondary' > @lang('categories.no') </span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <th> @lang('products.category') </th>
+                                <td> {{ $product->category->name }} </td>
+                            </tr>
+                            <tr>
                                 <th> @lang('products.name_ar') </th>
                                 <td> {{ $product->getTranslation('name' , 'ar') }} </td>
                             </tr>
@@ -68,17 +82,17 @@
                                 <td> {!! $product->getTranslation('description' , 'en') !!} </td>
                             </tr>
                             <tr>
-                                <th> سعر المنتج ى حاله الطباعه فى وجه واحد</th>
+                                <th> @lang('products.price')</th>
                                 <td> {{ $product->price }} <span class='text-muted'> جنيه </span></td>
                             </tr>
 
                             <tr>
-                                <th> سعر المنتج فى حاله الطباعه على الوجهين</th>
+                                <th> @lang('products.price_full_design') </th>
                                 <td> {{ $product->price_full_design }} <span class='text-muted'> جنيه </span></td>
                             </tr>
 
                             <tr>
-                                <th> عدد diamonds</th>
+                                <th>  @lang('products.diamonds')</th>
                                 <td> {{  $product->diamonds }} <span class='text-muted'> نقطه </span></td>
                             </tr>
                             <tr>
@@ -89,16 +103,23 @@
                             </tr>
 
 
+{{--                            <tr>--}}
+{{--                                <th> تقيم المنتج</th>--}}
+{{--                                <td> {{ $product->rate }} </td>--}}
+{{--                            </tr>--}}
+
                             <tr>
-                                <th> تقيم المنتج</th>
-                                <td> {{ $product->rate }} </td>
+                                <th> @lang('products.front_image')</th>
+                                <td><a href="{{ Storage::url('products/'.$product->front_image) }}"> <img
+                                            class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1"
+                                            src="{{ Storage::url('products/'.$product->front_image) }}" alt=""> </a></td>
                             </tr>
 
                             <tr>
-                                <th> صوره المنتج الرئيسيه</th>
-                                <td><a href="{{ Storage::url('products/'.$product->image) }}"> <img
+                                <th> @lang('products.back_image')</th>
+                                <td><a href="{{ Storage::url('products/'.$product->back_image) }}"> <img
                                             class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1"
-                                            src="{{ Storage::url('products/'.$product->image) }}" alt=""> </a></td>
+                                            src="{{ Storage::url('products/'.$product->back_image) }}" alt=""> </a></td>
                             </tr>
                             </tbody>
                         </table>

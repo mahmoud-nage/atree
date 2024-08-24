@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -61,7 +61,7 @@
                         <td> {{ $i++}} </td>
                         <td> {{ $country->getTranslation('name' , 'ar') }} </td>
                         <td> {{ $country->getTranslation('name' , 'en') }} </td>
-                        <td> 
+                        <td>
                             @switch($country->active)
                                 @case(0)
                                 <span class='badge badge-danger' > غير فعال </span>
@@ -70,17 +70,17 @@
                                 <span class='badge badge-success' > فعال </span>
                                 @break
                             @endswitch
-                            
+
                         </td>
                         <td> {{ $country->user?->name }} </td>
-                      
+
                         <td> {{ $country->created_at->diffForHumans() }} </td>
                         <td>
                     <a href='{{ route('dashboard.countries.show' , ['country' => $country->id ] ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
                             <a href='{{ route('dashboard.countries.edit' , ['country' => $country->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $country->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

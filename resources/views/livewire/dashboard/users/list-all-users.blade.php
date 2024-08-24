@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>

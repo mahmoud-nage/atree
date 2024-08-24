@@ -44,7 +44,7 @@
           <img src="{{ \Storage::url('users/'.Auth::user()->image) }}" class="img-circle elevation-1" alt="{{ Auth::user()->name() }}">
         </a>
         <div class="info">
-          <a href="{{ Auth::user()->url() }}" class="d-block">{{ Auth::user()->name() }}</a>
+          <a href="{{ Auth::user()->url() }}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
       @endif

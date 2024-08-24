@@ -29,7 +29,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('dashboard.categories.store') }}" method='POST' enctype="multipart/form-data" > 
+			<form action="{{ route('dashboard.categories.store') }}" method='POST' enctype="multipart/form-data" >
 				@csrf
 				<div class="card-body">
 
@@ -37,30 +37,30 @@
 					<fieldset class="mb-3">
 						<legend class="text-uppercase font-size-sm font-weight-bold">@lang('categories.category_details')</legend>
 						<div class="form-group row">
-							<div class="col-md-3">
-								<div  class='mb-2' >
-									<label class="col-form-label"> @lang('categories.image') </label>
-									<input type="file" name="image" class="form-control @error('image') is-invalid @enderror " >
-									@error('image')
-									<p  class='text-danger' >  {{ $message }} </p>
-									@enderror
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div  class='mb-2' >
-									<label class="col-form-label"> @lang('categories.name') </label>
-									<select name="category_id"  class="form-control" >
-										<option value=""></option>
-										@foreach ($categories as $category)
-											<option value="{{ $category->id }}">{{ $category->getTranslation('name' , $lang) }}</option>
-										@endforeach
-									</select>
-									@error('name')
-									<p  class='text-danger' >  {{ $message }} </p>
-									@enderror
-								</div>
-							</div>
-							<div class="col-md-3">
+{{--							<div class="col-md-3">--}}
+{{--								<div  class='mb-2' >--}}
+{{--									<label class="col-form-label"> @lang('categories.image') </label>--}}
+{{--									<input type="file" name="image" class="form-control @error('image') is-invalid @enderror " >--}}
+{{--									@error('image')--}}
+{{--									<p  class='text-danger' >  {{ $message }} </p>--}}
+{{--									@enderror--}}
+{{--								</div>--}}
+{{--							</div>--}}
+{{--							<div class="col-md-3">--}}
+{{--								<div  class='mb-2' >--}}
+{{--									<label class="col-form-label"> @lang('categories.name') </label>--}}
+{{--									<select name="category_id"  class="form-control" >--}}
+{{--										<option value=""></option>--}}
+{{--										@foreach ($categories as $category)--}}
+{{--											<option value="{{ $category->id }}">{{ $category->getTranslation('name' , $lang) }}</option>--}}
+{{--										@endforeach--}}
+{{--									</select>--}}
+{{--									@error('name')--}}
+{{--									<p  class='text-danger' >  {{ $message }} </p>--}}
+{{--									@enderror--}}
+{{--								</div>--}}
+{{--							</div>--}}
+							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> @lang('categories.name_ar') </label>
 									<input type="text" class="form-control @error('name.ar') is-invalid @enderror" name="name[ar]" value="{{ old('name.ar') }}" >
@@ -69,7 +69,7 @@
 									@enderror
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<div  class='mb-2' >
 									<label class="col-form-label"> @lang('categories.name_en') </label>
 									<input type="text" class="form-control @error('name.en') is-invalid @enderror" name="name[en]" value="{{ old('name.en') }}" >
@@ -81,7 +81,7 @@
 
 							<div class="col-md-3">
 								<div  class='mb-2' >
-									<label class="col-form-label"> عرض داخل الصفحه الرئيسيه </label>
+									<label class="col-form-label"> @lang('categories.show_in_home_page') </label>
 									<div class="custom-control custom-switch mb-2">
 										<input type="checkbox" name="show_in_home_page" class="custom-control-input" id='show_in_home_page'  >
 										<label class="custom-control-label" for="show_in_home_page"> @lang('slides.active') </label>
@@ -89,30 +89,38 @@
 								</div>
 							</div>
 
-
-							<div class="col-md-3">
-								<div  class='mb-2' >
-									<label class="col-form-label"> عرض اسفل الslider </label>
-									<div class="custom-control custom-switch mb-2">
-										<input type="checkbox" name="show_after_slider" class="custom-control-input" id='show_after_slider'  >
-										<label class="custom-control-label" for="show_after_slider"> @lang('slides.active') </label>
-									</div>
-								</div>
-							</div>
-							
+                            <div class="col-md-3">
+                                <div  class='mb-2' >
+                                    <label class="col-form-label"> @lang('categories.active') </label>
+                                    <div class="custom-control custom-switch mb-2">
+                                        <input type="checkbox" name="active" class="custom-control-input" id='active'>
+                                        <label class="custom-control-label" for="active"> @lang('slides.active') </label>
+                                    </div>
+                                </div>
+                            </div>
 
 
-							<div class="col-md-3">
-								<div  class='mb-2' >
-									<label class="col-form-label"> عرض  داخل الheader </label>
-									<div class="custom-control custom-switch mb-2">
-										<input type="checkbox" name="show_in_header" class="custom-control-input" id='show_in_header'  >
-										<label class="custom-control-label" for="show_in_header"> @lang('slides.active') </label>
-									</div>
-								</div>
-							</div>
+{{--							<div class="col-md-3">--}}
+{{--								<div  class='mb-2' >--}}
+{{--									<label class="col-form-label"> عرض اسفل الslider </label>--}}
+{{--									<div class="custom-control custom-switch mb-2">--}}
+{{--										<input type="checkbox" name="show_after_slider" class="custom-control-input" id='show_after_slider'  >--}}
+{{--										<label class="custom-control-label" for="show_after_slider"> @lang('slides.active') </label>--}}
+{{--									</div>--}}
+{{--								</div>--}}
+{{--							</div>--}}
 
-						</div>						
+{{--							<div class="col-md-3">--}}
+{{--								<div  class='mb-2' >--}}
+{{--									<label class="col-form-label"> عرض  داخل الheader </label>--}}
+{{--									<div class="custom-control custom-switch mb-2">--}}
+{{--										<input type="checkbox" name="show_in_header" class="custom-control-input" id='show_in_header'  >--}}
+{{--										<label class="custom-control-label" for="show_in_header"> @lang('slides.active') </label>--}}
+{{--									</div>--}}
+{{--								</div>--}}
+{{--							</div>--}}
+
+						</div>
 					</fieldset>
 				</div>
 

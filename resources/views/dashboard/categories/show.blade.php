@@ -49,38 +49,38 @@
 								</td>
 							</tr>
 							<tr>
-								<th> عرض داخل الشفحه الرئيسيه </th>
+								<th>  @lang('categories.show_in_home_page') </th>
 								<td>
 									@if ($category->show_in_home_page)
-										<span class='badge badge-success' > نعم </span>
+										<span class='badge badge-success' > @lang('categories.yes')</span>
 									@else
-									<span class='badge badge-secondary' > لا </span>
+									<span class='badge badge-secondary' > @lang('categories.no') </span>
 									@endif
 								</td>
 							</tr>
 
-							<tr>
-								<th> عرض داخل الheader </th>
-								<td>
-									@if ($category->show_in_header)
-										<span class='badge badge-success' > نعم </span>
-									@else
-									<span class='badge badge-secondary' > لا </span>
-									@endif
-								</td>
-							</tr>
+{{--							<tr>--}}
+{{--								<th> عرض داخل الheader </th>--}}
+{{--								<td>--}}
+{{--									@if ($category->show_in_header)--}}
+{{--										<span class='badge badge-success' > نعم </span>--}}
+{{--									@else--}}
+{{--									<span class='badge badge-secondary' > لا </span>--}}
+{{--									@endif--}}
+{{--								</td>--}}
+{{--							</tr>--}}
 
 
-							<tr>
-								<th> عرض اسفل ال slider </th>
-								<td>
-									@if ($category->show_after_slider)
-										<span class='badge badge-success' > نعم </span>
-									@else
-									<span class='badge badge-secondary' > لا </span>
-									@endif
-								</td>
-							</tr>
+{{--							<tr>--}}
+{{--								<th> عرض اسفل ال slider </th>--}}
+{{--								<td>--}}
+{{--									@if ($category->show_after_slider)--}}
+{{--										<span class='badge badge-success' > نعم </span>--}}
+{{--									@else--}}
+{{--									<span class='badge badge-secondary' > لا </span>--}}
+{{--									@endif--}}
+{{--								</td>--}}
+{{--							</tr>--}}
 							<tr>
 								<th> @lang('categories.name_ar') </th>
 								<td> {{ $category->getTranslation('name' , 'ar') }} </td>
@@ -91,19 +91,15 @@
 							</tr>
 							<tr>
 								<th> @lang('categories.added_by') </th>
-								<td> <a href="{{ route('dashboard.categories.show' , ['category' => $category->user_id]) }}"> {{ optional($category->user)->name }} </a> </td>
+                                <a href="{{ route('dashboard.admins.show' , ['admin' => $product->user_id]) }}"> {{ optional($category->user)->name }} </a>
 							</tr>
-							<tr>
-								<th> @lang('categories.image') </th>
-								<td> <img src="{{ Storage::url('categories/'.$category->image) }}" alt=""> </td>
-							</tr>
+{{--							<tr>--}}
+{{--								<th> @lang('categories.image') </th>--}}
+{{--								<td> <img src="{{ Storage::url('categories/'.$category->image) }}" alt=""> </td>--}}
+{{--							</tr>--}}
 						</tbody>
 					</table>
-
 				</div>
-
-
-
 			</div>
 		</div>
 	</div>

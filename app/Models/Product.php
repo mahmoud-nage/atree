@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
 class Product extends Model
@@ -23,6 +24,7 @@ class Product extends Model
         'unit_id',
         'returnable',
         'carton_includes',
+        'category_id',
         'sub_category_id',
         'sub_sub_category_id',
         'type',
@@ -42,6 +44,9 @@ class Product extends Model
         'back_image',
         'diamonds',
         'price_full_design',
+        'category_id',
+        'active',
+        'show_in_home_page',
 
         'site_back_width',
         'site_back_height',
@@ -95,6 +100,15 @@ class Product extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function design_products(): hasMany
+    {
+        return $this->hasMany(DesignProduct::class, 'product_id');
+    }
 
     public function getPrice()
     {

@@ -19,14 +19,14 @@ class Category extends Model
     {
         return 'category_id';
     }
-    
+
 
     public function add($data)
     {
         $this->setTranslation('name' , 'ar' , $data['name']['ar']);
         $this->setTranslation('name' , 'en' , $data['name']['en']);
         $this->user_id = Auth::id();
-        $this->category_id = $data['category_id'];
+//        $this->category_id = $data['category_id'];
         $this->show_in_header = isset($data['show_in_header']) ? 1 : 0 ;
         $this->show_in_home_page = isset($data['show_in_home_page']) ? 1 : 0 ;
         $this->show_after_slider = isset($data['show_after_slider']) ? 1 : 0 ;
@@ -38,12 +38,12 @@ class Category extends Model
     {
         $this->setTranslation('name' , 'ar' , $data['name']['ar']);
         $this->setTranslation('name' , 'en' , $data['name']['en']);
-        $this->category_id = $data['category_id'];
+//        $this->category_id = $data['category_id'];
         $this->show_in_header = isset($data['show_in_header']) ? 1 : 0 ;
         $this->show_in_home_page = isset($data['show_in_home_page']) ? 1 : 0 ;
         $this->show_after_slider = isset($data['show_after_slider']) ? 1 : 0 ;
         $this->active = isset($data['active']) ? 1 : 0 ;
-        
+
         return $this->save();
     }
 

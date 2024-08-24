@@ -39,22 +39,19 @@
 {{--									<div class="col-md-3">--}}
 {{--										<div  class='mb-2' >--}}
 {{--											<label class="col-form-label"> الدوله </label>--}}
-{{--											<select class='form-control' name="country_id" id="">--}}
+{{--											<select class='form-control' name="category_id" id="">--}}
 {{--												@foreach ($countries as $country)--}}
 {{--												<option value="{{ $country->id }}"> {{ $country->name }} </option>--}}
 {{--												@endforeach--}}
 {{--											</select>--}}
-{{--											@error('image')--}}
+{{--											@error('category_id')--}}
 {{--											<p  class='text-danger' >  {{ $message }} </p>--}}
 {{--											@enderror--}}
 {{--										</div>--}}
 {{--									</div>--}}
-
-
-
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div  class='mb-2' >
-											<label class="col-form-label"> صور المنتج من الامام  </label>
+											<label class="col-form-label"> @lang('products.front_image')  </label>
 											<input type="file" name="front_image" class="form-control @error('front_image') is-invalid @enderror " >
 											@error('front_image')
 											<p  class='text-danger' >  {{ $message }} </p>
@@ -62,9 +59,9 @@
 										</div>
 									</div>
 
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div  class='mb-2' >
-											<label class="col-form-label"> صور المنتج من الخالف  </label>
+											<label class="col-form-label"> @lang('products.back_image')  </label>
 											<input type="file" name="back_image" class="form-control @error('back_image') is-invalid @enderror " >
 											@error('back_image')
 											<p  class='text-danger' >  {{ $message }} </p>
@@ -72,7 +69,7 @@
 										</div>
 									</div>
 
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div  class='mb-2' >
 											<label class="col-form-label"> @lang('products.images') </label>
 											<input type="file" name="images[]" multiple='multiple' class="form-control @error('images') is-invalid @enderror " >
@@ -82,19 +79,33 @@
 										</div>
 									</div>
 
+                                    <div class="col-md-4">
+                                        <div  class='mb-2'>
+                                            <label class="col-form-label"> @lang('products.categories') @endlang </label>
+                                            <select class='form-control @error('category_id') is-invalid @enderror ' name="category_id" id="">
+                                                <option value=""> @lang('products.select_category') </option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                                @endforeach
+                                            </select>
+                                            @error('category_id')
+                                            <p  class='text-danger' >  {{ $message }} </p>
+                                            @enderror
+                                        </div>
+                                    </div>
 
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div  class='mb-2' >
-											<label class="col-form-label"> اسم المنتج بالعربيه </label>
+											<label class="col-form-label"> @lang('products.name_ar') </label>
 											<input type="text" class="form-control @error('name_ar') is-invalid @enderror" name="name_ar" value="{{ old('name_ar') }}" >
 											@error('name_ar')
 											<p  class='text-danger' >  {{ $message }} </p>
 											@enderror
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div  class='mb-2' >
-											<label class="col-form-label"> اسم المنتج بالانجليزيه </label>
+											<label class="col-form-label"> @lang('products.name_en') </label>
 											<input type="text" class="form-control @error('name_en') is-invalid @enderror" name="name_en" value="{{ old('name_en') }}" >
 											@error('name_en')
 											<p  class='text-danger' >  {{ $message }} </p>
@@ -102,23 +113,9 @@
 										</div>
 									</div>
 
-
-
 									<div class="col-md-4">
 										<div  class='mb-2' >
-											<label class="col-form-label"> عدد diamonds </label>
-											<input type="text" name="diamonds" class="form-control @error('diamonds') is-invalid @enderror " >
-											@error('diamonds')
-											<p  class='text-danger' >  {{ $message }} </p>
-											@enderror
-										</div>
-									</div>
-
-
-
-									<div class="col-md-4">
-										<div  class='mb-2' >
-											<label class="col-form-label">  سعر المنتج ى حاله الطباعه فى وجه واحد </label>
+											<label class="col-form-label">  @lang('products.price') </label>
 											<input type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" >
 											@error('price')
 											<p  class='text-danger' >  {{ $message }} </p>
@@ -128,7 +125,7 @@
 
 									<div class="col-md-4">
 										<div  class='mb-2' >
-											<label class="col-form-label">  سعر المنتج فى حاله الطباعه على الوجهين  </label>
+											<label class="col-form-label"> @lang('products.price_full_design')  </label>
 											<input type="number" class="form-control @error('price_full_design') is-invalid @enderror" name="price_full_design" value="{{ old('price_full_design') }}" >
 											@error('price_full_design')
 											<p  class='text-danger' >  {{ $message }} </p>
@@ -136,11 +133,19 @@
 										</div>
 									</div>
 
-
+                                    <div class="col-md-4">
+                                        <div  class='mb-2' >
+                                            <label class="col-form-label"> @lang('products.diamonds') </label>
+                                            <input type="text" name="diamonds" class="form-control @error('diamonds') is-invalid @enderror " >
+                                            @error('diamonds')
+                                            <p  class='text-danger' >  {{ $message }} </p>
+                                            @enderror
+                                        </div>
+                                    </div>
 
 									<div class="col-md-6">
 										<div  class='mb-2' >
-											<label class="col-form-label"> وصف تفصيلى للمنتج بالعربيه </label>
+											<label class="col-form-label"> @lang('products.description_ar') </label>
 											<textarea name="description_ar"  class="form-control" rows="3" > {{ old('description_ar') }} </textarea>
 											@error('description_ar')
 											<p  class='text-danger' >  {{ $message }} </p>
@@ -150,13 +155,33 @@
 
 									<div class="col-md-6">
 										<div  class='mb-2' >
-											<label class="col-form-label"> وصف تفصيلى للمنتج بالانجليزيه </label>
+											<label class="col-form-label"> @lang('products.description_en') </label>
 											<textarea name="description_en"  class="form-control" rows="3" > {{ old('description_en') }} </textarea>
 											@error('description_en')
 											<p  class='text-danger' >  {{ $message }} </p>
 											@enderror
 										</div>
 									</div>
+
+                                    <div class="col-md-3">
+                                        <div  class='mb-2' >
+                                            <label class="col-form-label"> @lang('categories.show_in_home_page') </label>
+                                            <div class="custom-control custom-switch mb-2">
+                                                <input type="checkbox" name="show_in_home_page" class="custom-control-input" id='show_in_home_page'>
+                                                <label class="custom-control-label" for="show_in_home_page"> @lang('slides.active') </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div  class='mb-2' >
+                                            <label class="col-form-label"> @lang('categories.active') </label>
+                                            <div class="custom-control custom-switch mb-2">
+                                                <input type="checkbox" name="active" class="custom-control-input" id='active'>
+                                                <label class="custom-control-label" for="active"> @lang('slides.active') </label>
+                                            </div>
+                                        </div>
+                                    </div>
 								</div>
 							</fieldset>
 

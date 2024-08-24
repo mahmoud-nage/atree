@@ -89,8 +89,11 @@
 <!-- jQuery -->
 
 <script src="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $("document").ready(function () {
+        $('.select2').select2();
 
         $(".users-list .color-list li").mouseenter(function () {
             var hoverImage = $(this).data("image");

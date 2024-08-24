@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Products\StoreProductDesignSizesRequest;
+use App\Models\Category;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Size;
@@ -13,6 +17,8 @@ use App\Models\ProductImage;
 use App\Models\Country;
 use App\Models\Variation;
 use Auth;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Image;
 use App\Http\Requests\Dashboard\Products\StoreProductRequest;
 use App\Http\Requests\Dashboard\Products\UpdateProductRequest;
@@ -22,7 +28,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -32,23 +38,24 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|Application|View
      */
     public function create()
     {
         $colors = Color::all();
         $sizes = Size::all();
         $countries = Country::all();
-        return view('dashboard.products.create', compact('sizes', 'countries', 'colors'));
+        $categories = Category::all();
+        return view('dashboard.products.create', compact('sizes', 'countries', 'colors', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         // StoreProductRequest
         $image = basename($request->file('front_image')->store('products'));
@@ -67,16 +74,17 @@ class ProductController extends Controller
         $product->includes_tax = 1;
         $product->carton_includes = 1;
 
-
         $product->setTranslation('name', 'ar', $request->name_ar);
         $product->setTranslation('name', 'en', $request->name_en);
         $product->setTranslation('description', 'ar', $request->description_ar);
         $product->setTranslation('description', 'en', $request->description_en);
         $product->price = $request->price;
-
         $product->diamonds = $request->diamonds;
 //        $product->country_id = $request->country_id;
+        $product->category_id = $request->category_id;
         $product->price_full_design = $request->price_full_design;
+        $product->active = $request->active == 'on' ? 1 : 0;
+        $product->show_in_home_page = $request->show_in_home_page == 'on' ? 1 : 0;
         $product->user_id = Auth::id();
         $product->front_image = basename($request->file('front_image')->store('products'));
         $product->back_image = basename($request->file('back_image')->store('products'));
@@ -109,7 +117,7 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Product $product)
     {
@@ -120,28 +128,27 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return Application|Factory|View
      */
     public function edit(Product $product)
     {
         $colors = Color::all();
         $sizes = Size::all();
         $countries = Country::all();
-        return view('dashboard.products.edit', compact('colors', 'countries', 'sizes', 'product'));
+        $categories = Category::all();
+        return view('dashboard.products.edit', compact('colors', 'countries', 'sizes', 'product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateProductRequest $request
+     * @param Product $product
+     * @return Application|Redirector|RedirectResponse
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-
-
         $product->setTranslation('name', 'ar', $request->name_ar);
         $product->setTranslation('name', 'en', $request->name_en);
         $product->setTranslation('description', 'ar', $request->description_ar);
@@ -149,7 +156,10 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->diamonds = $request->diamonds;
         $product->country_id = $request->country_id;
+        $product->category_id = $request->category_id;
         $product->price_full_design = $request->price_full_design;
+        $product->active = $request->active == 'on' ? 1 : 0;
+        $product->show_in_home_page = $request->show_in_home_page == 'on' ? 1 : 0;
         if ($request->hasFile('front_image')) {
             $product->front_image = basename($request->file('front_image')->store('products'));
         }
@@ -178,7 +188,7 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

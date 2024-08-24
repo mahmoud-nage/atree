@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -63,7 +63,7 @@
                         <td> {{ $challenge->title }} </td>
                         <td> {{ $challenge->orders }} <span class='text-muted' > طلب </span> </td>
                         <td> {{ $challenge->money }} <span class='text-muted' > جنيه </span>  </td>
-                        <td> 
+                        <td>
                             @switch($challenge->is_active)
                                 @case(0)
                                 <span class='badge badge-danger' > غير فعال </span>
@@ -72,17 +72,17 @@
                                 <span class='badge badge-success' > فعال </span>
                                 @break
                             @endswitch
-                            
+
                         </td>
                         <td> {{ $challenge->user?->name }} </td>
-                      
+
                         <td> {{ $challenge->created_at->diffForHumans() }} </td>
                         <td>
                             <a href='{{ route('dashboard.challenges.show' , ['challenge' => $challenge->id ] ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
                             <a href='{{ route('dashboard.challenges.edit' , ['challenge' => $challenge->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $challenge->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

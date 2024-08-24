@@ -1,11 +1,11 @@
 @extends('dashboard.layouts.master')
 
 @section('page_title')
-{{ trans('dashboard.show_all_categories') }}
+{{ trans('categories.show_all_categories') }}
 @endsection
 
 @section('page_header')
-<span class="breadcrumb-item active"> @lang('dashboard.show_all_categories') </span>
+<span class="breadcrumb-item active"> @lang('categories.show_all_categories') </span>
 
 @endsection
 
@@ -19,7 +19,7 @@
 	<br>
 	<div class="col-md-12">
 		@include('dashboard.layouts.messages')
-		
+
 		@livewire('dashboard.categories.list-all-categories')
 	</div>
 </div>

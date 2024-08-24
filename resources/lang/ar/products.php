@@ -8,7 +8,6 @@ return array(
     'adding_success' => 'تم الاضافه بنجاح',
     'brand' => 'البراند',
     'carton_includes' => 'كم عدد الوحدات داخل الكرتونه',
-    'category' => 'التصنيف',
     'created' => 'تاريخ الانشاء',
     'created_at' => 'تاريخ الانشاء',
     'current_image' => 'الصوره الحاليه',
@@ -26,7 +25,7 @@ return array(
     'name_ar' => 'الاسم بالعربيه',
     'name_en' => 'الاسم بالانجليزيه',
     'no' => 'لا',
-    'price' => 'السعر',
+
     'product_deleted' => 'تم حذف المنتج بنجاح',
     'products' => 'المنتجات',
     'returnable' => 'قابل للارجاع ؟',
@@ -37,6 +36,8 @@ return array(
     'world_code' => 'الكود العالمى',
     'yes' => 'نعم',
     'product_details' => 'بيانات المنتج',
+
+    // new
     'factor' => 'معامل التحويل',
     'have_wholesale_policy' => 'سياسيه تسعير نص جمله',
     'includes_tax' => 'السعر شامل الضريبه',
@@ -49,11 +50,25 @@ return array(
     'wholesale_policy' => 'سياسيه تسعير جمله',
     'barcode' => 'الباركود',
 
-    // new
     'design_sizes' => 'مقاسات التصميم',
     'variants' => 'الأنواع',
     'product_photos' => 'صور المنتج',
     'statistics' => 'الأحصائيات',
+    'categories' => 'التصنيفات',
+    'category' => 'التصنيف',
+    'show_all_categories' => 'عرض كافه التصنيفات',
+    'add_new_categories' => 'إضافه تصنيف جديد',
+    'select_category' => 'أحتر التصنيف',
+    'actions' => 'خصائص',
+    'edit_product' => 'تعديل بيانات المنتج',
+
+    'diamonds' => 'Diamonds',
+    'price_full_design' => 'سعر المنتج فى حاله الطباعه على الوجهين',
+    'price' => 'سعر المنتج ى حاله الطباعه فى وجه واحد',
+    'front_image' => 'صورة المنتج من الأمام',
+    'back_image' => 'صورة المنتج من الخلف',
+    'designers' => 'المصممين',
+
     'site_back_width' => 'site back width',
     'site_back_height' => 'site back height',
     'site_back_left' => 'site back left',

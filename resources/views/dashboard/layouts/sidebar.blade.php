@@ -38,7 +38,7 @@
 			<ul class="nav nav-sidebar" data-nav-type="accordion">
 
 				@php
-				$home = $admins = $governorates = $coupons = $pages = $products = $countries =  $slides = $orders = $settings = $users = $colors = $sizes  = $messages = $designs = '';
+				$home = $admins = $governorates = $coupons = $pages = $categories  = $products = $countries =  $slides = $orders = $settings = $users = $colors = $sizes  = $messages = $designs = '';
 // = $cities
 
 				switch (request()->segment(3)) {
@@ -166,6 +166,13 @@
 						<li class="nav-item"><a href="{{ route('dashboard.colors.create') }}" class="nav-link">
 							إضافه لون جديد
 						</a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="#" class="nav-link {{ $categories }}"><i class="icon-ampersand "></i> <span> @lang('products.categories') </span></a>
+					<ul class="nav nav-group-sub" >
+						<li class="nav-item"><a href="{{ route('dashboard.categories.index') }}" class="nav-link">@lang('products.show_all_categories')</a></li>
+						<li class="nav-item"><a href="{{ route('dashboard.categories.create') }}" class="nav-link">@lang('products.add_new_categories')</a></li>
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">

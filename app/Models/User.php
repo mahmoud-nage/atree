@@ -109,9 +109,9 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function getNameAttribute()
+    public function getNameAttribute($value)
     {
-        return $this->name ?? $this->first_name . ' ' . $this->last_name;
+        return $value ?? $this->first_name . ' ' . $this->last_name;
     }
 
     public function orders()

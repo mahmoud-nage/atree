@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -65,7 +65,7 @@
                         <td> {{ $governorate->getTranslation('name' , 'en') }} </td>
                         <td> {{ $governorate->country?->name }} </td>
                         <td> {{ $governorate->shipping_cost }} جنيه</td>
-                        <td> 
+                        <td>
                             @switch($governorate->active)
                                 @case(0)
                                 <span class='badge badge-danger' > غير فعال </span>
@@ -74,17 +74,17 @@
                                 <span class='badge badge-success' > فعال </span>
                                 @break
                             @endswitch
-                            
+
                         </td>
                         <td> {{ $governorate->user?->name }} </td>
-                      
+
                         <td> {{ $governorate->created_at->diffForHumans() }} </td>
                         <td>
                             <a href='{{ route('dashboard.governorates.show' , ['governorate' => $governorate->id ] ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
                             <a href='{{ route('dashboard.governorates.edit' , ['governorate' => $governorate->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $governorate->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

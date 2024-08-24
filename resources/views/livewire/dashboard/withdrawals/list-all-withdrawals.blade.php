@@ -34,7 +34,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -103,7 +103,7 @@
 
                     @foreach ($withdrawals as $withdrawal)
                     <tr>
-                        <td> 
+                        <td>
                             <div class="custom-control custom-checkbox mb-2">
                                 <input type="checkbox" value='{{ $withdrawal->id }}' class="custom-control-input" wire:model='selected' id="cc_ls_c{{ $withdrawal->id }}" >
                                 <label class="custom-control-label" for="cc_ls_c{{ $withdrawal->id }}"></label>
@@ -111,7 +111,7 @@
                         </td>
                         <td> {{ $withdrawal->number }} </td>
                         <td> {{ $withdrawal->user?->name }} </td>
-                        <td>    
+                        <td>
                             @switch($withdrawal->payment_method)
                             @case(1)
                             <span class='badge badge-primary' > محفظه الكترونيه </span>
@@ -120,10 +120,10 @@
                             <span class='badge badge-success' > حساب بنكى </span>
                             @break
                             @endswitch
-                            
+
                         </td>
                         <td> {{ $withdrawal->amount }} جنيه </td>
-                        <td> 
+                        <td>
                             @switch($withdrawal->status)
                             @case(1)
                             <span class='badge badge-secondary' > قيد المراجعه </span>
@@ -145,7 +145,7 @@
                             <a href='{{ route('dashboard.withdrawals.show' , ['withdrawal' => $withdrawal->id ] ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $withdrawal->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 
@@ -190,7 +190,7 @@
                                                 <li> الخانه الثانيه هيا حاله الطب ....(1) فى حاله قيد المراجعه , (3) عند اتمام التحويل ... (2) عند جارى ارسال الارباح (4) عند اتمام الارسال بنجاح  </li>
                                                 <li> الخانه الثالثه هيا طريقه الدفع حاليا يتم وضع 1 للمحفظه الاكتورنيه  </li>
                                                 <li> اى ملحوظات اضافيه مثل سبب الرفض او الكود المرجعى للتحويل </li>
-                                            </ul> 
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

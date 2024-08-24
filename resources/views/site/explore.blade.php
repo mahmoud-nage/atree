@@ -120,7 +120,7 @@
                                                 {{--                                        href="{{ route('custom-designs', $record->id).'?type=design' }}"--}}
                                                 data-image="{{ Storage::url('products/'.$record->product->front_image) }}"
                                                 {{--                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"--}}
-                                                class="text-center post-image-container">
+                                                class="text-center post-image-container d-flex justify-content-around">
                                                 <div class="badge badge-light">
                                                     @if($record->design_image_front && $record->design_image_back)
                                                         {{$record->product->price_full_design}}
@@ -129,7 +129,7 @@
                                                     @endif
                                                     <span>{{__('site.SAR')}}</span>
                                                 </div>
-                                                <div style="position: relative; direction: ltr">
+                                                <div style="position: relative; direction: ltr;max-width: 500px">
                                                     {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
                                                     <img class="img-fluid pad"
                                                          style="background-color: {{$record->main_color_code}}"
@@ -137,7 +137,9 @@
                                                          alt="Photo">
                                                     <img class="img-fluid pad" alt="design"
                                                          src="{{Storage::url('designs/'.$record->design_image_front)}}"
-                                                         style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">
+                                                         style="width: {{$record->product->site_front_width}}% !important; height: {{$record->product->site_front_height}}% !important;
+                                                          top: {{$record->product->site_front_top}}% !important; left: {{$record->product->site_front_left}}% !important;
+                                                          position: absolute;">
                                                 </div>
                                             </a>
                                             <p>{{$record->description}}</p>

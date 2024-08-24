@@ -16,13 +16,21 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
                         <option value="30">30 </option>
                         <option value="50">50 </option>
                         <option value="100">100 </option>
+                    </select>
+                </div>
+                <div class="col-md-4" wire:ignore>
+                    <select name="select" wire:model='user_id' class="form-control form-control-select2">
+                        <option value="all"> @lang('products.designers')</option>
+                        @foreach ($designers as $designer)
+                            <option value="{{ $designer->id }}"> {{ $designer->name }} </option>
+                        @endforeach
                     </select>
                 </div>
 {{--                <div class="col-md-3">--}}

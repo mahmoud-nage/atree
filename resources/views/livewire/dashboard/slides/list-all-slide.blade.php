@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -59,7 +59,7 @@
                     <tr>
                         <td> {{ $i++ }} </td>
                         <td> <img class='rounded img-preview' src="{{ Storage::url('slides/'.$slide->image) }}" alt=""> </td>
-                        <td> 
+                        <td>
                             @if ($slide->link)
                             <a target="_blank" href="{{ $slide->link }}"> اضغط هنا </a>
                             @endif
@@ -80,7 +80,7 @@
                             <a href='{{ route('dashboard.slides.edit' , ['slide' => $slide->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $slide->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 

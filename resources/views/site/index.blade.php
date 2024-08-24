@@ -102,7 +102,7 @@
             <div class="section used-design">
                 <div class="title d-flex justify-content-between col-md-12">
                     <h5 class="mb-2">@lang('site.Most Viewed design')</h5>
-{{--                    <a href="Products.html" class="text-sm text-dark"> more</a>--}}
+                    {{--                    <a href="Products.html" class="text-sm text-dark"> more</a>--}}
                 </div>
                 <ul class="users-list clearfix">
                     @foreach($mostViewedDesigns as $record)
@@ -120,48 +120,55 @@
                 </ul>
             </div>
             <!-------------------------- Products List --------------------------->
-            <div class="section Products-list">
-                <div class="title d-flex justify-content-between col-md-12">
-                    <h5 class="mb-2"> @lang('site.Products') </h5>
-                    <a href="{{ route('products') }}" class="text-sm text-dark"> @lang('site.More') </a>
-                </div>
+            @foreach ($categories as $category)
+                @if(count($category->products))
+                    <div class="section Products-list">
+                        <div class="title d-flex justify-content-between col-md-12">
+                            <h5 class="mb-2"> {{$category->name}} </h5>
+                            <a href="{{ route('products').'?category_id='.$category->id }}"
+                               class="text-sm text-dark"> @lang('site.More') </a>
+                        </div>
 
-                <ul class="users-list clearfix">
-                    @foreach ($products as $product)
-                        <li>
-                            <div class="product-container">
-                                <a href="{{ $product->url() }}" class="image-container"
-                                   data-image="{{ Storage::url('products/'.$product->front_image) }}">
-                                    <div class="card-front" id="0-card-front{{$product->id}}"
-                                         style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                        <ul class="users-list clearfix">
+                            @foreach ($category->products as $product)
+                                <li>
+                                    <div class="product-container">
+                                        <a href="{{ $product->url() }}" class="image-container"
+                                           data-image="{{ Storage::url('products/'.$product->front_image) }}">
+                                            <div class="card-front" id="0-card-front{{$product->id}}"
+                                                 style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                            </div>
+                                            <div class="card-back" id="0-card-back{{$product->id}}"
+                                                 style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                            </div>
+                                        </a>
+                                        <ul class="color-list">
+                                            @foreach ($product->variations->unique('color_id') as $record_color_variation)
+                                                <li class="color-item"
+                                                    onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
+                                                    onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
+                                                    style="background:{{$record_color_variation->color->code}}"
+                                                    data-image="img/color-1.jpg"
+                                                    id="color-Button"></li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                    <div class="card-back" id="0-card-back{{$product->id}}"
-                                         style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                    <a class="users-list-name" href="{{ $product->url() }}">{{ $product->name }}</a>
+                                    <div class="users-list-date"> {{ $product->price }} <span> @lang('site.SAR')</span>
                                     </div>
-                                </a>
-                                <ul class="color-list">
-                                    @foreach ($product->variations->unique('color_id') as $record_color_variation)
-                                        <li class="color-item"
-                                            onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
-                                            onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
-                                            style="background:{{$record_color_variation->color->code}}"
-                                            data-image="img/color-1.jpg"
-                                            id="color-Button"></li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <a class="users-list-name" href="{{ $product->url() }}">{{ $product->name }}</a>
-                            <div class="users-list-date"> {{ $product->price }} <span> @lang('site.SAR')</span></div>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            @endforeach
             <!-------------------------- Posts List --------------------------->
             @foreach($designs as $record)
                 <div class="card card-widget">
                     <div class="card-header">
                         <div class="user-block">
-                            <img class="img-circle" src="{{ Storage::url('users/'.$record->user->image) ?? '' }}"
+                            <img class="img-circle"
+                                 src="{{ Storage::url('users/'.$record->user->image) ?? '' }}"
                                  alt="User Image">
                             <span class="username"><a
                                     href="{{$record->user->url() ?? ''}}">{{$record->user->name() ?? ''}}</a></span>
@@ -174,7 +181,7 @@
                                 {{--                                        href="{{ route('custom-designs', $record->id).'?type=design' }}"--}}
                                 data-image="{{ Storage::url('products/'.$record->product->front_image) }}"
                                 {{--                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"--}}
-                                class="text-center post-image-container">
+                                class="text-center post-image-container d-flex justify-content-around">
                                 <div class="badge badge-light">
                                     @if($record->design_image_front && $record->design_image_back)
                                         {{$record->product->price_full_design}}
@@ -183,7 +190,7 @@
                                     @endif
                                     <span>{{__('site.SAR')}}</span>
                                 </div>
-                                <div style="position: relative; direction: ltr">
+                                <div style="position: relative; direction: ltr; max-width: 500px">
                                     {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
                                     <img class="img-fluid pad"
                                          style="background-color: {{$record->main_color_code}}"

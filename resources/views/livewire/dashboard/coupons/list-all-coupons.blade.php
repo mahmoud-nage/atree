@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-md-1" wire:ignore>
+                <div class="col-md-2" wire:ignore>
                     <select name="select" wire:model='rows' class="form-control form-control-select2" >
                         <option value="10"> @lang('dashboard.rows') </option>
                         <option value="20">20 </option>
@@ -61,7 +61,7 @@
                         <td> {{ $i++}} </td>
                         <td> {{ $coupon->code }} </td>
                         <td> {{ $coupon->discount }} </td>
-                        <td> 
+                        <td>
                             @switch($coupon->active)
                                 @case(0)
                                 <span class='badge badge-danger' > غير فعال </span>
@@ -70,17 +70,17 @@
                                 <span class='badge badge-success' > فعال </span>
                                 @break
                             @endswitch
-                            
+
                         </td>
                         <td> {{ $coupon->user?->name }} </td>
-                      
+
                         <td> {{ $coupon->created_at->diffForHumans() }} </td>
                         <td>
                             <a href='{{ route('dashboard.coupons.show' , ['coupon' => $coupon->id ] ) }}' class="btn btn-primary btn-icon"><i class="icon-eye "></i></a>
                             <a href='{{ route('dashboard.coupons.edit' , ['coupon' => $coupon->id ] ) }}' class="btn btn-warning btn-icon"><i class="icon-database-edit2 "></i></a>
                             <a class="btn btn-danger btn-icon delete_item"  data-item_id='{{ $coupon->id }}' ><i class="icon-trash "></i></a>
                         </td>
-                        
+
                     </tr>
                     @endforeach
 
