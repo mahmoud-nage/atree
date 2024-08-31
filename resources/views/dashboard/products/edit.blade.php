@@ -53,41 +53,6 @@
                                         {{--											@enderror--}}
                                         {{--										</div>--}}
                                         {{--									</div>--}}
-
-
-                                        <div class="col-md-4">
-                                            <div class='mb-2'>
-                                                <label class="col-form-label"> @lang('products.front_image')  </label>
-                                                <input type="file" name="front_image"
-                                                       class="form-control @error('front_image') is-invalid @enderror ">
-                                                @error('front_image')
-                                                <p class='text-danger'>  {{ $message }} </p>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class='mb-2'>
-                                                <label class="col-form-label"> @lang('products.back_image')  </label>
-                                                <input type="file" name="back_image"
-                                                       class="form-control @error('back_image') is-invalid @enderror ">
-                                                @error('back_image')
-                                                <p class='text-danger'>  {{ $message }} </p>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class='mb-2'>
-                                                <label class="col-form-label"> @lang('products.images') </label>
-                                                <input type="file" name="images[]" multiple='multiple'
-                                                       class="form-control @error('images') is-invalid @enderror ">
-                                                @error('images')
-                                                <p class='text-danger'>  {{ $message }} </p>
-                                                @enderror
-                                            </div>
-                                        </div>
-
                                         <div class="col-md-4">
                                             <div class='mb-2'>
                                                 <label
@@ -216,6 +181,112 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6"></div>
+
+
+
+                                    </div>
+                                </fieldset>
+                                <fieldset class="mb-3">
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.front_image')  </label>
+                                                <input type="file" name="front_image"
+                                                       class="form-control @error('front_image') is-invalid @enderror ">
+                                                @error('front_image')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.back_image')  </label>
+                                                <input type="file" name="back_image"
+                                                       class="form-control @error('back_image') is-invalid @enderror ">
+                                                @error('back_image')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.images') </label>
+                                                <input type="file" name="images[]" multiple='multiple'
+                                                       class="form-control @error('images') is-invalid @enderror ">
+                                                @error('images')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.mobile_back_image')  </label>
+                                                <input type="file" name="mobile_back_image"
+                                                       class="form-control @error('mobile_back_image') is-invalid @enderror ">
+                                                @error('mobile_back_image')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.mobile_back_tint')  </label>
+                                                <input type="file" name="mobile_back_tint"
+                                                       class="form-control @error('mobile_back_tint') is-invalid @enderror ">
+                                                @error('mobile_back_tint')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.mobile_back_shadow')  </label>
+                                                <input type="file" name="mobile_back_shadow"
+                                                       class="form-control @error('mobile_back_shadow') is-invalid @enderror ">
+                                                @error('mobile_back_shadow')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.mobile_front_image')  </label>
+                                                <input type="file" name="mobile_front_image"
+                                                       class="form-control @error('mobile_front_image') is-invalid @enderror ">
+                                                @error('mobile_front_image')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.mobile_front_tint')  </label>
+                                                <input type="file" name="mobile_front_tint"
+                                                       class="form-control @error('mobile_front_tint') is-invalid @enderror ">
+                                                @error('mobile_front_tint')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class='mb-2'>
+                                                <label class="col-form-label"> @lang('products.mobile_front_shadow')  </label>
+                                                <input type="file" name="mobile_front_shadow"
+                                                       class="form-control @error('mobile_front_shadow') is-invalid @enderror ">
+                                                @error('mobile_front_shadow')
+                                                <p class='text-danger'>  {{ $message }} </p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="mb-3">
+                                    <div class="form-group row">
                                         <div class="col-md-6">
                                             <hr>
                                             <div class='mb-2'>
@@ -238,7 +309,71 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <div class='mb-2'>
+                                                <label class="col-form-label">
+                                                    @lang('products.mobile_back_image')
+                                                </label>
+                                                <img class='img-preview img-responsive'
+                                                     src="{{ Storage::url('products/'.$product->mobile_back_image) }}" alt="">
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <div class='mb-2'>
+                                                <label class="col-form-label">
+                                                    @lang('products.mobile_back_tint')
+                                                </label>
+                                                <img class='img-preview img-responsive'
+                                                     src="{{ Storage::url('products/'.$product->mobile_back_tint) }}" alt="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <div class='mb-2'>
+                                                <label class="col-form-label">
+                                                    @lang('products.mobile_back_shadow')
+                                                </label>
+                                                <img class='img-preview img-responsive'
+                                                     src="{{ Storage::url('products/'.$product->mobile_back_shadow) }}" alt="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <div class='mb-2'>
+                                                <label class="col-form-label">
+                                                    @lang('products.mobile_front_image')
+                                                </label>
+                                                <img class='img-preview img-responsive'
+                                                     src="{{ Storage::url('products/'.$product->mobile_front_image) }}" alt="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <div class='mb-2'>
+                                                <label class="col-form-label">
+                                                    @lang('products.mobile_front_tint')
+                                                </label>
+                                                <img class='img-preview img-responsive'
+                                                     src="{{ Storage::url('products/'.$product->mobile_front_tint) }}" alt="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <hr>
+                                            <div class='mb-2'>
+                                                <label class="col-form-label">
+                                                    @lang('products.mobile_front_shadow')
+                                                </label>
+                                                <img class='img-preview img-responsive'
+                                                     src="{{ Storage::url('products/'.$product->mobile_front_shadow) }}" alt="">
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>

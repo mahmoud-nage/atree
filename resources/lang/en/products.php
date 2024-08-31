@@ -90,4 +90,11 @@ return array(
 
     'site_design_sizes' => 'site design sizes',
     'mobile_design_sizes' => 'mobile design sizes',
+
+    'mobile_back_image' => 'Mobile Back Image',
+    'mobile_back_tint' => 'Mobile Back Tint',
+    'mobile_back_shadow' => 'Mobile Back Shadow',
+    'mobile_front_image' => 'Mobile Front Image',
+    'mobile_front_tint' => 'Mobile Front Tint',
+    'mobile_front_shadow' => 'Mobile Front Shadow',
 );

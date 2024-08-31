@@ -88,6 +88,13 @@ class ProductController extends Controller
         $product->user_id = Auth::id();
         $product->front_image = basename($request->file('front_image')->store('products'));
         $product->back_image = basename($request->file('back_image')->store('products'));
+
+        $product->mobile_back_image = basename($request->file('mobile_back_image')->store('products'));
+        $product->mobile_back_tint = basename($request->file('mobile_back_tint')->store('products'));
+        $product->mobile_back_shadow = basename($request->file('mobile_back_shadow')->store('products'));
+        $product->mobile_front_image = basename($request->file('mobile_front_image')->store('products'));
+        $product->mobile_front_tint = basename($request->file('mobile_front_tint')->store('products'));
+        $product->mobile_front_shadow = basename($request->file('mobile_front_shadow')->store('products'));
         $product->save();
 
         if ($request->hasFile('images')) {
@@ -166,6 +173,27 @@ class ProductController extends Controller
         if ($request->hasFile('back_image')) {
             $product->back_image = basename($request->file('back_image')->store('products'));
         }
+
+
+        if ($request->hasFile('mobile_back_image')) {
+            $product->mobile_back_image = basename($request->file('mobile_back_image')->store('products'));
+        }
+        if ($request->hasFile('mobile_back_tint')) {
+            $product->mobile_back_tint = basename($request->file('mobile_back_tint')->store('products'));
+        }
+        if ($request->hasFile('mobile_back_shadow')) {
+            $product->mobile_back_shadow = basename($request->file('mobile_back_shadow')->store('products'));
+        }
+        if ($request->hasFile('mobile_front_image')) {
+            $product->mobile_front_image = basename($request->file('mobile_front_image')->store('products'));
+        }
+        if ($request->hasFile('mobile_front_tint')) {
+            $product->mobile_front_tint = basename($request->file('mobile_front_tint')->store('products'));
+        }
+        if ($request->hasFile('mobile_front_shadow')) {
+            $product->mobile_front_shadow = basename($request->file('mobile_front_shadow')->store('products'));
+        }
+
         $product->save();
 
 

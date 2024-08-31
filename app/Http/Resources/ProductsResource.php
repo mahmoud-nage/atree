@@ -28,12 +28,20 @@ class ProductsResource extends JsonResource
             'back_image' => url(Storage::url('products/'.$this->back_image)),
             'diamonds' => $this->diamonds,
 
+
+            'mobile_back_image' => url(Storage::url('products/'.$this->mobile_back_image)),
+            'mobile_back_tint' => url(Storage::url('products/'.$this->mobile_back_tint)),
+            'mobile_back_shadow' => url(Storage::url('products/'.$this->mobile_back_shadow)),
             'mobile_back_image_width' => $this->mobile_back_image_width,
             'mobile_back_image_height' => $this->mobile_back_image_height,
             'mobile_back_width' => $this->mobile_back_width,
             'mobile_back_height' => $this->mobile_back_height,
             'mobile_back_left' => $this->mobile_back_left,
             'mobile_back_top' => $this->mobile_back_top,
+
+            'mobile_front_image' => url(Storage::url('products/'.$this->mobile_front_image)),
+            'mobile_front_tint' => url(Storage::url('products/'.$this->mobile_front_tint)),
+            'mobile_front_shadow' => url(Storage::url('products/'.$this->mobile_front_shadow)),
             'mobile_front_image_width' => $this->mobile_front_image_width,
             'mobile_front_image_height' => $this->mobile_front_image_height,
             'mobile_front_width' => $this->mobile_front_width,

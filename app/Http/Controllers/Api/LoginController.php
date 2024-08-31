@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\LoginRequest;
+use App\Http\Resources\AuthResource;
 use App\Trait\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,8 @@ class LoginController extends Controller
             }
             $accessToken = \auth()->user()->createToken('mobile_app')->plainTextToken;
             $data = [
-                'token' => $accessToken
+                'token' => $accessToken,
+                'user' => AuthResource::make(auth()->user())
             ];
             return self::makeSuccess(Response::HTTP_OK, '', $data);
         }

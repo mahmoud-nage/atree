@@ -12,6 +12,7 @@ class Product extends Model
 {
     use HasFactory;
     use HasTranslations;
+
     public $translatable = ['name', 'description'];
     protected $fillable = [
         'user_id',
@@ -67,7 +68,9 @@ class Product extends Model
         'mobile_front_width',
         'mobile_front_height',
         'mobile_front_left',
-        'mobile_front_top',
+
+        'mobile_front_top', 'mobile_back_image', 'mobile_back_tint', 'mobile_back_shadow',
+        'mobile_front_image', 'mobile_front_tint', 'mobile_front_shadow'
     ];
 
 

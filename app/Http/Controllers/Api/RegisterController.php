@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\RegisterRequest;
+use App\Http\Resources\AuthResource;
 use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use App\Models\User;
 use App\Trait\ApiResponse;
@@ -41,7 +42,8 @@ class RegisterController extends Controller
         $accessToken = \auth()->user()->createToken('mobile_app')->plainTextToken;
         dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
         $data = [
-            'token' => $accessToken
+            'token' => $accessToken,
+            'user' => AuthResource::make(auth()->user())
         ];
         return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
