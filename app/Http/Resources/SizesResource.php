@@ -17,7 +17,7 @@ class SizesResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->size->id,
             'name' => $this->size->name,
         ];
     }

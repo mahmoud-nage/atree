@@ -19,7 +19,7 @@ class VariationsResource extends JsonResource
     {
         $sizes = Variation::where('product_id', $this->product_id)->where('color_id', $this->color_id)->get();
         return [
-            'id' => $this->id,
+            'id' => $this->color->id,
             'name' => $this->color->name,
             'code' => $this->color->code,
             'quantity' => $this->quantity,
