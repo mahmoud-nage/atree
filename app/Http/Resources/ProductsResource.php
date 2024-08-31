@@ -50,8 +50,7 @@ class ProductsResource extends JsonResource
             'mobile_front_top' => $this->mobile_front_top,
 
             'user' => $this->user ? AuthResource::make($this->user) : null,
-            'colors' => $this->variations ? ColorsResource::collection($this->variations->unique('color_id')) : null,
-            'sizes' => $this->variations ? SizesResource::collection($this->variations->unique('size_id')) : null,
+            'variations' => $this->variations ? VariationsResource::collection($this->variations->unique('color_id')) : null,
             'images' => $this->images ? imagesResource::collection($this->images) : null,
         ];
     }

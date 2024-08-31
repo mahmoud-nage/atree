@@ -99,4 +99,5 @@ return array(
     'mobile_front_image' => 'Mobile Front Image',
     'mobile_front_tint' => 'Mobile Front Tint',
     'mobile_front_shadow' => 'Mobile Front Shadow',
+    'edit' => 'تعجيل',
 );

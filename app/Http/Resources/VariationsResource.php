@@ -5,8 +5,9 @@ namespace App\Http\Resources;
 use App\Models\Variation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
-class ColorsResource extends JsonResource
+class VariationsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,6 +22,7 @@ class ColorsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->color->name,
             'code' => $this->color->code,
+            'quantity' => $this->quantity,
             'sizes' => $sizes ? SizesResource::collection($sizes) : null,
         ];
     }
