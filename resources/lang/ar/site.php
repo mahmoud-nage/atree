@@ -148,6 +148,8 @@ return array(
     'Select Color' => 'اختر اللون',
     'add' => 'اضافه',
     'design_image' => 'صوره التصميم',
+    'design_image_front' => 'صوره التصميم من الامام',
+    'design_image_back' => 'صوره التصميم من الخلف',
     'front' => 'الأمام',
     'back' => 'الخلف',
     'additional_price' => 'سيتم احتساب تكلفة اضافية للطباعة بالخلف',

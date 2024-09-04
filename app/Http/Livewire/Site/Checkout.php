@@ -49,7 +49,7 @@ class Checkout extends Component
 
     public function getVatProperty()
     {
-        return $this->sub_total * 0.15;
+        return $this->sub_total / 1.15;
     }
 
 

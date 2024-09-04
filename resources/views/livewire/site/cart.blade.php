@@ -5,7 +5,8 @@
                 <thead class="text-muted">
                 <tr class="small text-uppercase">
                     <th scope="col">{{__('site.product')}}</th>
-                    <th scope="col" width="150">{{__('site.design_image')}}</th>
+                    <th scope="col" width="150">{{__('site.design_image_front')}}</th>
+                    <th scope="col" width="150">{{__('site.design_image_back')}}</th>
                     <th scope="col" width="150">{{__('site.product_price')}}</th>
 {{--                    <th scope="col" width="150">{{__('site.selling_price')}}</th>--}}
                     <th scope="col" width="120">{{__('site.quantity')}}</th>

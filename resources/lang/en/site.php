@@ -125,6 +125,8 @@ return array(
     'Select Color' => 'Select Color',
     'add' => 'add',
     'design_image' => 'Design Image',
+    'design_image_front' => 'Design Image Front',
+    'design_image_back' => 'Design Image Back',
     'front' => 'Front',
     'back' => 'Back',
     'additional_price' => 'There will be an additional cost for printing back',
