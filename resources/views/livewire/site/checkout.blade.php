@@ -53,7 +53,6 @@
                                                  src="{{Storage::url('designs/'.$item->design->design_image_front)}}"
                                                  style="width: {{$item->product->site_front_width}}%; height: {{$item->product->site_front_height}}%; top: {{$item->product->site_front_top}}%; left: {{$item->product->site_front_left}}%;position: absolute;">
                                         @endif
-
                                     </a>
                                 </div>
                             </figure>
@@ -65,7 +64,7 @@
                                         <img
                                             style="background-color: {{$item->design->main_color_code}}"
                                             src="{{Storage::url('products/'.$item->design->back_image)}}">
-                                        @if($item->design->design_image_front)
+                                        @if($item->design->design_image_back)
                                             <img class="img-fluid pad" alt="design"
                                                  src="{{Storage::url('designs/'.$item->design->design_image_back)}}"
                                                  style="width: {{$item->product->site_back_width}}%; height: {{$item->product->site_back_height}}%; top: {{$item->product->site_back_top}}%; left: {{$item->product->site_back_left}}%;position: absolute;">
