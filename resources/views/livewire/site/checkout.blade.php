@@ -19,7 +19,7 @@
                 <tbody>
                 @foreach ($items as $item)
                     <tr>
-                        <td>
+                        <td class="col-4">
                             <figure class="itemside">
                                 {{--                                <div class="aside">--}}
                                 {{--                                    <a href="{{ $item->variation?->product?->url() }}">--}}
@@ -39,7 +39,7 @@
                                 </figcaption>
                             </figure>
                         </td>
-                        <td>
+                        <td class="col-2">
                             <figure class="itemside">
                                 <div class="aside d-flex">
                                     <a href="#">
@@ -57,7 +57,7 @@
                                 </div>
                             </figure>
                         </td>
-                        <td>
+                        <td class="col-2">
                             <figure class="itemside">
                                 <div class="aside d-flex">
                                     <a href="#">
@@ -74,7 +74,7 @@
                                 </div>
                             </figure>
                         </td>
-                        <td>
+                        <td class="col-2">
                             {{ $item->price }} <span
                                 class="text-muted"> {{__('site.SAR')}} </span>
                         </td>
@@ -83,7 +83,7 @@
                         {{--                                {{ $item->price }} <span class="text-muted"> {{__('site.SAR')}} </span>--}}
                         {{--                            </div>--}}
                         {{--                        </td>--}}
-                        <td>
+                        <td class="col-2">
                             {{ $item->quantity }} <span class="text-muted"> {{__('site.piece')}} </span>
                         </td>
                         {{--                        <td>--}}
