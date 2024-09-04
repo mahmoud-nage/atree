@@ -49,7 +49,7 @@ class Checkout extends Component
 
     public function getVatProperty()
     {
-        return $this->sub_total / 1.15;
+        return ceil($this->sub_total - ($this->sub_total / 1.15));
     }
 
 
@@ -66,7 +66,7 @@ class Checkout extends Component
 
     public function getTotalProperty()
     {
-        return $this->sub_total * 1.15 + $this->shipping_price;
+        return $this->sub_total + $this->shipping_price;
     }
 
 
