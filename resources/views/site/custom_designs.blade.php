@@ -104,10 +104,9 @@
                                         <input
                                             id="image-size"
                                             type="range"
-                                            max="300"
                                             min="10"
                                             value="50"
-                                            style="width: 6rem"/>
+                                            style="width: 6rem" />
                                     </div>
                                 </div>
                             </div>
