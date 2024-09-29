@@ -1429,3 +1429,7 @@ function handleCloseExistingDesignClick() {
     const addExistingDesignElement = document.getElementById('exsiting-designs-container')
     addExistingDesignElement.style.display = "none"
 }
+window.addEventListener('popstate', function (event) {
+    localStorage.removeItem('product');
+
+});
