@@ -16,7 +16,7 @@
                         </tr>
 
                         <tr>
-                            <th> رقم الطلب </th>
+                            <th> {{__('site.order_no')}} </th>
                             <td> {{ $withdrawal->number }} </td>
                         </tr>
                         <tr>
@@ -26,7 +26,7 @@
 
                         <tr>
                             <th> طريقه لسخب  </th>
-                            <td> 
+                            <td>
                                 @switch($withdrawal->payment_method)
                                 @case(1)
                                 <span class='badge badge-primary' > محفظه الكترونيه </span>
@@ -39,7 +39,7 @@
                         </tr>
                         <tr>
                             <th> حاله الطلب   </th>
-                            <td> 
+                            <td>
                                 @switch($withdrawal->status)
                                 @case(1)
                                 <span class='badge badge-secondary' > قيد المراجعه </span>
@@ -56,7 +56,7 @@
                                 @endswitch
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <th> المبلغ </th>
                             <td> {{ $withdrawal->amount }} <span class='text-muted' > جنيه </span> </td>
@@ -109,7 +109,7 @@
     $(function() {
 
         Livewire.on('lanuchModal', () => {
-            $('#quick_view').modal('show'); 
+            $('#quick_view').modal('show');
         })
 
 

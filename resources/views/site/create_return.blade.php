@@ -26,8 +26,8 @@
 
        <article class="card mb-4">
         <header class="card-header">
-         
-          <strong class="d-inline-block mr-3"> رقم الطلب : {{ $order->number }} </strong>
+
+          <strong class="d-inline-block mr-3"> {{__('site.order_no')}} : {{ $order->number }} </strong>
           <span>تاريخ الطلب : {{ $order->created_at->toDateString() }} </span> <br>
           <span class='d-inline-block mr-3 text-success'> {{ $order->status?->name }} </span>
         </header>
@@ -45,12 +45,12 @@
                   <td>
                     <img src="{{ Storage::url('products/'.$item->product?->image) }}" class="img-xs border">
                   </td>
-                  <td> 
+                  <td>
                     <p class="title mb-0">{{ $item->product?->name }}</p>
                     <var class="price text-muted">جنيه  {{ $item->price }}</var>
                   </td>
                   <td> {{ $item->quantity }} قطعه </td>
-                  <td> 
+                  <td>
                     <input type="text" class='form-control col-md-9' name='return_reason[]' placeholder="سبب الارجاع..." >
                   </td>
                 </tr>
@@ -59,7 +59,7 @@
 
             </table>
             <div class="card-footer">
-              <button class="btn btn-primary"> تقديم الطلب </button> 
+              <button class="btn btn-primary"> تقديم الطلب </button>
             </div>
           </form>
         </div> <!-- table-responsive .end// -->

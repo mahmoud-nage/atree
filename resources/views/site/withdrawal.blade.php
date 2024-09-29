@@ -36,7 +36,7 @@
                       <td> {{ $withdrawal->created_at }} </td>
                     </tr>
                     <tr>
-                      <th> رقم الطلب </th>
+                      <th> {{__('site.order_no')}} </th>
                       <td> {{ $withdrawal->number }} </td>
                     </tr>
                     <tr>
@@ -87,7 +87,7 @@
                      @if ($withdrawal->status == 3 )
                     <tr>
                       <th> طريقه الدفع </th>
-                      <td> 
+                      <td>
                         @if ($withdrawal->payment_method ==1 )
                           محفظه الكتورنيه
                         @else

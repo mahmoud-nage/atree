@@ -1,11 +1,11 @@
 @extends('dashboard.layouts.master')
 
 @section('page_title')
-عرض التفاصيل 
+عرض التفاصيل
 @endsection
 
 @section('page_header')
-<a href="{{ route('dashboard.complains.index') }}" class="breadcrumb-item"><i class="icon-equalizer   mr-2"></i> 
+<a href="{{ route('dashboard.complains.index') }}" class="breadcrumb-item"><i class="icon-equalizer   mr-2"></i>
 	الشكاوى و الاقتراحات
 </a>
 <span class="breadcrumb-item active"> عرض التفاصيل  </span>
@@ -52,7 +52,7 @@
 							</tr>
 							@if ($complain->user_id)
 							<tr>
-								<th>  المستخدم  </th>
+								<th>  {{__('site.Username')}}  </th>
 								<td> {{ $complain->user->name }} </td>
 							</tr>
 							@else
@@ -65,7 +65,7 @@
 								<td> {{ $complain->phone }} </td>
 							</tr>
 							@endif
-							
+
 						</tbody>
 					</table>
 

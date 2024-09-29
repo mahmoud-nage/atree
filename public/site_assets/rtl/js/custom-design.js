@@ -4,7 +4,7 @@ let lastText; // Declare lastImg outside to keep track of the last uploaded imag
 let cropper;
 let isClickedAddDesign = false;
 let GLOBAL_PRODUCT = JSON.parse(localStorage.getItem('product'));
-let TEM_Product = {...GLOBAL_PRODUCT};
+let TEM_Product = { ...GLOBAL_PRODUCT };
 let allProducts;
 
 document.getElementById('file-input-trigger').addEventListener('click', fileInputTrigger)
@@ -43,8 +43,9 @@ function handleFileSelect(event) {
     for (const file of files) {
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
-        img.style.width = '100px'; // Initial size
-        img.style.height = '100px';
+        // img.style.width = '100px'; // Initial size
+        // img.style.height = '100px';
+        img.style.width = '50px'; // Initial size
         img.classList.add('draggable', 'resizable');
         img.style.position = 'absolute';
         img.style.top = '0';
@@ -80,6 +81,7 @@ function handleFileSelect(event) {
     }
 
     const rangeInput = document.getElementById('image-size');
+    rangeInput.max = boundaryBox.style.width
     rangeInput.removeEventListener('input', updateImageSize); // Remove previous listener
     rangeInput.addEventListener('input', updateImageSize);
 
@@ -87,10 +89,9 @@ function handleFileSelect(event) {
         const imageSize = rangeInput.value;
         if (lastImg) { // Ensure lastImg is defined
             lastImg.style.width = `${imageSize}px`;
-            lastImg.style.height = `${imageSize}px`;
+            // lastImg.style.height = `${imageSize}px`;
         }
     }
-
     centerElement(lastImg);
     initializeInteract();
     const inputField = document.getElementById('file-input');
@@ -98,7 +99,7 @@ function handleFileSelect(event) {
 }
 
 function addText() {
-    TEM_Product = {...GLOBAL_PRODUCT}
+    TEM_Product = { ...GLOBAL_PRODUCT }
     const designArea = document.getElementById('design-area');
     const textControls = document.getElementById('text-controls');
     const imageControls = document.getElementById('image-controls');
@@ -106,6 +107,8 @@ function addText() {
     textControls.classList.add('text-controls');
     textControls.style.display = 'flex';
     const textElement = document.createElement('div');
+    textElement.style.maxWidth = boundaryBox.offsetWidth
+    textElement.style.maxHeight = boundaryBox.offsetHeight
     textElement.classList.add('text-element', 'draggable', 'resizable');
     textElement.contentEditable = 'true';
     textElement.innerText = 'Enter text here';
@@ -160,14 +163,33 @@ function addText() {
 // Center all elements with class "draggable" initially
 
 function centerElement(target) {
-    const parentRect = boundaryBox.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-    const x = (parentRect.width - targetRect.width) / 2;
-    const y = (parentRect.height - targetRect.height) / 2;
+    if (target.tagName !== "DIV") {
+        let imageHeight;
+        target.addEventListener('load', () => {
+            // Get the height of the image element
+            imageHeight = target.offsetHeight; // or use imgElement.clientHeight
+            const parentRect = boundaryBox.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const x = (parentRect.width - targetRect.width) / 2;
+            const y = (parentRect.height - imageHeight) / 2;
+            console.log(parentRect.height);
+            console.log(imageHeight);
 
-    target.style.transform = `translate(${x}px, ${y}px)`;
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        });
+    } else {
+        const parentRect = boundaryBox.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const x = (parentRect.width - targetRect.width) / 2;
+        const y = (parentRect.height - targetRect.height) / 2;
+
+
+        target.style.transform = `translate(${x}px, ${y}px)`;
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+    }
 }
 
 function initializeInteract() {
@@ -201,7 +223,7 @@ function initializeInteract() {
     });
 
     interact('.resizable').resizable({
-        edges: {left: true, right: true, bottom: true, top: true},
+        edges: { left: true, right: true, bottom: true, top: true },
         listeners: {
             move(event) {
                 const target = event.target;
@@ -224,7 +246,7 @@ function initializeInteract() {
         },
         modifiers: [
             interact.modifiers.restrictSize({
-                min: {width: 50, height: 50}
+                min: { width: 50, height: 50 }
             }),
             interact.modifiers.restrictEdges({
                 outer: 'parent',
@@ -322,23 +344,15 @@ function generateCards() {
     const productDesign = document.createElement('li');
 
     const boundaryBoxChildrenHTMLFront = myDesignObject.front.boundaryBoxChildren.map(child => {
-        const {tagName, attributes, innerText} = child;
+        const { tagName, attributes, innerText } = child;
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}='${value}'`).join(' ');
-        if (innerText) {
-            return `<${tagName} ${attributesString}>${innerText}</${tagName}>`;
-        } else {
-            return `<${tagName} ${attributesString}></${tagName}>`;
-        }
+        if (innerText) { return `<${tagName} ${attributesString}>${innerText}</${tagName}>`; } else { return `<${tagName} ${attributesString}></${tagName}>`; }
     }).join('');
 
     const boundaryBoxChildrenHTMLBack = myDesignObject.back.boundaryBoxChildren.map(child => {
-        const {tagName, attributes, innerText} = child;
+        const { tagName, attributes, innerText } = child;
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}='${value}'`).join(' ');
-        if (innerText) {
-            return `<${tagName} ${attributesString}>${innerText}</${tagName}>`;
-        } else {
-            return `<${tagName} ${attributesString}></${tagName}>`;
-        }
+        if (innerText) { return `<${tagName} ${attributesString}>${innerText}</${tagName}>`; } else { return `<${tagName} ${attributesString}></${tagName}>`; }
     }).join('');
 
     productDesign.innerHTML = `
@@ -360,7 +374,7 @@ function generateCards() {
 }
 
 function convertFrontToImage(productDesign) {
-    html2canvas(productDesign, {useCORS: true, allowTaint: true}).then(canvas => {
+    html2canvas(productDesign, { useCORS: true, allowTaint: true }).then(canvas => {
         let img = canvas.toDataURL("image/png");
         let imgElement = document.createElement("img");
         imgElement.src = img;
@@ -372,7 +386,7 @@ function convertFrontToImage(productDesign) {
 }
 
 function convertBackToImage(productDesign) {
-    html2canvas(productDesign, {useCORS: true, allowTaint: true}).then(canvas => {
+    html2canvas(productDesign, { useCORS: true, allowTaint: true }).then(canvas => {
         let img = canvas.toDataURL("image/png");
         let imgElement = document.createElement("img");
         imgElement.src = img;
@@ -602,9 +616,13 @@ function setFrontImage() {
     frontDiv.style.color = 'white';
     backDiv.style.backgroundColor = 'white';
     backDiv.style.color = '#6200ea';
+    lastImg = "";
+    const imageControls = document.getElementById('image-controls');
+    const textControls = document.getElementById('text-controls');
+    textControls.style.display = 'none';
+    imageControls.style.display = 'none';
     isClickedAddDesign ? initializeMainProduct(product, designSide) : initializeMainProductBeforNewDesign(product, designSide)
 }
-
 function setBackImage() {
     let product = TEM_Product || GLOBAL_PRODUCT;
     designSide = "back";
@@ -615,6 +633,11 @@ function setBackImage() {
     backDiv.style.color = 'white';
     frontDiv.style.backgroundColor = 'white';
     frontDiv.style.color = '#6200ea';
+    lastImg = "";
+    const imageControls = document.getElementById('image-controls');
+    const textControls = document.getElementById('text-controls');
+    textControls.style.display = 'none';
+    imageControls.style.display = 'none';
 }
 
 // Function to check the media query and add/remove class
@@ -675,7 +698,7 @@ handleMediaQueryChange(mediaQuery);
 async function initPage(product) {
     // Retrieve the product data from local storage
 
-    const productJSON = {...product}
+    const productJSON = { ...product }
     if (productJSON) {
         const product = productJSON;
         // const sidebar = document.getElementById('sidebar-product-image');
@@ -774,26 +797,18 @@ function renderProducts(products, designSide) {
         const productItem = document.createElement('li');
 
         const boundaryBoxChildrenHTMLFront = product.front.boundaryBoxChildren.map(child => {
-            const {tagName, attributes, style, innerText} = child;
+            const { tagName, attributes, style, innerText } = child;
             const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
             let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-            if (innerText) {
-                return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
-            } else {
-                return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
-            }
+            if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
         }).join('');
         const boundaryBoxChildrenHTMLBack = product.back.boundaryBoxChildren.map(child => {
-            const {tagName, attributes, style, innerText} = child;
+            const { tagName, attributes, style, innerText } = child;
             const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
             let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-            if (innerText) {
-                return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
-            } else {
-                return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
-            }
+            if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
         }).join('');
 
         productItem.innerHTML = `
@@ -843,7 +858,6 @@ function changeCardColor(color, id) {
     card.style.backgroundColor = color;
 
 }
-
 //                                              *************************** Alert ********************************
 
 //             ***********************************************When click on custom design set the product object on localStorage***************************************
@@ -895,9 +909,9 @@ function generateDesignObject(product) {
             currency: "SAR",
             frontImage: product.front.frontImage,
             colors: [
-                {color: "black", image: "img/color-1.jpg"},
-                {color: "darkblue", image: "img/color-3.jpg"},
-                {color: "fcdb86", image: "img/color-2.jpg"}
+                { color: "black", image: "img/color-1.jpg" },
+                { color: "darkblue", image: "img/color-3.jpg" },
+                { color: "fcdb86", image: "img/color-2.jpg" }
             ]
         },
         back: {
@@ -908,9 +922,9 @@ function generateDesignObject(product) {
             currency: "SAR",
             backImage: product.back.backImage,
             colors: [
-                {color: "black", image: "img/color-1.jpg"},
-                {color: "darkblue", image: "img/color-3.jpg"},
-                {color: "fcdb86", image: "img/color-2.jpg"}
+                { color: "black", image: "img/color-1.jpg" },
+                { color: "darkblue", image: "img/color-3.jpg" },
+                { color: "fcdb86", image: "img/color-2.jpg" }
             ]
         }
     };
@@ -979,35 +993,25 @@ function initializeMainProduct(newProduct, designSide) {
     boundaryBox.style.left = newProduct[designSide].boundaryBox.left;
     boundaryBox.style.top = newProduct[designSide].boundaryBox.top;
     const boundaryBoxChildrenHTMLFront = newProduct.front.boundaryBoxChildren.map(child => {
-        const {tagName, attributes, style, innerText} = child;
+        const { tagName, attributes, style, innerText } = child;
         const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-        if (innerText) {
-            return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
-        } else {
-            return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
-        }
+        if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
     }).join('');
     const boundaryBoxChildrenHTMLBack = newProduct.back.boundaryBoxChildren.map(child => {
-        const {tagName, attributes, style, innerText} = child;
+        const { tagName, attributes, style, innerText } = child;
         const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-        if (innerText) {
-            return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
-        } else {
-            return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
-        }
+        if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
     }).join('');
     if (designSide === "front") {
         boundaryBox.innerHTML = boundaryBoxChildrenHTMLFront;
         designArea.style.backgroundImage = `url(${newProduct[designSide].frontImage})`;
-
     }
     if (designSide === "back") {
         boundaryBox.innerHTML = boundaryBoxChildrenHTMLBack;
         designArea.style.backgroundImage = `url(${newProduct[designSide].backImage})`;
-
     }
     designArea.childNodes[1].childNodes.forEach(child => {
         if (designArea.childNodes[1].childNodes.length) {
@@ -1018,9 +1022,14 @@ function initializeMainProduct(newProduct, designSide) {
                 if (child.tagName === 'IMG') {
                     child.classList.add('draggable', 'resizable');
                     let transform = child.style.transform;
-                    let translateValues = child.dataset.translateValues.split(',');
-                    let translateX = parseFloat(translateValues[0]);
-                    let translateY = parseFloat(translateValues[1]);
+                    let translateValues;
+                    let translateX;
+                    let translateY;
+                    if (child.dataset.translateValues) {
+                        translateValues = child.dataset.translateValues.split(',');
+                        translateX = parseFloat(translateValues[0]);
+                        translateY = parseFloat(translateValues[1]);
+                    }
                     child.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${child.dataset.rotation || 0}deg)`;
                     const width = parseFloat(child.style.width);
                     const height = parseFloat(child.style.height);
@@ -1080,7 +1089,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
     boundaryBox.style.left = newProduct[designSide].boundaryBox.left;
     boundaryBox.style.top = newProduct[designSide].boundaryBox.top;
     const boundaryBoxChildrenHTMLFront = newProduct.front.boundaryBoxChildren.map(child => {
-        const {tagName, innerText} = child;
+        const { tagName, innerText } = child;
 
         // Get all attributes
         const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
@@ -1096,7 +1105,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
         }
     }).join('');
     const boundaryBoxChildrenHTMLBack = newProduct.back.boundaryBoxChildren.map(child => {
-        const {tagName, innerText} = child;
+        const { tagName, innerText } = child;
 
         // Get all attributes
         const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
@@ -1167,6 +1176,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
                 }
                 child.style.position = 'absolute';
             }
+
         }
     });
 }
@@ -1236,9 +1246,9 @@ function changeNewDesignProduct(productId) {
                 currency: "SAR",
                 frontImage: styleObjectFront['background-image'].slice(4, -1).replace(/"/g, ""),
                 colors: [
-                    {color: "black", image: "img/color-1.jpg"},
-                    {color: "darkblue", image: "img/color-3.jpg"},
-                    {color: "fcdb86", image: "img/color-2.jpg"}
+                    { color: "black", image: "img/color-1.jpg" },
+                    { color: "darkblue", image: "img/color-3.jpg" },
+                    { color: "fcdb86", image: "img/color-2.jpg" }
                 ]
             },
             back: {
@@ -1249,9 +1259,9 @@ function changeNewDesignProduct(productId) {
                 currency: "SAR",
                 backImage: styleObjectBack['background-image'].slice(4, -1).replace(/"/g, ""),
                 colors: [
-                    {color: "black", image: "img/color-1.jpg"},
-                    {color: "darkblue", image: "img/color-3.jpg"},
-                    {color: "fcdb86", image: "img/color-2.jpg"}
+                    { color: "black", image: "img/color-1.jpg" },
+                    { color: "darkblue", image: "img/color-3.jpg" },
+                    { color: "fcdb86", image: "img/color-2.jpg" }
                 ]
             }
         };
@@ -1327,13 +1337,13 @@ document.getElementById('convertToImage').addEventListener('click', function () 
                 fetch(imgData)
                     .then(res => res.blob())
                     .then(blob => {
-                        const file = new File([blob], `${side}Design.png`, {type: 'image/png'});
+                        const file = new File([blob], `${side}Design.png`, { type: 'image/png' });
                         const dataTransfer = new DataTransfer();
                         dataTransfer.items.add(file);
                         fileInput.files = dataTransfer.files;
                     });
 
-                document.getElementById('cart-destails').appendChild(fileInput);
+                        document.getElementById('cart-destails').appendChild(fileInput);
 
                 box.style.border = originalBorder;
             }).catch(error => {
@@ -1365,7 +1375,7 @@ function handleUploadExistingDesign(src) {
     const img = document.createElement('img');
     img.src = src;
     img.style.width = '100px'; // Initial size
-    img.style.height = '100px';
+    // img.style.height = '100px';
     img.classList.add('draggable', 'resizable');
     img.style.position = 'absolute';
     img.style.top = '0';
@@ -1403,10 +1413,9 @@ function handleUploadExistingDesign(src) {
         const imageSize = rangeInput.value;
         if (lastImg) { // Ensure lastImg is defined
             lastImg.style.width = `${imageSize}px`;
-            lastImg.style.height = `${imageSize}px`;
+            // lastImg.style.height = `${imageSize}px`;
         }
     }
-
     centerElement(lastImg);
     initializeInteract();
 
@@ -1416,7 +1425,6 @@ function handleAddExistingDesignClick() {
     const addExistingDesignElement = document.getElementById('exsiting-designs-container')
     addExistingDesignElement.style.display = "flex"
 }
-
 function handleCloseExistingDesignClick() {
     const addExistingDesignElement = document.getElementById('exsiting-designs-container')
     addExistingDesignElement.style.display = "none"

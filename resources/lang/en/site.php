@@ -148,9 +148,42 @@ return array(
     'Most Viewed design' => 'Most Viewed Design',
     'Select Category' => 'Select Category',
     'Select Product' => 'Select Product',
+
+
+
+// new
+    'order_no' => 'order_no',
+    'design_images' => 'design_images',
+    'total_cost' => 'total_cost',
+    'delivery_date' => 'delivery_date',
+    'total_after_discount' => 'total_after_discount',
+    'client_name' => 'client_name',
+    'address' => 'address',
+    'delivery' => 'delivery',
+    'edit_status' => 'edit_status',
+    'order_info' => 'order_info',
+    'note' => 'note',
+    'product' => 'product',
+    'order_products' => 'order_products',
+    'site_text_rotate' => 'site_text_rotate',
+    'site_text_type' => 'site_text_type',
+    'site_text_weight' => 'site_text_weight',
+    'site_text_size' => 'site_text_size',
+    'site_text_font_family' => '',
+    'item_text_color' => 'item_text_color',
+    'item_text_height' => 'item_text_height',
+    'item_text_width' => 'item_text_width',
+    'item_outer_left' => 'item_outer_left',
+    'item_outer_top' => 'item_outer_top',
+    'item_inner_left' => 'item_inner_left',
+    'item_inner_top' => 'item_inner_top',
+    'type' => 'type',
+    'design_info' => 'design_info',
     '' => '',
     '' => '',
     '' => '',
     '' => '',
+    '' => '',
+    '' => '',d
 
 );

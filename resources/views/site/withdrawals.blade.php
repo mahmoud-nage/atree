@@ -67,7 +67,7 @@
               <thead>
                 <tr>
                   <th> # </th>
-                  <th> رقم الطلب </th>
+                  <th> {{__('site.order_no')}} </th>
                   <th> المبلغ </th>
                   <th> حاله الطلب </th>
                   <th></th>
@@ -82,7 +82,7 @@
                  <td> {{ $i++ }} </td>
                  <td> {{ $withdrawal->number }} </td>
                  <td> {{ $withdrawal->amount }} جنيه </td>
-                 <td> 
+                 <td>
                   @switch($withdrawal->status)
                   @case(1)
                   <span class='badge badge-warning' > قيد المراجعه </span>

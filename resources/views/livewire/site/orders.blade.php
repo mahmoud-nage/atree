@@ -9,7 +9,7 @@
                     <label> بحث </label>
                     <input type="text" class="form-control" placeholder="قم بالحق عن طلب عن طريق رقم الموبيل ..رقم الطلب">
                 </div>
-            </div> 
+            </div>
             <div class="form-row">
 
                 <div class="form-group col-md-3">
@@ -20,7 +20,7 @@
                         <option value="{{ $governorate->id }}"> {{ $governorate->name }} </option>
                         @endforeach
                     </select>
-                </div> 
+                </div>
                 <div class="form-group col-md-3">
                     <label> مدنيه </label>
                     <select id="inputState" wire:model='city_id' class="form-control">
@@ -29,7 +29,7 @@
                         <option value="{{ $city->id }}"> {{ $city->name }} </option>
                         @endforeach
                     </select>
-                </div> 
+                </div>
                 <div class="form-group col-md-3">
                     <label> حاله الطلب </label>
                    <select wire:model='status' class="form-control form-control-select2" >
@@ -38,11 +38,11 @@
                     <option value="{{ $shipping_status->id }}"> {{ $shipping_status->name }} </option>
                     @endforeach
                 </select>
-                </div> 
-            </div> 
+                </div>
+            </div>
             <div class="form-group">
                 {{-- <button type="submit" class="btn btn-primary btn-block"> Register  </button> --}}
-            </div>           
+            </div>
         </form>
     </article><!-- card-body.// -->
 </div> <!-- card .// -->
@@ -66,16 +66,16 @@
         <a href='{{ route('site.orders.returns.create' , $order ) }}'  class="btn btn-outline-danger float-right"> <i class="fa fa-back"></i> ارجاع الطلب </a>
         @break
         @endswitch
-        <strong class="d-inline-block mr-3"> رقم الطلب : {{ $order->number }} </strong>
+        <strong class="d-inline-block mr-3"> {{__('site.order_no')}} : {{ $order->number }} </strong>
         <span>تاريخ الطلب : {{ $order->created_at->toDateString() }} </span> <br>
         <span class='d-inline-block mr-3 text-success'> {{ $order->status?->name }} </span>
     </header>
     <div class="card-body">
-        <div class="row"> 
+        <div class="row">
             <div class="col-md-8">
                 <h6 class="text-muted"> التوصيل الى  </h6>
-                <p> {{ $order->governorate?->name }} <br>  
-                    {{ $order->city?->name }} <br> 
+                <p> {{ $order->governorate?->name }} <br>
+                    {{ $order->city?->name }} <br>
                     رقم الموبيل : {{ $order->order_phone }} <br>
                     {{ $order->address }}
                 </p>
@@ -87,7 +87,7 @@
                 </span>
                 <p>
                     المبلغ : {{ $order->total }} جنيه<br>
-                    قيمه الشحن:  {{ $order->shipping_cost }} جنيه<br> 
+                    قيمه الشحن:  {{ $order->shipping_cost }} جنيه<br>
                     <span class="b"> المبلغ الكلى :  {{ $order->total + $order->shipping_cost }} جنيه</span> <br>
                     <span class="b text-danger"> ارباحى من الطلب :  {{ $order->marketer_price() }} جنيه</span>
                 </p>
@@ -102,13 +102,13 @@
                     <td>
                         <img src="{{ Storage::url('products/'.$item->variation?->product?->image) }}" class="img-xs border">
                     </td>
-                    <td> 
+                    <td>
                         جنيه  {{ $item->price }}
                     </td>
                     <td>
                         <a href="#" class="title text-dark">{{ $item->variation?->product?->name }}</a>
                         @if ($item->variation->type != 'default' )
-                        <p class="text-muted small"> @lang('site.'.$item->variation->type): {{ $item->variation->title }} , 
+                        <p class="text-muted small"> @lang('site.'.$item->variation->type): {{ $item->variation->title }} ,
                             @if ($item->variation?->parent_id)
                             @lang('site.'.$item->variation?->parent?->type) : {{ $item->variation?->parent?->title }}
                             @endif
@@ -123,8 +123,8 @@
 
             </tbody>
         </table>
-    </div> 
-</article> 
+    </div>
+</article>
 @endforeach
 
 <nav class="mb-4" aria-label="Page navigation sample">

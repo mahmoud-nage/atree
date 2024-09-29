@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.master')
 
 @section('page_title')
-عرض تصاميم المستخدم
+عرض تصاميم {{__('site.Username')}}
 @endsection
 
 @section('page_header')
@@ -29,7 +29,7 @@
 				</div>
 
 				@include('dashboard.users.sidebar')
-				
+
 			</div>
 		</div>
 	</div>

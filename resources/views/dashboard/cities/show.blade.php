@@ -46,7 +46,7 @@
 								<td> {{ $city->getTranslation('name' , 'en') }} </td>
 							</tr>
 							<tr>
-								<th> المحافظه </th>
+								<th> {{__('site.governorate')}} </th>
 								<td> {{ $city->governorate?->name }} </td>
 							</tr>
 

@@ -101,8 +101,13 @@
                                                 style="display: none;">
                                             <i class="fa-solid fa-check"></i>
                                         </button>
-                                        <input id="image-size" type="range" max="300" min="10" value="100"
-                                               style="width: 6rem;">
+                                        <input
+                                            id="image-size"
+                                            type="range"
+                                            max="300"
+                                            min="10"
+                                            value="50"
+                                            style="width: 6rem"/>
                                     </div>
                                 </div>
                             </div>
@@ -132,12 +137,20 @@
                                                 id="underline-text-button">
                                             <i class="fa-solid fa-underline"></i>
                                         </button>
-                                        <input class="btn-custom btn-primary bg-primary-gridant" type="range"
-                                               id="text-size" max="50" min="8" value="12" style="width: 6rem;">
+
+                                        <input
+                                            class="btn-custom btn-primary bg-primary-gridant"
+                                            type="range"
+                                            id="text-size"
+                                            max="50"
+                                            min="2"
+                                            value="12"
+                                            step="2"
+                                            style="width: 6rem"/>
                                         <input class="btn-primary bg-primary-gridant" type="color"
-                                               style="width: 5rem;"
+                                               style="width: 5rem;" name="text-color"
                                                id="text-color" value="#ffffff">
-                                        <select id="font-family" style="width: 5rem;">
+                                        <select id="font-family" style="width: 5rem;" name="font-family">
                                             <option value="Arial">Arial</option>
                                             <option value="Courier New">Courier New</option>
                                             <option value="Georgia">Georgia</option>
@@ -166,6 +179,7 @@
                                                     {{__('site.image')}}
                                                 </span>
                                             <input
+                                                name="file-input"
                                                 type="file"
                                                 id="file-input"
                                                 style="display: none;"

@@ -86,7 +86,7 @@
                 <thead>
                     <tr>
                         <th> # </th>
-                        <th> رقم الطلب </th>
+                        <th> {{__('site.order_no')}} </th>
                         <th> المسوق </th>
                         <th> طريقه السحب </th>
                         <th> قيمه الطلب </th>

@@ -26,7 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('dashboard.cities.store') }}" method='POST' enctype="multipart/form-data" > 
+			<form action="{{ route('dashboard.cities.store') }}" method='POST' enctype="multipart/form-data" >
 				@csrf
 				<div class="card-body">
 
@@ -36,7 +36,7 @@
 
 							<div class="col-md-3">
 								<div  class='mb-2' >
-									<label class="col-form-label"> المحافظه </label>
+									<label class="col-form-label"> {{__('site.governorate')}} </label>
 									<select name="governorate_id" id="" class="custom-select-sm form-control " >
 										@foreach ($governorates as $governorate)
 										<option value="{{ $governorate->id }}"> {{ $governorate->name }} </option>
@@ -75,7 +75,7 @@
 									@enderror
 								</div>
 							</div>
-						
+
 
 							<div class="col-md-12">
 								<div  class='mb-2' >
@@ -88,11 +88,11 @@
 							</div>
 
 
-							
 
 
 
-						</div>						
+
+						</div>
 					</fieldset>
 				</div>
 

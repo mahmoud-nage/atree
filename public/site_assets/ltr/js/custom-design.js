@@ -43,8 +43,9 @@ function handleFileSelect(event) {
     for (const file of files) {
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
-        img.style.width = '100px'; // Initial size
-        img.style.height = '100px';
+        // img.style.width = '100px'; // Initial size
+        // img.style.height = '100px';
+        img.style.width = '50px'; // Initial size
         img.classList.add('draggable', 'resizable');
         img.style.position = 'absolute';
         img.style.top = '0';
@@ -80,6 +81,7 @@ function handleFileSelect(event) {
     }
 
     const rangeInput = document.getElementById('image-size');
+    rangeInput.max = boundaryBox.style.width
     rangeInput.removeEventListener('input', updateImageSize); // Remove previous listener
     rangeInput.addEventListener('input', updateImageSize);
 
@@ -87,7 +89,7 @@ function handleFileSelect(event) {
         const imageSize = rangeInput.value;
         if (lastImg) { // Ensure lastImg is defined
             lastImg.style.width = `${imageSize}px`;
-            lastImg.style.height = `${imageSize}px`;
+            // lastImg.style.height = `${imageSize}px`;
         }
     }
     centerElement(lastImg);
@@ -105,6 +107,8 @@ function addText() {
     textControls.classList.add('text-controls');
     textControls.style.display = 'flex';
     const textElement = document.createElement('div');
+    textElement.style.maxWidth = boundaryBox.offsetWidth
+    textElement.style.maxHeight = boundaryBox.offsetHeight
     textElement.classList.add('text-element', 'draggable', 'resizable');
     textElement.contentEditable = 'true';
     textElement.innerText = 'Enter text here';
@@ -159,14 +163,33 @@ function addText() {
 // Center all elements with class "draggable" initially
 
 function centerElement(target) {
-    const parentRect = boundaryBox.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
-    const x = (parentRect.width - targetRect.width) / 2;
-    const y = (parentRect.height - targetRect.height) / 2;
+    if (target.tagName !== "DIV") {
+        let imageHeight;
+        target.addEventListener('load', () => {
+            // Get the height of the image element
+            imageHeight = target.offsetHeight; // or use imgElement.clientHeight
+            const parentRect = boundaryBox.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const x = (parentRect.width - targetRect.width) / 2;
+            const y = (parentRect.height - imageHeight) / 2;
+            console.log(parentRect.height);
+            console.log(imageHeight);
 
-    target.style.transform = `translate(${x}px, ${y}px)`;
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        });
+    } else {
+        const parentRect = boundaryBox.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const x = (parentRect.width - targetRect.width) / 2;
+        const y = (parentRect.height - targetRect.height) / 2;
+
+
+        target.style.transform = `translate(${x}px, ${y}px)`;
+        target.setAttribute('data-x', x);
+        target.setAttribute('data-y', y);
+    }
 }
 
 function initializeInteract() {
@@ -593,6 +616,11 @@ function setFrontImage() {
     frontDiv.style.color = 'white';
     backDiv.style.backgroundColor = 'white';
     backDiv.style.color = '#6200ea';
+    lastImg = "";
+    const imageControls = document.getElementById('image-controls');
+    const textControls = document.getElementById('text-controls');
+    textControls.style.display = 'none';
+    imageControls.style.display = 'none';
     isClickedAddDesign ? initializeMainProduct(product, designSide) : initializeMainProductBeforNewDesign(product, designSide)
 }
 function setBackImage() {
@@ -605,6 +633,11 @@ function setBackImage() {
     backDiv.style.color = 'white';
     frontDiv.style.backgroundColor = 'white';
     frontDiv.style.color = '#6200ea';
+    lastImg = "";
+    const imageControls = document.getElementById('image-controls');
+    const textControls = document.getElementById('text-controls');
+    textControls.style.display = 'none';
+    imageControls.style.display = 'none';
 }
 
 // Function to check the media query and add/remove class
@@ -989,9 +1022,14 @@ function initializeMainProduct(newProduct, designSide) {
                 if (child.tagName === 'IMG') {
                     child.classList.add('draggable', 'resizable');
                     let transform = child.style.transform;
-                    let translateValues = child.dataset.translateValues.split(',');
-                    let translateX = parseFloat(translateValues[0]);
-                    let translateY = parseFloat(translateValues[1]);
+                    let translateValues;
+                    let translateX;
+                    let translateY;
+                    if (child.dataset.translateValues) {
+                        translateValues = child.dataset.translateValues.split(',');
+                        translateX = parseFloat(translateValues[0]);
+                        translateY = parseFloat(translateValues[1]);
+                    }
                     child.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${child.dataset.rotation || 0}deg)`;
                     const width = parseFloat(child.style.width);
                     const height = parseFloat(child.style.height);
@@ -1337,7 +1375,7 @@ function handleUploadExistingDesign(src) {
     const img = document.createElement('img');
     img.src = src;
     img.style.width = '100px'; // Initial size
-    img.style.height = '100px';
+    // img.style.height = '100px';
     img.classList.add('draggable', 'resizable');
     img.style.position = 'absolute';
     img.style.top = '0';
@@ -1375,7 +1413,7 @@ function handleUploadExistingDesign(src) {
         const imageSize = rangeInput.value;
         if (lastImg) { // Ensure lastImg is defined
             lastImg.style.width = `${imageSize}px`;
-            lastImg.style.height = `${imageSize}px`;
+            // lastImg.style.height = `${imageSize}px`;
         }
     }
     centerElement(lastImg);

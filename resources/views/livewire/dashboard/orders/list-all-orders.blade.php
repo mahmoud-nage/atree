@@ -92,12 +92,12 @@
             <thead>
                 <tr>
                     <th> # </th>
-                    <th> رقم الطلب </th>
-                    <th> صور التصميم </th>
-                    <th> المستخدم </th>
-                    <th> قيمه الطلب </th>
-                    <th> حاله الطلب </th>
-                    <th> تاريخ الاستلام </th>
+                    <th> {{__('site.order_no')}} </th>
+                    <th> {{__('site.design_images')}} </th>
+                    <th> {{__('site.Username')}} </th>
+                    <th> {{__('site.total_cost')}} </th>
+                    <th> {{__('site.status')}} </th>
+                    <th> {{__('site.delivery_date')}} </th>
                     <th></th>
                 </tr>
             </thead>

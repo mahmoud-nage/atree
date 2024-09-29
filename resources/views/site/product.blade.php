@@ -211,6 +211,7 @@
     </script>
     <script>
         function goToDesignPage() {
+            localStorage.removeItem('product');
             const product =
                 {
                     id: "1",
