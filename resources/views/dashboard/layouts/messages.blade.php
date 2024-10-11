@@ -11,7 +11,7 @@
 		}
 	})
 </script>
-@if (Session::has('success'))
+@if (Session::has('success') && is_string(Session::get('success')))
 <script>
 	$(function() {
 		Toast.fire({
@@ -24,8 +24,7 @@
 
 @endif
 
-
-@if (Session::has('error'))
+@if (Session::has('error') && is_string(Session::get('error')))
 <script>
 	$(function() {
 		Toast.fire({

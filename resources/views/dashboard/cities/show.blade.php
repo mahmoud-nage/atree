@@ -54,9 +54,9 @@
 								<th> سعر الشحن </th>
 								<td>
 									@if ($city->shipping_cost)
-									{{ $city->shipping_cost }} جنيه
+									{{ $city->shipping_cost }} {{__('site.SAR')}}
 									@else
-									{{ $city->governorate?->shipping_cost }} جنيه
+									{{ $city->governorate?->shipping_cost }} {{__('site.SAR')}}
 									@endif
 								</td>
 							</tr>

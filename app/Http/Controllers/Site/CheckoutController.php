@@ -86,6 +86,8 @@ class CheckoutController extends Controller
                 'quantity' => $item->quantity,
                 'design_front_image' => $item->design_front_image ?? null,
                 'design_back_image' => $item->design_back_image ?? null,
+                'details' => $item->details ?? null,
+                'details_back' => $item->details_back ?? null,
             ];
             $order->items()->create($order_item);
             dispatch(new IncreasProductSalesCountJob($item->variation_id));

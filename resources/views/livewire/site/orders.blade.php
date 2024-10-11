@@ -86,10 +86,10 @@
                     كاش عند الاستلام
                 </span>
                 <p>
-                    المبلغ : {{ $order->total }} جنيه<br>
-                    قيمه الشحن:  {{ $order->shipping_cost }} جنيه<br>
-                    <span class="b"> المبلغ الكلى :  {{ $order->total + $order->shipping_cost }} جنيه</span> <br>
-                    <span class="b text-danger"> ارباحى من الطلب :  {{ $order->marketer_price() }} جنيه</span>
+                    المبلغ : {{ $order->total }} {{__('site.SAR')}}<br>
+                    قيمه الشحن:  {{ $order->shipping_cost }} {{__('site.SAR')}}<br>
+                    <span class="b"> المبلغ الكلى :  {{ $order->total + $order->shipping_cost }} {{__('site.SAR')}}</span> <br>
+                    <span class="b text-danger"> ارباحى من الطلب :  {{ $order->marketer_price() }} {{__('site.SAR')}}</span>
                 </p>
             </div>
         </div> <!-- row.// -->
@@ -103,7 +103,7 @@
                         <img src="{{ Storage::url('products/'.$item->variation?->product?->image) }}" class="img-xs border">
                     </td>
                     <td>
-                        جنيه  {{ $item->price }}
+                        {{__('site.SAR')}}  {{ $item->price }}
                     </td>
                     <td>
                         <a href="#" class="title text-dark">{{ $item->variation?->product?->name }}</a>
@@ -116,7 +116,7 @@
                         </p>
                         @endif
                     </td>
-                    <td> {{ $item->quantity }} قطعه </td>
+                    <td> {{ $item->quantity }} {{__('site.piece')}} </td>
 
                 </tr>
                 @endforeach

@@ -10,7 +10,11 @@ class Cart extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $casts = [
+        'details' => 'json',
+        'details_back' => 'json'
 
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

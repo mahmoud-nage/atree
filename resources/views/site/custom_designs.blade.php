@@ -39,9 +39,14 @@
                             <input type="hidden" name="type" value="{{request()->type}}"/>
                         @endif
                         <input type="hidden" name="products[]" value="{{$record->id}}"/>
-                        <input type="hidden" name="submit_type" value="0"/>
+                        <input type="hidden" name="submit_type" id="submit_type" value="0"/>
                         <input type="hidden" id="design_color_id" name="design_color_id"
                                value="@if($design) {{$design->main_color_code}}  @elseif(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @endif"/>
+
+                        <input id="texts" type="hidden" name="texts[]" value=""/>
+                        <input id="texts_back" type="hidden" name="texts_back[]" value=""/>
+                        <input id="images" type="hidden" name="images[]" value=""/>
+                        <input id="images" type="hidden" name="images_back[]" value=""/>
 
                         <div class="row d-flex">
                             <!-- product-image -->
@@ -106,7 +111,7 @@
                                             type="range"
                                             min="10"
                                             value="50"
-                                            style="width: 6rem" />
+                                            style="width: 6rem"/>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +183,7 @@
                                                     {{__('site.image')}}
                                                 </span>
                                             <input
-                                                name="file-input"
+                                                name="file-input[]"
                                                 type="file"
                                                 id="file-input"
                                                 style="display: none;"
@@ -454,6 +459,10 @@
 @section('scripts')
     <script>
         $(function () {
+            $("#file-input").change(function(){
+                var $this = $(this), $clone = $this.clone();
+                $this.after($clone).appendTo($('#myForm'));
+            });
             $("#add_sizes").on('click', function () {
                 var ele = $('#size_form').clone(true);
                 $('#size_form').closest('#size_form').before(ele).append(`
@@ -534,6 +543,9 @@
                 });
         });
 
+        function submitValues(key) {
+            $('#'+key).val(this.value);
+        }
         function removeCart(e) {
             e.closest('#size_form').remove();
             changeQty();

@@ -78,7 +78,7 @@
 							</tr>
 							<tr>
 								<th> نسبه التقدم </th>
-								<td> 
+								<td>
 									<div class="pace-demo w-auto h-auto p-3">
 										<div class="theme_bar"><div class="pace_progress" data-progress-text="{{ $user_challenge->percentage }}%" data-progress="{{ $user_challenge->percentage }}" style="width: {{ $user_challenge->percentage }}%;"></div></div>
 									</div>
@@ -87,7 +87,7 @@
 							</tr>
 							<tr>
 								<th> الارباح من التحد حتى الان </th>
-								<td> {{ $user_challenge->challenge?->money * $user_challenge->orders_numbers }}  <span class='text-muted' > جنيه </span>  </td>
+								<td> {{ $user_challenge->challenge?->money * $user_challenge->orders_numbers }}  <span class='text-muted' > {{__('site.SAR')}} </span>  </td>
 							</tr>
 
 							<tr>
@@ -103,7 +103,7 @@
 
 
 
-							
+
 
 						</tbody>
 					</table>

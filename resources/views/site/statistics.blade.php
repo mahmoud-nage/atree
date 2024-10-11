@@ -35,13 +35,13 @@
             </figure>
             <figure class="card bg">
               <div class="p-3">
-               <h4 class="title">{{ $total_incomes }} <span> جنيه </span> </h4>
+               <h4 class="title">{{ $total_incomes }} <span> {{__('site.SAR')}} </span> </h4>
                <span>الارباح المحققه</span>
              </div>
            </figure>
            <figure class="card bg">
             <div class="p-3">
-             <h4 class="title">{{ $total_incomes_withdrawald }} <span> جنيه </span> </h4> 
+             <h4 class="title">{{ $total_incomes_withdrawald }} <span> {{__('site.SAR')}} </span> </h4>
              <span>الارباح تم سحبه</span>
            </div>
          </figure>

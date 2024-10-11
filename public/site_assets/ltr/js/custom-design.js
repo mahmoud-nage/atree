@@ -64,7 +64,7 @@ function handleFileSelect(event) {
         deleteButton.addEventListener('click', () => {
 
             const inputField = document.getElementById('file-input');
-            inputField.value = '';
+            // inputField.value = '';
 
             lastImg.remove();
             imageControls.style.display = 'none';
@@ -95,7 +95,7 @@ function handleFileSelect(event) {
     centerElement(lastImg);
     initializeInteract();
     const inputField = document.getElementById('file-input');
-    inputField.value = '';
+    // inputField.value = '';
 }
 
 function addText() {
@@ -1292,6 +1292,35 @@ document.getElementById('convertToImage').addEventListener('click', function () 
         var originalBorder = box.style.border;
         box.style.border = 'none';
 
+        if (side === "front") {
+            var texts = box.getElementsByTagName('div');
+            var textValues = [];
+            var values = [];
+            for (var ii = 0; ii < texts.length; ii++) {
+                values['content'] = texts[ii].innerText;
+                values['font_family'] = texts[ii].style.fontFamily;
+                values['color'] = texts[ii].style.color;
+                values['size'] = texts[ii].style.fontSize;
+                values['weight'] = texts[ii].style.fontWeight;
+                textValues = textValues.push(values);
+            }
+            $('[name="texts"]').val( JSON.stringify( textValues ) );
+            console.log(textValues,values, 'front')
+        } else {
+            var text_backs = box.getElementsByTagName('div');
+            var textValuesBack = [];
+            var values_back = [];
+            for (var ii = 0; ii < text_backs.length; ii++) {
+                values_back['content'] = text_backs[ii].innerText;
+                values_back['font_family'] = text_backs[ii].style.fontFamily;
+                values_back['color'] = text_backs[ii].style.color;
+                values_back['size'] = text_backs[ii].style.fontSize;
+                values_back['weight'] = text_backs[ii].style.fontWeight;
+                textValuesBack.push(values_back);
+            }
+            $('[name="texts_back"]').val( JSON.stringify( textValuesBack ) );
+            console.log(textValuesBack, 'back')
+        }
         var images = box.getElementsByTagName('img');
         var loadCount = 0;
 
@@ -1393,7 +1422,7 @@ function handleUploadExistingDesign(src) {
     deleteButton.addEventListener('click', () => {
 
         const inputField = document.getElementById('file-input');
-        inputField.value = '';
+        // inputField.value = '';
 
         lastImg.remove();
         imageControls.style.display = 'none';
@@ -1431,5 +1460,4 @@ function handleCloseExistingDesignClick() {
 }
 window.addEventListener('popstate', function (event) {
     localStorage.removeItem('product');
-
 });

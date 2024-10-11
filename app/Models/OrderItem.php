@@ -11,6 +11,11 @@ class OrderItem extends Model
 
 
     protected $guarded = [];
+    protected $casts = [
+        'details' => 'json',
+        'details_back' => 'json'
+
+    ];
     public function order()
     {
         return $this->belongsTo(Order::class);

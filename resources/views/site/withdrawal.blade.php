@@ -41,7 +41,7 @@
                     </tr>
                     <tr>
                       <th> المبلغ </th>
-                      <td> {{ $withdrawal->amount }} جنيه </td>
+                      <td> {{ $withdrawal->amount }} {{__('site.SAR')}} </td>
                     </tr>
                      <tr>
                       <th> رقم الموبيل </th>

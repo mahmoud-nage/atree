@@ -13,6 +13,7 @@ return array(
     'yes' => 'yes',
     'no' => 'no',
     'message_deleted' => 'message deleted successfully',
+    'order_accept' => 'Status Changed for your order number :num to :status',
 
     'success' => 'operation accomplished successfully.',
     'created_successfully' => 'Record Created successfully.',

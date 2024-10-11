@@ -83,7 +83,7 @@
                         <td> {{ $i++}} </td>
                         <td> {{ $expense->name }} </td>
                         <td> {{ $expense->category?->name }} </td>
-                        <td> {{ $expense->money }} جنيه </td>
+                        <td> {{ $expense->money }} {{__('site.SAR')}} </td>
                         <td> {{ $expense->user?->name }} </td>
 
                         <td> {{ $expense->created_at->diffForHumans() }} </td>

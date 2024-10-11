@@ -28,7 +28,7 @@ class CartRequest extends FormRequest
             'products.*' => 'required|exists:products,id'
         ];
 
-        if (request()->type == 1 || request()->type == 'design') {
+        if (request()->submit_type == 1 || request()->type == 'design') {
             $validate['color_id.*'] = 'required|exists:colors,id';
             $validate['size_id.*'] = 'required|exists:sizes,id';
             $validate['quantities.*'] = 'required|numeric|min:1';

@@ -169,7 +169,7 @@ return array(
     'site_text_type' => 'site_text_type',
     'site_text_weight' => 'site_text_weight',
     'site_text_size' => 'site_text_size',
-    'site_text_font_family' => '',
+    'site_text_font_family' => 'site_text_font_family',
     'item_text_color' => 'item_text_color',
     'item_text_height' => 'item_text_height',
     'item_text_width' => 'item_text_width',

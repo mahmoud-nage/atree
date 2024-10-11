@@ -83,12 +83,12 @@
                             </tr>
                             <tr>
                                 <th> @lang('products.price')</th>
-                                <td> {{ $product->price }} <span class='text-muted'> جنيه </span></td>
+                                <td> {{ $product->price }} <span class='text-muted'> {{__('site.SAR')}} </span></td>
                             </tr>
 
                             <tr>
                                 <th> @lang('products.price_full_design') </th>
-                                <td> {{ $product->price_full_design }} <span class='text-muted'> جنيه </span></td>
+                                <td> {{ $product->price_full_design }} <span class='text-muted'> {{__('site.SAR')}} </span></td>
                             </tr>
 
                             <tr>
@@ -153,7 +153,7 @@
                             <div class="col-3">
                                 <p><i class="icon-cash3 icon-2x d-inline-block text-success"></i></p>
                                 <h5 class="font-weight-semibold mb-0"> {{ $product->total_sales }} <span
-                                        class="text-muted"> جنيه </span></h5>
+                                        class="text-muted"> {{__('site.SAR')}} </span></h5>
                                 <span class="text-muted font-size-sm">اجمالى مبيعات المنتج</span>
                             </div>
                         </div>

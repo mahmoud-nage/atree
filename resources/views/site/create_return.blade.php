@@ -47,9 +47,9 @@
                   </td>
                   <td>
                     <p class="title mb-0">{{ $item->product?->name }}</p>
-                    <var class="price text-muted">جنيه  {{ $item->price }}</var>
+                    <var class="price text-muted">{{__('site.SAR')}}  {{ $item->price }}</var>
                   </td>
-                  <td> {{ $item->quantity }} قطعه </td>
+                  <td> {{ $item->quantity }} {{__('site.piece')}} </td>
                   <td>
                     <input type="text" class='form-control col-md-9' name='return_reason[]' placeholder="سبب الارجاع..." >
                   </td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,6 +24,7 @@ class PhoneVerificationController extends Controller
      */
     public function index()
     {
+        dispatch(new SendVerificationCodeToViaPhoneNumberJob(auth()->user()->phone));
         return view('site.verify_phone');
     }
 
@@ -39,7 +41,6 @@ class PhoneVerificationController extends Controller
             ['code' , '=' , $request->code ] ,
             ['phone' , '=' , auth()->user()->phone ]
         ])->first();
-
         if ($check) {
             $check->delete();
             $user = User::where('phone', auth()->user()->phone)->firstOrFail();

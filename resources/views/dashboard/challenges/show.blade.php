@@ -56,7 +56,7 @@
 							</tr>
 							<tr>
 								<th> قيمه المكافله لكل طلب </th>
-								<td> {{ $challenge->money }} <span class='text-muted'> جنيه </span> </td>
+								<td> {{ $challenge->money }} <span class='text-muted'> {{__('site.SAR')}} </span> </td>
 							</tr>
 							<tr>
 								<th> تاريخ البدىء </th>
@@ -68,7 +68,7 @@
 							</tr>
 							<tr>
 								<th>  هل يمكن للمستخدم سحب الارباح فى حاله انتهاء تاري التحدى ؟ </th>
-								<td> 
+								<td>
 									@switch($challenge->should_user_finishes_to_receive_money)
 									@case(0)
 									<span class='badge badge-danger' > لا </span>
@@ -81,7 +81,7 @@
 							</tr>
 							<tr>
 								<th> فعال  </th>
-								<td> 
+								<td>
 									@switch($challenge->is_active)
 									@case(0)
 									<span class='badge badge-danger' > غير فعال </span>

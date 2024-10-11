@@ -29,7 +29,73 @@ class CartController extends Controller
 
     public function store(CartRequest $request) //
     {
-        if($request->type == 'design'){
+        $details = [];
+        $details_back = [];
+        $details[] = [
+            'type' => 'text',
+            'content' => 'content',
+            'color' => 'color',
+            'font_family' => 'font_family',
+            'size' => 'size',
+            'weight' => 'weight',
+        ];
+        $details_back[] = [
+            'type' => 'text',
+            'content' => 'content',
+            'color' => 'color',
+            'font_family' => 'font_family',
+            'size' => 'size',
+            'weight' => 'weight',
+        ];
+//        if ($request->texts && count($request->texts) > 0) {
+//            foreach ($request->texts as $key => $text) {
+//                $details[] = [
+//                    'type' => 'text',
+//                    'content' => $text['content'],
+//                    'color' => $text['color'] ?? '',
+//                    'font_family' => $text['font_family'] ?? '',
+//                    'size' => $text['size'] ?? '',
+//                    'weight' => $text['weight'] ?? '',
+//                ];
+//            }
+//        }
+//        if ($request->images && count($request->images) > 0) {
+//            foreach ($request->images as $key => $image) {
+//                $details[] = [
+//                    'type' => 'image',
+//                    'content' => basename($image->store('designs')),
+//                    'color' => '',
+//                    'font_family' => '',
+//                    'size' => '',
+//                    'weight' => '',
+//                ];
+//            }
+//        }
+//        if ($request->texts_back && count($request->texts_back) > 0) {
+//            foreach ($request->texts_back as $key => $text) {
+//                $details_back[] = [
+//                    'type' => 'text',
+//                    'content' => $text['content'],
+//                    'color' => $text['color'] ?? '',
+//                    'font_family' => $text['font_family'] ?? '',
+//                    'size' => $text['size'] ?? '',
+//                    'weight' => $text['weight'] ?? '',
+//                ];
+//            }
+//        }
+//        if ($request->images_back && count($request->images_back) > 0) {
+//            foreach ($request->images_back as $key => $image) {
+//                $details_back[] = [
+//                    'type' => 'image',
+//                    'content' => basename($image->store('designs')),
+//                    'color' => '',
+//                    'font_family' => '',
+//                    'size' => '',
+//                    'weight' => '',
+//                ];
+//            }
+//        }
+        if ($request->type == 'design') {
             $design = UserDesign::find($request->design_id);
             $design->increment('views_count');
             $product = Product::find($request->products[0]);
@@ -51,6 +117,8 @@ class CartController extends Controller
                     'user_id' => auth()->id(),
                     'design_front_image' => $design->design_image_front ?? null,
                     'design_back_image' => $design->design_image_back ?? null,
+                    'details' => $design->details ?? null,
+                    'details_back' => $design->details_back ?? null,
                 ]);
             }
             return view('site.cart');
@@ -82,6 +150,8 @@ class CartController extends Controller
             'design_image_front' => $waterMarkFrontFileName ?? '',
             'design_image_back' => $waterMarkBackFileName ?? '',
             'main_color_code' => $request->design_color_id,
+            'details' => $details ?? null,
+            'details_back' => $details_back ?? null,
         ]);
         foreach ($request->products as $key => $product) {
             DesignProduct::create([
@@ -89,7 +159,7 @@ class CartController extends Controller
                 'product_id' => $product,
             ]);
         }
-        if ($request->type == 1) {
+        if ($request->submit_type == 1) {
             $product = Product::find($request->products[0]);
             $color = $request->design_color_id;
             if ($request->frontImageFile && $request->backImageFile) {
@@ -110,11 +180,13 @@ class CartController extends Controller
                     'user_id' => auth()->id(),
                     'design_front_image' => $waterMarkUrl ?? null,
                     'design_back_image' => $waterMarkBackUrl ?? null,
+                    'details' => $design->details ?? null,
+                    'details_back' => $design->details_back ?? null,
                 ]);
             }
         }
 
-        return $request->type == 1 ? view('site.cart') : redirect(route('users.show', auth()->user()));
+        return $request->submit_type == 1 ? view('site.cart') : redirect(route('users.show', auth()->user()));
     }
 //    public function store(CartRequest $request) //
 //    {

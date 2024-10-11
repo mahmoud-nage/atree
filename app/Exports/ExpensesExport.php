@@ -50,10 +50,10 @@ class ExpensesExport implements FromCollection , WithHeadings  , WithMapping , S
     public function map($expense): array
     {
         return [
-            $this->i++ , 
+            $this->i++ ,
             $expense->name,
             $expense->category?->name,
-            $expense->money .' جنيه ' ,
+            $expense->money .' {{__('site.SAR')}} ' ,
             $expense->user?->name,
             $expense->details,
 
@@ -63,12 +63,12 @@ class ExpensesExport implements FromCollection , WithHeadings  , WithMapping , S
     public function headings(): array
     {
         return [
-            '#' , 
-            'العنوان' , 
-            'التصنيف' , 
-            'المبلغ' , 
-            'تم الاضافه بواتسطه' , 
-            'تفاصيل' , 
+            '#' ,
+            'العنوان' ,
+            'التصنيف' ,
+            'المبلغ' ,
+            'تم الاضافه بواتسطه' ,
+            'تفاصيل' ,
         ];
     }
 

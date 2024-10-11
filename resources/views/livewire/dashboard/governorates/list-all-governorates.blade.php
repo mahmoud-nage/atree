@@ -64,7 +64,7 @@
                         <td> {{ $governorate->getTranslation('name' , 'ar') }} </td>
                         <td> {{ $governorate->getTranslation('name' , 'en') }} </td>
                         <td> {{ $governorate->country?->name }} </td>
-                        <td> {{ $governorate->shipping_cost }} جنيه</td>
+                        <td> {{ $governorate->shipping_cost }} {{__('site.SAR')}}</td>
                         <td>
                             @switch($governorate->active)
                                 @case(0)

@@ -62,7 +62,7 @@
                         <td> {{ $i++}} </td>
                         <td> {{ $challenge->title }} </td>
                         <td> {{ $challenge->orders }} <span class='text-muted' > طلب </span> </td>
-                        <td> {{ $challenge->money }} <span class='text-muted' > جنيه </span>  </td>
+                        <td> {{ $challenge->money }} <span class='text-muted' > {{__('site.SAR')}} </span>  </td>
                         <td>
                             @switch($challenge->is_active)
                                 @case(0)

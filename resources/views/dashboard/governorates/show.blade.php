@@ -50,7 +50,7 @@
 
 							<tr>
 								<th> سعر الشحن </th>
-								<td> {{ $governorate->shipping_cost }} جنيه </td>
+								<td> {{ $governorate->shipping_cost }} {{__('site.SAR')}} </td>
 							</tr>
 
 							<tr>

@@ -26,7 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="{{ route('dashboard.challenges.update' , $challenge ) }}" method='POST' enctype="multipart/form-data" > 
+			<form action="{{ route('dashboard.challenges.update' , $challenge ) }}" method='POST' enctype="multipart/form-data" >
 				@csrf
 				@method('PATCH')
 				<div class="card-body">
@@ -54,7 +54,7 @@
 							</div>
 							<div class="col-md-4">
 								<div  class='mb-2' >
-									<label class="col-form-label"> الربح بالجنيه لكل طلب * </label>
+									<label class="col-form-label"> الربح بال{{__('site.SAR')}} لكل طلب * </label>
 									<input type="text" class="form-control @error('money') is-invalid @enderror" name="money" value="{{ $challenge->money }}" >
 									@error('money')
 									<p  class='text-danger' >  {{ $message }} </p>
@@ -113,7 +113,7 @@
 
 
 
-						</div>						
+						</div>
 					</fieldset>
 				</div>
 

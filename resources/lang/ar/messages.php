@@ -13,7 +13,8 @@ return array(
     'show_message_details' => 'عرض تفاصيل الرساله',
     'status' => 'المشاهده',
     'yes' => 'نعم',
-
+    'order_accept' => 'تم تغيير حالة طلبك رقم :num الى :status',
+    'new_order' => 'تم قبول الطلب الخاص بك وجاري العمل عليه الان',
 
     'success' => 'operation accomplished successfully.',
     'created_successfully' => 'Record Created successfully.',

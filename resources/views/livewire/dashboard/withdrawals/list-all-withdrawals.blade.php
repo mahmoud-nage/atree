@@ -122,7 +122,7 @@
                             @endswitch
 
                         </td>
-                        <td> {{ $withdrawal->amount }} جنيه </td>
+                        <td> {{ $withdrawal->amount }} {{__('site.SAR')}} </td>
                         <td>
                             @switch($withdrawal->status)
                             @case(1)

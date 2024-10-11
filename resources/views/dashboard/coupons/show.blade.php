@@ -42,7 +42,7 @@
 							</tr>
 							<tr>
 								<th> مبلغ الخصم </th>
-								<td> {{ $coupon->discount }} جنيه </td>
+								<td> {{ $coupon->discount }} {{__('site.SAR')}} </td>
 							</tr>
 							<tr>
 								<th> تاريخ البدىء </th>
@@ -58,7 +58,7 @@
 							</tr>
 							<tr>
 								<th> السماح للمستخدم باستخدم الكوبون اكثر من مره </th>
-								<td> 
+								<td>
 									@switch($coupon->allowed_more_than_once_per_user)
                                 @case(0)
                                 <span class='badge badge-danger' > لا </span>
@@ -71,7 +71,7 @@
 							</tr>
 							<tr>
 								<th> فعال  </th>
-								<td> 
+								<td>
 									@switch($coupon->active)
                                 @case(0)
                                 <span class='badge badge-danger' > غير فعال </span>

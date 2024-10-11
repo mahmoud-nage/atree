@@ -26,7 +26,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <article class="card p-4 bg-info"> <div class="row align-items-center"> <div class="col">  <p class="mb-0 text-white-50"> الارباح الحاليه الغير مسحوبه هيا : {{ $total_incomes_withdrawald }} جنيه </p> </div> 
+            <article class="card p-4 bg-info"> <div class="row align-items-center"> <div class="col">  <p class="mb-0 text-white-50"> الارباح الحاليه الغير مسحوبه هيا : {{ $total_incomes_withdrawald }} {{__('site.SAR')}} </p> </div>
               @if ($total_incomes_withdrawald != 0 )
                 {{-- expr --}}
                 <div class="col-auto"> <a class="btn btn-warning" href="{{ route('site.withdrawals.create') }}"> سحب الارباح </a> </div>
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="row">
-        
+
     </div>
 
   </main> <!-- col.// -->

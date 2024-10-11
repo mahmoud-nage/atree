@@ -39,7 +39,7 @@
                   </figure>
                   <figure class="card bg">
                     <div class="p-3">
-                     <h4 class="title"> {{ $can_not_withdrawald }}  <span> جنيه </span> </h4>
+                     <h4 class="title"> {{ $can_not_withdrawald }}  <span> {{__('site.SAR')}} </span> </h4>
                      <span> المبلغ المعلق </span>
                    </div>
                  </figure>
@@ -52,7 +52,7 @@
 
        <div class="row">
         <div class="col-md-12">
-          <article class="card p-4 bg-primary"> <div class="row align-items-center"> <div class="col">  <p class="mb-0 text-white-50"> الحد الادنى لسحب الارباح هو  : {{ $data['settings']->minimam_money_can_be_withdrawald }} جنيه </p> </div> <div class="col-auto">
+          <article class="card p-4 bg-primary"> <div class="row align-items-center"> <div class="col">  <p class="mb-0 text-white-50"> الحد الادنى لسحب الارباح هو  : {{ $data['settings']->minimam_money_can_be_withdrawald }} {{__('site.SAR')}} </p> </div> <div class="col-auto">
             @if ($can_withdrawald >= $data['settings']->minimam_money_can_be_withdrawald )
               <a class="btn btn-warning" href="{{ route('site.withdrawals.create') }}"> سحب الارباح </a>
             @endif
@@ -81,7 +81,7 @@
                 <tr>
                  <td> {{ $i++ }} </td>
                  <td> {{ $withdrawal->number }} </td>
-                 <td> {{ $withdrawal->amount }} جنيه </td>
+                 <td> {{ $withdrawal->amount }} {{__('site.SAR')}} </td>
                  <td>
                   @switch($withdrawal->status)
                   @case(1)

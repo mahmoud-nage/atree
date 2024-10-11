@@ -59,7 +59,7 @@
 
                         <tr>
                             <th> المبلغ </th>
-                            <td> {{ $withdrawal->amount }} <span class='text-muted' > جنيه </span> </td>
+                            <td> {{ $withdrawal->amount }} <span class='text-muted' > {{__('site.SAR')}} </span> </td>
                         </tr>
 
                         @if ($withdrawal->payment_method == App\Models\Withdrawals::WALLET )

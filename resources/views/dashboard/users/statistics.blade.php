@@ -29,7 +29,7 @@
 				</div>
 
 				@include('dashboard.marketers.sidebar')
-				
+
 			</div>
 		</div>
 	</div>
@@ -154,7 +154,7 @@
 						<div class="media">
 							<div class="media-body">
 								<h3 class="font-weight-semibold mb-0">
-									{{ $marketer->total_purchases }} <span class='text-muted' > جنيه </span> 
+									{{ $marketer->total_purchases }} <span class='text-muted' > {{__('site.SAR')}} </span>
 								</h3>
 								<span class="text-uppercase font-size-sm text-muted"> اجمالى مبلغ المشتريات من الموقع </span>
 							</div>
@@ -172,7 +172,7 @@
 						<div class="media">
 							<div class="media-body">
 								<h3 class="font-weight-semibold mb-0">
-									{{ $marketer->total_incomes }} <span class='text-muted' > جنيه </span>
+									{{ $marketer->total_incomes }} <span class='text-muted' > {{__('site.SAR')}} </span>
 								</h3>
 								<span class="text-uppercase font-size-sm text-muted"> اجمالى مبلغ العموله المكتسبه </span>
 							</div>

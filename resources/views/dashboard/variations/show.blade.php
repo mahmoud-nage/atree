@@ -52,7 +52,7 @@
 									@endswitch
 								</td>
 							</tr>
-							
+
 
 							<tr>
 								<th> @lang('products.name_ar') </th>
@@ -70,8 +70,8 @@
 								<th> @lang('products.brand') </th>
 								<td> {{ optional($product->brand)->name }} </td>
 							</tr>
-							
-							
+
+
 							<tr>
 								<th> @lang('products.mini_description_ar') </th>
 								<td> {!! $product->getTranslation('mini_description' , 'ar') !!} </td>
@@ -132,13 +132,13 @@
 							<tr>
 								<th> تقيم المنتج </th>
 								<td> {{ $product->rate }} </td>
-							</tr>							
+							</tr>
 							<tr>
 								<th> الكميات </th>
 								<td>
 									<ul>
 										@foreach ($product->warehouses as $product_warehouse)
-										<li> {{ $product_warehouse->warehouse?->name }} => {{ $product_warehouse->quantity }} قطعه</li>
+										<li> {{ $product_warehouse->warehouse?->name }} => {{ $product_warehouse->quantity }} {{__('site.piece')}}</li>
 										@endforeach
 									</ul>
 								</td>
@@ -146,7 +146,7 @@
 							<tr>
 								<th> @lang('products.image') </th>
 								 <td> <a href="{{ Storage::url('products/'.$product->image) }}"> <img class='rounded img-preview' data-popup="lightbox" data-gallery="gallery1" src="{{ Storage::url('products/'.$product->image) }}" alt=""> </a> </td>
-							</tr>					
+							</tr>
 						</tbody>
 					</table>
 

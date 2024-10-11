@@ -125,7 +125,7 @@ return array(
     'selling_price' => 'سعر البيع للعميل',
     'quantity' => 'الكميه',
     'profit' => 'صافى الربح',
-    'piece' => 'قطعه',
+    'piece' => 'قطعة',
     'total' => 'المبلغ الكلى',
     'shipping_price' => 'سعر الشحن',
     'discount' => 'الخصم',
