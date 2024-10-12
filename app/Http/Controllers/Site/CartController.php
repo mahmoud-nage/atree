@@ -31,70 +31,70 @@ class CartController extends Controller
     {
         $details = [];
         $details_back = [];
-        $details[] = [
-            'type' => 'text',
-            'content' => 'content',
-            'color' => 'color',
-            'font_family' => 'font_family',
-            'size' => 'size',
-            'weight' => 'weight',
-        ];
-        $details_back[] = [
-            'type' => 'text',
-            'content' => 'content',
-            'color' => 'color',
-            'font_family' => 'font_family',
-            'size' => 'size',
-            'weight' => 'weight',
-        ];
-//        if ($request->texts && count($request->texts) > 0) {
-//            foreach ($request->texts as $key => $text) {
-//                $details[] = [
-//                    'type' => 'text',
-//                    'content' => $text['content'],
-//                    'color' => $text['color'] ?? '',
-//                    'font_family' => $text['font_family'] ?? '',
-//                    'size' => $text['size'] ?? '',
-//                    'weight' => $text['weight'] ?? '',
-//                ];
-//            }
-//        }
-//        if ($request->images && count($request->images) > 0) {
-//            foreach ($request->images as $key => $image) {
-//                $details[] = [
-//                    'type' => 'image',
-//                    'content' => basename($image->store('designs')),
-//                    'color' => '',
-//                    'font_family' => '',
-//                    'size' => '',
-//                    'weight' => '',
-//                ];
-//            }
-//        }
-//        if ($request->texts_back && count($request->texts_back) > 0) {
-//            foreach ($request->texts_back as $key => $text) {
-//                $details_back[] = [
-//                    'type' => 'text',
-//                    'content' => $text['content'],
-//                    'color' => $text['color'] ?? '',
-//                    'font_family' => $text['font_family'] ?? '',
-//                    'size' => $text['size'] ?? '',
-//                    'weight' => $text['weight'] ?? '',
-//                ];
-//            }
-//        }
-//        if ($request->images_back && count($request->images_back) > 0) {
-//            foreach ($request->images_back as $key => $image) {
-//                $details_back[] = [
-//                    'type' => 'image',
-//                    'content' => basename($image->store('designs')),
-//                    'color' => '',
-//                    'font_family' => '',
-//                    'size' => '',
-//                    'weight' => '',
-//                ];
-//            }
-//        }
+//        $details[] = [
+//            'type' => 'text',
+//            'content' => 'content',
+//            'color' => 'color',
+//            'font_family' => 'font_family',
+//            'size' => 'size',
+//            'weight' => 'weight',
+//        ];
+//        $details_back[] = [
+//            'type' => 'text',
+//            'content' => 'content',
+//            'color' => 'color',
+//            'font_family' => 'font_family',
+//            'size' => 'size',
+//            'weight' => 'weight',
+//        ];
+        if ($request->front_text_content && count($request->front_text_content) > 0) {
+            foreach ($request->front_text_content as $key => $text) {
+                $details[] = [
+                    'type' => 'text',
+                    'content' => $text,
+                    'color' => $request->front_color[$key] ?? '',
+                    'font_family' => $request->front_font_family[$key] ?? '',
+                    'size' => $request->front_font_size[$key] ?? '',
+                    'weight' => $request->front_font_weight[$key] ?? '',
+                ];
+            }
+        }
+        if ($request->back_text_content && count($request->back_text_content) > 0) {
+            foreach ($request->back_text_content as $key => $text) {
+                $details_back[] = [
+                    'type' => 'text',
+                    'content' => $text,
+                    'color' => $request->back_color[$key] ?? '',
+                    'font_family' => $request->back_font_family[$key] ?? '',
+                    'size' => $request->back_font_size[$key] ?? '',
+                    'weight' => $request->back_font_weight[$key] ?? '',
+                ];
+            }
+        }
+        if ($request->front_image && count($request->front_image) > 0) {
+            foreach ($request->front_image as $key => $image) {
+                $details[] = [
+                    'type' => 'image',
+                    'content' => basename($image->store('designs')) ?? '', //
+                    'color' => '',
+                    'font_family' => '',
+                    'size' => '',
+                    'weight' => '',
+                ];
+            }
+        }
+        if ($request->back_image && count($request->back_image) > 0) {
+            foreach ($request->back_image as $key => $image) {
+                $details_back[] = [
+                    'type' => 'image',
+                    'content' => basename($image->store('designs')),
+                    'color' => '',
+                    'font_family' => '',
+                    'size' => '',
+                    'weight' => '',
+                ];
+            }
+        }
         if ($request->type == 'design') {
             $design = UserDesign::find($request->design_id);
             $design->increment('views_count');

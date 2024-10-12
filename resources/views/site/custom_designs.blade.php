@@ -43,11 +43,6 @@
                         <input type="hidden" id="design_color_id" name="design_color_id"
                                value="@if($design) {{$design->main_color_code}}  @elseif(isset($record->variations->unique('color_id')->first()->color->code)) {{$record->variations->unique('color_id')->first()->color->code}} @endif"/>
 
-                        <input id="texts" type="hidden" name="texts[]" value=""/>
-                        <input id="texts_back" type="hidden" name="texts_back[]" value=""/>
-                        <input id="images" type="hidden" name="images[]" value=""/>
-                        <input id="images" type="hidden" name="images_back[]" value=""/>
-
                         <div class="row d-flex">
                             <!-- product-image -->
                             <div class="d-flex flex-column justify-content-between align-items-center mx-auto">
