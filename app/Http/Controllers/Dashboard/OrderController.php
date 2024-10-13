@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ChangeStatusMail;
+use AWS\CRT\Log;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -57,7 +58,8 @@ class OrderController extends Controller
 
         try {
             Mail::to(auth()->user())->send(new ChangeStatusMail($order->load('status')));
-        }catch (\Throwable $e){
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('order change status', [$e->getMessage()]);
         }
 
         if ($request->status_id == 5) {
