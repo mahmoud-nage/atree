@@ -1303,7 +1303,7 @@ function changeNewDesignProduct(productId) {
     }
 }
 
-document.getElementById('convertToImage').addEventListener('click', function () {
+function convertToImage() { //document.getElementById('convertToImage').addEventListener('click',
     const sides = ["front", "back"];
 
     function processSide(side) {
@@ -1421,7 +1421,7 @@ document.getElementById('convertToImage').addEventListener('click', function () 
         function () {
             $('#myForm').submit();
         }, 1000);
-});
+}; //)
 
 function handleUploadExistingDesign(src) {
     const designArea = document.getElementById('design-area');
