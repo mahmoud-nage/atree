@@ -25,7 +25,7 @@
                     {{--                    <img src="{{ Storage::url('designs/'.$item->design_front_image) }}" class="img-sm float-none">--}}
                     <img
                         style="background-color: {{$item?->design?->main_color_code}}"
-                        src="{{Storage::url('products/'.$item->design->image)}}">
+                        src="{{Storage::url('products/'.$item?->design?->image)}}">
                     @if($item?->design?->design_image_front)
                         <img class="img-fluid pad" alt="design"
                              src="{{Storage::url('designs/'.$item?->design?->design_image_front)}}"

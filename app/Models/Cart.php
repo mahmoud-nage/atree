@@ -13,7 +13,6 @@ class Cart extends Model
     protected $casts = [
         'details' => 'json',
         'details_back' => 'json'
-
     ];
     public function user()
     {
