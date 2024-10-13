@@ -10,7 +10,7 @@
                 <a href="{{ $item->variation?->product?->url() }}"
                    class="title text-dark">{{ $item->variation?->product?->name }}</a>
                 @if ($item->variation?->type != 'one_size' )
-                    <p class="text-muted small"> {{$item->variation->color->name}},{{$item->variation->size->name}}
+                    <p class="text-muted small"> {{$item?->variation?->color?->name}},{{$item?->variation?->size?->name}}
                         <br>
                     </p>
                 @endif
@@ -24,12 +24,12 @@
                     {{--                    //{{ Storage::url('designs/'.$item->design_front_image) }}--}}
                     {{--                    <img src="{{ Storage::url('designs/'.$item->design_front_image) }}" class="img-sm float-none">--}}
                     <img
-                        style="background-color: {{$item->design->main_color_code}}"
+                        style="background-color: {{$item?->design?->main_color_code}}"
                         src="{{Storage::url('products/'.$item->design->image)}}">
-                    @if($item->design->design_image_front)
+                    @if($item?->design?->design_image_front)
                         <img class="img-fluid pad" alt="design"
-                             src="{{Storage::url('designs/'.$item->design->design_image_front)}}"
-                             style="width: {{$item->product->site_front_width}}%; height: {{$item->product->site_front_height}}%; top: {{$item->product->site_front_top}}%; left: {{$item->product->site_front_left}}%;position: absolute;">
+                             src="{{Storage::url('designs/'.$item?->design?->design_image_front)}}"
+                             style="width: {{$item?->product?->site_front_width}}%; height: {{$item?->product?->site_front_height}}%; top: {{$item?->product?->site_front_top}}%; left: {{$item?->product?->site_front_left}}%;position: absolute;">
                     @endif
                 </a>
                 {{--                <a href="#">--}}
@@ -61,12 +61,12 @@
                 {{--                </a>--}}
                 <a href="#">
                     <img
-                        style="background-color: {{$item->design->main_color_code}}"
-                        src="{{Storage::url('products/'.$item->design->back_image)}}">
-                    @if($item->design->design_image_back)
+                        style="background-color: {{$item?->design?->main_color_code}}"
+                        src="{{Storage::url('products/'.$item?->design?->back_image)}}">
+                    @if($item?->design?->design_image_back)
                         <img class="img-fluid pad" alt="design"
-                             src="{{Storage::url('designs/'.$item->design->design_image_back)}}"
-                             style="width: {{$item->product->site_back_width}}%; height: {{$item->product->site_back_height}}%; top: {{$item->product->site_back_top}}%; left: {{$item->product->site_back_left}}%;position: absolute;">
+                             src="{{Storage::url('designs/'.$item?->design?->design_image_back)}}"
+                             style="width: {{$item?->product?->site_back_width}}%; height: {{$item?->product?->site_back_height}}%; top: {{$item?->product?->site_back_top}}%; left: {{$item?->product?->site_back_left}}%;position: absolute;">
                     @endif
 
                     {{--                        <img src="{{ Storage::url('designs/'.$item->design_back_image) }}" class="img-sm float-none">--}}
@@ -75,7 +75,7 @@
         </figure>
     </td>
     <td class="col-2">
-        {{ $item->price }} <span class="text-muted"> {{__('site.SAR')}} </span>
+        {{ $item?->price }} <span class="text-muted"> {{__('site.SAR')}} </span>
     </td>
     {{--    <td class="col-2">--}}
     {{--        <div class="price-wrap">--}}
@@ -85,7 +85,7 @@
     <td class="col-2">
         <select class="form-control" wire:model='quantity'>
             @for ($i = 1; $i < 20 ; $i++)
-                <option value='{{ $i }}' {{ $item->quantity == $i ? 'selected="selected"' : '' }} >{{ $i }}</option>
+                <option value='{{ $i }}' {{ $item?->quantity == $i ? 'selected="selected"' : '' }} >{{ $i }}</option>
             @endfor
         </select>
     </td>
