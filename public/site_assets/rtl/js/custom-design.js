@@ -1423,6 +1423,7 @@ document.getElementById('convertToImage').addEventListener('click', function () 
         }, 1000);
 });
 document.getElementById('convertToImage1').addEventListener('click', function () {
+    $("#submit_type").val(1);
     const sides = ["front", "back"];
 
     function processSide(side) {
