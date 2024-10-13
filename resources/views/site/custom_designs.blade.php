@@ -61,7 +61,7 @@
                                             <img class="img-fluid pad" alt="design" id="design_front"
                                                  src="{{Storage::url('designs/'.$design->design_image_front)}}"
                                                  style=" width: {{$record->site_front_width}}%; height: {{$record->site_front_height}}%; top: {{$record->site_front_top}}%; left: {{$record->site_front_left}}%;position: absolute;">
-                                        @elseif($design->design_image_back)
+                                        @if($design->design_image_back)
                                             <img class="img-fluid pad d-none" alt="design" id="design_back"
                                                  src="{{Storage::url('designs/'.$design->design_image_back)}}"
                                                  style="width: {{$record->site_back_width}}%; height: {{$record->site_back_height}}%; top: {{$record->site_back_top}}%; left: {{$record->site_back_left}}%;position: absolute;">
