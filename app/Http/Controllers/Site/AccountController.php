@@ -40,7 +40,7 @@ class AccountController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
-        return back()->with('success' , 'تم تعديل المف الشخصى بنجاح' );;
+        return back()->with('success', __('messages.updated_successfully'));
     }
 
     public function profile()
@@ -57,7 +57,7 @@ class AccountController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/')->with('success' , 'تم تسجيل الخروج بنجاح' );
+        return redirect('/')->with('success', __('messages.logout_successfully'));
     }
 
 
@@ -70,7 +70,7 @@ class AccountController extends Controller
     public function store_return(Request $request ,Order $order)
     {
 
-        for ($i=0; $i <count($request->products) ; $i++) { 
+        for ($i=0; $i <count($request->products) ; $i++) {
             $return = new OrderReturn;
             $return->order_id  = $order->id;
             $return->user_id = Auth::id();
@@ -78,7 +78,7 @@ class AccountController extends Controller
             $return->return_reason = $request->return_reason[$i];
             $return->save();
         }
-            return redirect()->back()->with('success' , 'تم تقديم طلب الارجاع بنجاح' );
+            return redirect()->back()->with('success', __('messages.created_successfully'));
     }
 
 
@@ -126,7 +126,7 @@ class AccountController extends Controller
         $total_incomes_not_withdrawald =  Income::where('user_id' , Auth::id() )->where('withdrawn' , 0 )->whereDate('can_withdrawal_when'  , '<='  , Carbon::today())->sum('amount');
         return view('site.create_withdrawal' , compact('total_incomes_not_withdrawald'));
 
-        
+
     }
 
 
@@ -169,7 +169,7 @@ class AccountController extends Controller
     {
          $total_incomes_withdrawald =  Income::where('user_id' , Auth::id() )->where('withdrawn' , 0 )->sum('amount');
         return view('site.wallet' , compact('total_incomes_withdrawald') );
-        
+
     }
 
 }

@@ -49,14 +49,14 @@ class BranchController extends Controller
             $warehouses = [];
             for ($i = 0; $i <count($request->warehouses) ; $i++) {
                 $warehouses[] = new BranchWarehouse([
-                    'brand_id' => $branch->id , 
-                    'warehouse_id' => $request->warehouses[$i] , 
+                    'brand_id' => $branch->id ,
+                    'warehouse_id' => $request->warehouses[$i] ,
                 ]);
             }
             $branch->warehouses()->saveMany($warehouses);
         }
 
-        return redirect(route('dashboard.branches.index'))->with('success' , trans('branches.adding_success'));
+        return redirect(route('dashboard.branches.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -101,14 +101,14 @@ class BranchController extends Controller
             $warehouses = [];
             for ($i = 0; $i <count($request->warehouses) ; $i++) {
                 $warehouses[] = new BranchWarehouse([
-                    'brand_id' => $branch->id , 
-                    'warehouse_id' => $request->warehouses[$i] , 
+                    'brand_id' => $branch->id ,
+                    'warehouse_id' => $request->warehouses[$i] ,
                 ]);
             }
             $branch->warehouses()->saveMany($warehouses);
         }
 
-        return redirect(route('dashboard.branches.index'))->with('success' , trans('branches.editing_success'));
+        return redirect(route('dashboard.branches.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

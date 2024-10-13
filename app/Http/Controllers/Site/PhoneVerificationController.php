@@ -46,11 +46,9 @@ class PhoneVerificationController extends Controller
             $user = User::where('phone', auth()->user()->phone)->firstOrFail();
             $user->phone_verified_at = Carbon::now();
             $user->save();
-            return redirect(url('/'))->with('success' , 'تم تفعيل رقم الموبيل بنجاح' );
+            return redirect(url('/'))->with('success', __('messages.updated_successfully'));
         }
-
-        Session::push('error' , 'كود التفعيل غير صحيح' );
-        return redirect(route('verify_phone.index'));
+        return redirect(route('verify_phone.index'))->with('error', __('messages.invalid_code'));
     }
 
 }

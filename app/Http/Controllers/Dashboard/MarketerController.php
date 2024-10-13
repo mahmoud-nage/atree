@@ -51,7 +51,7 @@ class MarketerController extends Controller
         }
         $user->save();
         flash()->addSuccess('تم إضافه المسوق بنجاح');
-        return redirect(route('dashboard.marketers.index'));
+        return redirect(route('dashboard.marketers.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -93,7 +93,7 @@ class MarketerController extends Controller
         }
         $marketer->save();
         flash()->addSuccess('تم تعديل بينات  المسوق بنجاح');
-        return redirect(route('dashboard.marketers.index'));
+        return redirect(route('dashboard.marketers.index'))->with('success', __('messages.updated_successfully'));
     }
 
 

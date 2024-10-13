@@ -42,7 +42,7 @@ class PageController extends Controller
         if(!$page->add($request->all()))
             return back()->with('error' , trans('pages.adding_error'));
 
-        return redirect(route('dashboard.pages.index'))->with('success' , trans('pages.adding_success'));
+        return redirect(route('dashboard.pages.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -80,7 +80,7 @@ class PageController extends Controller
         if(!$page->edit($request->all()))
             return back()->with('error' , trans('pages.editing_error'));
 
-        return redirect(route('dashboard.pages.index'))->with('success' , trans('pages.editing_success'));
+        return redirect(route('dashboard.pages.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

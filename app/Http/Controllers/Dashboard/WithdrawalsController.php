@@ -43,7 +43,7 @@ class WithdrawalsController extends Controller
     {
         $withdrawal->status= $request->status_id;
         $withdrawal->save();
-        return redirect()->back()->with('success' , 'تم التعديل بنجاح' );
+        return redirect()->back()->with('success', __('messages.updated_successfully'));
     }
 
     /**

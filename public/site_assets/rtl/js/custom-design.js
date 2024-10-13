@@ -4,7 +4,7 @@ let lastText; // Declare lastImg outside to keep track of the last uploaded imag
 let cropper;
 let isClickedAddDesign = false;
 let GLOBAL_PRODUCT = JSON.parse(localStorage.getItem('product'));
-let TEM_Product = { ...GLOBAL_PRODUCT };
+let TEM_Product = {...GLOBAL_PRODUCT};
 let allProducts;
 
 document.getElementById('file-input-trigger').addEventListener('click', fileInputTrigger)
@@ -64,7 +64,7 @@ function handleFileSelect(event) {
         deleteButton.addEventListener('click', () => {
 
             const inputField = document.getElementById('file-input');
-            inputField.value = '';
+            // inputField.value = '';
 
             lastImg.remove();
             imageControls.style.display = 'none';
@@ -92,14 +92,15 @@ function handleFileSelect(event) {
             // lastImg.style.height = `${imageSize}px`;
         }
     }
+
     centerElement(lastImg);
     initializeInteract();
     const inputField = document.getElementById('file-input');
-    inputField.value = '';
+    // inputField.value = '';
 }
 
 function addText() {
-    TEM_Product = { ...GLOBAL_PRODUCT }
+    TEM_Product = {...GLOBAL_PRODUCT}
     const designArea = document.getElementById('design-area');
     const textControls = document.getElementById('text-controls');
     const imageControls = document.getElementById('image-controls');
@@ -115,8 +116,11 @@ function addText() {
     textElement.style.position = 'absolute';
     textElement.style.top = '0';
     textElement.style.left = '0';
-    textElement.style.fontSize = '12px'
-    textElement.style.padding = '5px'
+    textElement.style.fontSize = '12px';
+    textElement.style.fontWeight = "normal";
+    textElement.style.fontFamily = 'Arial';
+    textElement.style.color = 'rgb(84, 84, 84)';
+    textElement.style.padding = '5px';
     lastText = textElement
 
     textElement.addEventListener('click', () => {
@@ -223,7 +227,7 @@ function initializeInteract() {
     });
 
     interact('.resizable').resizable({
-        edges: { left: true, right: true, bottom: true, top: true },
+        edges: {left: true, right: true, bottom: true, top: true},
         listeners: {
             move(event) {
                 const target = event.target;
@@ -246,7 +250,7 @@ function initializeInteract() {
         },
         modifiers: [
             interact.modifiers.restrictSize({
-                min: { width: 50, height: 50 }
+                min: {width: 50, height: 50}
             }),
             interact.modifiers.restrictEdges({
                 outer: 'parent',
@@ -344,15 +348,23 @@ function generateCards() {
     const productDesign = document.createElement('li');
 
     const boundaryBoxChildrenHTMLFront = myDesignObject.front.boundaryBoxChildren.map(child => {
-        const { tagName, attributes, innerText } = child;
+        const {tagName, attributes, innerText} = child;
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}='${value}'`).join(' ');
-        if (innerText) { return `<${tagName} ${attributesString}>${innerText}</${tagName}>`; } else { return `<${tagName} ${attributesString}></${tagName}>`; }
+        if (innerText) {
+            return `<${tagName} ${attributesString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName} ${attributesString}></${tagName}>`;
+        }
     }).join('');
 
     const boundaryBoxChildrenHTMLBack = myDesignObject.back.boundaryBoxChildren.map(child => {
-        const { tagName, attributes, innerText } = child;
+        const {tagName, attributes, innerText} = child;
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}='${value}'`).join(' ');
-        if (innerText) { return `<${tagName} ${attributesString}>${innerText}</${tagName}>`; } else { return `<${tagName} ${attributesString}></${tagName}>`; }
+        if (innerText) {
+            return `<${tagName} ${attributesString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName} ${attributesString}></${tagName}>`;
+        }
     }).join('');
 
     productDesign.innerHTML = `
@@ -374,7 +386,7 @@ function generateCards() {
 }
 
 function convertFrontToImage(productDesign) {
-    html2canvas(productDesign, { useCORS: true, allowTaint: true }).then(canvas => {
+    html2canvas(productDesign, {useCORS: true, allowTaint: true}).then(canvas => {
         let img = canvas.toDataURL("image/png");
         let imgElement = document.createElement("img");
         imgElement.src = img;
@@ -386,7 +398,7 @@ function convertFrontToImage(productDesign) {
 }
 
 function convertBackToImage(productDesign) {
-    html2canvas(productDesign, { useCORS: true, allowTaint: true }).then(canvas => {
+    html2canvas(productDesign, {useCORS: true, allowTaint: true}).then(canvas => {
         let img = canvas.toDataURL("image/png");
         let imgElement = document.createElement("img");
         imgElement.src = img;
@@ -623,6 +635,7 @@ function setFrontImage() {
     imageControls.style.display = 'none';
     isClickedAddDesign ? initializeMainProduct(product, designSide) : initializeMainProductBeforNewDesign(product, designSide)
 }
+
 function setBackImage() {
     let product = TEM_Product || GLOBAL_PRODUCT;
     designSide = "back";
@@ -698,7 +711,7 @@ handleMediaQueryChange(mediaQuery);
 async function initPage(product) {
     // Retrieve the product data from local storage
 
-    const productJSON = { ...product }
+    const productJSON = {...product}
     if (productJSON) {
         const product = productJSON;
         // const sidebar = document.getElementById('sidebar-product-image');
@@ -797,18 +810,26 @@ function renderProducts(products, designSide) {
         const productItem = document.createElement('li');
 
         const boundaryBoxChildrenHTMLFront = product.front.boundaryBoxChildren.map(child => {
-            const { tagName, attributes, style, innerText } = child;
+            const {tagName, attributes, style, innerText} = child;
             const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
             let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-            if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+            if (innerText) {
+                return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+            } else {
+                return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+            }
         }).join('');
         const boundaryBoxChildrenHTMLBack = product.back.boundaryBoxChildren.map(child => {
-            const { tagName, attributes, style, innerText } = child;
+            const {tagName, attributes, style, innerText} = child;
             const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
             let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-            if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+            if (innerText) {
+                return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+            } else {
+                return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+            }
         }).join('');
 
         productItem.innerHTML = `
@@ -858,6 +879,7 @@ function changeCardColor(color, id) {
     card.style.backgroundColor = color;
 
 }
+
 //                                              *************************** Alert ********************************
 
 //             ***********************************************When click on custom design set the product object on localStorage***************************************
@@ -909,9 +931,9 @@ function generateDesignObject(product) {
             currency: "SAR",
             frontImage: product.front.frontImage,
             colors: [
-                { color: "black", image: "img/color-1.jpg" },
-                { color: "darkblue", image: "img/color-3.jpg" },
-                { color: "fcdb86", image: "img/color-2.jpg" }
+                {color: "black", image: "img/color-1.jpg"},
+                {color: "darkblue", image: "img/color-3.jpg"},
+                {color: "fcdb86", image: "img/color-2.jpg"}
             ]
         },
         back: {
@@ -922,9 +944,9 @@ function generateDesignObject(product) {
             currency: "SAR",
             backImage: product.back.backImage,
             colors: [
-                { color: "black", image: "img/color-1.jpg" },
-                { color: "darkblue", image: "img/color-3.jpg" },
-                { color: "fcdb86", image: "img/color-2.jpg" }
+                {color: "black", image: "img/color-1.jpg"},
+                {color: "darkblue", image: "img/color-3.jpg"},
+                {color: "fcdb86", image: "img/color-2.jpg"}
             ]
         }
     };
@@ -993,17 +1015,25 @@ function initializeMainProduct(newProduct, designSide) {
     boundaryBox.style.left = newProduct[designSide].boundaryBox.left;
     boundaryBox.style.top = newProduct[designSide].boundaryBox.top;
     const boundaryBoxChildrenHTMLFront = newProduct.front.boundaryBoxChildren.map(child => {
-        const { tagName, attributes, style, innerText } = child;
+        const {tagName, attributes, style, innerText} = child;
         const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-        if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+        if (innerText) {
+            return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+        }
     }).join('');
     const boundaryBoxChildrenHTMLBack = newProduct.back.boundaryBoxChildren.map(child => {
-        const { tagName, attributes, style, innerText } = child;
+        const {tagName, attributes, style, innerText} = child;
         const styleString = Object.entries(style).map(([key, value]) => `${key}: ${value};`).join(' ');
 
         let attributesString = Object.entries(attributes).map(([key, value]) => `${key}="${value}"`).join(' ');
-        if (innerText) { return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`; } else { return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`; }
+        if (innerText) {
+            return `<${tagName}  ${attributesString} ${styleString}>${innerText}</${tagName}>`;
+        } else {
+            return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
+        }
     }).join('');
     if (designSide === "front") {
         boundaryBox.innerHTML = boundaryBoxChildrenHTMLFront;
@@ -1089,7 +1119,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
     boundaryBox.style.left = newProduct[designSide].boundaryBox.left;
     boundaryBox.style.top = newProduct[designSide].boundaryBox.top;
     const boundaryBoxChildrenHTMLFront = newProduct.front.boundaryBoxChildren.map(child => {
-        const { tagName, innerText } = child;
+        const {tagName, innerText} = child;
 
         // Get all attributes
         const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
@@ -1105,7 +1135,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
         }
     }).join('');
     const boundaryBoxChildrenHTMLBack = newProduct.back.boundaryBoxChildren.map(child => {
-        const { tagName, innerText } = child;
+        const {tagName, innerText} = child;
 
         // Get all attributes
         const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
@@ -1246,9 +1276,9 @@ function changeNewDesignProduct(productId) {
                 currency: "SAR",
                 frontImage: styleObjectFront['background-image'].slice(4, -1).replace(/"/g, ""),
                 colors: [
-                    { color: "black", image: "img/color-1.jpg" },
-                    { color: "darkblue", image: "img/color-3.jpg" },
-                    { color: "fcdb86", image: "img/color-2.jpg" }
+                    {color: "black", image: "img/color-1.jpg"},
+                    {color: "darkblue", image: "img/color-3.jpg"},
+                    {color: "fcdb86", image: "img/color-2.jpg"}
                 ]
             },
             back: {
@@ -1259,9 +1289,9 @@ function changeNewDesignProduct(productId) {
                 currency: "SAR",
                 backImage: styleObjectBack['background-image'].slice(4, -1).replace(/"/g, ""),
                 colors: [
-                    { color: "black", image: "img/color-1.jpg" },
-                    { color: "darkblue", image: "img/color-3.jpg" },
-                    { color: "fcdb86", image: "img/color-2.jpg" }
+                    {color: "black", image: "img/color-1.jpg"},
+                    {color: "darkblue", image: "img/color-3.jpg"},
+                    {color: "fcdb86", image: "img/color-2.jpg"}
                 ]
             }
         };
@@ -1292,6 +1322,35 @@ document.getElementById('convertToImage').addEventListener('click', function () 
         var originalBorder = box.style.border;
         box.style.border = 'none';
 
+        if (side === "front") {
+            var texts = box.getElementsByTagName('div');
+            var textValues = [];
+            var values = [];
+            for (var ii = 0; ii < texts.length; ii++) {
+                values['content'] = texts[ii].innerText;
+                values['font_family'] = texts[ii].style.fontFamily;
+                values['color'] = texts[ii].style.color;
+                values['size'] = texts[ii].style.fontSize;
+                values['weight'] = texts[ii].style.fontWeight;
+                textValues = textValues.push(values);
+            }
+            $('[name="texts"]').val(JSON.stringify(textValues));
+            console.log(textValues, values, 'front')
+        } else {
+            var text_backs = box.getElementsByTagName('div');
+            var textValuesBack = [];
+            var values_back = [];
+            for (var ii = 0; ii < text_backs.length; ii++) {
+                values_back['content'] = text_backs[ii].innerText;
+                values_back['font_family'] = text_backs[ii].style.fontFamily;
+                values_back['color'] = text_backs[ii].style.color;
+                values_back['size'] = text_backs[ii].style.fontSize;
+                values_back['weight'] = text_backs[ii].style.fontWeight;
+                textValuesBack.push(values_back);
+            }
+            $('[name="texts_back"]').val(JSON.stringify(textValuesBack));
+            console.log(textValuesBack, 'back')
+        }
         var images = box.getElementsByTagName('img');
         var loadCount = 0;
 
@@ -1337,13 +1396,13 @@ document.getElementById('convertToImage').addEventListener('click', function () 
                 fetch(imgData)
                     .then(res => res.blob())
                     .then(blob => {
-                        const file = new File([blob], `${side}Design.png`, { type: 'image/png' });
+                        const file = new File([blob], `${side}Design.png`, {type: 'image/png'});
                         const dataTransfer = new DataTransfer();
                         dataTransfer.items.add(file);
                         fileInput.files = dataTransfer.files;
                     });
 
-                        document.getElementById('cart-destails').appendChild(fileInput);
+                document.getElementById('cart-destails').appendChild(fileInput);
 
                 box.style.border = originalBorder;
             }).catch(error => {
@@ -1356,6 +1415,7 @@ document.getElementById('convertToImage').addEventListener('click', function () 
     sides.forEach(side => {
         processSide(side);
     });
+    getDetails()
 
     setTimeout(
         function () {
@@ -1393,7 +1453,7 @@ function handleUploadExistingDesign(src) {
     deleteButton.addEventListener('click', () => {
 
         const inputField = document.getElementById('file-input');
-        inputField.value = '';
+        // inputField.value = '';
 
         lastImg.remove();
         imageControls.style.display = 'none';
@@ -1416,20 +1476,162 @@ function handleUploadExistingDesign(src) {
             // lastImg.style.height = `${imageSize}px`;
         }
     }
+
     centerElement(lastImg);
     initializeInteract();
 
+}
+
+function getDetails() {
+    const boundaryBox = document.getElementById("boundary-box");
+    const boundaryBoxChildrenHTMLFront = GLOBAL_PRODUCT.front.boundaryBoxChildren.map(child => {
+        const {tagName, innerText} = child;
+        // Get all attributes
+        const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
+        // Construct the HTML string
+        if (innerText) {
+            return `<${tagName.toLowerCase()} ${attributesString}>${innerText}</${tagName.toLowerCase()}>`;
+        } else {
+            return `<${tagName.toLowerCase()} ${attributesString}/>`;
+        }
+    }).join('');
+    const boundaryBoxChildrenHTMLBack = GLOBAL_PRODUCT.back.boundaryBoxChildren.map(child => {
+        const {tagName, innerText} = child;
+        // Get all attributes
+        const attributesString = Array.from(child.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
+        // Construct the HTML string
+        if (innerText) {
+            return `<${tagName.toLowerCase()} ${attributesString} >${innerText}</${tagName.toLowerCase()}>`;
+        } else {
+            return `<${tagName.toLowerCase()} ${attributesString}/>`;
+        }
+    }).join('');
+    let frontBox = document.createElement("div");
+    let backBox = document.createElement("div");
+    frontBox.innerHTML = boundaryBoxChildrenHTMLFront;
+    backBox.innerHTML = boundaryBoxChildrenHTMLBack;
+
+    // Function to create hidden input
+    function createHiddenInput(name, value) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        return input;
+    }
+
+    // Process the front box
+    frontBox.childNodes.forEach(async (child, index) => {
+        if (child.tagName === 'IMG') {
+            async function fetchBlob(url) {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return blob;
+            }
+
+            const blobURL = await fetchBlob(child.getAttribute('src'))
+
+            const reader = new FileReader();
+            reader.readAsDataURL(blobURL);
+            reader.onloadend = function () {
+                const base64data = reader.result;
+
+                // Create a hidden input for the image src
+                const imgSrcInput = createHiddenInput(`front_image[]`, base64data);
+                let div = document.getElementById('cart-destails')
+                div.appendChild(imgSrcInput);
+            };
+        }
+
+        if (child.tagName === 'DIV' && child.classList.contains('text-element')) {
+            // Get the needed style values
+            const textContent = child.textContent;
+            const fontSize = child.style.fontSize;
+            const fontFamily = child.style.fontFamily;
+            const color = child.style.color;
+            const fontWeight = child.style.fontWeight;
+            console.log(fontFamily)
+            console.log(color)
+            console.log(fontWeight)
+            // Create hidden inputs for text properties
+            const textContentInput = createHiddenInput(`front_text_content[]`, textContent);
+            const fontSizeInput = createHiddenInput(`front_font_size[]`, fontSize);
+            const fontFamilyInput = createHiddenInput(`front_font_family[]`, fontFamily);
+            const colorInput = createHiddenInput(`front_color[]`, color);
+            const fontWeightInput = createHiddenInput(`front_font_weight[]`, fontWeight);
+
+            let div = document.getElementById('cart-destails')
+            // Append hidden inputs to the body or form
+            div.appendChild(textContentInput);
+            div.appendChild(fontSizeInput);
+            div.appendChild(fontFamilyInput);
+            div.appendChild(colorInput);
+            div.appendChild(fontWeightInput);
+        }
+    });
+
+    // Process the back box
+    backBox.childNodes.forEach(async (child, index) => {
+        if (child.tagName === 'IMG') {
+            async function fetchBlob(url) {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return blob;
+            }
+
+            const blobURL = await fetchBlob(child.getAttribute('src'))
+
+
+            const reader = new FileReader();
+            reader.readAsDataURL(blobURL);
+            reader.onloadend = function () {
+                const base64data = reader.result;
+
+                // Create a hidden input for the image src
+                const imgSrcInput = createHiddenInput(`back_image[]`, base64data);
+                let div = document.getElementById('cart-destails')
+                div.appendChild(imgSrcInput);
+            };
+        }
+
+        if (child.tagName === 'DIV' && child.classList.contains('text-element')) {
+            console.log("Text from back");
+
+            // Get the needed style values
+            const textContent = child.textContent;
+            const fontSize = child.style.fontSize;
+            const fontFamily = child.style.fontFamily;
+            const color = child.style.color;
+            const fontWeight = child.style.fontWeight;
+
+            // Create hidden inputs for text properties
+            const textContentInput = createHiddenInput(`back_text_content[]`, textContent);
+            const fontSizeInput = createHiddenInput(`back_font_size[]`, fontSize);
+            const fontFamilyInput = createHiddenInput(`back_font_family[]`, fontFamily);
+            const colorInput = createHiddenInput(`back_color[]`, color);
+            const fontWeightInput = createHiddenInput(`back_font_weight[]`, fontWeight);
+
+            let div = document.getElementById('myForm')
+            // Append hidden inputs to the body or form
+            div.appendChild(textContentInput);
+            div.appendChild(fontSizeInput);
+            div.appendChild(fontFamilyInput);
+            div.appendChild(colorInput);
+            div.appendChild(fontWeightInput);
+        }
+    });
 }
 
 function handleAddExistingDesignClick() {
     const addExistingDesignElement = document.getElementById('exsiting-designs-container')
     addExistingDesignElement.style.display = "flex"
 }
+
 function handleCloseExistingDesignClick() {
     const addExistingDesignElement = document.getElementById('exsiting-designs-container')
     addExistingDesignElement.style.display = "none"
 }
+
 window.addEventListener('popstate', function (event) {
     localStorage.removeItem('product');
-
 });

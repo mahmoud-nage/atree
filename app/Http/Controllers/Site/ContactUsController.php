@@ -18,7 +18,7 @@ class ContactUsController extends Controller
         return view('site.contact');
     }
 
-   
+
 
     /**
      * Store a newly created resource in storage.
@@ -35,8 +35,8 @@ class ContactUsController extends Controller
         $message->email = $request->email;
         $message->seen = 0;
         $message->save();
-        return back()->with('success' , trans('site.message_send') );
+        return back()->with('success' , trans('site.message_send') )->with('success', __('messages.created_successfully'));
     }
 
-    
+
 }

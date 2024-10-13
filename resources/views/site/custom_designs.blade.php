@@ -178,7 +178,7 @@
                                                     {{__('site.image')}}
                                                 </span>
                                             <input
-                                                name="file-input[]"
+                                                name="file-input"
                                                 type="file"
                                                 id="file-input"
                                                 style="display: none;"
@@ -454,10 +454,6 @@
 @section('scripts')
     <script>
         $(function () {
-            $("#file-input").change(function(){
-                var $this = $(this), $clone = $this.clone();
-                $this.after($clone).appendTo($('#myForm'));
-            });
             $("#add_sizes").on('click', function () {
                 var ele = $('#size_form').clone(true);
                 $('#size_form').closest('#size_form').before(ele).append(`

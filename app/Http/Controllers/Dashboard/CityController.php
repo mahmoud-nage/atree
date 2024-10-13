@@ -49,7 +49,7 @@ class CityController extends Controller
         $city->user_id = Auth::id();
         $city->active = $request->filled('active') ? 1 : 0;
         $city->save();
-        return redirect(route('dashboard.cities.index'))->with('success' , 'تم الاضافه بنجاح' , 'تم بنجاح' );
+        return redirect(route('dashboard.cities.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -90,7 +90,7 @@ class CityController extends Controller
         $city->active = $request->filled('active') ? 1 : 0;
         $city->shipping_cost = $request->shipping_cost;
         $city->save();
-        return redirect(route('dashboard.cities.index'))->with('success' , 'تم التعديل بنجاح' );
+        return redirect(route('dashboard.cities.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

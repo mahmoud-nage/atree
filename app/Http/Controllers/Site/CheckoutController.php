@@ -42,7 +42,7 @@ class CheckoutController extends Controller
         $discount = 0;
         $items = Cart::where('user_id', auth()->id())->get();
         if (count($items) <= 0) {
-            return redirect(route('cart.index'))->with('error', 'السله فارغه');
+            return redirect(route('cart.index'))->with('error', __('messages.not_found_records'));
         }
         foreach ($items as $item) {
             $sub_total += ($item->quantity * $item->price);
@@ -124,7 +124,7 @@ class CheckoutController extends Controller
             }
         }
 
-        return view('site.success')->with('success', 'تم انشاء الطلب بنجاح');
+        return view('site.success')->with('success', __('messages.created_successfully'));
     }
 
     public function pay($order_id)
@@ -165,6 +165,6 @@ class CheckoutController extends Controller
         if (isset($result->pay_url)) {
             return redirect($result->pay_url);
         }
-        return view('site.success')->with('success', 'تم انشاء الطلب بنجاح');
+        return view('site.success')->with('success', __('messages.created_successfully'));
     }
 }

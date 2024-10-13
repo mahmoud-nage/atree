@@ -40,7 +40,7 @@ class ProductVariationController extends Controller
     public function store(Request $request , Product $product)
     {
 
-        for ($i=0; $i <count($request->types) ; $i++) { 
+        for ($i=0; $i <count($request->types) ; $i++) {
             $new_product_variat = new Variation;
             $new_product_variat->product_id = $product->id;
             $new_product_variat->title = $request->name[$i];
@@ -50,7 +50,7 @@ class ProductVariationController extends Controller
             $new_product_variat->user_id = Auth::id();
             $new_product_variat->save();
             if ($request->color_barcode) {
-                for ($r=0; $r <count($request->color_barcode[$i]) ; $r++) { 
+                for ($r=0; $r <count($request->color_barcode[$i]) ; $r++) {
                     $product_sub_variat = new Variation;
                     $product_sub_variat->product_id = $product->id;
                     $product_sub_variat->parent_id = $new_product_variat->id;
@@ -64,7 +64,7 @@ class ProductVariationController extends Controller
                 }
             }
         }
-        return redirect(route('dashboard.products.index'))->with('success' , 'تم الاضافه بنجاح' );
+        return redirect(route('dashboard.products.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**

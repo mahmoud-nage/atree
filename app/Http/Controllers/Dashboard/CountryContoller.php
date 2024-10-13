@@ -49,16 +49,16 @@ class CountryContoller extends Controller
         $country->user_id = Auth::id();
 
         if ($request->hasFile('image')) {
-            $country->image  = basename($request->file('image')->store('countries'));       
+            $country->image  = basename($request->file('image')->store('countries'));
 
-            // $imagePath = $request->file('image')->store('countries' , 'public');       
+            // $imagePath = $request->file('image')->store('countries' , 'public');
             // $sizes = [ [56 , 40] ];
             // dispatch(new ResizeImageAndUploadToAwsJob( $imagePath ,  $sizes , 'countries' , 'Country' , $country->id, 'image'));
         }
 
         $country->save();
 
-        return redirect(route('dashboard.countries.index'))->with('success' , 'تم إضافه الدوله بنجاح' );
+        return redirect(route('dashboard.countries.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -97,16 +97,16 @@ class CountryContoller extends Controller
         $country->active = $request->filled('active') ? 1 : 0;
 
         if ($request->hasFile('image')) {
-            $country->image  = basename($request->file('image')->store('countries'));       
+            $country->image  = basename($request->file('image')->store('countries'));
 
-            // $imagePath = $request->file('image')->store('countries' , 'public');       
+            // $imagePath = $request->file('image')->store('countries' , 'public');
             // $sizes = [ [56 , 40] ];
             // dispatch(new ResizeImageAndUploadToAwsJob( $imagePath ,  $sizes , 'countries' , 'Country' , $country->id, 'image'));
         }
-        
+
         $country->save();
 
-        return redirect(route('dashboard.countries.index'))->with('success' , 'تم تعديل الدوله بنجاح' );
+        return redirect(route('dashboard.countries.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

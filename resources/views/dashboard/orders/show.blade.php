@@ -130,7 +130,7 @@
                                 <th> {{__('site.note')}} </th>
                                 <th> {{__('site.total_cost')}} </th>
                                 <th>  {{__('site.quantity')}} </th>
-                                <th> {{__('site.orders')}} </th>
+                                <th> {{__('site.actions')}} </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -216,28 +216,28 @@
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_front_width')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_front_width }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_front_width }}
                                                                     %
                                                                 </div>
 
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_front_height')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_front_height }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_front_height }}
                                                                     %
                                                                 </div>
 
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_front_left')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_front_left }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_front_left }}
                                                                     %
                                                                 </div>
 
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_front_top')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_front_top }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_front_top }}
                                                                     %
                                                                 </div>
                                                             </div>
@@ -254,29 +254,29 @@
                                                                 @if($details['type'] == 'text')
                                                                     <div class="card-body row text-center">
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.text')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.text')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['content'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['content'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.item_text_color')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.item_text_color')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['color'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['color'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.site_text_font_family')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.site_text_font_family')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['font_family'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['font_family'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.site_text_size')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.site_text_size')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['size'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['size'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.site_text_weight')}} </div>
+                                                                            class="col-md-6"> {{__('site.site_text_weight')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['weight'] }} </div>
+                                                                            class="col-md-6 text-info"> {{ $details['weight'] }} </div>
                                                                     </div>
                                                                 @else
                                                                     <div class="card-body row">
@@ -285,7 +285,7 @@
                                                                         <div
                                                                             class="col-md-6 ml-auto"><img alt="img"
                                                                                                           class="img-fluid"
-                                                                                                          src="{{ $details['content'] }}">
+                                                                                                          src="{{ Storage::url('designs/'.$details['content']) }}">
                                                                         </div>
                                                                     </div>
                                                                 @endif
@@ -321,17 +321,9 @@
                                                                     <div
                                                                         style="background-image: url('{{Storage::url('products/'.$item?->design?->back_image)}}');background-color: {{$item?->design?->main_color_code}}; background-position: center; position: relative;height: 27rem;background-size: cover;background-repeat: no-repeat;">
                                                                         @if($item?->design?->design_image_back)
-                                                                            <img class=" img-fluid
-                                                                    " alt="design"
-                                                                                 src="{{Storage::url('designs/'.$item?->design?->design_image_back)}}
-                                                                    "
-                                                                                 style="width: {{$item?->design?->product?->site_back_width}}
-                                                                    %;
-                                                                    height: {{$item?->design?->product?->site_back_height}}
-                                                                    %; top: {{$item?->design?->product?->site_back_top}}
-                                                                    %;
-                                                                    left: {{$item?->design?->product?->site_back_left}}
-                                                                    %;position: absolute;">
+                                                                            <img class="img-fluid" alt="design"
+                                                                                 src="{{Storage::url('designs/'.$item?->design?->design_image_back)}}"
+                                                                                 style="width: {{$item?->design?->product?->site_back_width}}%;height: {{$item?->design?->product?->site_back_height}}%; top: {{$item?->design?->product?->site_back_top}}%;left: {{$item?->design?->product?->site_back_left}}%;position: absolute;">
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -340,28 +332,28 @@
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_back_width')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_back_width }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_back_width }}
                                                                     %
                                                                 </div>
 
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_back_height')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_back_height }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_back_height }}
                                                                     %
                                                                 </div>
 
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_back_left')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_back_left }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_back_left }}
                                                                     %
                                                                 </div>
 
                                                                 <div
                                                                     class="col-md-6 ml-auto"> {{__('products.site_back_top')}} </div>
                                                                 <div
-                                                                    class="col-md-6 ml-auto"> {{ $item->variation->product?->site_back_top }}
+                                                                    class="col-md-6 ml-auto text-info"> {{ $item->variation->product?->site_back_top }}
                                                                     %
                                                                 </div>
                                                             </div>
@@ -378,29 +370,29 @@
                                                                 @if($details['type'] == 'text')
                                                                     <div class="card-body row text-center">
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.text')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.text')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['content'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['content'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.item_text_color')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.item_text_color')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['color'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['color'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.site_text_font_family')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.site_text_font_family')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['font_family'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['font_family'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.site_text_size')}} </div>
+                                                                            class="col-md-6 ml-auto"> {{__('site.site_text_size')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['size'] }} </div>
+                                                                            class="col-md-6 ml-auto text-info"> {{ $details['size'] }} </div>
 
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{__('site.site_text_weight')}} </div>
+                                                                            class="col-md-6"> {{__('site.site_text_weight')}} </div>
                                                                         <div
-                                                                            class="col-md-3 ml-auto"> {{ $details['weight'] }} </div>
+                                                                            class="col-md-6 text-info"> {{ $details['weight'] }} </div>
                                                                     </div>
                                                                 @else
                                                                     <div class="card-body row">
@@ -409,7 +401,7 @@
                                                                         <div
                                                                             class="col-md-6 ml-auto"><img alt="img"
                                                                                                           class="img-fluid"
-                                                                                                          src="{{ $details['content'] }}">
+                                                                                                          src="{{ Storage::url('designs/'.$details['content']) }}">
                                                                         </div>
                                                                     </div>
                                                                 @endif

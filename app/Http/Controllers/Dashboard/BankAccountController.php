@@ -41,7 +41,7 @@ class BankAccountController extends Controller
         if(!$account->add($request->all()))
             return back()->with('error' , trans('bank_accounts.adding_error'));
 
-        return redirect(route('dashboard.bank_accounts.index'))->with('success' , trans('bank_accounts.adding_success'));
+        return redirect(route('dashboard.bank_accounts.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -78,7 +78,7 @@ class BankAccountController extends Controller
         if(!$bank_account->edit($request->all()))
             return back()->with('error' , trans('bank_accounts.editing_error'));
 
-        return redirect(route('dashboard.bank_accounts.index'))->with('success' , trans('bank_accounts.editing_success'));
+        return redirect(route('dashboard.bank_accounts.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

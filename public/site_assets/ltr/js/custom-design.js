@@ -1420,7 +1420,7 @@ document.getElementById('convertToImage').addEventListener('click', function () 
     setTimeout(
         function () {
             $('#myForm').submit();
-        }, 10000);
+        }, 1000);
 });
 
 function handleUploadExistingDesign(src) {
@@ -1510,6 +1510,7 @@ function getDetails() {
     let backBox = document.createElement("div");
     frontBox.innerHTML = boundaryBoxChildrenHTMLFront;
     backBox.innerHTML = boundaryBoxChildrenHTMLBack;
+
     // Function to create hidden input
     function createHiddenInput(name, value) {
         const input = document.createElement('input');
@@ -1520,14 +1521,26 @@ function getDetails() {
     }
 
     // Process the front box
-    frontBox.childNodes.forEach((child, index) => {
+    frontBox.childNodes.forEach(async (child, index) => {
         if (child.tagName === 'IMG') {
-            console.log("Image from front");
+            async function fetchBlob(url) {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return blob;
+            }
 
-            // Create a hidden input for the image src
-            const imgSrcInput = createHiddenInput(`front_image[]`, child.getAttribute('src'));
-            let div = document.getElementById('cart-destails')
-            div.appendChild(imgSrcInput);
+            const blobURL = await fetchBlob(child.getAttribute('src'))
+
+            const reader = new FileReader();
+            reader.readAsDataURL(blobURL);
+            reader.onloadend = function () {
+                const base64data = reader.result;
+
+                // Create a hidden input for the image src
+                const imgSrcInput = createHiddenInput(`front_image[]`, base64data);
+                let div = document.getElementById('cart-destails')
+                div.appendChild(imgSrcInput);
+            };
         }
 
         if (child.tagName === 'DIV' && child.classList.contains('text-element')) {
@@ -1558,14 +1571,27 @@ function getDetails() {
     });
 
     // Process the back box
-    backBox.childNodes.forEach((child, index) => {
+    backBox.childNodes.forEach(async (child, index) => {
         if (child.tagName === 'IMG') {
-            console.log("Image from back");
+            async function fetchBlob(url) {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return blob;
+            }
 
-            // Create a hidden input for the image src
-            const imgSrcInput = createHiddenInput(`back_image[]`, child.getAttribute('src'));
-            let div = document.getElementById('cart-destails')
-            div.appendChild(imgSrcInput);
+            const blobURL = await fetchBlob(child.getAttribute('src'))
+
+
+            const reader = new FileReader();
+            reader.readAsDataURL(blobURL);
+            reader.onloadend = function () {
+                const base64data = reader.result;
+
+                // Create a hidden input for the image src
+                const imgSrcInput = createHiddenInput(`back_image[]`, base64data);
+                let div = document.getElementById('cart-destails')
+                div.appendChild(imgSrcInput);
+            };
         }
 
         if (child.tagName === 'DIV' && child.classList.contains('text-element')) {

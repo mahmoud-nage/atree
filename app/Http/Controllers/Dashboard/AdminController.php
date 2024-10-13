@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Storage;
 use App\Http\Requests\Dashboard\Admins\StoreAdminRequest;
 use App\Http\Requests\Dashboard\Admins\UpdateAdminRequest;
@@ -14,7 +20,7 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -24,7 +30,7 @@ class AdminController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -34,8 +40,8 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreAdminRequest $request
+     * @return Application|RedirectResponse|Redirector
      */
     public function store(StoreAdminRequest $request)
     {
@@ -48,7 +54,7 @@ class AdminController extends Controller
             $admin->save();
         }
 
-        return redirect(route('dashboard.admins.index'))->with('success' , 'تم إضافه المشرف بنجاح' );
+        return redirect(route('dashboard.admins.index'))->with('success', __('messages.created_successfully'));
 
     }
 
@@ -56,7 +62,7 @@ class AdminController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function show(User $admin)
     {
@@ -68,7 +74,7 @@ class AdminController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(User $admin)
     {
@@ -78,9 +84,9 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(UpdateAdminRequest $request,User $admin)
     {
@@ -94,14 +100,14 @@ class AdminController extends Controller
             $admin->save();
         }
 
-        return redirect(route('dashboard.admins.index'))->with('success' , trans('editing_success') );
+        return redirect(route('dashboard.admins.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

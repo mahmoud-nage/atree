@@ -35,13 +35,13 @@ class UnitController extends Controller
         if ($request->filled('unit_id')) {
             $factors = [];
             $factors[] = new UnitConversion([
-                'main_unit_id' => $unit->id , 
-                'factor' => $request->number , 
-                'unit_id' => $request->unit_id , 
+                'main_unit_id' => $unit->id ,
+                'factor' => $request->number ,
+                'unit_id' => $request->unit_id ,
             ]);
             $unit->conversions()->saveMany($factors);
         }
-        return redirect(route('dashboard.units.index'))->with('success' , trans('units.adding_success'));
+        return redirect(route('dashboard.units.index'))->with('success', __('messages.created_successfully'));
     }
 
 
@@ -67,13 +67,13 @@ class UnitController extends Controller
             $unit->conversions()->delete();
             $factors = [];
             $factors[] = new UnitConversion([
-                'main_unit_id' => $unit->id , 
-                'factor' => $request->number , 
-                'unit_id' => $request->unit_id , 
+                'main_unit_id' => $unit->id ,
+                'factor' => $request->number ,
+                'unit_id' => $request->unit_id ,
             ]);
             $unit->conversions()->saveMany($factors);
         }
-        return redirect(route('dashboard.units.index'))->with('success' , trans('units.editing_success'));
+        return redirect(route('dashboard.units.index'))->with('success', __('messages.updated_successfully'));
     }
 
 }

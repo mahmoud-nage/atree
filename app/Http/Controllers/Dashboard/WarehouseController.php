@@ -47,21 +47,21 @@ class WarehouseController extends Controller
     {
         $warehouse = new Warehouse;
         if(!$warehouse->add($request->all()))
-            return back()->with('error' , trans('warehouses.adding_error')); 
+            return back()->with('error' , trans('warehouses.adding_error'));
 
         $warehouse_governorates = [];
         if ($request->governorates) {
-            for ($i=0; $i <count($request->governorates) ; $i++) { 
+            for ($i=0; $i <count($request->governorates) ; $i++) {
                 $warehouse_governorates[] = new WarehouseGovernorate([
-                    'user_id' => Auth::id() , 
-                    'warehouses_id' => $warehouse->id , 
-                    'governorate_id' => $request->governorates[$i] , 
+                    'user_id' => Auth::id() ,
+                    'warehouses_id' => $warehouse->id ,
+                    'governorate_id' => $request->governorates[$i] ,
                 ]);
             }
             $warehouse->governorates()->saveMany($warehouse_governorates);
         }
 
-        return redirect(route('dashboard.warehouses.index'))->with('success' , trans('warehouses.adding_success'));
+        return redirect(route('dashboard.warehouses.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -101,21 +101,21 @@ class WarehouseController extends Controller
     {
 
         if(!$warehouse->edit($request->all()))
-            return back()->with('error' , trans('warehouses.editing_error')); 
+            return back()->with('error' , trans('warehouses.editing_error'));
 
         $warehouse_governorates = [];
         if ($request->governorates) {
             $warehouse->governorates()->delete();
-            for ($i=0; $i <count($request->governorates) ; $i++) { 
+            for ($i=0; $i <count($request->governorates) ; $i++) {
                 $warehouse_governorates[] = new WarehouseGovernorate([
-                    'user_id' => Auth::id() , 
-                    'warehouses_id' => $warehouse->id , 
-                    'governorate_id' => $request->governorates[$i] , 
+                    'user_id' => Auth::id() ,
+                    'warehouses_id' => $warehouse->id ,
+                    'governorate_id' => $request->governorates[$i] ,
                 ]);
             }
             $warehouse->governorates()->saveMany($warehouse_governorates);
         }
-        return redirect(route('dashboard.warehouses.index'))->with('success' , trans('warehouses.editing_success'));
+        return redirect(route('dashboard.warehouses.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

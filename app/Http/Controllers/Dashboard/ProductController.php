@@ -117,7 +117,7 @@ class ProductController extends Controller
 //            $variation->quantity = $request->quantity[$i];
 //            $variation->save();
 //        }
-        return redirect(route('dashboard.products.index'))->with('success', 'تم الاضافه بنجاح');
+        return redirect(route('dashboard.products.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -208,7 +208,7 @@ class ProductController extends Controller
             $product->images()->saveMany($images);
         }
 
-        return redirect(route('dashboard.products.index'))->with('success', trans('products.editing_success'));
+        return redirect(route('dashboard.products.index'))->with('success', __('messages.updated_successfully'));
 
     }
 
@@ -235,6 +235,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($request->product_id);
         unset($data['product_id']);
         $product->update($data);
-        return back()->with('success', trans('products.editing_success'));
+        return back()->with('success', __('messages.updated_successfully'));
     }
 }

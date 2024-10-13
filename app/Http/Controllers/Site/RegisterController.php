@@ -43,6 +43,6 @@ class RegisterController extends Controller
 //        $code->email = $user->email;
 //        $code->save();
         dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
-        return redirect(route('verify_phone.index'));
+        return redirect(route('verify_phone.index'))->with('success', __('messages.registered_successfully'));
     }
 }

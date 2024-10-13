@@ -45,7 +45,7 @@ class SlideController extends Controller
         $slide->image = basename($request->file('image')->store('slides'));
         $slide->save();
 
-        return redirect(route('dashboard.slides.index'))->with('success' , trans('slides.adding_success'));
+        return redirect(route('dashboard.slides.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -90,7 +90,7 @@ class SlideController extends Controller
             $slide->save();
         }
 
-        return redirect(route('dashboard.slides.index'))->with('success' , trans('slides.editing_success'));
+        return redirect(route('dashboard.slides.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

@@ -55,7 +55,7 @@ class SettingsController extends Controller
            Storage::move('users/'.$user_default_image, 'users/user-default.png');
         }
         $info->save();
-        return redirect()->back()->with('success' ,  'تم التعديل بنجاح' );
+        return redirect()->back()->with('success', __('messages.updated_successfully'));
     }
 
 

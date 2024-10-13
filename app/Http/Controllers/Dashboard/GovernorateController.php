@@ -48,7 +48,7 @@ class GovernorateController extends Controller
         $governorate->country_id = $request->country_id;
         $governorate->shipping_cost = $request->shipping_cost;
         $governorate->save();
-        return redirect(route('dashboard.governorates.index'))->with('success'  , 'تم إضافه المحاظفه بنجاح', 'تم بنجاح' );
+        return redirect(route('dashboard.governorates.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -90,7 +90,7 @@ class GovernorateController extends Controller
         $governorate->country_id = $request->country_id;
         $governorate->shipping_cost = $request->shipping_cost;
         $governorate->save();
-        return redirect(route('dashboard.governorates.index'))->with('success'  , 'تم تعديل المحاظفه بنجاح', 'تم بنجاح' );
+        return redirect(route('dashboard.governorates.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

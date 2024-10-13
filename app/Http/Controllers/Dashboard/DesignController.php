@@ -45,7 +45,7 @@ class DesignController extends Controller
         $size->is_active = $request->filled('is_active') ? 1 : 0;
         $size->save();
 
-        return redirect(route('dashboard.designs.index'))->with('success' , 'تم إاضهف المقاس بنجاح' );
+        return redirect(route('dashboard.designs.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -84,7 +84,7 @@ class DesignController extends Controller
         $size->is_active = $request->filled('is_active') ? 1 : 0;
         $size->save();
 
-        return redirect(route('dashboard.designs.index'))->with('success' , 'تم تعديل المقاس بنجاح' );
+        return redirect(route('dashboard.designs.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

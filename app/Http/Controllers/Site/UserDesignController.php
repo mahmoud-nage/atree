@@ -60,6 +60,6 @@ class UserDesignController extends Controller
             ];
         }
         UserDesign::create($designs);
-        return view('site.my_designs');
+        return view('site.my_designs')->with('success', __('messages.created_successfully'));
     }
 }

@@ -54,7 +54,11 @@ class OrderController extends Controller
         $order->shipping_statues_id = $request->status_id;
         $order->save();
         $order->refresh();
-        Mail::to(auth()->user())->send(new ChangeStatusMail($order->load('status')));
+
+        try {
+            Mail::to(auth()->user())->send(new ChangeStatusMail($order->load('status')));
+        }catch (\Throwable $e){
+        }
 
         if ($request->status_id == 5) {
             foreach ($order->items as $order_item) {
@@ -62,7 +66,7 @@ class OrderController extends Controller
                 dispatch(new AddMoneyToUserIncomeJob($order_item));
             }
         }
-        return redirect()->back()->with('success', __('messages.updated_successfully'));
+        return redirect()->back()->with('success', __('messages.changed_successfully'));
     }
 
     /**

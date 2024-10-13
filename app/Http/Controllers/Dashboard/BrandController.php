@@ -45,7 +45,7 @@ class BrandController extends Controller
         $brand->logo = basename($request->file('logo')->store('brands'));
         $brand->save();
 
-        return redirect(route('dashboard.brands.index'))->with('success' , trans('brands.adding_success'));
+        return redirect(route('dashboard.brands.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -90,7 +90,7 @@ class BrandController extends Controller
             $brand->save();
         }
 
-        return redirect(route('dashboard.brands.index'))->with('success' , trans('brands.editing_success'));
+        return redirect(route('dashboard.brands.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

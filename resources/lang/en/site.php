@@ -179,11 +179,11 @@ return array(
     'item_inner_top' => 'item_inner_top',
     'type' => 'type',
     'design_info' => 'design_info',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+    'actions' => 'actions',
+    'subtotal' => 'sub total',
+    'phone' => 'phone',
+    'product_info' => 'product info',
+    'items_info' => 'items info',
     '' => '',
 
 );

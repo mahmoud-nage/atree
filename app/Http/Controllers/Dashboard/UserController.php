@@ -72,7 +72,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect(route('dashboard.users.index'))->with('success' , trans('editing_success') );
+        return redirect(route('dashboard.users.index'))->with('success', __('messages.updated_successfully'));
     }
 
 

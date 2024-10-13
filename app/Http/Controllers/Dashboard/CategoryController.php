@@ -10,7 +10,7 @@ use App\Http\Requests\Dashboard\Categories\UpdateCategoryRequest;
 use App\Jobs\DeleteImagesFromAWSJob;
 class CategoryController extends Controller
 {
-    
+
 
     public function index()
     {
@@ -33,7 +33,7 @@ class CategoryController extends Controller
             $category->image = basename($request->file('image')->store('categories'));
             $category->save();
         }
-        return redirect(route('dashboard.categories.index'))->with('success' , trans('categories.adding_success'));
+        return redirect(route('dashboard.categories.index'))->with('success', __('messages.created_successfully'));
     }
 
     public function show(Category $category)
@@ -44,7 +44,7 @@ class CategoryController extends Controller
 
 
     public function edit(Category $category)
-    {   
+    {
         $categories = Category::all();
         return view('dashboard.categories.edit' , compact('category' , 'categories'));
     }
@@ -61,6 +61,6 @@ class CategoryController extends Controller
             $category->image = basename($request->file('image')->store('categories'));
             $category->save();
         }
-        return redirect(route('dashboard.categories.index'))->with('success' , trans('categories.editing_success'));
+        return redirect(route('dashboard.categories.index'))->with('success', __('messages.updated_successfully'));
     }
 }

@@ -32,7 +32,7 @@ class ProfileController extends Controller
             $user->image = basename($request->file('image')->store('admins'));
         }
         $user->save();
-        return redirect()->back()->with('success' , 'تم تعديل بيانات الملف الشخصى بنجاح' );
+        return redirect()->back()->with('success', __('messages.updated_successfully'));
     }
 
 
@@ -44,13 +44,13 @@ class ProfileController extends Controller
     public function update_password(UpdatePasswordRequest $request)
     {
         if (!Hash::check($request->current_password, Auth::user()->password )) {
-            return back()->with('error' , 'كلمه المرور الحاليه غير صحيحه' );
+            return back()->with('success', __('messages.wrong_current_password'));
         }
 
         $user = Auth::user();
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->back()->with('success' , 'تم تعديل كلمه المرور بنجاح' );
+        return redirect()->back()->with('success', __('messages.updated_successfully'));
 
     }
 

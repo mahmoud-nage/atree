@@ -51,7 +51,7 @@ class ChallengeController extends Controller
         $challenge->should_user_finishes_to_receive_money = $request->filled('should_user_finishes_to_receive_money') ? 1 : 0;
         $challenge->save();
 
-        return redirect(route('dashboard.challenges.index'))->with('success' , 'تم إنشاء التحدى بنجاح' );
+        return redirect(route('dashboard.challenges.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -95,7 +95,7 @@ class ChallengeController extends Controller
         $challenge->should_user_finishes_to_receive_money = $request->filled('should_user_finishes_to_receive_money') ? 1 : 0;
         $challenge->save();
 
-        return redirect(route('dashboard.challenges.index'))->with('success' , 'تم تعديل  التحدى بنجاح' );
+        return redirect(route('dashboard.challenges.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

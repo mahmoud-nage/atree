@@ -46,7 +46,7 @@ class ColorController extends Controller
         $color->code = $request->code;
         $color->save();
 
-        return redirect(route('dashboard.colors.index'))->with('success' , 'تم إضافه اللون بنجاح' ); 
+        return redirect(route('dashboard.colors.index'))->with('success', __('messages.created_successfully'));
 
     }
 
@@ -87,7 +87,7 @@ class ColorController extends Controller
         $color->code = $request->code;
         $color->save();
 
-        return redirect(route('dashboard.colors.index'))->with('success' , 'تم تعديل اللون بنجاح' ); 
+        return redirect(route('dashboard.colors.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

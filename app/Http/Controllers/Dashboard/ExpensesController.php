@@ -51,7 +51,7 @@ class ExpensesController extends Controller
         }
         $expenses->save();
 
-        return redirect(route('dashboard.expenses.index'))->with('success' , 'تم الاضافه بنجاح' );
+        return redirect(route('dashboard.expenses.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -95,7 +95,7 @@ class ExpensesController extends Controller
             $expense->image = basename($request->file('image')->store('expenses'));
         }
         $expense->save();
-        return redirect(route('dashboard.expenses.index'))->with('success' , 'تم التعديل بنجاح' );
+        return redirect(route('dashboard.expenses.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**

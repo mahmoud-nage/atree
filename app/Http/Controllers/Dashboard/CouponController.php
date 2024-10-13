@@ -48,7 +48,7 @@ class CouponController extends Controller
         $coupon->end_date = $request->end_date;
         $coupon->user_id = Auth::id();
         $coupon->save();
-        return redirect(route('dashboard.coupons.index'))->with('success' , 'تم إضافه الكوبون بنجاح' );
+        return redirect(route('dashboard.coupons.index'))->with('success', __('messages.created_successfully'));
     }
 
     /**
@@ -91,7 +91,7 @@ class CouponController extends Controller
         $coupon->start_date = $request->start_date;
         $coupon->end_date = $request->end_date;
         $coupon->save();
-        return redirect(route('dashboard.coupons.index'))->with('success' , 'تم تعديل الكوبون بنجاح' );
+        return redirect(route('dashboard.coupons.index'))->with('success', __('messages.updated_successfully'));
     }
 
     /**
