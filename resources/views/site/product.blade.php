@@ -113,30 +113,30 @@
 
                             <ul class="users-list clearfix">
 
-                                @foreach ($products as $product)
+                                @foreach ($products as $record)
                                     <li>
                                         <div class="product-container">
-                                            <a href="{{ $product->url() }}" class="image-container"
-                                               data-image="{{ Storage::url('products/'.$product->front_image) }}">
-                                                <div class="card-front" id="0-card-front{{$product->id}}"
-                                                     style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                            <a href="{{ $record->url() }}" class="image-container"
+                                               data-image="{{ Storage::url('products/'.$record->front_image) }}">
+                                                <div class="card-front" id="0-card-front{{$record->id}}"
+                                                     style="background-image: url('{{ Storage::url('products/'.$record->front_image) }}');background-color:{{$record->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                 </div>
-                                                <div class="card-back" id="0-card-back{{$product->id}}"
-                                                     style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                                <div class="card-back" id="0-card-back{{$record->id}}"
+                                                     style="position: relative; background-image: url('{{ Storage::url('products/'.$record->back_image) }}');background-color:{{$record->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                 </div>
                                             </a>
                                             <ul class="color-list">
-                                                @foreach ($product->variations->unique('color_id') as $record_color_variation)
+                                                @foreach ($record->variations->unique('color_id') as $record_color_variation)
                                                     <li class="color-item"
-                                                        onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
-                                                        onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
+                                                        onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$record->id}}')"
+                                                        onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$record->id}}')"
                                                         style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
                                                         id="color-Button"></li>
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        <a class="users-list-name" href="{{ $product->url() }}">T-shirt</a>
-                                        <div class="users-list-date"> {{ $product->price }}
+                                        <a class="users-list-name" href="{{ $record->url() }}">T-shirt</a>
+                                        <div class="users-list-date"> {{ $record->price }}
                                             <span> @lang('site.SAR') </span></div>
                                     </li>
                                 @endforeach
