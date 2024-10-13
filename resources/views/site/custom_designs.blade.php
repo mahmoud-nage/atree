@@ -350,8 +350,8 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="d-flex justify-content-between mt-2"
-{{--                                //onclick="addType(1)">--}}
+                                <div class="d-flex justify-content-between mt-2">
+                                    {{--                                //onclick="addType(1)">--}}
                                     <button type="button"  id="convertToImage1"
                                             class="btn btn-primary bg-primary-gridant span6 py-2"
                                             style="width: 50% !important;" id="save" fdprocessedid="p0s243">
