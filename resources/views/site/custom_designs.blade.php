@@ -557,7 +557,6 @@
 
         function addType(type) {
             $("#submit_type").val(type);
-            $('#myForm').submit();
         }
 
         function changeColor(color) {
