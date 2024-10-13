@@ -351,7 +351,7 @@
                                     </ul>
                                 </div>
                                 <div class="d-flex justify-content-between mt-2">
-                                    <button type="button" onclick="addType(1);convertToImage()"
+                                    <button type="button" onclick="addType(1)" id="convertToImage1"
                                             class="btn btn-primary bg-primary-gridant span6 py-2"
                                             style="width: 50% !important;" id="save" fdprocessedid="p0s243">
                                         @lang('site.add-to-cart')
@@ -360,7 +360,7 @@
 
                                     <button type="button"
                                             class="btn btn-success bg-success-gridant span6 py-2 @if(isset(request()->type)) d-none @endif"
-                                            style="width: 49% !important;" id="convertToImage" onclick="convertToImage()"
+                                            style="width: 49% !important;" id="convertToImage"
                                             fdprocessedid="0tvxz">
                                         @lang('site.add-design')
                                         <i class="fa fa-crop-alt fa-lg mr-2"></i>

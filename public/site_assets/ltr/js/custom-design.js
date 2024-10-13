@@ -1303,7 +1303,7 @@ function changeNewDesignProduct(productId) {
     }
 }
 
-function convertToImage() { //document.getElementById('convertToImage').addEventListener('click',
+document.getElementById('convertToImage').addEventListener('click', function () {
     const sides = ["front", "back"];
 
     function processSide(side) {
@@ -1421,7 +1421,126 @@ function convertToImage() { //document.getElementById('convertToImage').addEvent
         function () {
             $('#myForm').submit();
         }, 1000);
-}; //)
+});
+document.getElementById('convertToImage1').addEventListener('click', function () {
+    const sides = ["front", "back"];
+
+    function processSide(side) {
+        if (side === "front") {
+            setFrontImage();
+        } else {
+            setBackImage();
+        }
+
+        var box = document.getElementById('boundary-box');
+        if (!box) {
+            console.error('Boundary box not found');
+            return;
+        }
+
+        var originalBorder = box.style.border;
+        box.style.border = 'none';
+
+        if (side === "front") {
+            var texts = box.getElementsByTagName('div');
+            var textValues = [];
+            var values = [];
+            for (var ii = 0; ii < texts.length; ii++) {
+                values['content'] = texts[ii].innerText;
+                values['font_family'] = texts[ii].style.fontFamily;
+                values['color'] = texts[ii].style.color;
+                values['size'] = texts[ii].style.fontSize;
+                values['weight'] = texts[ii].style.fontWeight;
+                textValues = textValues.push(values);
+            }
+            $('[name="texts"]').val(JSON.stringify(textValues));
+            console.log(textValues, values, 'front')
+        } else {
+            var text_backs = box.getElementsByTagName('div');
+            var textValuesBack = [];
+            var values_back = [];
+            for (var ii = 0; ii < text_backs.length; ii++) {
+                values_back['content'] = text_backs[ii].innerText;
+                values_back['font_family'] = text_backs[ii].style.fontFamily;
+                values_back['color'] = text_backs[ii].style.color;
+                values_back['size'] = text_backs[ii].style.fontSize;
+                values_back['weight'] = text_backs[ii].style.fontWeight;
+                textValuesBack.push(values_back);
+            }
+            $('[name="texts_back"]').val(JSON.stringify(textValuesBack));
+            console.log(textValuesBack, 'back')
+        }
+        var images = box.getElementsByTagName('img');
+        var loadCount = 0;
+
+        function checkImagesLoaded() {
+            loadCount++;
+            if (loadCount === images.length) {
+                captureCanvas();
+            }
+        }
+
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].complete) {
+                checkImagesLoaded();
+            } else {
+                images[i].onload = checkImagesLoaded;
+                images[i].onerror = checkImagesLoaded;
+            }
+        }
+
+        if (images.length === 0) {
+            captureCanvas();
+        }
+
+        function captureCanvas() {
+            html2canvas(box, {
+                useCORS: true,
+                backgroundColor: 'rgba(0,0,0,0)', // Set background to transparent
+                // scale: 2 // Increase the scale for better resolution
+            }).then(canvas => {
+                var imgData = canvas.toDataURL('image/png');
+                var imgElement = document.createElement('img');
+                imgElement.src = imgData;
+                imgElement.id = (side === "front") ? "frontdesign" : "backdesign";
+
+                // Create a file input element to hold the image data
+                var fileInput = document.createElement('input');
+                fileInput.type = 'hidden';
+                fileInput.id = `${side}ImageFile`;
+                fileInput.name = `${side}ImageFile`;
+                fileInput.value = `${imgData}`;
+
+                // Convert the base64 data to a blob and create a file from it
+                fetch(imgData)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], `${side}Design.png`, {type: 'image/png'});
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        fileInput.files = dataTransfer.files;
+                    });
+
+                document.getElementById('cart-destails').appendChild(fileInput);
+
+                box.style.border = originalBorder;
+            }).catch(error => {
+                console.error("Error capturing canvas: ", error);
+                box.style.border = originalBorder;
+            });
+        }
+    }
+
+    sides.forEach(side => {
+        processSide(side);
+    });
+    getDetails()
+
+    setTimeout(
+        function () {
+            $('#myForm').submit();
+        }, 1000);
+});
 
 function handleUploadExistingDesign(src) {
     const designArea = document.getElementById('design-area');
