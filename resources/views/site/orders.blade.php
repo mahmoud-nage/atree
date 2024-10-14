@@ -20,17 +20,17 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <div>
-                                <p class="card-title">Order Placed</p>
+                                <p class="card-title">{{__('site.Order Date')}}</p>
                                 <p class="font-weight-normal">{{date('d F Y', strtotime($record->created_at))}}</p>
                             </div>
 
                             <div>
-                                <p class="card-title">Total</p>
+                                <p class="card-title">{{__('site.total')}}</p>
                                 <p class="font-weight-normal">{{$record->total}} <span> @lang('site.SAR') </span></p>
                             </div>
 
                             <div class="ml-auto">
-                                <p class="font-weight-normal">Order #{{$record->number}}</p>
+                                <p class="font-weight-normal">{{__('site.Order #')}} {{$record->number}}</p>
                             </div>
                         </div>
                         <div class="card-body">
@@ -103,9 +103,9 @@
                                                     <img src="{{ Storage::url('settings/'.$data['settings']->logo) }}"/>
                                                 </div>
 
-                                                <div>
-                                                    <img src="images/QR-code.png"/>
-                                                </div>
+{{--                                                <div>--}}
+{{--                                                    <img src="images/QR-code.png"/>--}}
+{{--                                                </div>--}}
                                             </div>
 
                                             <!-- </div> -->
@@ -114,10 +114,10 @@
 
                                         <div class="row invoice-info">
                                             <div class="invoice-col">
-                                                <b class="mr-2">Invoice Number:</b> #007612<br>
-                                                <b class="mr-2">Order ID:</b> {{$record->number}}<br>
-                                                <b class="mr-2">Payment Due:</b> 2/22/2014<br>
-                                                <b class="mr-2">Account:</b> {{auth()->user()->username}}
+{{--                                                <b class="mr-2">Invoice Number:</b> #007612<br>--}}
+                                                <b class="mr-2">{{__('site.Order #')}}:</b> {{$record->number}}<br>
+{{--                                                <b class="mr-2">Payment Due:</b> 2/22/2014<br>--}}
+                                                <b class="mr-2">{{__('site.user_requested')}}:</b> {{auth()->user()->name}}
                                             </div>
                                         </div>
 
@@ -127,11 +127,11 @@
                                                     <thead>
                                                     <tr class="bg-light font-weight-bold">
                                                         <th>#</th>
-                                                        <th>Product Name</th>
-                                                        <th>Quantity</th>
-                                                        <th>Size</th>
-                                                        <th>Colors</th>
-                                                        <th>Price</th>
+                                                        <th>{{__('site.product')}}</th>
+                                                        <th>{{__('site.quantity')}}</th>
+                                                        <th>{{__('site.sizes')}}</th>
+                                                        <th>{{__('site.colors')}}</th>
+                                                        <th>{{__('site.piece')}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -185,8 +185,8 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Save As PDF</button>
-                                    <button type="button" class="btn btn-primary">Print</button>
+{{--                                    <button type="button" class="btn btn-primary">Save As PDF</button>--}}
+                                    <button type="button" class="btn btn-primary">{{__('site.Print')}}</button>
                                 </div>
                             </div>
                         </div>

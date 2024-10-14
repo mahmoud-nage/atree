@@ -124,7 +124,6 @@ Route::group([
     Route::get('contact', [SiteController::class, 'contact'])->name('contact');
     Route::get('search', [SiteController::class, 'search'])->name('search');
     Route::get('products/{product}', [SiteController::class, 'product'])->name('products.show');
-    Route::get('/custom-designs/{product_id}', [SiteController::class, 'custom_designs'])->name('custom-designs');
     Route::get('/explore', [SiteController::class, 'explore'])->name('explore');
     Route::get('/products', [SiteController::class, 'products'])->name('products');
     Route::get('/designs', [SiteController::class, 'designs'])->name('designs');
@@ -142,6 +141,7 @@ Route::group([
         Route::get('/followers', [UserProfileController::class, 'followers'])->name('followers');
         Route::get('/my-designs', [UserProfileController::class, 'my_designs'])->name('my_designs');
         Route::get('/diamond', [UserProfileController::class, 'diamond'])->name('diamond');
+        Route::get('/custom-designs/{product_id}', [SiteController::class, 'custom_designs'])->name('custom-designs');
         Route::group(['prefix' => 'cart'], function () {
             Route::get('/', [CartController::class, 'index'])->name('cart.index');
             Route::get('/create', [CartController::class, 'create'])->name('cart.create');

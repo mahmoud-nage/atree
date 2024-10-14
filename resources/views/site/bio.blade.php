@@ -65,7 +65,7 @@
                             @endforeach
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">{{__('site.close')}}</button>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
                 <div class="col-md-9">
                     <div class="title d-flex justify-content-between col-md-12">
                         <h5 class="mb-2"> @lang('site.My Followers') </h5>
-                        <a href="Products.html" class="text-sm text-dark"> more</a>
+{{--                        <a href="Products.html" class="text-sm text-dark"> more</a>--}}
                     </div>
                     @foreach ($followers as $follower)
                         <div class="card artest-card">

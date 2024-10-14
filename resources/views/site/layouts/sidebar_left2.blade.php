@@ -26,7 +26,7 @@
                 </div>
 
                 <ul class="users-list clearfix">
-                    @foreach(\App\Models\UserDesign::inRandomOrder()->get()->take(3) as $record)
+                    @foreach(\App\Models\UserDesign::inRandomOrder()->get()->take(6) as $record)
                         <li>
                             <a href="{{ route('custom-designs', $record->id).'?type=design' }}">
                                 <div class="image-container">
@@ -52,35 +52,35 @@
             </div>
         @endif
         <!-------------------------------------  --------------------------->
-        <div class="section category-container latest-order mt-4">
+{{--        <div class="section category-container latest-order mt-4">--}}
 
-            <div class="title d-flex justify-content-between col-md-12">
-                <h5 class="card-title font-weight-bold">Most bought Designes</h5>
-            </div>
+{{--            <div class="title d-flex justify-content-between col-md-12">--}}
+{{--                <h5 class="card-title font-weight-bold">Most bought Designes</h5>--}}
+{{--            </div>--}}
 
-            <!-- Wish list item -->
-            @foreach (\App\Models\Product::inRandomOrder()->get()->take(2) as $product)
-                <div class="card">
-                    <div class="card-body">
-                        <div class="square-img">
-                            <img src="{{ Storage::url('products/'.$product->front_image) }}">
-                        </div>
-                        <div class="d-inline-flex flex-column flex-fill">
-                            <div class="category-bottom h-100">
-                                <div>
-                                    {{--                                <p>With supporting text below</p>--}}
-                                    <p>{{$product->name}}</p>
-                                    <p>{{ $product->price }} @lang('site.SAR')</p>
-                                </div>
-                                <div class="buttons-container">
-                                    <a href="{{ $product->url() }}" class=" btn btn-primary bg-primary-gridant">Buy
-                                        Again</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+{{--            <!-- Wish list item -->--}}
+{{--            @foreach (\App\Models\Product::inRandomOrder()->get()->take(2) as $product)--}}
+{{--                <div class="card">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <div class="square-img">--}}
+{{--                            <img src="{{ Storage::url('products/'.$product->front_image) }}">--}}
+{{--                        </div>--}}
+{{--                        <div class="d-inline-flex flex-column flex-fill">--}}
+{{--                            <div class="category-bottom h-100">--}}
+{{--                                <div>--}}
+{{--                                    --}}{{----}}{{--                                <p>With supporting text below</p>--}}
+{{--                                    <p>{{$product->name}}</p>--}}
+{{--                                    <p>{{ $product->price }} @lang('site.SAR')</p>--}}
+{{--                                </div>--}}
+{{--                                <div class="buttons-container">--}}
+{{--                                    <a href="{{ $product->url() }}" class=" btn btn-primary bg-primary-gridant">Buy--}}
+{{--                                        Again</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endforeach--}}
+{{--        </div>--}}
     </div>
 </div>

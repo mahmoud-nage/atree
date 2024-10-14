@@ -30,12 +30,12 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only(['phone' , 'password']);
+        $credentials = $request->only(['phone', 'password']);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/');
+            return redirect(session('return_back') ?? '/');
         }
-        return back()->with('error' , trans('site.credentials_not_corrent') );
+        return back()->with('error', trans('site.credentials_not_corrent'));
     }
 
     public function logout(Request $request)

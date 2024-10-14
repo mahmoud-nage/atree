@@ -16,7 +16,7 @@
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <div>
-                                        <p class="card-title">Order Placed</p>
+                                        <p class="card-title">{{__('site.Order Date')}}</p>
                                         <p class="font-weight-normal">{{date('d F Y', strtotime($record->created_at))}}</p>
                                     </div>
                                 </div>
@@ -40,8 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="text-right p-3">
-                                    <a href="{{route('orders')}}" class=" btn btn-primary bg-primary-gridant">Back to
-                                        order Summary</a>
+                                    <a href="{{route('orders')}}" class=" btn btn-primary bg-primary-gridant">{{__('site.Back to order Summary')}}</a>
                                 </div>
                             </div>
                         </div>
