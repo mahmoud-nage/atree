@@ -166,8 +166,8 @@ class CartController extends Controller
                         'price' => $price,
                         'quantity' => $request->quantities[$key],
                         'user_id' => auth()->id(),
-                        'design_front_image' => $waterMarkUrl ?? null,
-                        'design_back_image' => $waterMarkBackUrl ?? null,
+                        'design_image_front' => $waterMarkFrontFileName ?? '',
+                        'design_image_back' => $waterMarkBackFileName ?? '',
                         'details' => $design->details ?? null,
                         'details_back' => $design->details_back ?? null,
                     ]);
