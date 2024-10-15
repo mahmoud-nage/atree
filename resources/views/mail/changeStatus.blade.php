@@ -54,31 +54,29 @@
             margin-top: 20px;
         }
     </style>
-
 </head>
 
 <body>
 <div class="container">
     <p class="header"><a href="https://artee.sa" class="navbar-brand">
         </a>
-        <img src="https://artee.sa/storage/settings/SN26H90JxYvsDU73lOpOChdcu01eGsumxmlV8cxw.png" alt="Artee"
+        <img src="https://artee.sa/site_assets/rtl/images/large-logo.png" alt="Artee"
              class="brand-image">
         </a>
     </p>
     <p class="header">{{__('messages.order_accept', ['num' => $order->number, 'status' => $order->status->name])}}</p>
     <p class="content">{{__('messages.order_accept', ['num' => $order->number, 'status' => $order->status->name])}}</p>
     {{--    <p class="content">تم قبول الطلب الخاص بك وجاري العمل عليه الان</p>--}}
-    <a href="https://artee.me" class="link">Artee.me</a>
+    <a href="https://artee.sa" class="link">Artee.sa</a>
+
     <div class="social-icons">
-        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                         alt="Facebook"></a>
-        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"
-                         alt="X"></a>
-        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                         alt="Instagram"></a>
+        <a href="{{ $data['settings']->facebook }}"><img src="https://artee.sa/site_assets/rtl/images/facebook.png"
+                                                         alt="Facebook"></a>
+        <a href="{{ $data['settings']->twitter }}"><img src="https://artee.sa/site_assets/rtl/images/twitter.png"
+                                                        alt="X"></a>
+        <a href="{{ $data['settings']->instagram }}"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                                                          alt="Instagram"></a>
     </div>
 </div>
-</div>
 </body>
-
 </html>
