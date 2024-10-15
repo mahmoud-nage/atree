@@ -23,7 +23,8 @@ class DesignsResource extends JsonResource
             'design_image_back' => url(Storage::url('designs/'.$this->design_image_back)),
             'design_image_front' => url(Storage::url('designs/'.$this->design_image_front)),
             'user' => $this->user ? AuthResource::make($this->user) : null,
-            'product' => $this->product ? ProductsResource::make($this->product) : null,
+            'main_product' => $this->product ? ProductsResource::make($this->product) : null,
+            'related_products' => $this->products ? ProductsResource::collection($this->products) : null,
         ];
     }
 }
