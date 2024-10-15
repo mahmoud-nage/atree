@@ -70,9 +70,9 @@
     <a href="https://artee.sa" class="link">Artee.sa</a>
 
     <div class="social-icons">
-        <a href="{{ $data['settings']->facebook }}"><img src="https://artee.sa/site_assets/rtl/images/facebook.png"
+        <a href="{{ $data['settings']->facebook }}"><img src="https://artee.sa/site_assets/ltr/images/facebook.png"
                                                          alt="Facebook"></a>
-        <a href="{{ $data['settings']->twitter }}"><img src="https://artee.sa/site_assets/rtl/images/twitter.png"
+        <a href="{{ $data['settings']->twitter }}"><img src="https://artee.sa/site_assets/ltr/images/twitter.png"
                                                         alt="X"></a>
         <a href="{{ $data['settings']->instagram }}"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                                                           alt="Instagram"></a>
