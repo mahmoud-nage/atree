@@ -57,7 +57,7 @@ class OrderController extends Controller
         $order->refresh();
 
         try {
-            Mail::to(auth()->user())->send(new ChangeStatusMail($order->load('status')));
+            Mail::to($order->user->mail)->send(new ChangeStatusMail($order->load('status')));
         } catch (\Throwable $e) {
             \Illuminate\Support\Facades\Log::error('order change status', [$e->getMessage()]);
         }
