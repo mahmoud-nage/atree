@@ -19,7 +19,7 @@
                     <div class="col-md-12 col-lg-10">
                         <div class="wrap d-md-flex">
                             <!-- Right Side -->
-                            <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                            <div class="text-wrap p-4 p-lg-5 text-center d-md-flex align-items-center order-md-last d-none d-md-none">
                                 <div class="text w-100">
                                     <h2> @lang('site.Welcome Back') </h2>
                                     <div><img src="{{ asset('site_assets/'.$dir.'/images/login-logo.png') }}"/></div>
@@ -44,8 +44,8 @@
                                             <button type="submit"
                                                     class="btn btn-primary mb-3 p-3">{{__('site.Verify')}}</button>
                                         </form>
-{{--                                        <div><span class="text-body pr-3">00:29 </span> <a class="text-body"> Resend--}}
-{{--                                                Confirmation Code</a></div>--}}
+                                        {{--                                        <div><span class="text-body pr-3">00:29 </span> <a class="text-body"> Resend--}}
+                                        {{--                                                Confirmation Code</a></div>--}}
                                         <script>
                                             var otp_inputs = document.querySelectorAll(".otp__digit")
                                             var mykey = "0123456789".split("")

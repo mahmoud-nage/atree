@@ -30,13 +30,7 @@ if ($lang == 'ar') {
                 <div>
                   <h2 class="mb-3"> @lang('site.Verification Code') </h3>
                     <p class="text-muted mb-3 ">@lang('site.Verification code sent to') : {{ $email }} </p>
-                    @if (Session::has('error'))
-                    <div class="alert alert-primary" role="alert">
-                      {{ Session::get('error') }}
-                    </div>
-                    @endif
                     <form action="{{ route('verify.post') }}"  method="POST" >
-
                       @csrf
                       <input type="hidden" name='email' value={{ $email }} >
                       <div class="otp-input-fields">
@@ -87,14 +81,14 @@ if ($lang == 'ar') {
                     </script>
                   </div>
                 </div>
-                
-                
+
+
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>  
+    </section>
     @include('site.layouts.footer')
   </div>
 

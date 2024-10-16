@@ -7,6 +7,7 @@ use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use App\Models\PhoneVerificationCode;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -40,7 +41,7 @@ class PasswordResetLinkController extends Controller
     /**
      * Display the password reset link request view.
      *
-     * @return Application|Redirector|RedirectResponse
+     * @return Application|Factory|\Illuminate\Contracts\View\View|RedirectResponse
      */
     public function check(Request $request)
     {
@@ -51,7 +52,7 @@ class PasswordResetLinkController extends Controller
         ])->first();
 
         if (!$check) {
-            return back(compact('user'))->with('error' , 'هذا الكود غير صحيح اعد المحاوله' );
+            return redirect()->back()->with('error' , 'هذا الكود غير صحيح اعد المحاوله' );
         }
         $check->delete();
         return view('auth.new-password', compact('user'));

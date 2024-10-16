@@ -39,4 +39,20 @@ class CartRequest extends FormRequest
         return $validate;
 
     }
+    public function messages()
+    {
+        return [
+            'products.*.exists' => __('validation.exists', ['attribute' => __('site.product')]),
+            'products.*.required' =>  __('validation.required', ['attribute' => __('site.product')]),
+            'size_id.*.exists' =>  __('validation.exists', ['attribute' => __('site.sizes')]),
+            'size_id.*.required' => __('validation.required', ['attribute' => __('site.sizes')]),
+            'color_id.*.exists' => __('validation.exists', ['attribute' => __('site.colors')]),
+            'color_id.*.required' => __('validation.required', ['attribute' => __('site.colors')]),
+            'quantities.*.required' => __('validation.required', ['attribute' => __('site.quantity')]),
+            'quantities.*.exists' => __('validation.exists', ['attribute' => __('site.quantity')]),
+            'quantities.*.min' => __('validation.min', ['attribute' => __('site.quantity')]),
+            'quantities.*.numeric' => __('validation.numeric', ['attribute' => __('site.quantity')]),
+        ];
+    }
+
 }

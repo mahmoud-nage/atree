@@ -54,7 +54,11 @@
                                 </div>
                                 <!-- main-image -->
                                 <div id="design-area" class="resize-container"
-                                     @if(isset(request()->type)) style="background-color: {{$design->main_color_code}}" @endif
+                                     style="background-color: @if(isset(request()->type))
+                                    {{$design->main_color_code}}
+                                    @else
+                                    {{$record->variations->unique('color_id')->first()->color->code??'#fff'}}
+                                    @endif"
                                 >
                                     @if(isset(request()->type))
                                         @if($design->design_image_front)
@@ -291,14 +295,14 @@
                                             </div>
                                             <div class="form-group col-3 p-1">
                                                 <select name="size_id[]" required
-                                                        class="form-control @error('size_id') is-invalid @enderror">
+                                                        class="form-control @error('size_id[]') is-invalid @enderror">
                                                     <option> @lang('site.Select Size') </option>
                                                     @foreach ($record->variations->unique('size_id') as $record_color_variation)
                                                         <option
                                                             value="{{$record_color_variation->size->id}}">{{$record_color_variation->size->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('size_id')
+                                                @error('size_id[]')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
                                                 </div>
@@ -403,14 +407,14 @@
                                                     >
                                                         <div class="card-front" id="card-product{{$product->id}}"
                                                              style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');
-                                                          background-color: @if(isset(request()->type)){{$design->main_color_code}}@else{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}@endif;
+                                                          background-color: @if(isset(request()->type)){{$design->main_color_code}}@else{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}@endif;
                                                           background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                             <div
                                                                 style="border: 0px dashed rgb(255, 5, 5); position: relative; width: {{$product->site_front_width}}%; height: {{$product->site_front_height}}%; top: {{$product->site_front_top}}%; left: {{$product->site_front_left}}%;"></div>
                                                         </div>
                                                         <div class="card-back" id="card-product{{$product->id}}"
                                                              style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');
-                                                         background-color: @if(isset(request()->type)){{$design->main_color_code}}@else{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}@endif;
+                                                         background-color: @if(isset(request()->type)){{$design->main_color_code}}@else{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}@endif;
                                                          background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                             <div
                                                                 style="border: 0px dashed rgb(255, 5, 5); position: relative; width: {{$product->site_back_width}}%; height: {{$product->site_back_height}}%; top: {{$product->site_back_top}}%; left: {{$product->site_back_left}}%;"></div>

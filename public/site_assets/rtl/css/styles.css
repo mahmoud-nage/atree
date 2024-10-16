@@ -2029,3 +2029,6 @@ h4.card-total-title {
     }
 }
 
+.swal2-modal {
+    max-height: 14rem !important;
+}

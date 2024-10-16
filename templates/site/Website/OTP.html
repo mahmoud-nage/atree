@@ -39,7 +39,7 @@
           <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Products</a>
           </li>
-          
+
           <li class="nav-item d-none d-sm-inline-block">
             <a href="Explore.html" class="nav-link">Explore</a>
             </li>
@@ -51,7 +51,7 @@
 
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto right-nav">
-        
+
         <li class="nav-item dropdown header-profile">
           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle fa">
             <div class="image">
@@ -75,13 +75,13 @@
           <div class="col-md-12 col-lg-10">
             <div class="wrap d-md-flex">
               <!-- Right Side -->
-              <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                <div class="text-wrap p-4 p-lg-5 text-center d-md-flex align-items-center order-md-last d-none d-md-block">
                 <div class="text w-100">
                   <h2>Welcome</h2>
                   <div><img src="images/login-logo.png"/></div>
                 </div>
               </div>
-              
+
               <!-- Left Side -->
               <div class="login-wrap OTP">
                 <div class="d-flex justify-content-center align-items-center">
@@ -89,7 +89,7 @@
                     <h2 class="mb-3">Verification Code</h3>
                       <p class="text-muted mb-3 ">Verification code sent to: yourmail@email.com</p>
 
-                        
+
                     <!--------------------- otp --------------------->
                     <div class="otp-input-fields">
                       <input type="number" class="otp__digit otp__field__1">
@@ -99,7 +99,7 @@
                     </div>
 
                     <button type="button" class="btn btn-primary mb-3 p-3">Verify</button>
-      
+
                     <div><span class="text-body pr-3">00:29 </span> <a class="text-body"> Resend Confirmation Code</a></div>
                     <script>
                         var otp_inputs = document.querySelectorAll(".otp__digit")
@@ -111,7 +111,7 @@
                           let current = event.target
                           let index = parseInt(current.classList[1].split("__")[2])
                           current.value = event.key
-                          
+
                           if(event.keyCode == 8 && index > 1){
                             current.previousElementSibling.focus()
                           }
@@ -138,14 +138,14 @@
                     </script>
                   </div>
                 </div>
-                
-                
+
+
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>  
+    </section>
     <!-- /.content -->
 
   <footer class="login-footer text-center">

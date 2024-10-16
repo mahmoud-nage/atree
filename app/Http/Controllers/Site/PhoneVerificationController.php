@@ -33,7 +33,7 @@ class PhoneVerificationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Response|Redirector
+     * @return Application|Redirector|RedirectResponse
      */
     public function store(Request $request)
     {

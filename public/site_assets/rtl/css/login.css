@@ -327,7 +327,7 @@ h1, h2, h3, h4, h5,
           display: table-cell;
         }
         .signup-container .login-wrap {
-          min-width: 600px;
+          /*min-width: 600px;*/
         }
         .forget-password {
           font-size: 12px;

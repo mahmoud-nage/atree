@@ -17,7 +17,7 @@
                     <div class="col-md-12">
                         <div class="wrap d-md-flex">
                             <!-- Right Side -->
-                            <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                            <div class="text-wrap p-4 p-lg-5 text-center d-md-flex align-items-center order-md-last d-none d-md-block">
                                 <div class="text w-100">
                                     <h2> @lang('site.Welcome Back') </h2>
                                     <div><img src="{{ asset('site_assets/'.$dir.'/images/login-logo.png') }}"/></div>
