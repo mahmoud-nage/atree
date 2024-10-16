@@ -235,7 +235,7 @@
                                                     src="{{ Storage::url('designs/'.$design->design_image_front) }}"
                                                     onclick="handleUploadExistingDesign('{{ Storage::url('designs/'.$design->design_image_front) }}')"
                                                     class="design-thumbnail"
-                                                    style="height: 50px; cursor: pointer;"
+                                                    style="cursor: pointer;"
                                                 >
                                             </div>
                                         @elseif($design->design_image_back)
