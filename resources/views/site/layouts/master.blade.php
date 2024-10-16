@@ -60,9 +60,8 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-
+                @include('site.layouts.messages')
                 @yield('page_content')
-
             </div>
             <!-- /.container-fluid -->
         </section>
@@ -112,7 +111,7 @@
                     icon: "success",
                     title: '{!! session('success') !!}',
                     showConfirmButton: false,
-                    timer: 300000
+                    timer: 3000
                 });
             } else {
                 Swal.fire({
@@ -120,7 +119,7 @@
                     icon: "success",
                     title: '{!! session('success') !!}',
                     showConfirmButton: false,
-                    timer: 300000
+                    timer: 3000
                 });
             }
         }
@@ -131,7 +130,7 @@
                     icon: "error",
                     title: '{!! session('error') !!}',
                     showConfirmButton: false,
-                    timer: 300000
+                    timer: 3000
                 });
             } else {
                 Swal.fire({
@@ -139,10 +138,11 @@
                     icon: "error",
                     title: '{!! session('error') !!}',
                     showConfirmButton: false,
-                    timer: 300000
+                    timer: 3000
                 });
             }
         }
+
     });
 
     function changeCardColor(color, id) {
