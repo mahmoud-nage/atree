@@ -41,7 +41,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::get('/test', [TestController::class, 'index']);
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']
+    'middleware' => ['throttle:global','localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']
 ], function () {
     Route::get('/Dashboard/login', [AuthController::class, 'form'])->name('dashboard.login_form');
     Route::post('/Dashboard/login', [AuthController::class, 'login'])->name('dashboard.login');

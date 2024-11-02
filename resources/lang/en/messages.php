@@ -25,4 +25,5 @@ return array(
     'not_found_record' => 'Sorry, we can`t found this record.',
     'not_found_records' => 'Sorry, we can`t found any records.',
     'send_code' => 'Your OTP number is :code.',
+    'already_send_code' => 'You have code previously, please check your phone.',
 );

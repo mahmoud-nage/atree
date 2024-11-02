@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum', 'verify_phone'])->group(function () {
+Route::middleware([
+    'throttle:global',
+    'auth:sanctum',
+    'verify_phone'
+])->group(function () {
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [ProfileController::class, 'me']);
         Route::post('/update', [ProfileController::class, 'updateProfile']);
