@@ -1751,7 +1751,17 @@ margin-top: 0;
 
 @media (max-width: 767px) {
     .main-sidebar {
-        top: 17vh !important;
+        top: 19vh !important;
+    }
+}
+@media (max-width: 414px) {
+    .main-sidebar {
+        top: 19vh !important;
+    }
+}
+@media (max-width: 375px) {
+    .main-sidebar {
+        top: 25vh !important;
     }
 }
 
