@@ -51,10 +51,11 @@ class SendVerificationCodeToViaPhoneNumberJob implements ShouldQueue
                     "SendDateTime" => 0,
                     "EnableDR" => False
                 ]);
-            $code = new PhoneVerificationCode;
-            $code->phone = $this->phone;
-            $code->code = $code;
-            $code->save();
+            PhoneVerificationCode::create([
+                'phone' => $this->phone,
+                'code' => $code,
+            ]);
+            dd($response->body());
             Log::channel('sms_logs')->info($response->body());
         } catch (\Throwable $exception) {
         }
