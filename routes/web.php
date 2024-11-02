@@ -131,7 +131,7 @@ Route::group([
     Route::get('/cart', [SiteController::class, 'cart'])->name('cart');
 
 
-    Route::group(['middleware' => ['auth', 'verify_phone']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [UserProfileController::class, 'index'])->name('profile.index');
         Route::get('/wishlist', [UserProfileController::class, 'wishlist'])->name('wishlist');
         Route::get('/orders', [UserProfileController::class, 'orders'])->name('orders');
