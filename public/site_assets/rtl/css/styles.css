@@ -2035,7 +2035,7 @@ h4.card-total-title {
         top: 18vh !important;
     }
 }
-@media (max-width: 480px) {
+@media (max-width: 481px) {
     .main-sidebar {
         top: 24vh !important;
     }
