@@ -61,18 +61,23 @@ class RouteServiceProvider extends ServiceProvider
             if (auth()->user()) {
                 $rate_limit = (isset(auth()->user()->rate_limit) ? auth()->user()->rate_limit : $rate_limit);
                 return Limit::perMinute($rate_limit)->by(auth()->user()->id)->response(function () {
-
-                    return response()->json([
-                        'response' => 'Failed',
-                        'message' => 'Too many request has been made',
-                    ], 429);
+                    if (\request()->wantsJson()) {
+                        return response()->json([
+                            'response' => 'Failed',
+                            'message' => 'Too many request has been made',
+                        ], 429);
+                }
+                    return redirect('/')->with('error', 'Too many request has been made');
                 });
             } else {
                 return Limit::perMinute($rate_limit)->by($request->ip())->response(function () {
-                    return response()->json([
-                        'response' => 'Failed',
-                        'message' => 'Too many request has been made',
-                    ], 429);
+                    if (\request()->wantsJson()) {
+                        return response()->json([
+                            'response' => 'Failed',
+                            'message' => 'Too many request has been made',
+                        ], 429);
+                    }
+                    return redirect('/')->with('error', 'Too many request has been made');
                 });
             }
         });
