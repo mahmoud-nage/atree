@@ -55,7 +55,6 @@ class SendVerificationCodeToViaPhoneNumberJob implements ShouldQueue
                 'phone' => $this->phone,
                 'code' => $code,
             ]);
-            dd($response->body());
             Log::channel('sms_logs')->info($response->body());
         } catch (\Throwable $exception) {
         }
