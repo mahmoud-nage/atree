@@ -24,7 +24,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\Site\SoreOrderRequest;
 use App\Http\Requests\Site\StoreComplainRequest;
-use App\Jobs\SendVerificationCodeToViaPhoneNumberJob;
 use App\Jobs\IncreasProductSalesCountJob;
 use App\Jobs\IncreasProductViewsCountJob;
 

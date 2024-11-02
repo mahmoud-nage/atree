@@ -63,16 +63,6 @@ class AccountController extends Controller
     }
 
     /**
-     * @param SendCodeRequest $request
-     * @return JsonResponse
-     */
-    public function sendCode(SendCodeRequest $request): JsonResponse
-    {
-        dispatch(new SendVerificationCodeToViaPhoneNumberJob($request->phone));
-        return self::makeSuccess(Response::HTTP_OK, __('messages.success'));
-    }
-
-    /**
      * @param CheckCodeRequest $request
      * @return JsonResponse
      */

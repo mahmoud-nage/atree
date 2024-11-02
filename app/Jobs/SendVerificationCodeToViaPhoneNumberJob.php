@@ -47,17 +47,15 @@ class SendVerificationCodeToViaPhoneNumberJob implements ShouldQueue
                     "RecepientNumber" => $this->phone,
                     "VariableList" => "",
                     "ReplacementList" => "",
-                    "Message" => 'كود التفعل الخاص بك' . $code,
+                    "Message" => __('messages.send_code', ['code' => $code]),
                     "SendDateTime" => 0,
                     "EnableDR" => False
                 ]);
-            Log::channel('sms_logs')->info($response->body());
             $code = new PhoneVerificationCode;
             $code->phone = $this->phone;
             $code->code = $code;
-//        $code->code = 1111;
             $code->save();
-            dd($response->body());
+            Log::channel('sms_logs')->info($response->body());
         } catch (\Throwable $exception) {
         }
     }
