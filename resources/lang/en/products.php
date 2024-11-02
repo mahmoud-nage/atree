@@ -2,7 +2,7 @@
 
 return array(
     'add_new_product' => 'Add new product',
-    'products' => 'products',
+    'products' => 'Products',
     'image' => 'Image',
     'images' => 'other images',
     'name_ar' => 'name in arabic',

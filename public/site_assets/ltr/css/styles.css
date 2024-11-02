@@ -1568,7 +1568,7 @@ margin-top: 0;
 
 	/********************* Sidebar *********************/
 	.main-sidebar {
-		top: 119px !important;
+        top: 12vh !important;
 		min-height: calc(100vh - 119px) !important;
 	}
 	.main-sidebar, .main-sidebar::before {
@@ -1747,5 +1747,22 @@ margin-top: 0;
 
 .swal2-modal {
     max-height: 14rem !important;
+}
+
+@media (max-width: 767px) {
+    .main-sidebar {
+        top: 17vh !important;
+    }
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 5vh !important;
+    right: 10px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 5vh !important;
+}
+.select2-container .select2-selection--single {
+    height: 5vh !important;
 }
 

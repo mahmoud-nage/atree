@@ -15,26 +15,53 @@
 
             <!-------------------------- Best Selling --------------------------->
             <div class="section best-selling">
-                <div class="title d-flex justify-content-between col-md-12">
-                    <h5 class="mb-2">@lang('site.Best Selling Products')</h5>
-                    <form id="myForm" class="col-md-3">
-                        <div class="form-group col-12 p-1">
-                            <label class="col-form-label"> @lang('products.categories') @endlang </label>
-                            <select name="category_id" class="form-control select2" onchange="$('#myForm').submit()">
-                                <option value="all"> @lang('site.Select Category') </option>
-                                @foreach ($categories as $category)
-                                    <option
-                                        value="{{$category->id}}" @if(request()->category_id == $category->id) selected @endif>{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                            <div class="invalid-feedback">
-                                {{$message}}
+{{--                <div class="title d-flex justify-content-between col-md-12">--}}
+{{--                    <h5 class="mb-2">@lang('site.Best Selling Products')</h5>--}}
+{{--                    <form id="myForm" class="col-md-3">--}}
+{{--                        <div class="form-group col-12 p-1">--}}
+{{--                            <label class="col-form-label"> @lang('products.categories') @endlang </label>--}}
+{{--                            <select name="category_id" class="form-control select2" onchange="$('#myForm').submit()">--}}
+{{--                                <option value="all"> @lang('site.Select Category') </option>--}}
+{{--                                @foreach ($categories as $category)--}}
+{{--                                    <option--}}
+{{--                                        value="{{$category->id}}" @if(request()->category_id == $category->id) selected @endif>{{$category->name}}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @error('category_id')--}}
+{{--                            <div class="invalid-feedback">--}}
+{{--                                {{$message}}--}}
+{{--                            </div>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+
+                <div class="title d-flex justify-content-between align-items-venter col-md-12 row" style="
+    align-items: center;
+">
+                    <div class="col-12">
+                        <h5 class="mb-2">@lang('site.Best Selling Products')</h5>
+                    </div>
+                    <div class="col-12">
+
+                        <form id="myForm" class="row">
+                            <div class="form-group  col-11 p-1">
+                                {{--                            <label class="col-form-label"> @lang('products.products') @endlang </label>--}}
+                                <select name="category_id" class="form-control select2 m-5"
+                                        onchange="$('#myForm').submit()" data-select2-id="select2-data-1-s6of" tabindex="-1"
+                                        aria-hidden="true">
+                                    <option value="all"
+                                            data-select2-id="select2-data-3-y0oq"> @lang('site.Select Category') </option>
+                                    @foreach ($categories as $category)
+                                        <option
+                                            value="{{$category->id}}" @if(request()->category_id == $category->id) selected @endif>{{$category->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            @enderror
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
 
                 <ul class="users-list clearfix">
                     @forelse ($best_sellings as $product)

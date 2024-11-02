@@ -147,10 +147,12 @@ Route::group([
             Route::get('/create', [CartController::class, 'create'])->name('cart.create');
             Route::post('/', [CartController::class, 'store'])->name('cart.store');
         });
-        Route::group(['prefix' => 'checkout'], function () {
-            Route::get('/', [CheckoutController::class, 'index'])->name('checkout.index');
-            Route::post('/', [CheckoutController::class, 'store'])->name('checkout.store');
-            Route::get('/pay/{order_id}', [CheckoutController::class, 'pay'])->name('checkout.pay');
+        Route::group(['middleware' => ['verify_phone']], function () {
+            Route::group(['prefix' => 'checkout'], function () {
+                Route::get('/', [CheckoutController::class, 'index'])->name('checkout.index');
+                Route::post('/', [CheckoutController::class, 'store'])->name('checkout.store');
+                Route::get('/pay/{order_id}', [CheckoutController::class, 'pay'])->name('checkout.pay');
+            });
         });
     });
 });

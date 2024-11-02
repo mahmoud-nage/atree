@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\PhoneVerificationCode;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 class PhoneVerificationController extends Controller
@@ -24,7 +25,22 @@ class PhoneVerificationController extends Controller
      */
     public function index()
     {
-        dispatch(new SendVerificationCodeToViaPhoneNumberJob(auth()->user()->phone));
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json'])
+            ->post('http://api.yamamah.com/SendSMS', [
+                "Username" => "0569111000",
+                "Password" => "D3DEeP2uezZyrix",
+                "Tagname" => "ARTEE",
+                "RecepientNumber" => '+966557916239',
+                "VariableList" => "",
+                "ReplacementList" => "",
+                "Message" => 'كود التفعل الخاص بك' . 1111,
+                "SendDateTime" => 0,
+                "EnableDR" => False
+            ]);
+        dd($response->body());
+//        dispatch(new SendVerificationCodeToViaPhoneNumberJob(auth()->user()->phone));
         return view('site.verify_phone');
     }
 

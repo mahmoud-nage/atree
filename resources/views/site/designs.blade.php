@@ -12,26 +12,53 @@
     <div class="row">
         <div class="col-md-9">
             <!-------------------------- Best Selling --------------------------->
-                <div class="title d-flex justify-content-between col-md-12">
+            {{--                <div class="title d-flex justify-content-between col-md-12">--}}
+            {{--                    <h5 class="mb-2">@lang('site.Designs')</h5>--}}
+            {{--                    <form id="myForm" class="col-md-3">--}}
+            {{--                        <div class="form-group col-13 p-1">--}}
+            {{--                            <label class="col-form-label"> @lang('products.products') @endlang </label>--}}
+            {{--                            <select name="product_id" class="form-control select2" onchange="$('#myForm').submit()">--}}
+            {{--                                <option value="all"> @lang('site.Select Product') </option>--}}
+            {{--                                @foreach ($products as $product)--}}
+            {{--                                    <option--}}
+            {{--                                        value="{{$product->id}}" @if(request()->product_id == $product->id) selected @endif>{{$product->name}}</option>--}}
+            {{--                                @endforeach--}}
+            {{--                            </select>--}}
+            {{--                            @error('product_id')--}}
+            {{--                            <div class="invalid-feedback">--}}
+            {{--                                {{$message}}--}}
+            {{--                            </div>--}}
+            {{--                            @enderror--}}
+            {{--                        </div>--}}
+            {{--                    </form>--}}
+            {{--                </div>--}}
+
+            <div class="title d-flex justify-content-between align-items-venter col-md-12 row" style="
+    align-items: center;
+">
+                <div class="col-12">
                     <h5 class="mb-2">@lang('site.Designs')</h5>
-                    <form id="myForm" class="col-md-3">
-                        <div class="form-group col-13 p-1">
-                            <label class="col-form-label"> @lang('products.products') @endlang </label>
-                            <select name="product_id" class="form-control select2" onchange="$('#myForm').submit()">
-                                <option value="all"> @lang('site.Select Product') </option>
+                </div>
+                <div class="col-12">
+
+                    <form id="myForm" class="row">
+                        <div class="form-group  col-11 p-1">
+{{--                            <label class="col-form-label"> @lang('products.products') @endlang </label>--}}
+                            <select name="product_id" class="form-control select2 m-5"
+                                    onchange="$('#myForm').submit()" data-select2-id="select2-data-1-s6of" tabindex="-1"
+                                    aria-hidden="true">
+                                <option value="all"
+                                        data-select2-id="select2-data-3-y0oq"> @lang('site.Select Product') </option>
                                 @foreach ($products as $product)
                                     <option
-                                        value="{{$product->id}}" @if(request()->product_id == $product->id) selected @endif>{{$product->name}}</option>
+                                        value="{{$product->id}}"
+                                        @if(request()->product_id == $product->id) selected @endif>{{$product->name}}</option>
                                 @endforeach
                             </select>
-                            @error('product_id')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
                         </div>
                     </form>
                 </div>
+            </div>
 
             @forelse($records as $record)
                 <div class="card card-widget">
