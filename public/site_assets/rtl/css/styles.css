@@ -1817,7 +1817,7 @@ h4.card-total-title {
 
     /********************* Sidebar *********************/
     .main-sidebar {
-        top: 12vh !important;
+        top: 8vh !important;
         min-height: calc(100vh - 119px) !important;
     }
 
