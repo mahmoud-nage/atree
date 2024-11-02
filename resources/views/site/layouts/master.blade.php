@@ -102,47 +102,46 @@
             var mainImage = $(this).closest('.product-container').find(".image-container").data("image");
             $(this).closest('.product-container').find(".card-front img").attr('src', mainImage);
         });
-        var bool = '{!!session()->has('success')!!}' ? '{!!session()->has('success')!!}' : 0;
-        var boolError = '{!!session()->has('error')!!}' ? '{!!session()->has('error')!!}' : 0;
-        if (bool === '1') {
-            if ('{{app()->getLocale()}}' == 'ar') {
-                Swal.fire({
-                    position: 'top-left',
-                    icon: "success",
-                    title: '{!! session('success') !!}',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            } else {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: '{!! session('success') !!}',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            }
-        }
-        if (boolError === '1') {
-            if ('{{app()->getLocale()}}' == 'ar') {
-                Swal.fire({
-                    position: 'top-left',
-                    icon: "error",
-                    title: '{!! session('error') !!}',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            } else {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: "error",
-                    title: '{!! session('error') !!}',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-            }
-        }
-
+        {{--var bool = '{!!session()->has('success')!!}' ? '{!!session()->has('success')!!}' : 0;--}}
+        {{--var boolError = '{!!session()->has('error')!!}' ? '{!!session()->has('error')!!}' : 0;--}}
+        {{--if (bool === '1') {--}}
+        {{--    if ('{{app()->getLocale()}}' == 'ar') {--}}
+        {{--        Swal.fire({--}}
+        {{--            position: 'top-left',--}}
+        {{--            icon: "success",--}}
+        {{--            title: '{!! session('success') !!}',--}}
+        {{--            showConfirmButton: false,--}}
+        {{--            timer: 3000--}}
+        {{--        });--}}
+        {{--    } else {--}}
+        {{--        Swal.fire({--}}
+        {{--            position: "top-end",--}}
+        {{--            icon: "success",--}}
+        {{--            title: '{!! session('success') !!}',--}}
+        {{--            showConfirmButton: false,--}}
+        {{--            timer: 3000--}}
+        {{--        });--}}
+        {{--    }--}}
+        {{--}--}}
+        {{--if (boolError === '1') {--}}
+        {{--    if ('{{app()->getLocale()}}' == 'ar') {--}}
+        {{--        Swal.fire({--}}
+        {{--            position: 'top-left',--}}
+        {{--            icon: "error",--}}
+        {{--            title: '{!! session('error') !!}',--}}
+        {{--            showConfirmButton: false,--}}
+        {{--            timer: 3000--}}
+        {{--        });--}}
+        {{--    } else {--}}
+        {{--        Swal.fire({--}}
+        {{--            position: 'top-end',--}}
+        {{--            icon: "error",--}}
+        {{--            title: '{!! session('error') !!}',--}}
+        {{--            showConfirmButton: false,--}}
+        {{--            timer: 3000--}}
+        {{--        });--}}
+        {{--    }--}}
+        {{--}--}}
     });
 
     function changeCardColor(color, id) {
