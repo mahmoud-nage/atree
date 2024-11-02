@@ -2030,7 +2030,7 @@ h4.card-total-title {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .main-sidebar {
         top: 19vh !important;
     }
@@ -2045,6 +2045,7 @@ h4.card-total-title {
         top: 25vh !important;
     }
 }
+
 
 .swal2-modal {
     max-height: 14rem !important;
