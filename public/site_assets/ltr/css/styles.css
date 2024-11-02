@@ -1748,19 +1748,14 @@ margin-top: 0;
 .swal2-modal {
     max-height: 14rem !important;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .main-sidebar {
-        top: 19vh !important;
+        top: 18vh !important;
     }
 }
-@media (max-width: 414px) {
+@media (max-width: 376px) {
     .main-sidebar {
-        top: 19vh !important;
-    }
-}
-@media (max-width: 375px) {
-    .main-sidebar {
-        top: 25vh !important;
+        top: 24vh !important;
     }
 }
 
