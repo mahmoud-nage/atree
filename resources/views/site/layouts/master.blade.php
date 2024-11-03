@@ -49,7 +49,7 @@
 
     <!-- Main Sidebar Container -->
     @if(!in_array(request()->route()->getName(), ['login.post', 'login.form', 'register.form','register.post','verify_phone.index','verify_phone.store',
-'password.request','password.send','password.check','password.newPassword','products.show']))
+'password.request','password.send','password.check','password.newPassword']))
         @include('site.layouts.sidebar')
     @endif
 
