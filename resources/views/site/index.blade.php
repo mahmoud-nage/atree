@@ -62,7 +62,7 @@
             </div>
             <!-------------------------- Best Selling --------------------------->
             <div class="section best-selling">
-                <div class="title d-flex justify-content-between col-md-12">
+                <div class="title d-flex justify-content-around col-md-12">
                     <h5 class="mb-2"> @lang('site.Best Selling Products') </h5>
                     <a href="{{route('designs')}}" class="text-sm text-dark"> @lang('site.More') </a>
                 </div>
@@ -100,7 +100,7 @@
             </div>
             <!-------------------------- Used Design --------------------------->
             <div class="section used-design">
-                <div class="title d-flex justify-content-between col-md-12">
+                <div class="title d-flex justify-content-around col-md-12">
                     <h5 class="mb-2">@lang('site.Most Viewed design')</h5>
                     {{--                    <a href="Products.html" class="text-sm text-dark"> more</a>--}}
                 </div>
@@ -123,7 +123,7 @@
             @foreach ($categories as $category)
                 @if(count($category->products))
                     <div class="section Products-list">
-                        <div class="title d-flex justify-content-between col-md-12">
+                        <div class="title d-flex justify-content-around col-md-12">
                             <h5 class="mb-2"> {{$category->name}} </h5>
                             <a href="{{ route('products').'?category_id='.$category->id }}"
                                class="text-sm text-dark"> @lang('site.More') </a>
