@@ -119,10 +119,10 @@
                                             <a href="{{ $record->url() }}" class="image-container"
                                                data-image="{{ Storage::url('products/'.$record->front_image) }}">
                                                 <div class="card-front" id="0-card-front{{$record->id}}"
-                                                     style="background-image: url('{{ Storage::url('products/'.$record->front_image) }}');background-color:{{$record->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                                     style="background-image: url('{{ Storage::url('products/'.$record->front_image) }}');background-color:{{$record->variations->unique('color_id')->first()->color->code??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                 </div>
                                                 <div class="card-back" id="0-card-back{{$record->id}}"
-                                                     style="position: relative; background-image: url('{{ Storage::url('products/'.$record->back_image) }}');background-color:{{$record->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                                                     style="position: relative; background-image: url('{{ Storage::url('products/'.$record->back_image) }}');background-color:{{$record->variations->unique('color_id')->first()->color->code??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                                                 </div>
                                             </a>
                                             <ul class="color-list">

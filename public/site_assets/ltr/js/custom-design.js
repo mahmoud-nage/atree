@@ -89,7 +89,8 @@ function handleFileSelect(event) {
         const imageSize = rangeInput.value;
         if (lastImg) { // Ensure lastImg is defined
             lastImg.style.width = `${imageSize}px`;
-            // lastImg.style.height = `${imageSize}px`;
+            const index = TEM_Product[designSide].boundaryBoxChildren.findIndex(child => child.id === lastImg.id);
+            TEM_Product[designSide].boundaryBoxChildren[index].style.width = lastImg.style.width;
         }
     }
 
@@ -480,7 +481,7 @@ function getLayers() {
                     designArea.childNodes[1].removeChild(child);
 
                     // Remove the image from the TEM_Product[designSide].boundaryBoxChildren array
-                    const index = TEM_Product[designSide].boundaryBoxChildren.indexOf(child);
+                    const index = TEM_Product[designSide].boundaryBoxChildren.findIndex(el => el.id === child.id);
                     if (index > -1) {
                         TEM_Product[designSide].boundaryBoxChildren.splice(index, 1);
                     }
@@ -673,41 +674,6 @@ mediaQuery.addListener(handleMediaQueryChange);
 
 // Initial check
 handleMediaQueryChange(mediaQuery);
-
-// // **********************For color box**************************************** //
-// // Mock function to simulate fetching data from the backend
-// function fetchColors() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve([
-//                 { id: 1, hex: '#ff0000', title: 'أحمر' },
-//                 { id: 2, hex: '#000000', title: 'اسود' },
-//                 // Add more colors as needed
-//             ]);
-//         }, 1000);
-//     });
-// }
-
-// // Function to generate color preview elements
-// function generateColorPreviews(colors) {
-//     const colorList = document.getElementById('colorList');
-//     colorList.innerHTML = ''; // Clear existing items
-//     colors.forEach(color => {
-//         const li = document.createElement('li');
-//         li.className = 'color-preview';
-//         li.style.backgroundColor = color.hex;
-//         li.setAttribute('data-color-id', color.hex);
-//         li.setAttribute('title', color.title);
-//         li.onclick = () => changeColor(color.hex);
-//         colorList.appendChild(li);
-//     });
-// }
-
-// Function to handle color change (replace with your logic)
-// function changeColor(color) {
-//     designArea = document.getElementById('design-area')
-//     designArea.style.backgroundColor = color;
-// }
 async function initPage(product) {
     // Retrieve the product data from local storage
 
@@ -719,89 +685,9 @@ async function initPage(product) {
     } else {
         alert('No product data found!');
     }
-
-    // const colors = await fetchColors();
-    // generateColorPreviews(colors);
-    // const products = await fetchProducts()
-    // allProducts = products
-    // renderProducts(products, designSide);
-
 }
 
 window.onload = () => initPage(GLOBAL_PRODUCT)
-// **********************End color box**************************************** //
-// function fetchProducts() {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve([
-//                 {
-//                     id: "1",
-//                     color: "rgb(0, 250, 0)",
-//                     front: {
-//                         boundaryBox: { top: '30%', left: "25%", width: "20%", height: "25%" },
-//                         boundaryBoxChildren: [],
-//                         "name": "T-shirt",
-//                         "price": 200,
-//                         "currency": "SAR",
-//                         "frontImage": "img/front.png",
-//                         "colors": [
-//                             { "color": "black", "image": "img/color-1.jpg" },
-//                             { "color": "#darkblue", "image": "img/color-3.jpg" },
-//                             { "color": "#fcdb86", "image": "img/color-2.jpg" }
-//                         ]
-//                     }, back: {
-//                         boundaryBox: { top: '30%', left: "25%", width: "20%", height: "25%" },
-//                         boundaryBoxChildren: [],
-//                         "name": "T-shirt",
-//                         "price": 200,
-//                         "currency": "SAR",
-//                         "backImage": "images/vecteezy_plain-black-t-shirt-on-transparent-background_12628220.png",
-//                         "colors": [
-//                             { "color": "black", "image": "img/color-1.jpg" },
-//                             { "color": "#darkblue", "image": "img/color-3.jpg" },
-//                             { "color": "#fcdb86", "image": "img/color-2.jpg" }
-//                         ]
-//                     }
-//                 },
-//                 {
-//                     id: "2",
-//                     color: "rgb(0, 0, 0)",
-//                     front: {
-//                         boundaryBox: { top: '70%', left: "60%", width: "20%", height: "25%" },
-//                         boundaryBoxChildren: [],
-//                         "name": "T-shirt",
-//                         "price": 200,
-//                         "currency": "SAR",
-//                         "frontImage": "images/front.png",
-//                         "colors": [
-//                             { "color": "white", "image": "img/M5665_560_5.JPG" },
-//                             { "color": "darkgreen", "image": "img/M5665_Q55_5.JPG" },
-//                             { "color": "pink", "image": "img/M5632_J10_1.JPG" },
-//                             { "color": "darkblue", "image": "img/M5632_R31_6.JPG" },
-//                             { "color": "black", "image": "img/M5632_608_5.JPG" }
-//                         ]
-//                     }, back: {
-//                         boundaryBox: { top: '70%', left: "60%", width: "20%", height: "25%" },
-//                         boundaryBoxChildren: [],
-//                         "name": "T-shirt",
-//                         "price": 200,
-//                         "currency": "SAR",
-//                         "backImage": "img/M5665_Q55_5.JPG",
-//                         "colors": [
-//                             { "color": "white", "image": "img/M5665_560_5.JPG" },
-//                             { "color": "darkgreen", "image": "img/M5665_Q55_5.JPG" },
-//                             { "color": "pink", "image": "img/M5632_J10_1.JPG" },
-//                             { "color": "darkblue", "image": "img/M5632_R31_6.JPG" },
-//                             { "color": "black", "image": "img/M5632_608_5.JPG" }
-//                         ]
-//                     }
-
-//                 }
-//             ]);
-//         }, 1000);
-//     });
-// }
-
 // Function to render products on the page
 function renderProducts(products, designSide) {
     const productsList = document.getElementById("products-list");
@@ -879,33 +765,6 @@ function changeCardColor(color, id) {
     card.style.backgroundColor = color;
 
 }
-
-//                                              *************************** Alert ********************************
-
-//             ***********************************************When click on custom design set the product object on localStorage***************************************
-
-// <button onclick="goToDesignPage()">Customize Product</button>
-
-// <script>
-//     function changeCardColor(color, elementId) {
-//         document.getElementById(elementId).style.backgroundColor = color;
-//     }
-
-//     function changeDesignProductColor(color) {
-//         console.log('Color changed to:', color);
-//     }
-
-//     function goToDesignPage() {
-//         const product = {
-//             frontImage: 'front-image.jpg',
-//             backImage: 'back-image.jpg',
-//             color: 'red'
-//         };
-//         localStorage.setItem('product', JSON.stringify(product));
-//         window.location.href = 'design.html';
-//     }
-// </script>
-
 
 function generateDesignObject(product) {
     const designAreaClone = document.getElementById('design-area')
@@ -1424,7 +1283,6 @@ document.getElementById('convertToImage').addEventListener('click', function () 
 });
 document.getElementById('convertToImage1').addEventListener('click', function () {
     $("#submit_type").val(1);
-
     const sides = ["front", "back"];
 
     function processSide(side) {

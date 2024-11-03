@@ -29,10 +29,10 @@
               <div class="product-container">
                 <a href="{{ $product->url() }}" class="image-container" data-image="{{ Storage::url('products/'.$product->front_image) }}">
                     <div class="card-front" id="0-card-front{{$product->id}}"
-                         style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                         style="background-image: url('{{ Storage::url('products/'.$product->front_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                     </div>
                     <div class="card-back" id="0-card-back{{$product->id}}"
-                         style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->color??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
+                         style="position: relative; background-image: url('{{ Storage::url('products/'.$product->back_image) }}');background-color:{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}; background-size: contain; background-position: center; background-repeat: no-repeat;">
                     </div>
                 </a>
                   <ul class="color-list">
