@@ -329,8 +329,8 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     object-fit: contain;
-    width: 10rem;
-    height: 7rem;
+    width: 100%;
+    height: 100%;
     object-position: center;
 }
 
@@ -1854,7 +1854,7 @@ h4.card-total-title {
     }
 
     .best-selling .users-list > li {
-        width: 20%;
+        width: 50%;
         /*width: calc(20% - 21px);*/
         /*min-width: 145px;*/
     }
@@ -1864,11 +1864,11 @@ h4.card-total-title {
     }
 
     .used-design .users-list > li {
-        min-width: 180px;
+        min-width: 50%;
     }
 
     .Products-list .users-list > li {
-        min-width: 165px;
+        min-width: 50%;
         padding: 5px;
     }
 
