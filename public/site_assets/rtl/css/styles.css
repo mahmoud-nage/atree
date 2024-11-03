@@ -1854,7 +1854,7 @@ h4.card-total-title {
     }
 
     .best-selling .users-list > li {
-        width: 50%;
+        width: 50% !important;
 
         /*width: calc(18.8% - 21px);*/
         /*min-width: 145px;*/
@@ -1865,11 +1865,11 @@ h4.card-total-title {
     }
 
     .used-design .users-list > li {
-        min-width: 50%;
+        width: 50% !important;
     }
 
     .Products-list .users-list > li {
-        min-width: 50%;
+        width: 50% !important;
         padding: 5px;
     }
 

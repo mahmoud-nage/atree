@@ -161,7 +161,7 @@
                         </ul>
                     </div>
                 @endif
-                
+
             @endforeach
             <!-------------------------- Posts List --------------------------->
             @foreach($designs as $record)
