@@ -177,9 +177,6 @@ function centerElement(target) {
             const targetRect = target.getBoundingClientRect();
             const x = (parentRect.width - targetRect.width) / 2;
             const y = (parentRect.height - imageHeight) / 2;
-            console.log(parentRect.height);
-            console.log(imageHeight);
-
             target.style.transform = `translate(${x}px, ${y}px)`;
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
@@ -894,7 +891,9 @@ function initializeMainProduct(newProduct, designSide) {
             return `<${tagName}  ${attributesString} ${styleString}></${tagName}>`;
         }
     }).join('');
+
     if (designSide === "front") {
+
         boundaryBox.innerHTML = boundaryBoxChildrenHTMLFront;
         designArea.style.backgroundImage = `url(${newProduct[designSide].frontImage})`;
     }
@@ -1011,6 +1010,7 @@ function initializeMainProductBeforNewDesign(newProduct, designSide) {
     }).join('');
 
     if (designSide === "front") {
+
         boundaryBox.innerHTML = boundaryBoxChildrenHTMLFront;
         designArea.style.backgroundImage = `url(${newProduct[designSide].frontImage})`;
 
@@ -1194,7 +1194,6 @@ document.getElementById('convertToImage').addEventListener('click', function () 
                 textValues = textValues.push(values);
             }
             $('[name="texts"]').val(JSON.stringify(textValues));
-            console.log(textValues, values, 'front')
         } else {
             var text_backs = box.getElementsByTagName('div');
             var textValuesBack = [];
@@ -1208,7 +1207,6 @@ document.getElementById('convertToImage').addEventListener('click', function () 
                 textValuesBack.push(values_back);
             }
             $('[name="texts_back"]').val(JSON.stringify(textValuesBack));
-            console.log(textValuesBack, 'back')
         }
         var images = box.getElementsByTagName('img');
         var loadCount = 0;
@@ -1314,7 +1312,6 @@ document.getElementById('convertToImage1').addEventListener('click', function ()
                 textValues = textValues.push(values);
             }
             $('[name="texts"]').val(JSON.stringify(textValues));
-            console.log(textValues, values, 'front')
         } else {
             var text_backs = box.getElementsByTagName('div');
             var textValuesBack = [];
@@ -1328,7 +1325,6 @@ document.getElementById('convertToImage1').addEventListener('click', function ()
                 textValuesBack.push(values_back);
             }
             $('[name="texts_back"]').val(JSON.stringify(textValuesBack));
-            console.log(textValuesBack, 'back')
         }
         var images = box.getElementsByTagName('img');
         var loadCount = 0;
@@ -1529,9 +1525,6 @@ function getDetails() {
             const fontFamily = child.style.fontFamily;
             const color = child.style.color;
             const fontWeight = child.style.fontWeight;
-            console.log(fontFamily)
-            console.log(color)
-            console.log(fontWeight)
             // Create hidden inputs for text properties
             const textContentInput = createHiddenInput(`front_text_content[]`, textContent);
             const fontSizeInput = createHiddenInput(`front_font_size[]`, fontSize);
@@ -1574,7 +1567,6 @@ function getDetails() {
         }
 
         if (child.tagName === 'DIV' && child.classList.contains('text-element')) {
-            console.log("Text from back");
 
             // Get the needed style values
             const textContent = child.textContent;
