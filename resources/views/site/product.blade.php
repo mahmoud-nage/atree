@@ -3,14 +3,14 @@
     {{--    <link rel="stylesheet" href="{{ Storage::url('site_assets/css/slick-theme.css') }}">--}}
 @endsection
 @section('page_content')
-    <div class="content-wrapper pt-3" style="margin-right: 0 !important;margin-left: 0 !important;">
+    <div class="content-wrapper pt-3">
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
             <div class="card-solid">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-9 col-sm-6">
                             <div class="row">
                                 <div class="col-3 product-image-thumbs flex-column">
                                     <div class="product-image-thumb active"><img
