@@ -1681,7 +1681,7 @@ h4.card-total-title {
 
 .main-sidebar {
     position: fixed !important;
-    top: 60px !important;
+    top: 0;
     min-height: calc(100vh - 60px) !important;
     max-height: calc(100vh - 60px);
     overflow: auto;
@@ -1817,7 +1817,7 @@ h4.card-total-title {
 
     /********************* Sidebar *********************/
     .main-sidebar {
-        top: 8vh !important;
+        top: 0;
         min-height: calc(100vh - 119px) !important;
     }
 
@@ -2030,16 +2030,16 @@ h4.card-total-title {
     }
 }
 
-@media (max-width: 767px) {
-    .main-sidebar {
-        top: 18vh !important;
-    }
-}
-@media (max-width: 481px) {
-    .main-sidebar {
-        top: 24vh !important;
-    }
-}
+/*@media (max-width: 767px) {*/
+/*    .main-sidebar {*/
+/*        top: 18vh !important;*/
+/*    }*/
+/*}*/
+/*@media (max-width: 481px) {*/
+/*    .main-sidebar {*/
+/*        top: 24vh !important;*/
+/*    }*/
+/*}*/
 
 
 

@@ -1681,7 +1681,7 @@ h4.card-total-title {
 
 .main-sidebar {
     position: fixed !important;
-    top: 60px !important;
+    top: 0;
     min-height: calc(100vh - 60px) !important;
     max-height: calc(100vh - 60px);
     overflow: auto;
@@ -1817,7 +1817,7 @@ h4.card-total-title {
 
     /********************* Sidebar *********************/
     .main-sidebar {
-        top: 8vh !important;
+        top: 0;
         min-height: calc(100vh - 119px) !important;
     }
 
@@ -2033,17 +2033,17 @@ h4.card-total-title {
     max-height: 14rem !important;
 }
 
-@media (max-width: 767px) {
-    .main-sidebar {
-        top: 18vh !important;
-    }
-}
+/*@media (max-width: 767px) {*/
+/*    .main-sidebar {*/
+/*        top: 18vh !important;*/
+/*    }*/
+/*}*/
 
-@media (max-width: 481px) {
-    .main-sidebar {
-        top: 24vh !important;
-    }
-}
+/*@media (max-width: 481px) {*/
+/*    .main-sidebar {*/
+/*        top: 24vh !important;*/
+/*    }*/
+/*}*/
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 5vh !important;

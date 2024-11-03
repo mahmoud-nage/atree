@@ -155,6 +155,27 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <x-livewire-alert::scripts/>
 @yield('scripts')
-</body>
+<script>
+    function adjustSidebarTop() {
+        // Get the height of the navbar
+        const navbarHeight = document.querySelector('.main-header').offsetHeight;
+        console.log(navbarHeight);
 
+        // Get the sidebar element
+        const sidebar = document.querySelector('.main-sidebar');
+
+        // Set the top and height dynamically with !important
+        sidebar.style.setProperty('top', navbarHeight + 'px', 'important');
+        sidebar.style.minHeight = `calc(100vh - ${navbarHeight}px)`;
+        sidebar.style.maxHeight = `calc(100vh - ${navbarHeight}px)`;
+        sidebar.style.zIndex = 1000000000000000000;
+    }
+
+    // Run the function on page load
+    window.onload = adjustSidebarTop;
+
+    // Run the function whenever the window is resized
+    window.onresize = adjustSidebarTop;
+</script>
+</body>
 </html>
