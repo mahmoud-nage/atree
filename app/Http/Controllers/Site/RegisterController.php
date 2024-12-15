@@ -27,7 +27,8 @@ class RegisterController extends Controller
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password);
         $user->type = User::USER;
-        $user->username = substr(str_shuffle('abcdefghijklmnobqrstuvwxyz'), 0 , 12);
+        $user->username = $request->username;
+//        substr(str_shuffle('abcdefghijklmnobqrstuvwxyz'), 0 , 12)
         if ($request->hasFile('image')) {
             $user->image = basename($request->file('image')->store('users'));
         }

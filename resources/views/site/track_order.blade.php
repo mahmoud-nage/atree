@@ -31,6 +31,11 @@
                                                 <div class="timeline-item">
                                                     <div class="timeline-body">
                                                         <div class="card-title">{{$status->name}}</div>
+                                                        @if($record->shipping_url && $status->id == 3)
+                                                            {{__('site.shipping_company')}} : {{$record->shipping_company->name??''}}
+                                                            <br/>
+                                                            <a href="{{$record->shipping_url}}">{{__('site.shipping_url')}}</a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -40,7 +45,8 @@
                                     </div>
                                 </div>
                                 <div class="text-right p-3">
-                                    <a href="{{route('orders')}}" class=" btn btn-primary bg-primary-gridant">{{__('site.Back to order Summary')}}</a>
+                                    <a href="{{route('orders')}}"
+                                       class=" btn btn-primary bg-primary-gridant">{{__('site.Back to order Summary')}}</a>
                                 </div>
                             </div>
                         </div>

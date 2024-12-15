@@ -57,7 +57,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('global', function (Request $request) {
-            $rate_limit = $request->isMethod('post') ? 5 : 10;
+            $rate_limit = $request->isMethod('post') ? 10 : 20;
             if (auth()->user()) {
                 $rate_limit = (isset(auth()->user()->rate_limit) ? auth()->user()->rate_limit : $rate_limit);
                 return Limit::perMinute($rate_limit)->by(auth()->user()->id)->response(function () {

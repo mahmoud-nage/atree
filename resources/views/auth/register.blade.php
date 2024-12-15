@@ -26,6 +26,12 @@
             <div class="ps-form__content">
               <h5> @lang('site.Register An Account') </h5>
               <div class="form-group">
+                <input class="form-control @error('username') @enderror " name='name' value='{{ old('username') }}' type="text" placeholder="@lang('site.username')">
+                @error('username')
+                <p class='text-danger'> {{ $message }} </p>
+                @enderror
+              </div>
+              <div class="form-group">
                 <input class="form-control @error('name') @enderror " name='name' value='{{ old('name') }}' type="text" placeholder="@lang('site.name')">
                 @error('name')
                 <p class='text-danger'> {{ $message }} </p>

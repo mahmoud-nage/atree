@@ -47,7 +47,16 @@ if ($lang == 'ar') {
                     </label>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                      <div class="form-group mb-2">
+                        <label class="label" for="username">@lang('site.Username') </label>
+                        <input type="text" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror " placeholder="" required>
+                        @error('username')
+                        <p class='text-danger' > {{ $message }} </p>
+                        @enderror
+                      </div>
+                    </div>
+                    <div class="col-md-4">
                       <div class="form-group mb-2">
                         <label class="label" for="name">@lang('site.First Name') </label>
                         <input type="text" name="first_name" value="{{ old('first_name') }}" class="form-control @error('first_name') is-invalid @enderror " placeholder="" required>
@@ -56,7 +65,7 @@ if ($lang == 'ar') {
                         @enderror
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="form-group mb-2">
                         <label class="label" for="name">@lang('site.Last Name') </label>
                         <input type="text" name='last_name' value='{{ old('last_name') }}' class="form-control @error('last_name') is-invalid @enderror" placeholder="" required>

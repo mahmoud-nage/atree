@@ -109,7 +109,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <a href="{{ route('custom-designs', $record->id).'?type=design' }}"
+                    <a href="{{ route('current-custom-designs', $record->id).'?type=design' }}"
                        class="text-center post-image-container d-flex justify-content-around">
                         <div style="position: relative; direction: ltr; max-width: 500px">
                             {{--                        <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}"  src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
@@ -134,7 +134,7 @@
                 </div>
             </div>
         @empty
-            <div class="alert alert-primary" role="alert">
+            <div class="alert text-center" role="alert">
                 @lang('site.no_records')
             </div>
         @endforelse

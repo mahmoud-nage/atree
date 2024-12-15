@@ -31,4 +31,5 @@ return array(
     'not_found_records' => 'ايوجد بيانات لعرضها.',
     'send_code' => 'كود التفعيل الخاص بك هو :code.',
     'already_send_code' => 'تم ارسال الكود سابقا تاكد من جوالك',
+    'shipping_url' => 'رابط طلب الشحن الخاص بطلبك.',
 );

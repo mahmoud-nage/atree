@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Dashboard\DesignController;
+use App\Http\Controllers\Dashboard\ShippingCompaniesController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\Payment\SurePayController;
@@ -51,6 +52,7 @@ Route::group([
         Route::resource('sizes', SizeController::class);
         Route::resource('designs', DesignController::class);
         Route::resource('colors', ColorController::class);
+        Route::resource('shipping_companies', ShippingCompaniesController::class);
         Route::resource('admins', AdminController::class);
         Route::resource('categories', CategoryController::class); // not fount in view
         Route::resource('slides', SlideController::class);
@@ -120,7 +122,7 @@ Route::group([
 //    Route::post('/verify', [VerifyEmailController::class, 'verify'])->name('verify.post');
 
     Route::get('pages/{page}', [SiteController::class, 'page'])->name('pages.show');
-    Route::get('users/{user}', [SiteController::class, 'user'])->name('users.show');
+    Route::get('users/{username}', [SiteController::class, 'user'])->name('users.show');
     Route::get('contact', [SiteController::class, 'contact'])->name('contact');
     Route::get('search', [SiteController::class, 'search'])->name('search');
     Route::get('products/{product}', [SiteController::class, 'product'])->name('products.show');
@@ -129,7 +131,7 @@ Route::group([
     Route::get('/designs', [SiteController::class, 'designs'])->name('designs');
     Route::post('/designs/{id}', [SiteController::class, 'updateDesign'])->name('designs.update');
     Route::get('/cart', [SiteController::class, 'cart'])->name('cart');
-
+    Route::get('/current-designs/{product_id}', [SiteController::class, 'current_custom_designs'])->name('current-custom-designs');
 
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [UserProfileController::class, 'index'])->name('profile.index');

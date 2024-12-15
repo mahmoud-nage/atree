@@ -54,8 +54,9 @@ class SiteController extends Controller
         return view('site.page', compact('page'));
     }
 
-    public function user(User $user)
+    public function user($username)
     {
+        $user = User::where('username', $username)->firstOrFail();
         $user->load('designs')->loadCount('followers');
         $latest_designs = UserDesign::where('user_id', $user->id)->latest()->get()->take(4);
         return view('site.bio', compact('user', 'latest_designs'));
@@ -77,9 +78,10 @@ class SiteController extends Controller
                 ->orWhere('name->en', 'LIKE', '%' . $search . '%')
                 ->orWhere('description->ar', 'LIKE', '%' . $search . '%')
                 ->orWhere('description->en', 'LIKE', '%' . $search . '%');
-        })->paginate(30);
+        })->get();
+        $users = User::latest()->where('type', User::USER)->where('name', 'LIKE', '%' . $search . '%')->get();
 
-        return view('site.search', compact('search', 'products'));
+        return view('site.search', compact('search', 'products','users'));
     }
 
 
@@ -111,6 +113,22 @@ class SiteController extends Controller
         $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
         $designs = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
         return view('site.custom_designs', compact('record', 'designs', 'products', 'design'));
+    }
+
+    public function current_custom_designs(Request $request, $product_id)
+    {
+        $design = null;
+        if ($request->type == 'design') {
+            $design = UserDesign::findOrFail($product_id);
+            $design->increment('times_used_count');
+            $products = Product::whereIn('id', $design->products->where('id', '!=', $design->product_id)->pluck('id'))->whereActive(1)->get();
+            $product_id = $design->product_id;
+        } else {
+            $products = Product::where('id', '!=', $product_id)->get();
+        }
+        $record = Product::with(['variations.color'])->whereId($product_id)->firstOrFail();
+        $designs = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
+        return view('site.current_custom_designs', compact('record', 'designs', 'products', 'design'));
     }
 
 

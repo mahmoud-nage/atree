@@ -90,6 +90,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+    public function points()
+    {
+        return $this->hasMany(UserPoint::class);
+    }
 
 
     public function url()

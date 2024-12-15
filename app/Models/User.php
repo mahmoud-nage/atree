@@ -136,7 +136,7 @@ class User extends Authenticatable
 
     public function url(): string
     {
-        return route('users.show', $this->id);
+        return route('users.show', $this->username);
     }
 
     public function images(): HasMany

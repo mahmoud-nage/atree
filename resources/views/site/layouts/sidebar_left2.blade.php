@@ -10,7 +10,9 @@
                 @foreach (\App\Models\Product::all()->take(4) as $product)
                     <li>
                         <a href="{{ $product->url() }}" class="image-container">
-                            <img src="{{ Storage::url('products/'.$product->front_image) }}" alt="User Image">
+                            <img
+                                style="background-color:{{$product->variations->unique('color_id')->first()->color->code??'#fff'}};"
+                                src="{{ Storage::url('products/'.$product->front_image) }}" alt="User Image">
                         </a>
                         <a class="users-list-name" href="{{ $product->url() }}">{{$product->name}}</a>
                         <div class="users-list-date">{{ $product->price }} <span> @lang('site.SAR') </span></div>
@@ -26,19 +28,20 @@
                 </div>
 
                 <ul class="users-list clearfix">
-                    @foreach(\App\Models\UserDesign::inRandomOrder()->get()->take(6) as $record)
+                    @foreach(\App\Models\UserDesign::with('product')->inRandomOrder()->get()->take(6) as $record)
                         <li>
-                            <a href="{{ route('custom-designs', $record->id).'?type=design' }}">
+                            <a onclick="goToDesignPage({{$record}})" class="mr-3 heigh-recomanded-img"
+                               data-image="{{ Storage::url('products/'.$record->product->front_image) }}">
                                 <div class="image-container">
-                                    <img style="background-color: {{$record->main_color_code}}"
+                                    {{--                                    <img src="{{ Storage::url('users/'.$record->user->image) ?? '' }}" alt="User Image">--}}
+                                    <img
+                                        style="background-color: {{$record->main_color_code}}"
+                                        src="{{Storage::url('products/'.$record->product->front_image)}}"
+                                        alt="Photo">
+                                    <img alt="design"
                                          src="{{Storage::url('designs/'.$record->design_image_front)}}"
-                                         alt="User Image">
-                                    {{--                                    <img--}}
-                                    {{--                                        style="background-color: {{$record->main_color_code}}"--}}
-                                    {{--                                        src="{{Storage::url('products/'.$record->image)}}">--}}
-                                    {{--                                    <img class="img-fluid pad" alt="design"--}}
-                                    {{--                                         src="{{Storage::url('designs/'.$record->design_image_front)}}"--}}
-                                    {{--                                         style="width: {{$record->product->site_front_width}}%; height: {{$record->product->site_front_height}}%; top: {{$record->product->site_front_top}}%; left: {{$record->product->site_front_left}}%;position: absolute;">--}}
+                                         style="width: {{$record->product->site_front_width}}% !important; height: {{$record->product->site_front_height}}% !important;
+                                          top: {{$record->product->site_front_top}}% !important; left: {{$record->product->site_front_left}}% !important; position: absolute;">
 
                                 </div>
                             </a>
@@ -84,3 +87,51 @@
 {{--        </div>--}}
     </div>
 </div>
+
+@section('scripts')
+    <!----------- Slider Scripts --------->
+    <script>
+        function goToDesignPage(newProduct) {
+            console.log(newProduct);
+            const product =
+                {
+                    id: "1",
+                    front: {
+                        boundaryBox: {
+                            top: newProduct['product']['site_front_top'] + '%',
+                            left: newProduct['product']['site_front_left'] + '%',
+                            width: newProduct['product']['site_front_width'] + '%',
+                            height: newProduct['product']['site_front_height'] + '%',
+                        },
+                        boundaryBoxChildren: [],
+                        "name": "T-shirt",
+                        "price": 200,
+                        "currency": "SAR",
+                        "frontImage": '/storage/products/' + newProduct['product']['front_image'],
+                    }, back: {
+                        boundaryBox: {
+                            top: newProduct['product']['site_back_top'] + '%',
+                            left: newProduct['product']['site_back_left'] + '%',
+                            width: newProduct['product']['site_back_width'] + '%',
+                            height: newProduct['product']['site_back_height'] + '%',
+                        },
+                        boundaryBoxChildren: [],
+                        "name": "T-shirt",
+                        "price": 200,
+                        "currency": "SAR",
+                        "backImage": '/storage/products/' + newProduct['product']['back_image'],
+                        "colors": [
+                            {"color": "black", "image": "img/color-1.jpg"},
+                            {"color": "#darkblue", "image": "img/color-3.jpg"},
+                            {"color": "#fcdb86", "image": "img/color-2.jpg"}
+                        ]
+                    }
+                }
+            const productJSON = JSON.stringify(product);
+            localStorage.setItem('product', productJSON);
+            let url = '{{ route('current-custom-designs', 'id').'?type=design' }}';
+            url = url.replace("id", newProduct['id']);
+            window.location.href = url;
+        }
+    </script>
+@endsection

@@ -37,7 +37,8 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini @if(in_array(request()->route()->getName(), ['current-custom-designs','custom-designs','login.post', 'login.form', 'register.form','register.post','verify_phone.index','verify_phone.store',
+'password.request','password.send','password.check','password.newPassword'])) sidebar-collapse @endif">
 @if(!in_array(request()->route()->getName(), ['login.post', 'login.form', 'register.form','register.post','verify_phone.index','verify_phone.store',
 'password.request','password.send','password.check','password.newPassword']))
     @include('site.layouts.header')
@@ -166,7 +167,7 @@
         sidebar.style.setProperty('top', navbarHeight + 'px', 'important');
         sidebar.style.minHeight = `calc(100vh - ${navbarHeight}px)`;
         sidebar.style.maxHeight = `calc(100vh - ${navbarHeight}px)`;
-        sidebar.style.zIndex = 1000000000000000000;
+        // sidebar.style.zIndex = 1000000000000000000;
     }
     // // Run the function on page load
     // window.onload = adjustSidebarTop;

@@ -22,6 +22,7 @@
 						<ul class="nav flex-column nav-pills border-bottom">
 							<li class="nav-item"><a class="nav-link active" href="#Profile" data-toggle="tab"> @lang('site.My Account') </a></li>
 							<li class="nav-item"><a class="nav-link" href="#Address" data-toggle="tab"> @lang('site.My Address') </a></li>
+							<li class="nav-item"><a class="nav-link" href="#Banks" data-toggle="tab"> @lang('site.My Banks') </a></li>
 							<li class="nav-item"><a class="nav-link" href="#Password" data-toggle="tab"> @lang('site.Change Password') </a></li>
 						</ul>
 						<a href="#" class="btn text-danger btn-block font-weight-light text-left"><b> @lang('site.Delete Account') </b></a>
@@ -35,6 +36,9 @@
 					</div>
 					<div class="tab-pane" id="Address">
 						@livewire('site.user-addresses' , ['user' => $user] )
+					</div>
+					<div class="tab-pane" id="Banks">
+						@livewire('site.user-banks' , ['user' => $user] )
 					</div>
 					<div class="tab-pane" id="Password">
 						@livewire('site.edit-password' , ['user' => $user] )

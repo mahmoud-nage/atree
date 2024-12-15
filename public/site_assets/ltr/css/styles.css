@@ -1119,6 +1119,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     width: 100px;
     height: 100px;
     margin: -70px 40px 0 10px;
+    /*transform: translate(375%, 10px);*/
 }
 
 .bio-user-image img {
@@ -1127,9 +1128,9 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 }
 
 .bio-header {
-    display: flex;
-    width: 100%;
-    padding: 0px 30px;
+    /*display: flex;*/
+    /*width: 100%;*/
+    /*padding: 0px 30px;*/
 }
 
 .content-wrapper > .content {

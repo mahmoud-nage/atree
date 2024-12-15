@@ -48,4 +48,8 @@ class Order extends Model
     {
         return $this->belongsTo(ShippingStatus::class, 'shipping_statues_id');
     }
+    public function shipping_company()
+    {
+        return $this->belongsTo(ShippingCompanies::class, 'shipping_company_id');
+    }
 }

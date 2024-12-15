@@ -74,7 +74,7 @@
                         <div class="card-body">
                             <a
                                 onclick="goToDesignPage({{$record}})"
-                                {{--                                        href="{{ route('custom-designs', $record->id).'?type=design' }}"--}}
+                                {{--                                        href="{{ route('current-custom-designs', $record->id).'?type=design' }}"--}}
                                 data-image="{{ Storage::url('products/'.$record->product->front_image) }}"
                                 {{--                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"--}}
                                 class="text-center post-image-container d-flex justify-content-around">
@@ -164,7 +164,7 @@
                 }
             const productJSON = JSON.stringify(product);
             localStorage.setItem('product', productJSON);
-            let url = '{{ route('custom-designs', 'id').'?type=design' }}';
+            let url = '{{ route('current-custom-designs', 'id').'?type=design' }}';
             url = url.replace("id", newProduct['id']);
             window.location.href = url;
         }

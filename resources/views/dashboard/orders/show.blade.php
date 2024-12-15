@@ -47,13 +47,29 @@
                                     <form action="{{ route('dashboard.orders.update' , $order ) }}" method='POST'>
                                         @csrf
                                         @method('PATCH')
-                                        <select onchange="this.form.submit()" class='form-control' name="status_id"
-                                                id="">
-                                            @foreach ($statues as $statue)
-                                                <option
-                                                    value="{{ $statue->id }}" {{ $statue->id == $order->shipping_statues_id ? 'selected="selected"' : '' }} > {{ $statue->name }} </option>
-                                            @endforeach
-                                        </select>
+                                        <div class="form-group">
+                                            <select class='form-control' name="status_id" id="status_id">
+                                                <option>{{__('site.status')}}</option>
+                                                @foreach ($statues as $statue)
+                                                    <option
+                                                        value="{{ $statue->id }}" {{ $statue->id == $order->shipping_statues_id ? 'selected="selected"' : '' }} > {{ $statue->name }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class='form-control' name="shipping_company_id"
+                                                    id="shipping_company_id">
+                                                <option>{{__('site.shipping_companies')}}</option>
+                                                @foreach ($shipping_companies as $shipping_company)
+                                                    <option
+                                                        value="{{ $shipping_company->id }}" {{ $shipping_company->id == $order->shipping_company_id ? 'selected="selected"' : '' }} > {{ $shipping_company->name }} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input  class='form-control' type="text" name="shipping_url" id="shipping_url" value="{{$order->shipping_url}}">
+                                        </div>
+                                        <button  class='form-control btn btn-primary' type="submit" > {{__('site.submit')}} </button>
                                     </form>
                                 </td>
                             </tr>

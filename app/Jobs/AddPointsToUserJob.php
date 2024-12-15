@@ -39,9 +39,9 @@ class AddPointsToUserJob implements ShouldQueue
         $settings = Settings::first();
         $variation = Variation::find($this->variation_id);
         if ($variation) {
-            if ($variation?->product->points) {
+            if ($variation?->product->diamonds) {
                 $user_points = new UserPoint;
-                $user_points->points = $variation?->product->points;
+                $user_points->points = $variation?->product->diamonds;
                 $user_points->user_id = $this->order->user_id;
                 $user_points->order_id = $this->order->id;
                 $user_points->product_id = $variation->product->id;

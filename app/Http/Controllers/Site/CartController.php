@@ -174,7 +174,7 @@ class CartController extends Controller
                 }
             }
             DB::commit();
-            return $request->submit_type == 1 ? view('site.cart')->with('success', __('messages.created_successfully')) : redirect(route('users.show', auth()->user()))->with('success', __('messages.created_successfully'));
+            return $request->submit_type == 1 ? view('site.cart')->with('success', __('messages.created_successfully')) : redirect(route('users.show', auth()->user()->username))->with('success', __('messages.created_successfully'));
 
         } catch (\Throwable $e) {
             DB::rollBack();

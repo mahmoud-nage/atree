@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ChangeStatusMail;
+use App\Models\ShippingCompanies;
 use AWS\CRT\Log;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -39,8 +40,9 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $statues = ShippingStatus::all();
+        $shipping_companies = ShippingCompanies::all();
         $order->load(['governorate', 'user', 'items', 'items.variation', 'status']);
-        return view('dashboard.orders.show', compact('order', 'statues'));
+        return view('dashboard.orders.show', compact('order', 'statues','shipping_companies'));
     }
 
     /**
@@ -53,6 +55,8 @@ class OrderController extends Controller
     public function update(Request $request, Order $order): RedirectResponse
     {
         $order->shipping_statues_id = $request->status_id;
+        $order->shipping_company_id = $request->shipping_company_id;
+        $order->shipping_url = $request->shipping_url;
         $order->save();
         $order->refresh();
 

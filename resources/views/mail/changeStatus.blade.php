@@ -66,6 +66,11 @@
     </p>
     <p class="header">{{__('messages.order_accept', ['num' => $order->number, 'status' => $order->status->name])}}</p>
     <p class="content">{{__('messages.order_accept', ['num' => $order->number, 'status' => $order->status->name])}}</p>
+    <p class="content">{{__('site.shipping_company')}} : {{$order->shipping_company->name??''}}</p>
+    @if($order->shipping_url)
+        <a href="{{$order->shipping_url}}" class="content">{{__('messages.shipping_url')}}</a>
+    @endif
+    <p class="content">{{__('messages.order_accept', ['num' => $order->number, 'status' => $order->status->name])}}</p>
     {{--    <p class="content">تم قبول الطلب الخاص بك وجاري العمل عليه الان</p>--}}
     <a href="https://artee.sa" class="link">Artee.sa</a>
 
@@ -74,8 +79,9 @@
                                                          alt="Facebook"></a>
         <a href="{{ $data['settings']->twitter }}"><img src="https://artee.sa/site_assets/ltr/images/twitter.png"
                                                         alt="X"></a>
-        <a href="{{ $data['settings']->instagram }}"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                                                          alt="Instagram"></a>
+        <a href="{{ $data['settings']->instagram }}"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                alt="Instagram"></a>
     </div>
 </div>
 </body>

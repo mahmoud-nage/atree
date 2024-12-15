@@ -129,7 +129,7 @@
                                                 @foreach ($record->variations->unique('color_id') as $record_color_variation)
                                                     <li class="color-item"
                                                         onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$record->id}}')"
-                                                        onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$record->id}}')"
+                                                        onmouseleave="changeCardColor('{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}','0-card-front{{$record->id}}')"
                                                         style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
                                                         id="color-Button"></li>
                                                 @endforeach

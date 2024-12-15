@@ -49,7 +49,7 @@
                 <ul class="users-list clearfix">
                     @foreach ($recomanded_users as $user)
                         <li>
-                            <a href="{{ route('users.show' , $user ) }}">
+                            <a href="{{ route('users.show' , $user->username ) }}">
                                 <div class="image-container">
                                     <img src="{{ Storage::url('users/'.$user->image) }}" alt="{{ $user->name() }}">
                                 </div>
@@ -84,7 +84,7 @@
                                     @foreach ($product->variations->unique('color_id') as $record_color_variation)
                                         <li class="color-item"
                                             onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
-                                            onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
+                                            onmouseleave="changeCardColor('{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}','0-card-front{{$product->id}}')"
                                             style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
                                             id="color-Button"></li>
                                     @endforeach
@@ -115,10 +115,10 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-{{--                        <a href="{{ route('custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">--}}
+{{--                        <a href="{{ route('current-custom-designs', $record->id).'?type=design' }}" class="text-center post-image-container">--}}
                             {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
 {{--                            <img class="img-fluid pad" style="background-color: {{$record->main_color_code}}" src="{{Storage::url('designs/'.$record->image)}}" alt="Photo">--}}
-                            <a href="{{ route('custom-designs', $record->id).'?type=design' }}"
+                            <a href="{{ route('current-custom-designs', $record->id).'?type=design' }}"
                                class="text-center post-image-container">
                                 {{--                        <div class="badge badge-light">200 <span>SAR</span></div>--}}
                                 <img class="img-fluid pad"

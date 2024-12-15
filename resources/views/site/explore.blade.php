@@ -66,7 +66,7 @@
                                                     @foreach ($product->variations->unique('color_id') as $record_color_variation)
                                                         <li class="color-item"
                                                             onmouseover="changeCardColor('{{$record_color_variation->color->code}}','0-card-front{{$product->id}}')"
-                                                            onmouseleave="changeCardColor('rgb(255, 250, 255)','0-card-front{{$product->id}}')"
+                                                            onmouseleave="changeCardColor('{{$product->variations->unique('color_id')->first()->color->code??'#fff'}}','0-card-front{{$product->id}}')"
                                                             style="background:{{$record_color_variation->color->code}}" data-image="img/color-1.jpg"
                                                             id="color-Button"></li>
                                                     @endforeach
@@ -117,7 +117,7 @@
                                         <div class="card-body">
                                             <a
                                                 onclick="goToDesignPage({{$record}})"
-                                                {{--                                        href="{{ route('custom-designs', $record->id).'?type=design' }}"--}}
+                                                {{--                                        href="{{ route('current-custom-designs', $record->id).'?type=design' }}"--}}
                                                 data-image="{{ Storage::url('products/'.$record->product->front_image) }}"
                                                 {{--                                onclick="changeNewDesignProduct('card-product{{$record->id}}')"--}}
                                                 class="text-center post-image-container d-flex justify-content-around">
@@ -211,7 +211,7 @@
                 }
             const productJSON = JSON.stringify(product);
             localStorage.setItem('product', productJSON);
-            let url = '{{ route('custom-designs', 'id').'?type=design' }}';
+            let url = '{{ route('current-custom-designs', 'id').'?type=design' }}';
             url = url.replace("id", newProduct['id']);
             window.location.href = url;
         }

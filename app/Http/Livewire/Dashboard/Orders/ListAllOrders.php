@@ -63,6 +63,12 @@ class ListAllOrders extends Component
     {
         $this->resetPage();
     }
+    public function mount()
+    {
+        if(request()->shipping_status){
+            $this->shipping_status = request()->shipping_status;
+        }
+    }
 
     public function UploadFile()
     {
@@ -110,7 +116,7 @@ class ListAllOrders extends Component
         ->when(request()->user_id , function($query){
             $query->where('user_id' , request()->user_id );
         })
-        ->when($this->shipping_status != 'all' , function($query){
+        ->when($this->shipping_status != 'all', function($query){
             $query->where('shipping_statues_id' , $this->shipping_status );
         })
         ->when($this->start_date , function($query){

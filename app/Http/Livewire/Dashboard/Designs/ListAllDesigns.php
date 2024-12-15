@@ -37,7 +37,11 @@ class ListAllDesigns extends Component
 
     public function mount()
     {
-        $this->user_id = 'all';
+        if(request()->user_id){
+            $this->user_id = request()->user_id;
+        }else{
+            $this->user_id = 'all';
+        }
     }
 
     protected $paginationTheme = 'bootstrap';
