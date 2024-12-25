@@ -206,7 +206,7 @@ return array(
     'user_requested' => 'مقدم الطلب',
     'sizes' => 'المقاسات',
     'Print' => 'طباعة',
-    'Complete 10000 Diamond To enable Using' => 'أكمل 10000 ماسة لتمكين الاستخدام',
+    'Complete 10000 Diamond To enable Using' => 'أكمل :points ماسة لتمكين الاستخدام',
     'Earn More Every Day By stilling Be Amazing Designer' => 'اكسب المزيد كل يوم من خلال الاستمرار في أن تكون مصممًا رائعًا',
     'Diamonds' => 'النقط',
     'Program' => 'برنامج',

@@ -120,11 +120,11 @@
                             <div class="font-weight-bold "><span
                                     class="diamond-title">{{__('site.My Diamonds')}} </span></div>
                             <div class="diamond-progress-header">
-                                <div> {{$user->total_diamonds}} </div>
+                                <div> {{$total_points}} </div>
                                 <div> {{__('site.Diamond')}} </div>
                             </div>
                             <div class="diamond-progress-header">
-                                <div> {{round($user->total_diamonds / 100, 2)}} </div>
+                                <div> {{round($total_incomes, 2)}} </div>
                                 <div> {{__('site.SAR')}} </div>
                             </div>
                         </div>
@@ -135,18 +135,18 @@
                             </div>
                             <div class="diamond-progress-header">
                                 <div class="diamond-title"> {{__('site.Diamonds')}} </div>
-                                <div class="diamond-total">{{$user->total_diamonds}}</div>
+                                <div class="diamond-total">{{$total_points}}</div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar"
-                                     aria-valuenow="{{round((auth()->user()->total_diamonds / 10000)*100)}}"
+                                     aria-valuenow="{{$total_points}}"
                                      aria-valuemin="0"
                                      aria-valuemax="100"
-                                     style="width: {{round((auth()->user()->total_diamonds / 10000)*100)}}">
+                                     style="width: {{round(($total_points / ($data['settings']->minimam_money_can_be_withdrawal*100))*100)}}%">
                                 </div>
                             </div>
                             <div>
-                                {{__('site.Complete 10000 Diamond To enable Using')}}
+                                {{__('site.Complete 10000 Diamond To enable Using', ['points' => $data['settings']->minimam_money_can_be_withdrawal * 100])}}
                             </div>
 
                         </div>

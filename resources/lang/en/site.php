@@ -215,7 +215,7 @@ return array(
     'Print' => 'Print',
 
 
-    'Complete 10000 Diamond To enable Using' => 'Complete 10000 Diamond To enable Using',
+    'Complete 10000 Diamond To enable Using' => 'Complete :points Diamond To enable Using',
     'Earn More Every Day By stilling Be Amazing Designer' => 'Earn More Every Day By stilling Be Amazing Designer',
     'Diamonds' => 'Diamonds',
     'Program' => 'Program',

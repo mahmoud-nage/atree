@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Design;
+use App\Models\Income;
 use App\Models\UserDesign;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -59,7 +60,9 @@ class SiteController extends Controller
         $user = User::where('username', $username)->firstOrFail();
         $user->load('designs')->loadCount('followers');
         $latest_designs = UserDesign::where('user_id', $user->id)->latest()->get()->take(4);
-        return view('site.bio', compact('user', 'latest_designs'));
+        $total_incomes = Income::where('user_id', Auth::id())->where('withdrawn', 0)->sum('amount');
+        $total_points = Income::where('user_id', Auth::id())->where('withdrawn', 0)->sum('points');
+        return view('site.bio', compact('user', 'latest_designs', 'total_incomes', 'total_points'));
     }
 
 
