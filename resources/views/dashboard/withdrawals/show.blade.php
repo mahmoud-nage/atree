@@ -51,7 +51,7 @@
 						</tr>
 						<tr>
 							<th> المسوق  </th>
-							<td> <a target="_blank" href="{{ route('dashboard.marketers.show' , $withdrawal->user_id ) }}"> {{ $withdrawal->user?->name }} </a> </td>
+							<td> <a target="_blank" href="{{ route('dashboard.users.show' , $withdrawal->user_id ) }}"> {{ $withdrawal->user?->name }} </a> </td>
 						</tr>
 
 						<tr>

@@ -190,10 +190,9 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 }
 
 .list-group-item.active {
-    background-color: rgba(100, 47, 145, 0.15);
-    border-color: rgba(100, 47, 145, 0.15);
-    color: #333;
-    /* border-top-color: rgba(100, 47, 145, 0.15); */
+    border-color: rgba(100, 47, 145, 0.51);
+    background: rgba(100, 47, 145, 0.51);
+    color: #fff;
 }
 
 /**************************** Profile Page ****************************/

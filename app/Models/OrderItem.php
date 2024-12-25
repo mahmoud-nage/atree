@@ -33,8 +33,6 @@ class OrderItem extends Model
 
     public function calculateMarketerMoney()
     {
-        $money = ($this->variation?->product?->marketer_price * $this->quantity) + (($this->price - $this->variation->product->getPrice()) * $this->quantity) ;
-
-        return $money;
+        return (($this->variation?->product?->diamonds * $this->quantity) / 100) *  Settings::first()->point_equal_money;
     }
 }

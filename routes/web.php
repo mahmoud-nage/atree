@@ -3,10 +3,13 @@
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Dashboard\DesignController;
 use App\Http\Controllers\Dashboard\ShippingCompaniesController;
+use App\Http\Controllers\Dashboard\WithdrawalsController;
+use App\Http\Controllers\Site\AccountController;
 use App\Http\Controllers\Site\CartController;
 use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\Payment\SurePayController;
 use App\Http\Controllers\Site\PhoneVerificationController;
+use App\Http\Controllers\Site\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -88,6 +91,15 @@ Route::group([
         Route::post('products/{product}/variations', [ProductVariationController::class, 'store'])->name('products.variations.store');
         Route::post('/get_new_varition_main_row', [AjaxController::class, 'get_new_varition_main_row'])->name('get_new_varition_main_row');
         Route::post('/get_new_varition_color_row', [AjaxController::class, 'get_new_varition_color_row'])->name('get_new_varition_color_row');
+
+        Route::group(['prefix' => 'withdrawals'], function () {
+            Route::get('/', [WithdrawalsController::class, 'index'])->name('withdrawals.index');
+            Route::get('/create', [WithdrawalsController::class, 'create'])->name('withdrawals.create');
+            Route::post('/', [WithdrawalsController::class, 'store'])->name('withdrawals.store');
+            Route::get('/deny/{withdrawal}', [WithdrawalsController::class, 'deny'])->name('withdrawals.deny');
+            Route::get('/approve/{withdrawal}', [WithdrawalsController::class, 'approve'])->name('withdrawals.approve');
+            Route::get('/{withdrawal}', [WithdrawalsController::class, 'show'])->name('withdrawals.show');
+        });
     });
 
     Route::get('/', [SiteController::class, 'index'])->name('home');
@@ -143,11 +155,19 @@ Route::group([
         Route::get('/followers', [UserProfileController::class, 'followers'])->name('followers');
         Route::get('/my-designs', [UserProfileController::class, 'my_designs'])->name('my_designs');
         Route::get('/diamond', [UserProfileController::class, 'diamond'])->name('diamond');
+        Route::get('/statistics', [AccountController::class, 'statistics'])->name('statistics');
+        Route::get('/incomes', [AccountController::class, 'incomes'])->name('incomes');
         Route::get('/custom-designs/{product_id}', [SiteController::class, 'custom_designs'])->name('custom-designs');
         Route::group(['prefix' => 'cart'], function () {
             Route::get('/', [CartController::class, 'index'])->name('cart.index');
             Route::get('/create', [CartController::class, 'create'])->name('cart.create');
             Route::post('/', [CartController::class, 'store'])->name('cart.store');
+        });
+        Route::group(['prefix' => 'withdrawals'], function () {
+            Route::get('/', [WithdrawalController::class, 'index'])->name('withdrawals.index');
+            Route::get('/create', [WithdrawalController::class, 'create'])->name('withdrawals.create');
+            Route::post('/', [WithdrawalController::class, 'store'])->name('withdrawals.store');
+            Route::get('/{withdrawal}', [WithdrawalController::class, 'show'])->name('withdrawals.show');
         });
         Route::group(['middleware' => ['verify_phone']], function () {
             Route::group(['prefix' => 'checkout'], function () {

@@ -46,6 +46,9 @@ class SettingsController extends Controller
         $info->ios_link = $request->ios_link;
         $info->vat = $request->vat;
         $info->maroof = $request->maroof;
+        $info->point_equal_money = $request->point_equal_money;
+        $info->minimam_money_can_be_withdrawal = $request->minimam_money_can_be_withdrawal;
+        $info->days_to_valid_marketer_money = $request->days_to_valid_marketer_money;
         if ($request->hasFile('logo')) {
             $info->logo =  basename($request->file('logo')->store('settings'));
         }

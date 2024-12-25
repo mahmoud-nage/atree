@@ -119,6 +119,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function withdrawals(): HasMany
+    {
+        return $this->hasMany(Withdrawals::class);
+    }
+
     public function designs(): HasMany
     {
         return $this->hasMany(UserDesign::class, 'user_id');
@@ -136,7 +141,7 @@ class User extends Authenticatable
 
     public function url(): string
     {
-        return route('users.show', $this->username);
+        return $this->username?route('users.show', $this->username):'';
     }
 
     public function images(): HasMany

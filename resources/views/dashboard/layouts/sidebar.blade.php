@@ -41,7 +41,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
 
                 @php
-                    $home = $admins = $governorates = $coupons = $pages = $categories  = $products = $countries =  $slides = $orders = $settings = $users = $colors = $shipping_companies = $sizes  = $messages = $designs = '';
+                    $withdrawals = $home = $admins = $governorates = $coupons = $pages = $categories  = $products = $countries =  $slides = $orders = $settings = $users = $colors = $shipping_companies = $sizes  = $messages = $designs = '';
     // = $cities
 
                     switch (request()->segment(3)) {
@@ -97,6 +97,9 @@
                         $designs = 'active';
                         case 'shipping_companies':
                         $shipping_companies = 'active';
+                        break;
+                        case 'withdrawals':
+                        $withdrawals = 'active';
                         break;
 
                         default:
@@ -167,18 +170,14 @@
                                                 class="nav-link">طلبات تم التسليم</a></li>
                     </ul>
                 </li>
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link {{ $sizes }}"><i class="icon-ampersand "></i>
-                        <span> المقاسات </span></a>
-                    <ul class="nav nav-group-sub">
-                        <li class="nav-item"><a href="{{ route('dashboard.sizes.index') }}" class="nav-link">
-                                عرض كافه المقاسات
-                            </a></li>
-                        <li class="nav-item"><a href="{{ route('dashboard.sizes.create') }}" class="nav-link">
-                                إضافه مقاس جديد
-                            </a></li>
-                    </ul>
+
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.withdrawals.index') }}" class="nav-link {{ $withdrawals }}">
+                        <i class="icon-money "></i>
+                        <span>@lang('site.withdrawals')</span>
+                    </a>
                 </li>
+
                 <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link {{ $colors }}"><i class="icon-ampersand "></i> <span>
 						الالوان

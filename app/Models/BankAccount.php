@@ -19,20 +19,18 @@ class BankAccount extends Model
     {
         $this->user_id = Auth::id();
         $this->name = $data['name'];
+        $this->bank_name = $data['bank_name'];
         $this->account_number = $data['account_number'];
         $this->iban = $data['iban'];
-        $this->visa_fees = $data['visa_fees'];
-        $this->mada_fees = $data['mada_fees'];
         return $this->save();
     }
 
     public function edit($data)
     {
         $this->name = $data['name'];
+        $this->bank_name = $data['bank_name'];
         $this->account_number = $data['account_number'];
         $this->iban = $data['iban'];
-        $this->visa_fees = $data['visa_fees'];
-        $this->mada_fees = $data['mada_fees'];
         return $this->save();
     }
 }

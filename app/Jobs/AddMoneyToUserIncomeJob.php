@@ -43,6 +43,7 @@ class AddMoneyToUserIncomeJob implements ShouldQueue
             $user_income->order_id = $this->item->order?->id;
             $user_income->product_id = $this->item?->variation?->product_id;
             $user_income->withdrawn = 0;
+            $user_income->points = $this->item->variation?->product->diamonds * $this->item->quantity;
             $user_income->can_withdrawal_when = Carbon::now()->addHours($settings->days_to_valid_marketer_money);
             $user_income->save();
         }

@@ -11,18 +11,15 @@ class UserBanks extends Component
 {
     use LivewireAlert;
 
-    public $user;
-    public $country_id;
-    public $governorate_id;
-//    public $city_id;
-    public $building_number;
-    public $street_name;
-    public $district;
-    public $size;
+    public $iban;
+    public $account_number;
+    public $name;
+    public $bank_name;
 
     protected $listeners = ['bankAdded' => '$refresh', 'deleteItem'];
     protected $rules = [
         'name' => 'required',
+        'bank_name' => 'required',
         'account_number' => 'required',
         'iban' => 'required',
     ];
@@ -32,6 +29,7 @@ class UserBanks extends Component
         $address = new BankAccount();
         $address->user_id = Auth::id();
         $address->name = $this->name;
+        $address->bank_name = $this->bank_name;
         $address->account_number = $this->account_number;
         $address->iban = $this->iban;
         $address->save();

@@ -163,6 +163,33 @@ $lang = LaravelLocalization::getCurrentLocale();
 									@enderror
 								</div>
 							</div>
+							<div class="col-md-4">
+								<div  class='mb-2' >
+									<label class="col-form-label">  {{__('site.point_equal_money')}}  </label>
+									<input  type="number" step="0.1" class="form-control @error('point_equal_money') is-invalid @enderror" name="point_equal_money" value="{{ $info->point_equal_money }}" >
+									@error('point_equal_money')
+									<p  class='text-danger' >  {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div  class='mb-2' >
+									<label class="col-form-label">  {{__('site.minimum_money_can_be_withdrawal')}}  </label>
+									<input  type="number" step="0.1" class="form-control @error('minimam_money_can_be_withdrawal') is-invalid @enderror" name="minimam_money_can_be_withdrawal" value="{{ $info->minimam_money_can_be_withdrawal }}" >
+									@error('minimam_money_can_be_withdrawal')
+									<p  class='text-danger' >  {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div  class='mb-2' >
+									<label class="col-form-label">  {{__('site.days_to_valid_marketer_money')}}  </label>
+									<input type="number" step="1" class="form-control @error('days_to_valid_marketer_money') is-invalid @enderror" name="days_to_valid_marketer_money" value="{{ $info->days_to_valid_marketer_money }}" >
+									@error('days_to_valid_marketer_money')
+									<p  class='text-danger' >  {{ $message }} </p>
+									@enderror
+								</div>
+							</div>
 
 							<div class="col-md-12">
 								<div  class='mb-2' >

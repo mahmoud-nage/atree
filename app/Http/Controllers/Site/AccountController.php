@@ -81,25 +81,33 @@ class AccountController extends Controller
             return redirect()->back()->with('success', __('messages.created_successfully'));
     }
 
+    public function wishlist()
+    {
+        return view('site.wishlist');
+    }
 
     public function incomes()
     {
         return view('site.incomes');
     }
 
-    public function wishlist()
-    {
-        return view('site.wishlist');
-    }
 
 
     public function withdrawals()
     {
-        $can_withdrawald =  Income::where('user_id' , Auth::id())->where('withdrawn'  ,  0 )->whereDate('can_withdrawal_when'  , '<='  , Carbon::today())->sum('amount');
-
-        $can_not_withdrawald =  Income::where('user_id' , Auth::id())->where('withdrawn'  ,  0 )->whereDate('can_withdrawal_when'  , '>'  , Carbon::today())->sum('amount');
+        $can_withdrawal =  Income::where('user_id' , Auth::id())->where('withdrawn'  ,  0 )->whereDate('can_withdrawal_when'  , '<='  , Carbon::today())->sum('amount');
+        $can_not_withdrawal =  Income::where('user_id' , Auth::id())->where('withdrawn'  ,  0 )->whereDate('can_withdrawal_when'  , '>'  , Carbon::today())->sum('amount');
         $withdrawals = Withdrawals::where('user_id' , Auth::id())->latest()->get();
-        return view('site.withdrawals' , compact('withdrawals' , 'can_withdrawald' , 'can_not_withdrawald' ));
+
+        $orders_count = Order::where('user_id' , Auth::id() )->count();
+        $total_incomes = Income::where('user_id' , Auth::id() )->sum('amount');
+        $total_incomes_withdrawal = Income::where('user_id' , Auth::id() )->where('withdrawn' , 1 )->sum('amount');
+        $total_incomes_not_withdrawal =  Income::where('user_id' , Auth::id() )->where('withdrawn' , 0 )->sum('amount');
+
+        $total_points = UserPoint::where('user_id' , Auth::id() )->sum('points');
+
+
+        return view('site.withdrawals' , compact('withdrawals' , 'can_withdrawal' , 'can_not_withdrawal','orders_count','total_incomes','total_incomes_withdrawal','total_points','total_incomes_not_withdrawal' ));
     }
 
     public function statistics()
@@ -128,8 +136,6 @@ class AccountController extends Controller
 
 
     }
-
-
     public function store_withdrawal(StoreWithdrawalRequest $request)
     {
 
@@ -158,7 +164,6 @@ class AccountController extends Controller
         $withdrawal->save();
         return redirect(route('site.withdrawals'))->with('success' , 'تم انشاء الطلب بنجاح' );
     }
-
     public function withdrawal(Withdrawals $withdrawal)
     {
         return view('site.withdrawal' , compact('withdrawal'));

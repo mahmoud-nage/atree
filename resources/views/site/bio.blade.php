@@ -43,13 +43,13 @@
                                         data-target="#followersPopup">
                                     {{$user->followers_count ?? 0}} @lang('site.Followers') </button>
                             </div>
-                            {{--                            @if(auth()->check() && auth()->id() == $user->id)--}}
-                            {{--                                <div class="bio-user-info" style="margin: 0 0.5rem;">--}}
-                            {{--                                    <a type="button" class="btn btn-primary" data-toggle="modal"--}}
-                            {{--                                       data-target="#diamondsPopup">--}}
-                            {{--                                        {{$user->total_diamonds ?? 0}} @lang('site.Diamond') </a>--}}
-                            {{--                                </div>--}}
-                            {{--                            @endif--}}
+                            @if(auth()->check() && auth()->id() == $user->id)
+                                <div class="bio-user-info" style="margin: 0 0.5rem;">
+                                    <a type="button" class="btn btn-primary"
+                                       href="{{ route('withdrawals.index') }}"> @lang('site.My Diamonds')
+                                    </a>
+                                </div>
+                            @endif
                             @if(auth()->check() && auth()->id() == $user->id)
                                 <div class="bio-user-info" style="margin: 0 0.5rem;">
                                     <a type="button" class="btn btn-primary"
@@ -118,7 +118,7 @@
                     <div class="diamond-header">
                         <div class="diamond-header-left">
                             <div class="font-weight-bold "><span
-                                    class="diamond-title">{{__('site.My Diamonds')}} </span> </div>
+                                    class="diamond-title">{{__('site.My Diamonds')}} </span></div>
                             <div class="diamond-progress-header">
                                 <div> {{$user->total_diamonds}} </div>
                                 <div> {{__('site.Diamond')}} </div>
@@ -138,8 +138,11 @@
                                 <div class="diamond-total">{{$user->total_diamonds}}</div>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{round((auth()->user()->total_diamonds / 10000)*100)}}" aria-valuemin="0"
-                                     aria-valuemax="100" style="width: {{round((auth()->user()->total_diamonds / 10000)*100)}}">
+                                <div class="progress-bar" role="progressbar"
+                                     aria-valuenow="{{round((auth()->user()->total_diamonds / 10000)*100)}}"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     style="width: {{round((auth()->user()->total_diamonds / 10000)*100)}}">
                                 </div>
                             </div>
                             <div>

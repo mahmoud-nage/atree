@@ -39,11 +39,18 @@ switch (request()->segment(5)) {
 	</li>
 
 	<li class="nav-item">
-{{--        //{{ route('dashboard.users.orders' , $user ) }}--}}
 		<a href="{{ route('dashboard.orders.index').'?user_id='.$user->id}}" class="nav-link {{ $orders }} " target="_blank">
 			<i class="icon-cart2"></i>
 			الطلبات
 			<span class="badge badge-dark badge-pill ml-auto"> {{ $user->orders()->count() }} </span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a href="{{ route('dashboard.withdrawals.index').'?user='.$user->id}}" class="nav-link " target="_blank">
+			<i class="icon-cart2"></i>
+			{{__('site.withdrawals')}}
+			<span class="badge badge-dark badge-pill ml-auto"> {{ $user->withdrawals()->count() }} </span>
 		</a>
 	</li>
 

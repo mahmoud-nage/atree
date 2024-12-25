@@ -2,16 +2,6 @@
 
 
 @section('page_content')
-
-
-<!-- ========================= SECTION PAGETOP ========================= -->
-<section class="section-pagetop bg-gray">
-  <div class="container">
-    <h2 class="title-page"> تقديم طلب سحب ارباح </h2>
-  </div> <!-- container //  -->
-</section>
-<!-- ========================= SECTION PAGETOP END// ========================= -->
-
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
   <div class="container">

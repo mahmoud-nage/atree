@@ -160,7 +160,7 @@
                             {{--                                </a>--}}
                             {{--                            </li>--}}
                             <li class="nav-item">
-                                <a href="{{ route('diamond') }}" class="nav-link">
+                                <a href="{{ route('withdrawals.index') }}" class="nav-link">
                                     <i class="far fa-gem"></i> @lang('site.My Diamonds')
                                 </a>
                             </li>
