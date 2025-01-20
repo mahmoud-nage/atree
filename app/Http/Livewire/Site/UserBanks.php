@@ -21,7 +21,7 @@ class UserBanks extends Component
         'name' => 'required',
         'bank_name' => 'required',
         'account_number' => 'required',
-        'iban' => 'required',
+        'iban' => 'nullable',
     ];
     public function save()
     {

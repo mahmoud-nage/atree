@@ -18,4 +18,8 @@ class Country extends Model
     {
         return $this->belongsTo(User::class , 'user_id');
     }
+    public function governorates()
+    {
+        return $this->belongsTo(Governorate::class , 'country_id');
+    }
 }

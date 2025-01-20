@@ -18,6 +18,7 @@ class User extends Authenticatable
 
     const ADMIN = 2;
     const USER = 1;
+    const ProfileStatusDefault = 0;
     /**
      * The attributes that are mass assignable.
      *
@@ -69,6 +70,7 @@ class User extends Authenticatable
     {
         $this->name = $data['name'];
         $this->email = $data['email'];
+        $this->profile_status = $data['profile_status'] ??  User::ProfileStatusDefault;
         $this->password = Hash::make($data['password']);
         $this->user_id = Auth::id();
         $this->type = 2;
@@ -81,7 +83,8 @@ class User extends Authenticatable
         $this->name = $data['name'];
         $this->email = $data['email'];
         $this->phone = $data['phone'];
-        $this->active = isset($data['active']) && $data['active'] == 'on' ? 1 : 0;
+        $this->profile_status = $data['profile_status'] ?? $this->profile_status;
+        $this->active = isset($data['active']) && $data['active'] == 'on' ? 1 :  User::ProfileStatusDefault;
         $this->password = isset($data['password']) ? Hash::make($data['password']) : $this->password;
         return $this->save();
     }

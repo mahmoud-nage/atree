@@ -34,13 +34,13 @@ class SiteController extends Controller
     public function index()
     {
         $slides = Slide::where('is_active', 1)->latest()->get();
-        $recomanded_users = User::where('type', User::USER)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
+        $recomanded_users = User::where('type', User::USER)->where('profile_status', 1)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
         $categories = Category::inRandomOrder()->where('show_in_home_page', 1)->where('active', 1)->with(['products' => function ($q) {
             $q->where('show_in_home_page',1);
         }])->get();
-        $designs = UserDesign::inRandomOrder()->with('product')->take(6)->get();
-        $bestSellingProducts = UserDesign::inRandomOrder()->with('product')->orderBy('times_used_count', 'desc')->take(10)->get();
-        $mostViewedDesigns = UserDesign::inRandomOrder()->with('product')->orderBy('views_count', 'desc')->take(8)->get();
+        $designs = UserDesign::inRandomOrder()->with('product')->where('is_active', 1)->take(6)->get();
+        $bestSellingProducts = UserDesign::inRandomOrder()->with('product')->orderBy('times_used_count', 'desc')->where('is_active', 1)->take(10)->get();
+        $mostViewedDesigns = UserDesign::inRandomOrder()->with('product')->where('is_active', 1)->orderBy('views_count', 'desc')->take(8)->get();
         return view('site.index', compact('slides', 'recomanded_users', 'categories', 'designs', 'bestSellingProducts', 'mostViewedDesigns'));
     }
 
@@ -82,7 +82,7 @@ class SiteController extends Controller
                 ->orWhere('description->ar', 'LIKE', '%' . $search . '%')
                 ->orWhere('description->en', 'LIKE', '%' . $search . '%');
         })->get();
-        $users = User::latest()->where('type', User::USER)->where('name', 'LIKE', '%' . $search . '%')->get();
+        $users = User::latest()->where('type', User::USER)->where('profile_status', 1)->where('name', 'LIKE', '%' . $search . '%')->get();
 
         return view('site.search', compact('search', 'products','users'));
     }
@@ -138,7 +138,7 @@ class SiteController extends Controller
     public function explore()
     {
         $products = Product::with(['variations.color', 'variations.size'])->whereActive(1)->latest('sales_count')->take(15)->get();
-        $users = User::latest()->where('type', User::USER)->take(15)->get();
+        $users = User::latest()->where('type', User::USER)->where('profile_status', 1)->take(15)->get();
         $designs = UserDesign::with('product')->latest()->take(15)->get();
         return view('site.explore', compact('products', 'users', 'designs'));
     }

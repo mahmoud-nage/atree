@@ -28,6 +28,7 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->type = User::USER;
         $user->username = $request->username;
+        $user->profile_status = $request->profile_status ?? User::ProfileStatusDefault;
 //        substr(str_shuffle('abcdefghijklmnobqrstuvwxyz'), 0 , 12)
         if ($request->hasFile('image')) {
             $user->image = basename($request->file('image')->store('users'));

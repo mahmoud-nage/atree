@@ -28,7 +28,6 @@ class ProductsResource extends JsonResource
             'back_image' => url(Storage::url('products/'.$this->back_image)),
             'diamonds' => $this->diamonds,
 
-
             'mobile_back_image' => url(Storage::url('products/'.$this->mobile_back_image)),
             'mobile_back_tint' => url(Storage::url('products/'.$this->mobile_back_tint)),
             'mobile_back_shadow' => url(Storage::url('products/'.$this->mobile_back_shadow)),

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ContactUsRequest;
 use App\Http\Requests\Api\PageRequest;
 use App\Http\Resources\AuthResource;
+use App\Http\Resources\LiteListResource;
 use App\Http\Resources\DesignsResource;
 use App\Http\Resources\ProductsResource;
 use App\Http\Resources\SliderResource;
@@ -14,6 +15,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Complain;
 use App\Models\Governorate;
+use App\Models\Income;
 use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -40,14 +42,24 @@ class MainController extends Controller
     public function index(): JsonResponse
     {
         $slides = Slide::where('is_active', 1)->latest()->get();
-        $products = Product::inRandomOrder()->take(9)->get();
-        $users = User::inRandomOrder()->take(3)->get();
-        $designs = UserDesign::inRandomOrder()->take(6)->get();
+        $designers = User::where('type', User::USER)->where('profile_status', 1)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(8)->get();
+        $bestSellingProducts = Product::inRandomOrder()->where('show_in_home_page', 1)->orderBy('sales_count', 'desc')->take(10)->get();
+        $products = Category::inRandomOrder()->where('show_in_home_page', 1)->where('active', 1)
+            ->with(['products' => function ($q) {
+                $q->where('show_in_home_page', 1);
+            }])->get();
+        $designs = UserDesign::inRandomOrder()->with('product')->where('is_active', 1)->take(6)->get();
+        $recommend_designers = User::where('type', User::USER)->where('profile_status', 1)->where('id', '!=', auth()->id())->orderByRaw("RAND()")->take(3)->get();
+        $mostViewedDesigns = UserDesign::inRandomOrder()->where('is_active', 1)->with('product')->orderBy('views_count', 'desc')->take(6)->get();
+
         $data = [
             'slides' => SliderResource::collection($slides),
-            'products' => ProductsResource::collection($products),
-            'designers' => AuthResource::collection($users),
+            'designers' => AuthResource::collection($designers),
+            'bestSellingProducts' => ProductsResource::collection($bestSellingProducts),
+            'category_with_products' => ProductsResource::collection($products),
             'designs' => DesignsResource::collection($designs),
+            'recommendDesigners' => AuthResource::collection($recommend_designers),
+            'mostViewedDesigns' => DesignsResource::collection($mostViewedDesigns),
         ];
         return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
@@ -55,15 +67,19 @@ class MainController extends Controller
     public function search(Request $request): JsonResponse
     {
         $search = $request->search;
-        $products = Product::with(['variations', 'variations.color'])->where(function ($query) use ($search) {
+        $products = Product::with(['variations', 'variations.color'])->whereActive(1)->where(function ($query) use ($search) {
             $query
                 ->where('name->ar', 'LIKE', '%' . $search . '%')
                 ->orWhere('name->en', 'LIKE', '%' . $search . '%')
                 ->orWhere('description->en', 'LIKE', '%' . $search . '%')
                 ->orWhere('description->en', 'LIKE', '%' . $search . '%');
         })->paginate(30);
-
-        return self::makeSuccess(Response::HTTP_OK, '', ProductsResource::collection($products));
+        $users = User::latest()->where('type', User::USER)->where('profile_status', 1)->where('name', 'LIKE', '%' . $search . '%')->paginate(30);
+        $data = [
+            'products' => ProductsResource::collection($products),
+            'designers' => AuthResource::collection($users)
+        ];
+        return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
 
 
@@ -72,10 +88,23 @@ class MainController extends Controller
      *
      * @return JsonResponse
      */
-    public function products(): JsonResponse
+    public function products(Request $request): JsonResponse
     {
-        $products = Product::with(['variations.color'])->latest()->paginate(15);
-        return self::makeSuccess(Response::HTTP_OK, '', ProductsResource::collection($products));
+        $products = Product::with(['variations.color'])->whereActive(1);
+        $best_selling = Product::with(['variations.color'])->whereActive(1);
+        if ($request->category_id && $request->category_id != 'all' ) {
+            $products->where('category_id', $request->category_id);
+            $best_selling->where('category_id', $request->category_id);
+        }
+        $products = $products->latest()->paginate(30);
+        $best_selling = $best_selling->latest('sales_count')->take(10)->get();
+        $categories = Category::has('products')->whereActive(1)->get();
+        $data = [
+            'products' => ProductsResource::collection($products),
+            'best_selling_products' => ProductsResource::collection($best_selling),
+            'categories' => LiteListResource::collection($categories),
+        ];
+        return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
 
     /**
@@ -96,11 +125,13 @@ class MainController extends Controller
      */
     public function explore(): JsonResponse
     {
-        $products = Product::with(['variations.color', 'variations.size'])->latest()->take(15)->get();
-        $users = User::latest()->where('type', User::USER)->take(15)->get();
+        $products = Product::with(['variations.color', 'variations.size'])->whereActive(1)->latest()->take(15)->get();
+        $users = User::latest()->where('type', User::USER)->where('profile_status', 1)->take(15)->get();
+        $designs = UserDesign::with('product')->latest()->take(15)->get();
         $data = [
             'products' => ProductsResource::collection($products),
             'designers' => AuthResource::collection($users),
+            'designs' => DesignsResource::collection($designs),
         ];
         return self::makeSuccess(Response::HTTP_OK, '', $data);
     }
@@ -108,12 +139,33 @@ class MainController extends Controller
     /**
      * @return JsonResponse
      */
-    public function designs(): JsonResponse
+    public function designs(Request $request): JsonResponse
     {
-        $records = UserDesign::latest()->get();
+        $records = UserDesign::with('product');
+        if ($request->product_id && $request->product_id != 'all' ) {
+            $records->whereHas('design_products', function ($q) use ($request) {
+                $q->where('product_id', $request->product_id);
+            });
+        }
+        $records = $records->latest()->orderBy('times_used_count', 'desc')->paginate(30);
         return self::makeSuccess(Response::HTTP_OK, '', DesignsResource::collection($records));
     }
 
+    public function user($username)
+    {
+        $user = User::where('username', $username)->firstOrFail();
+        $user->load('designs')->loadCount('followers');
+        $latest_designs = UserDesign::where('user_id', $user->id)->latest()->get()->take(4);
+        $total_incomes = Income::where('user_id', Auth::id())->where('withdrawn', 0)->sum('amount');
+        $total_points = Income::where('user_id', Auth::id())->where('withdrawn', 0)->sum('points');
+        $data = [
+            'user' => AuthResource::make($user),
+            'latest_designs' => $latest_designs,
+            'total_incomes' => $total_incomes,
+            'total_points' => $total_points
+        ];
+        return self::makeSuccess(Response::HTTP_OK, '', $data);
+    }
 
 
     /**
@@ -133,6 +185,7 @@ class MainController extends Controller
         $cart = Cart::where('user_id', Auth::id())->get()->toArray();
         return self::makeSuccess(Response::HTTP_OK, '', $cart);
     }
+
 
     public function save_order(SoreOrderRequest $request)
     {

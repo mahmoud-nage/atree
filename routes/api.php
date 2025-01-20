@@ -43,6 +43,20 @@ Route::middleware([
         Route::get('/', [ProfileController::class, 'followers']);
         Route::post('/toggle/{id}', [ProfileController::class, 'storeAndDeleteFollowers']);
     });
+    Route::group(['prefix' => 'addresses'], function () {
+        Route::get('/', [AddressesController::class, 'index']);
+        Route::get('/create', [AddressesController::class, 'create']);
+        Route::post('/', [AddressesController::class, 'store']);
+        Route::post('/make_default/{id}', [AddressesController::class, 'makeDefault']);
+        Route::post('/delete/{id}', [AddressesController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'banks'], function () {
+        Route::get('/', [AddressesController::class, 'index']);
+        Route::post('/', [AddressesController::class, 'store']);
+        Route::post('/destroy/{id}', [AddressesController::class, 'destroy']);
+    });
+
+
 
 //    Route::get('/diamond', [ProfileController::class, 'diamond']);
     Route::get('/settings', [MainController::class, 'settings']);
@@ -64,6 +78,7 @@ Route::get('products/{product}', [MainController::class, 'product'])->name('prod
 Route::get('/designs', [MainController::class, 'designs'])->name('designs');
 Route::get('/explore', [MainController::class, 'explore'])->name('explore');
 Route::post('contact-us', [ContactUsController::class, 'store'])->name('contacts');
+Route::get('users/{username}', [MainController::class, 'user']);
 
 
 Route::get('users/{user:username}', [MainController::class, 'user'])->name('users.show');

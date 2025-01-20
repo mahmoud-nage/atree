@@ -38,19 +38,17 @@
                     </div>
                     <div class="col-md-8 col-12">
                         <div class=" d-flex justify-content-end">
-                            <div class="bio-user-info" style="margin: 0 0.5rem;">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#followersPopup">
-                                    {{$user->followers_count ?? 0}} @lang('site.Followers') </button>
-                            </div>
                             @if(auth()->check() && auth()->id() == $user->id)
+                                <div class="bio-user-info" style="margin: 0 0.5rem;">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#followersPopup">
+                                        {{$user->followers_count ?? 0}} @lang('site.Followers') </button>
+                                </div>
                                 <div class="bio-user-info" style="margin: 0 0.5rem;">
                                     <a type="button" class="btn btn-primary"
                                        href="{{ route('withdrawals.index') }}"> @lang('site.My Diamonds')
                                     </a>
                                 </div>
-                            @endif
-                            @if(auth()->check() && auth()->id() == $user->id)
                                 <div class="bio-user-info" style="margin: 0 0.5rem;">
                                     <a type="button" class="btn btn-primary"
                                        href="{{ route('profile.index') }}"> @lang('site.Settings') </a>

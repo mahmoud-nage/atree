@@ -166,13 +166,11 @@ class ProfileController extends Controller
         return self::makeSuccess(Response::HTTP_OK, __('messages.Followed Successfully'));
     }
 
-
     public function my_designs()
     {
         $records = UserDesign::where('user_id', '=', Auth::id())->with('products', 'user')->get();
         return self::makeSuccess(Response::HTTP_OK, '', DesignsResource::collection($records));
     }
-
 
     public function orders(): JsonResponse
     {
@@ -185,6 +183,4 @@ class ProfileController extends Controller
         $record = Order::findOrFail($order_id);
         return self::makeSuccess(Response::HTTP_OK, '', $record, false);
     }
-
-
 }

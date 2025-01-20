@@ -123,10 +123,7 @@ class AccountController extends Controller
 
     public function create_withdrawal()
     {
-
         $withdrawals = Withdrawals::where('user_id' , Auth::id() )->where('status' , 2 )->count();
-
-
         if ($withdrawals) {
            return redirect()->back()->with('error' ,'لا يمكن عمل طلب سحب اخر ى الوقت الحالى' );
         }
